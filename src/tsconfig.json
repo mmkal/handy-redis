@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2017",
+        "alwaysStrict": true,
+        "declaration": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": true,
+        "strictNullChecks": true,
+        "outDir": "../dist",
+        "rootDir": ".."
+    },
+    "include": [
+        "../src"
+    ]
+}

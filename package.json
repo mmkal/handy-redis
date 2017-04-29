@@ -1,0 +1,34 @@
+{
+  "name": "handy-redis",
+  "version": "1.0.0",
+  "description": "A wrapper around node_redis with Promise and TypeScript support.",
+  "main": "dist/index.js",
+  "scripts": {
+    "postinstall": "ts-node scripts/postinstall && tsc -p .",
+    "lint": "tslint **/*.ts",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmkal/handy-redis.git"
+  },
+  "keywords": [
+    "redis"
+  ],
+  "author": "mmkal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmkal/handy-redis/issues"
+  },
+  "homepage": "https://github.com/mmkal/handy-redis#readme",
+  "dependencies": {
+    "redis": "^2.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.14",
+    "@types/shelljs": "^0.7.1",
+    "ava": "^0.19.1",
+    "shelljs": "^0.7.7",
+    "ts-node": "^3.0.2"
+  }
+}

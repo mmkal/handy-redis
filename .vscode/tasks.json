@@ -1,0 +1,22 @@
+{
+    "version": "0.1.0",
+    "command": "tsc",
+    "isShellCommand": true,
+    "showOutput": "always",
+    "args": ["--watch", "--project"],
+    "tasks": [
+        {
+            "taskName": "server",
+            "problemMatcher": "$tsc-watch",
+            "showOutput": "always",
+            "isBuildCommand": true,
+            "isBackground": true
+        },
+        {
+            "taskName": "test",
+            "problemMatcher": "$tsc-watch",
+            "isBackground": true,
+            "isTestCommand": true
+        }
+    ]
+}

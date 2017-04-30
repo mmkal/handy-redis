@@ -30,11 +30,11 @@
   },
   "homepage": "https://github.com/mmkal/handy-redis#readme",
   "dependencies": {
+    "@types/redis": "^0.12.36",
     "redis": "^2.7.1"
   },
   "devDependencies": {
     "@types/node": "^7.0.14",
-    "@types/redis": "^0.12.36",
     "@types/yamljs": "^0.2.30",
     "ava": "^0.19.1",
     "coveralls": "^2.13.1",

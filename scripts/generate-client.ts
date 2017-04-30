@@ -2,7 +2,7 @@ import { exec } from "shelljs";
 import { writeFileSync, readFileSync } from "fs";
 import * as ifetch from "isomorphic-fetch";
 import { EOL } from "os";
-import { yamlify } from "yamljs";
+import { stringify as yamlify } from "yamljs";
 import { createClient } from "redis";
 
 const run = async (task: () => Promise<any>) => {

@@ -6,6 +6,7 @@
   "files": [
     "dist/src"
   ],
+  "types": "dist/src/index",
   "scripts": {
     "precompile": "ts-node scripts/generate-client",
     "compile": "tsc --project .",

@@ -13,7 +13,7 @@ const run = async (task: () => Promise<any>) => {
     }
 };
 
-const typeFor = (arg: Argument) => {
+const typeFor = (arg: Argument): string => {
     switch (arg.type) {
         case "key":
         case "pattern":
@@ -42,7 +42,7 @@ const makeArrayType = (type: string) =>
     type.match(/\W/) ? `Array<${type}>` : `${type}[]`;
 
 run(() => {
-    const referenceClient = createClient();
+    const referenceClient: { [methodName: string]: any } = createClient();
     const redisDoc = `scripts/redis-doc`;
     const commandsJson = readFileSync(`${redisDoc}/commands.json`, "utf8");
     const commandCollection: CommandCollection = JSON.parse(commandsJson);
@@ -122,7 +122,7 @@ run(() => {
             ` */`,
             `${methodName}(${argList}) {`,
             `    return new Promise((resolve, reject) => {`,
-            `       (this.redis as any).${methodName.toLowerCase()}.apply([...arguments, (err, data) => err ? reject(err) : resolve(data)]);`,
+            `       (this.redis as any).${methodName.toLowerCase()}.apply([...arguments, (err: any, data: any) => err ? reject(err) : resolve(data)]);`,
             `   });`,
             `}`,
         ].map(line => `    ${line}`).join(EOL);

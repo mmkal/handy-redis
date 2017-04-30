@@ -33,13 +33,11 @@
     "redis": "^2.7.1"
   },
   "devDependencies": {
-    "@types/isomorphic-fetch": "0.0.34",
     "@types/node": "^7.0.14",
     "@types/redis": "^0.12.36",
     "@types/yamljs": "^0.2.30",
     "ava": "^0.19.1",
     "coveralls": "^2.13.1",
-    "isomorphic-fetch": "^2.2.1",
     "nyc": "^10.3.0",
     "semantic-release": "^6.3.2",
     "ts-node": "^3.0.2",

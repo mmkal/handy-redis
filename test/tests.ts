@@ -1,6 +1,6 @@
 import test from "ava";
-import { getValue } from "../src";
+import { createHandyClient } from "../src";
 
-test("does something", t => {
-    t.is(getValue(), 1);
+test("create client", t => {
+    t.truthy(createHandyClient());
 });

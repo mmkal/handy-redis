@@ -10,7 +10,7 @@
     "precompile": "ts-node scripts/generate-client",
     "compile": "tsc --project",
     "lint": "tslint **/*.ts",
-    "pretest": "npm run compile test",
+    "pretest": "npm run compile",
     "test": "ava dist/test",
     "posttest": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"

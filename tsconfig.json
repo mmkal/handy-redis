@@ -6,6 +6,10 @@
         "declaration": true,
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noFallthroughCasesInSwitch": true,
         "strictNullChecks": true,
         "outDir": "dist"
     },

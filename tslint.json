@@ -26,9 +26,6 @@
         "ordered-imports": [
             false
         ],
-        "no-unused-variable": [
-            true
-        ],
         "no-inferrable-types": [
             true
         ],

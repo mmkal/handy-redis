@@ -13,7 +13,8 @@
     "pretest": "npm run compile",
     "test": "ava dist/test",
     "posttest": "npm run lint",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "coverage": "nyc ava dist/test && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -38,7 +39,9 @@
     "@types/shelljs": "^0.7.1",
     "@types/yamljs": "^0.2.30",
     "ava": "^0.19.1",
+    "coveralls": "^2.13.1",
     "isomorphic-fetch": "^2.2.1",
+    "nyc": "^10.3.0",
     "semantic-release": "^6.3.2",
     "shelljs": "^0.7.7",
     "ts-node": "^3.0.2",

@@ -1,4 +1,5 @@
 language: node_js
+services: redis
 cache:
   directories:
     - node_modules
@@ -11,6 +12,7 @@ before_script:
   - npm prune
 after_success:
   - npm run semantic-release
+  - npm run coverage
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/

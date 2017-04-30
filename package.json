@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "precompile": "ts-node scripts/generate-client",
-    "compile": "tsc --project",
+    "compile": "tsc --project .",
     "lint": "tslint **/*.ts",
     "pretest": "npm run compile",
     "test": "ava dist/test",

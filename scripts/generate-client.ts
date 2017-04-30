@@ -70,10 +70,10 @@ run(() => {
                 nameParts.push(index);
             }
             const argName = nameParts.join("_").replace(/\W/g, "_");
-            return <Argument> {
+            return {
                 ...a,
                 name: `${argName}${a.optional ? "?" : ""}`,
-            };
+            } as Argument;
         });
 
         const numMultiples = allArgs.filter(a => a.multiple).length;
@@ -120,7 +120,7 @@ run(() => {
             `/**`,
             ` * ${docs}`,
             ` */`,
-            `${methodName} (${argList}) {`,
+            `${methodName}(${argList}) {`,
             `    return new Promise((resolve, reject) => {`,
             `       (this.redis as any).${methodName.toLowerCase()}.apply([...arguments, (err, data) => err ? reject(err) : resolve(data)]);`,
             `   });`,

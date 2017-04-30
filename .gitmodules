@@ -1,0 +1,3 @@
+[submodule "scripts/redis-doc"]
+	path = scripts/redis-doc
+	url = https://github.com/antirez/redis-doc

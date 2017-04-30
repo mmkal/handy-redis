@@ -1,1 +1,0 @@
-import { exec } from "shelljs";

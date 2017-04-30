@@ -3,10 +3,10 @@
     "command": "tsc",
     "isShellCommand": true,
     "showOutput": "always",
-    "args": ["--watch", "--project"],
+    "args": ["--sourceMap", "--watch", "--project"],
     "tasks": [
         {
-            "taskName": "server",
+            "taskName": ".",
             "problemMatcher": "$tsc-watch",
             "showOutput": "always",
             "isBuildCommand": true,

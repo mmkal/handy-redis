@@ -5,11 +5,12 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/index.ts",
+            "program": "${workspaceRoot}/scripts/generate-client.ts",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "server"
+            "preLaunchTask": ".",
+            "outDir": "${workspaceRoot}/dist"
         }
     ]
 }

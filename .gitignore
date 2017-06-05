@@ -40,4 +40,4 @@ jspm_packages
 dist
 
 # Generated code
-src/generated.ts
+src/generated

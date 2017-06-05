@@ -6,6 +6,8 @@
         "no-console": [
             false
         ],
+        "no-angle-bracket-type-assertion": false,
+        "unified-signatures": false,
         "variable-name": [
             "allow-leading-underscore"
         ],

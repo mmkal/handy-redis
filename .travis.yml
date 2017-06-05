@@ -9,6 +9,8 @@ node_js:
   - '7'
   - '6'
 before_script:
+  - /bin/echo 1234
+  - ls /bin
   - npm prune
 after_success:
   - npm run semantic-release

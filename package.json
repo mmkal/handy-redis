@@ -8,10 +8,10 @@
   ],
   "types": "dist/src/index",
   "scripts": {
-    "clean": "shx rm -rf {dist,src/generated}",
+    "clean": "shx rm -rf {dist,src/generated,test/generated}",
     "precompile": "ts-node scripts/generate-client",
     "compile": "tsc --project .",
-    "lint": "tslint **/*.ts",
+    "lint": "tslint --exclude node_modules **/*.ts",
     "pretest": "npm run compile",
     "test": "ava dist/test **/__tests__/*.js",
     "posttest": "npm run lint",

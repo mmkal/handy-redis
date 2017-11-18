@@ -9,11 +9,13 @@
   "types": "dist/src/index",
   "scripts": {
     "clean": "shx rm -rf {dist,src/generated}",
-    "precompile": "ts-node scripts/generate-client",
     "compile": "tsc --project .",
+    "prebuild": "ts-node scripts/generate-client",
+    "build": "tsc --project .",
     "lint": "tslint **/*.ts",
-    "pretest": "npm run compile",
-    "test": "ava dist/test **/__tests__/*.js",
+    "pretest": "npm run build",
+    "test": "test:unit",
+    "test:unit": "ava dist/test **/__tests__/*.js",
     "posttest": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "coverage": "nyc ava dist/test **/__tests__/*.js && nyc report --reporter=text-lcov | coveralls"

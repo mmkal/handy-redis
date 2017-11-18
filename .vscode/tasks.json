@@ -1,14 +1,15 @@
 {
     "version": "0.1.0",
-    "command": "tsc",
+    "command": "npm",
     "isShellCommand": true,
     "showOutput": "always",
-    "args": ["--sourceMap", "--watch", "--project"],
+    "args": ["run"],
     "tasks": [
         {
-            "taskName": ".",
+            "taskName": "build",
             "problemMatcher": "$tsc-watch",
             "showOutput": "always",
+            "args": ["--", "--sourceMap", "--watch"],
             "isBuildCommand": true,
             "isBackground": true
         },

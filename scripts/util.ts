@@ -18,8 +18,16 @@ export const indent = (input: string) => input
     .map(line => `${tab}${line}`)
     .join(EOL);
 
-export const quote = (input: string) =>
-    (input && input.indexOf(`"`) === -1) ? `"${input}"` : `\`${input}\``;
+export const quote = (input: string) => {
+    if (!input) {
+        return `""`;
+    }
+    if (input.indexOf(`"`) === -1) {
+        return `"${input}"`;
+    }
+    const escaped = input.split("`").join("\`");
+    return `\`${escaped}\``;
+};
 
 export const makeArrayType = (type: string) =>
     type.match(/\W/) ? `Array<${type}>` : `${type}[]`;

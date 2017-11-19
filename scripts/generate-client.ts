@@ -46,7 +46,7 @@ const generateClientImplementation = async (getCommands: typeof getFullCommands)
             ` * ${commandInfo.docs}`,
             ` */`,
             `${commandInfo.name}(...args: any[]) {`,
-            `    const flattenedArgs = _.flattenDeep(args);`,
+            `    const flattenedArgs = flattenDeep(args);`,
             `    return new Promise<any>((resolve, reject) => {`,
             `       (this.redis as any).${commandInfo.name}.apply(`,
             `           this.redis,`,
@@ -61,7 +61,7 @@ const generateClientImplementation = async (getCommands: typeof getFullCommands)
     });
 
     return [
-        `import * as _ from "lodash";`,
+        `import { flattenDeep } from "../flatten";`,
         `import { RedisClient } from "redis";`,
         `import { IHandyRedis } from "./interface";`,
         `class HandyRedis implements IHandyRedis {`,

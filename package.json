@@ -14,7 +14,7 @@
     "build": "tsc --project .",
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",
-    "test": "test:unit",
+    "test": "npm run test:unit",
     "test:unit": "ava dist/test **/__tests__/*.js",
     "posttest": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",

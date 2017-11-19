@@ -2,7 +2,6 @@ import { ClientOpts, createClient, RedisClient } from "redis";
 import { createHandyClient as _createHandyClient } from "./generated/client";
 import { IHandyRedis } from "./generated/interface";
 
-export * from "redis";
 export * from "./generated/interface";
 
 export interface ICreateHandyClient {

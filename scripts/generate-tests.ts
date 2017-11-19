@@ -200,23 +200,32 @@ export const generateTests = async () => {
             return `${prefix}await handy.${command}(${args})`;
         });
 
-        const commands = commandSrcs.map(indent).map(cmd => cmd + ",");
+        // const commands = commandSrcs.map(indent).map(cmd => cmd + ",");
+
+        const longestCommand = _.maxBy(commandSrcs, src => src.length);
+        const maxLength = longestCommand ? longestCommand.length : 0;
 
         const testName = `${ex.example.file} example ${ex.example.index + 1}`;
 
         const body = [
             `const overrider = getOverride(${quote(ex.example.file)});`,
-            `let snapshot: any = {};`,
+            `let snapshot: any;`,
             `const commands = [`,
             ...commandSrcs.map(quote).map(indent).map(line => line + ","),
             `];`,
+            `const output: any[] = [];`,
             `try {`,
-            `    const output = overrider([`,
-            ...commands.map(indent),
-            `    ]);`,
-            `    snapshot = { commands, output };`,
+            ...commandSrcs.map(cmd => cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`).map(indent),
+            `    const overridenOutput = overrider(output);`,
+            // `    const output = overrider([`,
+            // ...commands.map(indent),
+            // `    ]);`,
+            // `    snapshot = zip(commands, overridenOutput).map(pair => pair.map(x => padEnd(x, ${maxLength + 2})).join(" => ").trim());`,
+            `    snapshot = zip(commands, overridenOutput).map(pair => `
+                + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`"
+                + `);`,
             `} catch (err) {`,
-            `    snapshot = { commands, err };`,
+            `    snapshot = { _commands: commands, _output: output, err };`,
             `}`,
             `t.snapshot(snapshot);`,
         ]
@@ -244,6 +253,7 @@ export const generateTests = async () => {
         const dots = file.split("/").map(() => "..").join("/");
         return [
             `import ava from "ava";`,
+            `import { zip, padEnd } from "lodash";`,
             `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
             `import { getOverride } from "${dots}/_manual-overrides";`,
             `let handy: IHandyRedis;`,

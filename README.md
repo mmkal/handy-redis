@@ -7,9 +7,9 @@ A wrapper around [node_redis](https://npmjs.com/package/redis) with Promise and 
 
 [node_redis](https://npmjs.com/package/redis) doesn't support Promises out-of-the-box - you have to use bluebird's `promisifyAll`, which has the side effect of removing all TypeScript/intellisense support from the package.
 
-This package exclusively uses Promises, and the TypeScript types are generated from the official redis documentation and examples, so it's much easier to know what parameters a command expects.
+This package is a wrapper around node_redis and exclusively uses Promises It publishes TypeScript types generated from the official redis documentation and examples, so it's much easier to know what parameters a command expects.
 
-## Using
+## Usage
 
 ```cli
 npm install --save handy-redis

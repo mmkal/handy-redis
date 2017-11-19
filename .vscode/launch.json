@@ -9,7 +9,7 @@
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": ".",
+            "preLaunchTask": "build",
             "outDir": "${workspaceRoot}/dist"
         },
         {

@@ -1,10 +1,9 @@
 import { BasicCommandInfo } from "./command";
 import { EOL } from "os";
-import { quote, simplifyName, tab, indent, buildScript } from "./util";
+import { quote, simplifyName, tab, indent, buildScript, writeFile } from "./util";
 import * as _ from "lodash";
 import { getExampleRuns } from "./cli-examples";
 import { getBasicCommands } from "./command";
-import { writeFileSync } from "fs";
 
 const tokenizeCommand = (command: string) => {
     return (command
@@ -202,52 +201,54 @@ export const generateTests = async () => {
         })
         .map(indent);
 
-        const expected = ex.outputs
-            .map(o => JSON.stringify(o.value))
-            .map(v => `${v},`)
-            .map(indent)
-            ;
-
         const testName = `${ex.example.file} example ${ex.example.index + 1}`;
 
         const body = [
-            `const actualOutput = [`,
+            `const output = [`,
             ...actual,
             `];`,
-            `const expectedOutput = [`,
-            ...expected,
-            `];`,
-            `t.deepEqual(actualOutput, expectedOutput);`,
+            `t.snapshot(output);`,
         ]
         .map(line => `${tab}${line}`);
 
-        return [
+        const testSrc = [
             `test(${quote(testName)}, async t => {`,
             ...body,
             `});`,
         ]
         .join(EOL);
+
+        return { testSrc, exampleFile: ex.example.file };
     });
 
-    return [
-        `import ava from "ava";`,
-        `import { IHandyRedis, createHandyClient } from "../src";`,
-        `let handy: IHandyRedis;`,
-        `ava.before(async t => {`,
-        `    handy = createHandyClient();`,
-        `    await handy.ping("ping");`,
-        `});`,
-        `ava.beforeEach(async t => {`,
-        `    await handy.flushall();`,
-        `});`,
-        `const test = ava.serial;`,
-        ``,
-        ...tests,
-        ``,
-    ].join(EOL);
+    const grouped = _.groupBy(tests, t => t.exampleFile.replace("scripts/redis-doc/", "").replace(".md", ""));
+
+    return _.mapValues(grouped, (testGroup, file) => {
+        // determine how many "../"s will be needed to get to src folder based on example file path
+        const dots = file.split("/").map(() => "..").join("/");
+        return [
+            `import ava from "ava";`,
+            `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
+            `let handy: IHandyRedis;`,
+            `ava.before(async t => {`,
+            `    handy = createHandyClient();`,
+            `    await handy.ping("ping");`,
+            `});`,
+            `ava.beforeEach(async t => {`,
+            `    await handy.flushall();`,
+            `});`,
+            `const test = ava.serial;`,
+            ``,
+            ...testGroup.map(t => t.testSrc),
+            ``,
+        ].join(EOL);
+    });
+
 };
 
 buildScript(module, async () => {
     const tests = await generateTests();
-    writeFileSync(`test/generated-tests.ts`, tests, "utf8");
+    _.forIn(tests, (src, file) => {
+        writeFile(`test/generated/${file}-tests.ts`, src);
+    });
 });

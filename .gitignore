@@ -41,3 +41,4 @@ dist
 
 # Generated code
 src/generated
+test/generated

@@ -1,5 +1,5 @@
 import test from "ava";
-import { flattenDeep } from "../flatten";
+import { flattenDeep } from "../src/flatten";
 
 test("already flat", t => {
     t.deepEqual(flattenDeep([1, 2, 3]), [1, 2, 3]);

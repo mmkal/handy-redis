@@ -25,8 +25,10 @@ export const quote = (input: string) => {
     if (input.indexOf(`"`) === -1) {
         return `"${input}"`;
     }
-    const escaped = input.split("`").join("\`");
-    return `\`${escaped}\``;
+    if (input.indexOf("`") === -1) {
+        return `\`${input}\``;
+    }
+    return JSON.stringify(input);
 };
 
 export const makeArrayType = (type: string) =>

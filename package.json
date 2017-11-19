@@ -8,17 +8,16 @@
   ],
   "types": "dist/src/index",
   "scripts": {
-    "clean": "shx rm -rf {dist,src/generated}",
+    "clean": "shx rm -rf {dist,src/generated,test/generated}",
     "compile": "tsc --project .",
     "prebuild": "ts-node scripts/generate-client",
     "build": "tsc --project .",
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",
-    "test": "npm run test:unit",
-    "test:unit": "ava dist/test **/__tests__/*.js",
+    "test": "ava",
     "posttest": "npm run lint",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "coverage": "nyc ava dist/test **/__tests__/*.js && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -33,6 +32,13 @@
     "url": "https://github.com/mmkal/handy-redis/issues"
   },
   "homepage": "https://github.com/mmkal/handy-redis#readme",
+  "ava": {
+    "files": [
+      "dist/test",
+      "**/__tests__/*.js"
+    ],
+    "serial": true
+  },
   "dependencies": {
     "@types/redis": "^0.12.36",
     "redis": "^2.7.1"
@@ -42,7 +48,7 @@
     "@types/node": "^7.0.14",
     "@types/shelljs": "^0.7.2",
     "@types/yamljs": "^0.2.30",
-    "ava": "^0.19.1",
+    "ava": "^0.23.0",
     "coveralls": "^2.13.1",
     "lodash": "^4.17.4",
     "nyc": "^10.3.0",

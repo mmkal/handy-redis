@@ -42,3 +42,4 @@ dist
 # Generated code
 src/generated
 test/generated
+!test/generated/**/snapshots

@@ -186,7 +186,7 @@ export const generateTests = async () => {
     const examples = await getExampleRuns();
 
     const tests = examples.map(ex => {
-        const actual = ex.example.lines.map(line => {
+        const commandSrcs = ex.example.lines.map(line => {
             const tokens = tokenizeCommand(line);
             const command = simplifyName(tokens[0]);
             const argTokens = tokens.slice(1);
@@ -197,22 +197,37 @@ export const generateTests = async () => {
                 ? "// not implemented by node redis: "
                 : "";
 
-            return `${prefix}await handy.${command}(${args}),`;
-        })
-        .map(indent);
+            return `${prefix}await handy.${command}(${args})`;
+        });
+
+        const commands = commandSrcs.map(indent).map(cmd => cmd + ",");
 
         const testName = `${ex.example.file} example ${ex.example.index + 1}`;
 
         const body = [
-            `const output = [`,
-            ...actual,
+            `let snapshot: any = {};`,
+            `const commands = [`,
+            ...commandSrcs.map(quote).map(indent).map(line => line + ","),
             `];`,
-            `t.snapshot(output);`,
+            `try {`,
+            `    const output = [`,
+            ...commands.map(indent),
+            `    ];`,
+            `    snapshot = { commands, output };`,
+            `} catch (err) {`,
+            `    snapshot = { commands, err };`,
+            `}`,
+            `t.snapshot(snapshot);`,
         ]
         .map(line => `${tab}${line}`);
 
+        const isSkipped = [
+            "scripts/redis-doc/commands/swapdb.md",
+        ].indexOf(ex.example.file) > -1;
+        const runTest = isSkipped ? "test.skip" : "test";
+
         const testSrc = [
-            `test(${quote(testName)}, async t => {`,
+            `${runTest}(${quote(testName)}, async t => {`,
             ...body,
             `});`,
         ]

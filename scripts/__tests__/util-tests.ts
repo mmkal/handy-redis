@@ -8,5 +8,6 @@ test("quote with double quotes", t => t.is(quote(`hello "foo"`), `\`hello "foo"\
 test("quote with backtick", t => t.is(quote("hello `foo`"), `"hello \`foo\`"`));
 
 test("quote with backtick and double quotes", t => {
-    t.is(quote(`hello \`foo\` you are "bar"`), "`hello \`foo\` you are \"bar\"`");
+    const original = `hello \`foo\` you are "bar"`;
+    t.is(quote(original), JSON.stringify(original));
 });

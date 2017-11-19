@@ -205,14 +205,15 @@ export const generateTests = async () => {
         const testName = `${ex.example.file} example ${ex.example.index + 1}`;
 
         const body = [
+            `const overrider = getOverride(${quote(ex.example.file)});`,
             `let snapshot: any = {};`,
             `const commands = [`,
             ...commandSrcs.map(quote).map(indent).map(line => line + ","),
             `];`,
             `try {`,
-            `    const output = [`,
+            `    const output = overrider([`,
             ...commands.map(indent),
-            `    ];`,
+            `    ]);`,
             `    snapshot = { commands, output };`,
             `} catch (err) {`,
             `    snapshot = { commands, err };`,
@@ -244,6 +245,7 @@ export const generateTests = async () => {
         return [
             `import ava from "ava";`,
             `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
+            `import { getOverride } from "${dots}/_manual-overrides";`,
             `let handy: IHandyRedis;`,
             `ava.before(async t => {`,
             `    handy = createHandyClient();`,
@@ -264,6 +266,10 @@ export const generateTests = async () => {
 buildScript(module, async () => {
     const tests = await generateTests();
     _.forIn(tests, (src, file) => {
-        writeFile(`test/generated/${file}-tests.ts`, src);
+        const generated = `test/generated/${file}.test.ts`;
+        // const manual = `test/manual/${file}-tests.ts`;
+        // if (!existsSync(manual)) {
+        writeFile(generated, src);
+        // }
     });
 });

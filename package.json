@@ -2,20 +2,21 @@
   "name": "handy-redis",
   "version": "0.0.0-development",
   "description": "A wrapper around node_redis with Promise and TypeScript support.",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "files": [
-    "dist/src"
+    "dist"
   ],
-  "types": "dist/src/index",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "shx rm -rf {dist,src/generated,test/generated}",
-    "compile": "tsc --project .",
+    "clean": "del-cli 'dist' 'src/generated' 'test/generated' '!test/generated/**/snapshots'",
+    "compile": "tsc -p .",
     "prebuild": "ts-node scripts/generate-client",
-    "build": "tsc --project .",
+    "build": "npm run compile",
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",
     "test": "ava",
     "posttest": "npm run lint",
+    "prepublishOnly": "tsc -p src",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"
   },
@@ -34,7 +35,7 @@
   "homepage": "https://github.com/mmkal/handy-redis#readme",
   "ava": {
     "files": [
-      "dist/test",
+      "test",
       "**/__tests__/*.js"
     ],
     "serial": true
@@ -50,6 +51,7 @@
     "@types/yamljs": "^0.2.30",
     "ava": "^0.23.0",
     "coveralls": "^2.13.1",
+    "del-cli": "^1.1.0",
     "lodash": "^4.17.4",
     "nyc": "^10.3.0",
     "semantic-release": "^6.3.2",

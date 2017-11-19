@@ -13,6 +13,15 @@
             "outDir": "${workspaceRoot}/dist"
         },
         {
+            "type": "node",
+            "request": "launch",
+            "name": "ava",
+            "program": "${workspaceRoot}/node_modules/ava/profile.js",
+            "args": [
+                "${fileDirname}/${fileBasenameNoExtension}.js"
+            ]
+        },
+        {
             "name": "test",
             "type": "node",
             "request": "launch",

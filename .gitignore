@@ -40,10 +40,7 @@ jspm_packages
 dist
 
 # Generated code
-src/generated/*
-test/generated/*
 *.js
 *.js.map
-!test/generated/*/snapshots
-!test/generated/*/snapshots/*
-!snapshots/*
+src/generated
+test/generated/**/*.ts

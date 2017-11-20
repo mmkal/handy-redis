@@ -227,6 +227,7 @@ export const generateTests = async () => {
 
         const isSkipped = [
             "scripts/redis-doc/commands/swapdb.md",
+            "scripts/redis-doc/commands/unlink.md",
         ].indexOf(ex.example.file) > -1;
         const runTest = isSkipped ? "test.skip" : "test";
 

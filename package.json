@@ -11,7 +11,7 @@
     "clean": "del-cli 'dist' 'src/generated' 'test/generated' '!test/generated/**/snapshots'",
     "compile": "tsc -p .",
     "prebuild": "ts-node scripts/generate-client",
-    "build": "npm run compile",
+    "build": "tsc -p .",
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",
     "test": "ava",

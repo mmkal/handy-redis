@@ -57,7 +57,7 @@ const arrayRegex = /^Array<(.+)>|(.+)\[\]$/;
 const tupleRegex = /^\[.+]$/;
 
 const checkFormattedArgType = (formatted: string, targetType: string): boolean => {
-    if (formatted.endsWith(" as any")) {
+    if (targetType === "any" || formatted.endsWith(" as any")) {
         return true;
     }
     if (targetType === "string") {
@@ -176,7 +176,7 @@ export const generateTests = async () => {
                 throw err;
             }
         });
-        const match = candidates.find(c => !!c);
+        const match = _.maxBy(candidates.filter(Boolean), c => c!.length);
         if (!match) {
             return [quote(`Couldn't format arguments: No overload for "${commandName}" matches args ${literalTokens}`)];
         }
@@ -200,8 +200,6 @@ export const generateTests = async () => {
             return `${prefix}await handy.${command}(${args})`;
         });
 
-        // const commands = commandSrcs.map(indent).map(cmd => cmd + ",");
-
         const longestCommand = _.maxBy(commandSrcs, src => src.length);
         const maxLength = longestCommand ? longestCommand.length : 0;
 
@@ -217,10 +215,6 @@ export const generateTests = async () => {
             `try {`,
             ...commandSrcs.map(cmd => cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`).map(indent),
             `    const overridenOutput = overrider(output);`,
-            // `    const output = overrider([`,
-            // ...commands.map(indent),
-            // `    ]);`,
-            // `    snapshot = zip(commands, overridenOutput).map(pair => pair.map(x => padEnd(x, ${maxLength + 2})).join(" => ").trim());`,
             `    snapshot = zip(commands, overridenOutput).map(pair => `
                 + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`"
                 + `);`,

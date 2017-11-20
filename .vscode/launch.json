@@ -5,12 +5,11 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/scripts/${fileBasenameNoExtension}.ts",
+            "program": "${workspaceRoot}/scripts/${fileBasenameNoExtension}.js",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "build",
-            "outDir": "${workspaceRoot}/dist"
+            "preLaunchTask": "build"
         },
         {
             "type": "node",

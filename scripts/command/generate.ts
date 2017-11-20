@@ -120,7 +120,7 @@ export const getBasicCommands = _.once(() => {
     const commandsJson = readFileSync(`${redisDoc}/commands.json`, "utf8");
     const commandCollection: CommandCollection = JSON.parse(commandsJson);
 
-    return _.flatten(Object.keys(commandCollection).map(name => {
+    const basicCommands = _.flatten(Object.keys(commandCollection).map(name => {
         const methodName = simplifyName(name);
         if (typeof referenceClient[methodName] !== "function") {
             warn(`node_redis doesn't support command "${name}"`);
@@ -130,4 +130,16 @@ export const getBasicCommands = _.once(() => {
 
         return buildTypeScriptCommandInfo(methodName, command);
     }));
+
+    const commandCommandIndex = basicCommands.findIndex(c => c.name === "command");
+    const existingCommandCommand = basicCommands[commandCommandIndex];
+    const commandCommand: BasicCommandInfo = {
+        args: [{ name: "...args", type: "any[]"  }],
+        docs: existingCommandCommand.docs,
+        name: existingCommandCommand.name,
+        original: existingCommandCommand.original,
+    };
+    basicCommands.splice(commandCommandIndex, 0, commandCommand);
+
+    return basicCommands;
 });

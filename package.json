@@ -40,6 +40,11 @@
     ],
     "serial": true
   },
+  "nyc": {
+      "include": [
+          "src/*"
+        ]
+  },
   "dependencies": {
     "@types/redis": "^0.12.36",
     "redis": "^2.7.1"

@@ -12,7 +12,7 @@ export interface ICreateHandyClient {
 }
 
 export const createHandyClient: ICreateHandyClient = (...args: any[]) => {
-    if (args.length === 1 && typeof args[0].zscan === "function") {
+    if (typeof args[0] === "object" && typeof args[0].zscan === "function") {
         return _createHandyClient(args[0]);
     }
     return _createHandyClient(createClient.apply(null, args));

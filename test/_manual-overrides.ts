@@ -44,4 +44,4 @@ addOverride("/pexpire.md", outputs => outputs.map(_firstTwoCharacters));
 addOverride("/info.md", outputs => outputs.map(_typeOf));
 addOverride("/(sunionstore|sadd|smembers|sunion|smove|srem|spop|sinterstore).md", outputs => outputs.map(sortArrays));
 addOverride("/keys.md", outputs => outputs.map(sortArrays));
-addOverride("/geo(\w+)\.md", outputs => outputs.map(ignoreDecimals));
+addOverride("/geo(\\w+)\.md", outputs => outputs.map(ignoreDecimals));

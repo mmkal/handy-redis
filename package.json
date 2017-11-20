@@ -8,9 +8,9 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "del-cli 'dist' 'src/generated' 'test/generated' '!test/generated/**/snapshots'",
+    "clean": "del-cli 'dist' 'src/generated' 'test/generated/**/*.ts'",
     "compile": "tsc -p .",
-    "prebuild": "ts-node scripts/generate-client",
+    "prebuild": "ts-node scripts/generate-client && ts-node scripts/generate-tests",
     "build": "tsc -p .",
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",

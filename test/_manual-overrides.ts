@@ -30,7 +30,7 @@ addOverride("/lastsave.md", outputs => outputs.map(simplify(isFinite)));
 addOverride("/time.md", outputs => outputs.map(_isFinite));
 addOverride("/srandmember.md", outputs => outputs.map(o => Array.isArray(o) ? _arrayLength(o) : _typeOf(o)));
 addOverride("/spop.md", outputs => outputs.map(o => Array.isArray(o) ? _arrayLength(o) : _typeOf(o)));
-addOverride("/psetex.md", outputs => outputs.map(_firstTwoCharacters));
+addOverride("/psetex.md", outputs => outputs.map(o => /^\d+$/.test(o) ? "number" : o));
 addOverride("/pexpireat.md", outputs => outputs.map(_typeOf));
 addOverride("/pexpire.md", outputs => outputs.map(_firstTwoCharacters));
 addOverride("/info.md", outputs => outputs.map(_typeOf));

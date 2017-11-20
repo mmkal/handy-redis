@@ -37,7 +37,7 @@ const generateClientInterface = async (getCommands: typeof getFullCommands) => {
 buildScript(module, async () => {
     const interfaceFile = `src/generated/interface.ts`;
 
-    writeFile(interfaceFile, "export interface IHandyRedis { /* placeholder */ }");
+    writeFile(interfaceFile, "export type IHandyRedis = any; // placeholder");
 
     writeFile(interfaceFile, await generateClientInterface(getFullCommands));
 });

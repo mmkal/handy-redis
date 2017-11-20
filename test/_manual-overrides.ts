@@ -1,6 +1,10 @@
-// import { test } from "ava";
 import { identity, find, isFinite } from "lodash";
 import { inspect } from "util";
+
+// some of the auto-generated snapshot tests produce non-deterministic data
+// e.g. memory usage information, random keys, or unsorted set operations.
+// this file defines 'overrides' for the tests of those commands which reduce
+// the noise in their outputs.
 
 type OutputModifier = (originalOutputs: any[]) => any;
 

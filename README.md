@@ -2,6 +2,8 @@
 A wrapper around [node_redis](https://npmjs.com/package/redis) with Promise and TypeScript support.
 
 [![Build Status](https://travis-ci.org/mmkal/handy-redis.svg?branch=master)](https://travis-ci.org/mmkal/handy-redis)
+[![Coverage Status](https://coveralls.io/repos/github/mmkal/handy-redis/badge.svg?branch=master)](https://coveralls.io/github/mmkal/handy-redis?branch=master)
+[![npm version](https://badge.fury.io/js/handy-redis.svg)](https://www.npmjs.com/package/handy-redis)
 
 ## Why
 

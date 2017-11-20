@@ -63,6 +63,9 @@ export const writeFile = (filename: string, contents: string) => {
     if (!existsSync(filedir)) {
         shelljs.mkdir("-p", filedir);
     }
+    if (!contents.endsWith("\n")) {
+        contents += EOL;
+    }
     writeFileSync(filename, contents, "utf8");
 };
 

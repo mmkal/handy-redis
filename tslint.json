@@ -11,6 +11,7 @@
         "variable-name": [
             "allow-leading-underscore"
         ],
+        "ban-types": false,
         "arrow-parens": false,
         "max-line-length": [
             180

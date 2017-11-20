@@ -40,4 +40,7 @@ jspm_packages
 dist
 
 # Generated code
+*.js
+*.js.map
 src/generated
+test/generated/**/*.ts

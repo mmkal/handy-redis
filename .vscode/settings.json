@@ -1,4 +1,15 @@
 {
+    "files.exclude": {
+        "**/*.js": {
+            "when": "$(basename).ts"
+        },
+        "**/*.js.map": {
+            "when": "$(basename)"
+        },
+        "**/*.snap": {
+            "when": "$(basename).md"
+        }
+    },
     "tslint.autoFixOnSave": true,
     "tslint.enable": true
 }

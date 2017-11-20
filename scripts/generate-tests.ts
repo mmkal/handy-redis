@@ -1,10 +1,9 @@
 import { BasicCommandInfo } from "./command";
 import { EOL } from "os";
-import { quote, simplifyName, tab, indent, buildScript } from "./util";
+import { quote, simplifyName, tab, indent, buildScript, writeFile } from "./util";
 import * as _ from "lodash";
 import { getExampleRuns } from "./cli-examples";
 import { getBasicCommands } from "./command";
-import { writeFileSync } from "fs";
 
 const tokenizeCommand = (command: string) => {
     return (command
@@ -58,7 +57,7 @@ const arrayRegex = /^Array<(.+)>|(.+)\[\]$/;
 const tupleRegex = /^\[.+]$/;
 
 const checkFormattedArgType = (formatted: string, targetType: string): boolean => {
-    if (formatted.endsWith(" as any")) {
+    if (targetType === "any" || formatted.endsWith(" as any")) {
         return true;
     }
     if (targetType === "string") {
@@ -177,7 +176,7 @@ export const generateTests = async () => {
                 throw err;
             }
         });
-        const match = candidates.find(c => !!c);
+        const match = _.maxBy(candidates.filter(Boolean), c => c!.length);
         if (!match) {
             return [quote(`Couldn't format arguments: No overload for "${commandName}" matches args ${literalTokens}`)];
         }
@@ -187,7 +186,7 @@ export const generateTests = async () => {
     const examples = await getExampleRuns();
 
     const tests = examples.map(ex => {
-        const actual = ex.example.lines.map(line => {
+        const commandSrcs = ex.example.lines.map(line => {
             const tokens = tokenizeCommand(line);
             const command = simplifyName(tokens[0]);
             const argTokens = tokens.slice(1);
@@ -198,56 +197,84 @@ export const generateTests = async () => {
                 ? "// not implemented by node redis: "
                 : "";
 
-            return `${prefix}await handy.${command}(${args}),`;
-        })
-        .map(indent);
+            return `${prefix}await handy.${command}(${args})`;
+        });
 
-        const expected = ex.outputs
-            .map(o => JSON.stringify(o.value))
-            .map(v => `${v},`)
-            .map(indent)
-            ;
+        const longestCommand = _.maxBy(commandSrcs, src => src.length);
+        const maxLength = longestCommand ? longestCommand.length : 0;
 
         const testName = `${ex.example.file} example ${ex.example.index + 1}`;
 
         const body = [
-            `const actualOutput = [`,
-            ...actual,
+            `const overrider = getOverride(${quote(ex.example.file)});`,
+            `let snapshot: any;`,
+            `const commands = [`,
+            ...commandSrcs.map(quote).map(indent).map(line => line + ","),
             `];`,
-            `const expectedOutput = [`,
-            ...expected,
-            `];`,
-            `t.deepEqual(actualOutput, expectedOutput);`,
+            `const output: any[] = [];`,
+            `try {`,
+            ...commandSrcs.map(cmd => cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`).map(indent),
+            `    const overridenOutput = overrider(output);`,
+            `    snapshot = zip(commands, overridenOutput).map(pair => `
+                + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`"
+                + `);`,
+            `} catch (err) {`,
+            `    snapshot = { _commands: commands, _output: output, err };`,
+            `}`,
+            `t.snapshot(snapshot);`,
         ]
         .map(line => `${tab}${line}`);
 
-        return [
-            `test(${quote(testName)}, async t => {`,
+        const isSkipped = [
+            "scripts/redis-doc/commands/swapdb.md",
+            "scripts/redis-doc/commands/unlink.md",
+        ].indexOf(ex.example.file) > -1;
+        const runTest = isSkipped ? "test.skip" : "test";
+
+        const testSrc = [
+            `${runTest}(${quote(testName)}, async t => {`,
             ...body,
             `});`,
         ]
         .join(EOL);
+
+        return { testSrc, exampleFile: ex.example.file };
     });
 
-    return [
-        `import ava from "ava";`,
-        `import { IHandyRedis, createHandyClient } from "../src";`,
-        `let handy: IHandyRedis;`,
-        `ava.before(async t => {`,
-        `    handy = createHandyClient();`,
-        `    await handy.ping("ping");`,
-        `});`,
-        `ava.beforeEach(async t => {`,
-        `    await handy.flushall();`,
-        `});`,
-        `const test = ava.serial;`,
-        ``,
-        ...tests,
-        ``,
-    ].join(EOL);
+    const grouped = _.groupBy(tests, t => t.exampleFile.replace("scripts/redis-doc/", "").replace(".md", ""));
+
+    return _.mapValues(grouped, (testGroup, file) => {
+        // determine how many "../"s will be needed to get to src folder based on example file path
+        const dots = file.split("/").map(() => "..").join("/");
+        return [
+            `import ava from "ava";`,
+            `import { zip, padEnd } from "lodash";`,
+            `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
+            `import { getOverride } from "${dots}/_manual-overrides";`,
+            `let handy: IHandyRedis;`,
+            `ava.before(async t => {`,
+            `    handy = createHandyClient();`,
+            `    await handy.ping("ping");`,
+            `});`,
+            `ava.beforeEach(async t => {`,
+            `    await handy.flushall();`,
+            `});`,
+            `const test = ava.serial;`,
+            ``,
+            ...testGroup.map(t => t.testSrc),
+            ``,
+        ].join(EOL);
+    });
+
 };
 
 buildScript(module, async () => {
     const tests = await generateTests();
-    writeFileSync(`test/generated-tests.ts`, tests, "utf8");
+    _.forIn(tests, (src, file) => {
+        const generated = `test/generated/${file}.test.ts`;
+        // const manual = `test/manual/${file}-tests.ts`;
+        // if (!existsSync(manual)) {
+        writeFile(generated, src);
+        // }
+    });
 });

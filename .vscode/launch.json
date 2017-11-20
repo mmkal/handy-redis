@@ -5,12 +5,20 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/scripts/${fileBasenameNoExtension}.ts",
+            "program": "${workspaceRoot}/scripts/${fileBasenameNoExtension}.js",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": ".",
-            "outDir": "${workspaceRoot}/dist"
+            "preLaunchTask": "build"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "ava",
+            "program": "${workspaceRoot}/node_modules/ava/profile.js",
+            "args": [
+                "${fileDirname}/${fileBasenameNoExtension}.js"
+            ]
         },
         {
             "name": "test",

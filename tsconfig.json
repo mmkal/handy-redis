@@ -3,7 +3,7 @@
         "module": "commonjs",
         "target": "es6",
         "alwaysStrict": true,
-        "declaration": true,
+        "sourceMap": true,
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
@@ -11,8 +11,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
-        "strictNullChecks": true,
-        "outDir": "dist"
+        "strictNullChecks": true
     },
     "exclude": [
         "node_modules",

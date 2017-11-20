@@ -2,23 +2,23 @@
   "name": "handy-redis",
   "version": "0.0.0-development",
   "description": "A wrapper around node_redis with Promise and TypeScript support.",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "files": [
-    "dist/src"
+    "dist"
   ],
-  "types": "dist/src/index",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "clean": "shx rm -rf {dist,src/generated}",
-    "compile": "tsc --project .",
-    "prebuild": "ts-node scripts/generate-client",
-    "build": "tsc --project .",
+    "clean": "del-cli 'dist' 'src/generated' 'test/generated/**/*.ts'  '**/*.js' '**/*.js.map' '!node_modules/**/*'",
+    "compile": "tsc -p .",
+    "prebuild": "ts-node scripts/generate-types && ts-node scripts/generate-tests",
+    "build": "tsc -p .",
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",
-    "test": "npm run test:unit",
-    "test:unit": "ava dist/test **/__tests__/*.js",
+    "test": "ava",
     "posttest": "npm run lint",
+    "prepublishOnly": "tsc -p src",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post",
-    "coverage": "nyc ava dist/test **/__tests__/*.js && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,18 @@
     "url": "https://github.com/mmkal/handy-redis/issues"
   },
   "homepage": "https://github.com/mmkal/handy-redis#readme",
+  "ava": {
+    "files": [
+      "test",
+      "**/__tests__/*.js"
+    ],
+    "serial": true
+  },
+  "nyc": {
+      "include": [
+          "src/*"
+        ]
+  },
   "dependencies": {
     "@types/redis": "^0.12.36",
     "redis": "^2.7.1"
@@ -42,8 +54,9 @@
     "@types/node": "^7.0.14",
     "@types/shelljs": "^0.7.2",
     "@types/yamljs": "^0.2.30",
-    "ava": "^0.19.1",
+    "ava": "^0.23.0",
     "coveralls": "^2.13.1",
+    "del-cli": "^1.1.0",
     "lodash": "^4.17.4",
     "nyc": "^10.3.0",
     "semantic-release": "^6.3.2",

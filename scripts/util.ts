@@ -18,8 +18,18 @@ export const indent = (input: string) => input
     .map(line => `${tab}${line}`)
     .join(EOL);
 
-export const quote = (input: string) =>
-    (input && input.indexOf(`"`) === -1) ? `"${input}"` : `\`${input}\``;
+export const quote = (input: string) => {
+    if (!input) {
+        return `""`;
+    }
+    if (input.indexOf(`"`) === -1) {
+        return `"${input}"`;
+    }
+    if (input.indexOf("`") === -1) {
+        return `\`${input}\``;
+    }
+    return JSON.stringify(input);
+};
 
 export const makeArrayType = (type: string) =>
     type.match(/\W/) ? `Array<${type}>` : `${type}[]`;
@@ -52,6 +62,9 @@ export const writeFile = (filename: string, contents: string) => {
     const filedir = dirname(filename);
     if (!existsSync(filedir)) {
         shelljs.mkdir("-p", filedir);
+    }
+    if (!contents.endsWith("\n")) {
+        contents += EOL;
     }
     writeFileSync(filename, contents, "utf8");
 };

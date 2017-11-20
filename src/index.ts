@@ -1,8 +1,8 @@
 import { ClientOpts, createClient, RedisClient } from "redis";
-import { createHandyClient as _createHandyClient } from "./generated/client";
 import { IHandyRedis } from "./generated/interface";
+import { flattenDeep } from "./flatten";
 
-export * from "./generated/interface";
+export { IHandyRedis } from "./generated/interface";
 
 export interface ICreateHandyClient {
     (port_arg: number, host_arg?: string, options?: ClientOpts): IHandyRedis;
@@ -11,9 +11,24 @@ export interface ICreateHandyClient {
     (redisClient: RedisClient): IHandyRedis;
 }
 
-export const createHandyClient: ICreateHandyClient = (...args: any[]) => {
-    if (args.length === 1 && typeof args[0].zscan === "function") {
-        return _createHandyClient(args[0]);
-    }
-    return _createHandyClient(createClient.apply(null, args));
+export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
+    const nodeRedis = (typeof clientArgs[0] === "object" && typeof clientArgs[0].zscan === "function")
+        ? clientArgs[0]
+        : createClient.apply(null, clientArgs);
+
+    const handyClient = { redis: nodeRedis } as IHandyRedis;
+
+    Object.keys(nodeRedis.__proto__).forEach((key: keyof IHandyRedis) => {
+        const func = nodeRedis[key];
+        handyClient[key] = (...args: any[]) => new Promise((resolve, reject) => {
+            const flattened = flattenDeep(args);
+            func.apply(nodeRedis, flattened.concat([(err: any, data: any) => err ? reject(err) : resolve(data)]));
+        });
+    });
+
+    return handyClient;
+
+    //     return _createHandyClient(args[0]);
+    // }
+    // return _createHandyClient(createClient.apply(null, args));
 };

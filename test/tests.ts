@@ -23,3 +23,13 @@ test("keys", async t => {
 
     t.deepEqual(keys.sort(), ["x:foo", "x:bar"].sort());
 });
+
+test("multi", async t => {
+    const client = createHandyClient();
+
+    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
+
+    const result = await client.execMulti(multi);
+
+    t.deepEqual(result, ["OK", ["z:foo"], "987"]);
+});

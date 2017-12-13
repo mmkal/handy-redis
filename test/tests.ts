@@ -1,6 +1,6 @@
 import test from "ava";
 import { createHandyClient } from "../src";
-import { createClient } from "redis";
+import { createClient, Multi } from "redis";
 
 test("create client", t => {
     t.truthy(createHandyClient());
@@ -22,4 +22,24 @@ test("keys", async t => {
     const keys = await client.keys("x:*");
 
     t.deepEqual(keys.sort(), ["x:foo", "x:bar"].sort());
+});
+
+test("multi", async t => {
+    const client = createHandyClient();
+
+    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
+
+    const result = await client.execMulti(multi);
+
+    t.deepEqual(result, ["OK", ["z:foo"], "987"]);
+});
+
+test("multi rejects correctly", async t => {
+    const client = createHandyClient();
+
+    const fakeMulti: Multi = {
+        exec: (callback: Function) => callback(new Error("foo")),
+    } as any;
+
+    await t.throws(client.execMulti(fakeMulti), "foo");
 });

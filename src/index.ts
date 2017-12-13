@@ -1,6 +1,7 @@
 import { ClientOpts, createClient, RedisClient } from "redis";
 import { IHandyRedis } from "./generated/interface";
 import { flattenDeep } from "./flatten";
+import { useUnderlyingImpl, additionalFunctions } from "./overrides";
 
 export { IHandyRedis } from "./generated/interface";
 
@@ -20,15 +21,16 @@ export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
 
     Object.keys(nodeRedis.__proto__).forEach((key: keyof IHandyRedis) => {
         const func = nodeRedis[key];
-        handyClient[key] = (...args: any[]) => new Promise((resolve, reject) => {
-            const flattened = flattenDeep(args);
-            func.apply(nodeRedis, flattened.concat([(err: any, data: any) => err ? reject(err) : resolve(data)]));
-        });
+        if (useUnderlyingImpl.has(key)) {
+            handyClient[key] = func.bind(nodeRedis);
+        } else {
+            handyClient[key] = (...args: any[]) => new Promise((resolve, reject) => {
+                const flattened = flattenDeep(args);
+                func.apply(nodeRedis, flattened.concat([(err: any, data: any) => err ? reject(err) : resolve(data)]));
+            });
+        }
     });
+    Object.assign(handyClient, additionalFunctions);
 
     return handyClient;
-
-    //     return _createHandyClient(args[0]);
-    // }
-    // return _createHandyClient(createClient.apply(null, args));
 };

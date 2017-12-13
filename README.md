@@ -47,6 +47,10 @@ client
 The package is published with TypeScript types, with the redis documentation and response type attached to each command:
 ![](./docs/intellisense.png)
 
+### Examples
+
+See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/generated/commands/snapshots) for tons of usage examples (look at the `.md` files).
+
 ### Multi
 
 Most members of node_redis's `multi` type don't need to be promisified, because they execute synchronously. Only `exec` is async. To use a promisified version of that, use `execMulti`:

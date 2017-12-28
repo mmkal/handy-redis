@@ -82,7 +82,7 @@ npm install
 npm test
 ```
 
-`npm test` triggers `npm run build` before running the tests - and the `build` script generates the client before using TypeScript to compile it.
+`npm test` triggers `npm run build` before running the tests - and the `build` script generates the client before using TypeScript to compile it. If you want to run the tests without rebuilding, use `npx ava`.
 
 If you cloned without `--recursive` you'll need to run `git submodule update --init` to get the redis-doc repo locally.
 

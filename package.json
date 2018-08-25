@@ -29,7 +29,8 @@
     "url": "https://github.com/mmkal/handy-redis.git"
   },
   "keywords": [
-    "redis"
+    "redis",
+    "typescript"
   ],
   "author": "mmkal",
   "license": "ISC",

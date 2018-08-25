@@ -21,7 +21,6 @@
     "test": "ava",
     "posttest": "npm run lint",
     "prepublishOnly": "tsc -p src",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
     "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {

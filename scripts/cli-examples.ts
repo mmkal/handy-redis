@@ -1,11 +1,11 @@
 import { commandDoc, readdirWithPaths } from "./util";
 import { readFileSync } from "fs";
 import * as _ from "lodash";
-import { spawn } from "child_process";
+import * as spawn from "cross-spawn";
 
 export const getExampleRuns = async () => {
     const examples = getCliExamples();
-    const redisCli = spawn("redis-cli", ["--no-raw"]);
+    const redisCli = spawn("docker", ["exec", "-i", "handy_redis", "redis-cli", "--no-raw"], { env: process.env });
     redisCli.stdin.setDefaultEncoding("utf-8");
     const redisInteractor = {
         onstdout: (data: string) => console.log(data),

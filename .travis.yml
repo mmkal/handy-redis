@@ -1,5 +1,5 @@
 language: node_js
-services: redis
+services: docker
 cache:
   directories:
     - node_modules
@@ -10,6 +10,7 @@ node_js:
   - '6'
 before_script:
   - npm prune
+  - npm run redis:up -- -d && sleep 10
 after_success:
   - npm run semantic-release
   - npm run coverage

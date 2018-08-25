@@ -1,0 +1,5 @@
+redis:
+  image: redis
+  container_name: handy_redis
+  ports:
+    - "6379:6379"

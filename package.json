@@ -20,8 +20,8 @@
     "pretest": "npm run build",
     "test": "ava",
     "posttest": "npm run lint",
-    "prepublishOnly": "tsc -p src",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "prerelease": "tsc -p src",
+    "release": "semantic-release",
     "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
@@ -29,7 +29,8 @@
     "url": "https://github.com/mmkal/handy-redis.git"
   },
   "keywords": [
-    "redis"
+    "redis",
+    "typescript"
   ],
   "author": "mmkal",
   "license": "ISC",
@@ -55,22 +56,22 @@
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",
-    "@types/lodash": "^4.14.63",
-    "@types/node": "^7.0.14",
-    "@types/shelljs": "^0.7.2",
+    "@types/lodash": "^4.14.116",
+    "@types/node": "^7.0.69",
+    "@types/shelljs": "^0.7.9",
     "@types/yamljs": "^0.2.30",
-    "ava": "^0.23.0",
-    "coveralls": "^2.13.1",
+    "ava": "^0.25.0",
+    "coveralls": "^3.0.2",
     "cross-spawn": "^6.0.5",
     "del-cli": "^1.1.0",
-    "lodash": "^4.17.4",
-    "nyc": "^10.3.0",
-    "semantic-release": "^6.3.2",
+    "lodash": "^4.17.10",
+    "nyc": "^13.0.1",
+    "semantic-release": "^15.9.10",
     "shelljs": "^0.7.7",
     "shx": "^0.2.2",
     "ts-node": "^3.0.2",
-    "tslint": "^5.1.0",
-    "typescript": "^2.3.2",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1",
     "yamljs": "^0.2.10"
   }
 }

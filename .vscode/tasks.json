@@ -6,7 +6,7 @@
     "args": ["run"],
     "tasks": [
         {
-            "taskName": "build",
+            "taskName": "compile",
             "problemMatcher": "$tsc-watch",
             "showOutput": "always",
             "args": ["--", "--sourceMap", "--watch"],

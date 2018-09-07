@@ -53,7 +53,7 @@ See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/g
 
 ### Multi
 
-Most members of node_redis's `multi` type don't need to be promisified, because they execute synchronously. Only `exec` is async. To use a promisified version of that, use `execMulti`:
+Most members of node_redis's `multi` type don't need to be promisified, because they execute synchronously. Only `exec` is async. For a promisified version of that, use `execMulti`:
 
 ```JavaScript
 import { createHandyClient } from 'handy-redis';

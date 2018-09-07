@@ -13,7 +13,7 @@ before_script:
   - npm run redis:up -- -d && sleep 10
 after_success:
   - npm install -g travis-deploy-once
-  - travis-deploy-once npm run release
+  - travis-deploy-once "npm run release"
   - npm run coverage
 branches:
   except:

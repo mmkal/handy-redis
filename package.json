@@ -19,6 +19,7 @@
     "lint": "tslint **/*.ts",
     "pretest": "npm run build",
     "test": "ava",
+    "jest": "jest",
     "posttest": "npm run lint",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
@@ -50,12 +51,16 @@
       "src/*"
     ]
   },
+  "prettier": {
+    "tabWidth": 4
+  },
   "dependencies": {
     "@types/redis": "^0.12.36",
     "redis": "^2.8.0"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",
+    "@types/jest": "^23.3.1",
     "@types/lodash": "^4.14.116",
     "@types/node": "^7.0.69",
     "@types/shelljs": "^0.7.9",
@@ -64,11 +69,14 @@
     "coveralls": "^3.0.2",
     "cross-spawn": "^6.0.5",
     "del-cli": "^1.1.0",
+    "jest": "^23.5.0",
     "lodash": "^4.17.10",
     "nyc": "^13.0.1",
+    "prettier": "^1.14.2",
     "semantic-release": "^15.9.10",
     "shelljs": "^0.7.7",
     "shx": "^0.2.2",
+    "ts-jest": "^23.1.4",
     "ts-node": "^3.0.2",
     "tslint": "^5.11.0",
     "typescript": "^3.0.1",

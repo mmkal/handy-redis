@@ -247,19 +247,17 @@ export const generateTests = async () => {
         // determine how many "../"s will be needed to get to src folder based on example file path
         const dots = file.split("/").map(() => "..").join("/");
         return [
-            `import ava from "ava";`,
             `import { zip, padEnd } from "lodash";`,
             `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
             `import { getOverride } from "${dots}/_manual-overrides";`,
             `let handy: IHandyRedis;`,
-            `ava.before(async t => {`,
+            `beforeAll(async () => {`,
             `    handy = createHandyClient();`,
             `    await handy.ping("ping");`,
             `});`,
-            `ava.beforeEach(async t => {`,
+            `beforeEach(async () => {`,
             `    await handy.flushall();`,
             `});`,
-            `const test = ava.serial;`,
             ``,
             ...testGroup.map(t => t.testSrc),
             ``,

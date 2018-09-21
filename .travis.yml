@@ -9,14 +9,10 @@ node_js:
   - '8'
   - '10'
 before_script:
-  - echo "travis node version $TRAVIS_NODE_VERSION"
-  - if [ $TRAVIS_NODE_VERSION == '10' ]; then echo ten; fi
-  - if [ $TRAVIS_NODE_VERSION == '8' ]; then echo eight; fi
   - npm prune
   - npm run redis:up -- -d && sleep 10
 after_success:
-  - npm install -g travis-deploy-once
-  - travis-deploy-once "npm run release"
+  - if [ $TRAVIS_NODE_VERSION == '10' ]; then npm run release; fi
   - npm run coverage
 branches:
   except:

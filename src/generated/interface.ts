@@ -112,10 +112,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        SET_type_offset_value: [string, number, number],
-        INCRBY_type_offset_increment: [string, number, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        GET_type_offset: ["GET", string, number],
+        SET_type_offset_value: ["SET", string, number, number],
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -140,9 +140,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        SET_type_offset_value: [string, number, number],
-        INCRBY_type_offset_increment: [string, number, number]
+        GET_type_offset: ["GET", string, number],
+        SET_type_offset_value: ["SET", string, number, number],
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -167,9 +167,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        SET_type_offset_value: [string, number, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        GET_type_offset: ["GET", string, number],
+        SET_type_offset_value: ["SET", string, number, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -194,8 +194,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        SET_type_offset_value: [string, number, number]
+        GET_type_offset: ["GET", string, number],
+        SET_type_offset_value: ["SET", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -220,9 +220,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        INCRBY_type_offset_increment: [string, number, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        GET_type_offset: ["GET", string, number],
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -247,8 +247,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        INCRBY_type_offset_increment: [string, number, number]
+        GET_type_offset: ["GET", string, number],
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -273,8 +273,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        GET_type_offset: ["GET", string, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -299,7 +299,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: [string, number]
+        GET_type_offset: ["GET", string, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -324,9 +324,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: [string, number, number],
-        INCRBY_type_offset_increment: [string, number, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        SET_type_offset_value: ["SET", string, number, number],
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -351,8 +351,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: [string, number, number],
-        INCRBY_type_offset_increment: [string, number, number]
+        SET_type_offset_value: ["SET", string, number, number],
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -377,8 +377,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: [string, number, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        SET_type_offset_value: ["SET", string, number, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -403,7 +403,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: [string, number, number]
+        SET_type_offset_value: ["SET", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -428,8 +428,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        INCRBY_type_offset_increment: [string, number, number],
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -454,7 +454,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        INCRBY_type_offset_increment: [string, number, number]
+        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -479,7 +479,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        OVERFLOW: "WRAP" | "SAT" | "FAIL"
+        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -1076,10 +1076,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1125,9 +1125,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1173,9 +1173,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1221,7 +1221,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -1268,9 +1268,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1316,8 +1316,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1363,8 +1363,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1410,55 +1410,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        withdist: "WITHDIST",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1505,7 +1457,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1552,7 +1505,54 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1644,8 +1644,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1691,7 +1691,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1737,7 +1737,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1827,10 +1827,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1875,9 +1875,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1922,9 +1922,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1969,7 +1969,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -2015,9 +2015,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2062,8 +2062,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2108,8 +2108,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2154,54 +2154,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        withdist: "WITHDIST",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2247,7 +2200,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2293,7 +2247,53 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2383,8 +2383,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2429,7 +2429,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2474,7 +2474,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2563,10 +2563,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2611,9 +2611,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2658,9 +2658,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2705,7 +2705,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -2751,9 +2751,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2798,8 +2798,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2844,8 +2844,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2890,54 +2890,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2983,7 +2936,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3029,7 +2983,53 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3119,8 +3119,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3165,7 +3165,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3210,7 +3210,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3298,10 +3298,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3345,9 +3345,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3391,9 +3391,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3437,7 +3437,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -3482,9 +3482,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3528,8 +3528,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3573,8 +3573,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3618,53 +3618,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3709,7 +3663,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3754,7 +3709,52 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3842,8 +3842,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3887,7 +3887,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3931,7 +3931,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4019,10 +4019,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4067,9 +4067,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4114,9 +4114,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4161,7 +4161,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -4207,9 +4207,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4254,8 +4254,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4300,8 +4300,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4346,54 +4346,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist: "WITHDIST",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4439,7 +4392,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4485,7 +4439,53 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4575,8 +4575,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4621,7 +4621,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4666,7 +4666,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4754,10 +4754,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4801,9 +4801,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4847,9 +4847,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4893,7 +4893,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -4938,9 +4938,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4984,8 +4984,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5029,8 +5029,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5074,53 +5074,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist: "WITHDIST",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5165,7 +5119,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5210,7 +5165,52 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5298,8 +5298,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5343,7 +5343,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5387,7 +5387,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5474,10 +5474,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5521,9 +5521,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5567,9 +5567,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5613,7 +5613,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -5658,9 +5658,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5704,8 +5704,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5749,8 +5749,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5794,53 +5794,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5885,7 +5839,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5930,7 +5885,52 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6018,8 +6018,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6063,7 +6063,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6107,7 +6107,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6193,10 +6193,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6239,9 +6239,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6284,9 +6284,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6329,7 +6329,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -6373,9 +6373,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6418,8 +6418,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6462,8 +6462,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6506,52 +6506,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number
-    ): Promise<any[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: longitude, type: double}
-     *
-     *     - {name: latitude, type: double}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6595,7 +6550,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6639,7 +6595,51 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<any[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: longitude, type: double}
+     *
+     *     - {name: latitude, type: double}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6725,8 +6725,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6769,7 +6769,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6812,7 +6812,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6897,10 +6897,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -6943,9 +6943,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -6988,9 +6988,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7033,7 +7033,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -7077,9 +7077,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7122,8 +7122,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7166,8 +7166,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7210,52 +7210,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        withdist: "WITHDIST",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7299,7 +7254,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7343,7 +7299,51 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7429,8 +7429,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7473,7 +7473,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7516,7 +7516,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7600,10 +7600,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7645,9 +7645,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7689,9 +7689,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7733,7 +7733,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -7776,9 +7776,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7820,8 +7820,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7863,8 +7863,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7906,51 +7906,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        withdist: "WITHDIST",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7993,7 +7949,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8036,7 +7993,50 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8120,8 +8120,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8163,7 +8163,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8205,7 +8205,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8288,10 +8288,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8333,9 +8333,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8377,9 +8377,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8421,7 +8421,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -8464,9 +8464,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8508,8 +8508,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8551,8 +8551,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8594,51 +8594,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8681,7 +8637,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8724,7 +8681,50 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8808,8 +8808,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8851,7 +8851,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8893,7 +8893,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8975,10 +8975,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9019,9 +9019,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9062,9 +9062,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9105,7 +9105,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -9147,9 +9147,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9190,8 +9190,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9232,8 +9232,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9274,50 +9274,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord: "WITHCOORD",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9359,7 +9316,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9401,7 +9359,49 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9483,8 +9483,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9525,7 +9525,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9566,7 +9566,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9648,10 +9648,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9693,9 +9693,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9737,9 +9737,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9781,7 +9781,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -9824,9 +9824,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9868,8 +9868,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9911,8 +9911,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9954,51 +9954,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist: "WITHDIST",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10041,7 +9997,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10084,7 +10041,50 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10168,8 +10168,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10211,7 +10211,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10253,7 +10253,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10335,10 +10335,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10379,9 +10379,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10422,9 +10422,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10465,7 +10465,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -10507,9 +10507,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10550,8 +10550,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10592,8 +10592,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10634,50 +10634,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist: "WITHDIST",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10719,7 +10676,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10761,7 +10719,49 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10843,8 +10843,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10885,7 +10885,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10926,7 +10926,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11007,10 +11007,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11051,9 +11051,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11094,9 +11094,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11137,7 +11137,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -11179,9 +11179,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11222,8 +11222,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11264,8 +11264,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11306,50 +11306,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash: "WITHHASH",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11391,7 +11348,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11433,7 +11391,49 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11515,8 +11515,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11557,7 +11557,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11598,7 +11598,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11678,10 +11678,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11721,9 +11721,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11763,9 +11763,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11805,7 +11805,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
+        COUNT_count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -11846,9 +11846,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11888,8 +11888,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
-        STORE_key: string
+        COUNT_count: ["COUNT", number],
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11929,8 +11929,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11970,49 +11970,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: number
-    ): Promise<string[]>;
-    /**
-     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
-     *
-     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {name: member, type: string}
-     *
-     *     - {name: radius, type: double}
-     *
-     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
-     *
-     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
-     *
-     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
-     *
-     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
-     *
-     *     - {command: COUNT, name: count, type: integer, optional: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {command: STORE, name: key, type: key, optional: true}
-     *
-     *     - {command: STOREDIST, name: key, type: key, optional: true}
-     *
-     * since: 3.2.0
-     *
-     * group: geo
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        order: "ASC" | "DESC",
-        STORE_key: string,
-        STOREDIST_key: string
+        COUNT_count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12053,7 +12011,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STORE_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12094,7 +12053,48 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STOREDIST_key: string
+        STORE_key: ["STORE", string]
+    ): Promise<string[]>;
+    /**
+     * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
+     *
+     * complexity: 'O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: member, type: string}
+     *
+     *     - {name: radius, type: double}
+     *
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi]}
+     *
+     *     - {name: withcoord, type: enum, enum: [WITHCOORD], optional: true}
+     *
+     *     - {name: withdist, type: enum, enum: [WITHDIST], optional: true}
+     *
+     *     - {name: withhash, type: enum, enum: [WITHHASH], optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {command: STORE, name: key, type: key, optional: true}
+     *
+     *     - {command: STOREDIST, name: key, type: key, optional: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12174,8 +12174,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: string,
-        STOREDIST_key: string
+        STORE_key: ["STORE", string],
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12215,7 +12215,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: string
+        STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12255,7 +12255,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STOREDIST_key: string
+        STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12995,7 +12995,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         timeout: number,
         copy: "COPY",
         replace: "REPLACE",
-        KEYS_key: string
+        KEYS_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13067,7 +13067,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination_db: number,
         timeout: number,
         copy: "COPY",
-        KEYS_key: string
+        KEYS_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13138,7 +13138,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination_db: number,
         timeout: number,
         replace: "REPLACE",
-        KEYS_key: string
+        KEYS_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13208,7 +13208,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: "key" | "\"\"",
         destination_db: number,
         timeout: number,
-        KEYS_key: string
+        KEYS_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13944,8 +13944,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: number,
-        PX_milliseconds: number,
+        EX_seconds: ["EX", number],
+        PX_milliseconds: ["PX", number],
         condition: "NX" | "XX"
     ): Promise<string>;
     /**
@@ -13972,8 +13972,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: number,
-        PX_milliseconds: number
+        EX_seconds: ["EX", number],
+        PX_milliseconds: ["PX", number]
     ): Promise<string>;
     /**
      * summary: 'Set the string value of a key'
@@ -13999,7 +13999,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: number,
+        EX_seconds: ["EX", number],
         condition: "NX" | "XX"
     ): Promise<string>;
     /**
@@ -14026,7 +14026,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: number
+        EX_seconds: ["EX", number]
     ): Promise<string>;
     /**
      * summary: 'Set the string value of a key'
@@ -14052,7 +14052,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        PX_milliseconds: number,
+        PX_milliseconds: ["PX", number],
         condition: "NX" | "XX"
     ): Promise<string>;
     /**
@@ -14079,7 +14079,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        PX_milliseconds: number
+        PX_milliseconds: ["PX", number]
     ): Promise<string>;
     /**
      * summary: 'Set the string value of a key'
@@ -14412,9 +14412,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
-        ...GET_patterns: string[]
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
+        ...GET_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14443,11 +14443,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14476,8 +14476,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -14508,10 +14508,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14540,8 +14540,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -14571,10 +14571,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14603,8 +14603,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -14634,9 +14634,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number],
-        STORE_destination: string
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number],
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14665,8 +14665,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        LIMIT_offset_count: [number, number]
+        BY_pattern: ["BY", string],
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14695,8 +14695,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        ...GET_patterns: string[]
+        BY_pattern: ["BY", string],
+        ...GET_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14725,10 +14725,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
+        BY_pattern: ["BY", string],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14757,7 +14757,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
+        BY_pattern: ["BY", string],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -14788,9 +14788,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
+        BY_pattern: ["BY", string],
         order: "ASC" | "DESC",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14819,7 +14819,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
+        BY_pattern: ["BY", string],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -14849,9 +14849,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
+        BY_pattern: ["BY", string],
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14880,7 +14880,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
+        BY_pattern: ["BY", string],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -14910,8 +14910,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string,
-        STORE_destination: string
+        BY_pattern: ["BY", string],
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14940,7 +14940,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: string
+        BY_pattern: ["BY", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14969,8 +14969,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
-        ...GET_patterns: string[]
+        LIMIT_offset_count: ["LIMIT", number, number],
+        ...GET_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14999,10 +14999,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15031,7 +15031,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -15062,9 +15062,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15093,7 +15093,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
+        LIMIT_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -15123,9 +15123,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
+        LIMIT_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15154,7 +15154,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
+        LIMIT_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -15184,8 +15184,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number],
-        STORE_destination: string
+        LIMIT_offset_count: ["LIMIT", number, number],
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15214,7 +15214,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15243,7 +15243,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        ...GET_patterns: string[]
+        ...GET_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15274,7 +15274,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15334,7 +15334,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sort(
         key: string,
         order: "ASC" | "DESC",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15393,7 +15393,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sort(
         key: string,
         sorting: "ALPHA",
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15451,7 +15451,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        STORE_destination: string
+        STORE_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16207,7 +16207,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: string,
         max: string,
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range'
@@ -16256,7 +16256,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: string,
         min: string,
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
@@ -16308,7 +16308,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         min: number,
         max: number,
         withscores: "WITHSCORES",
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
@@ -16362,7 +16362,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: number,
         max: number,
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
@@ -16569,7 +16569,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         max: number,
         min: number,
         withscores: "WITHSCORES",
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
@@ -16623,7 +16623,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: number,
         min: number,
-        LIMIT_offset_count: [number, number]
+        LIMIT_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
@@ -16734,8 +16734,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        MATCH_pattern: string,
-        COUNT_count: number
+        MATCH_pattern: ["MATCH", string],
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -16756,7 +16756,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        MATCH_pattern: string
+        MATCH_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -16777,7 +16777,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        COUNT_count: number
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -16821,8 +16821,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        MATCH_pattern: string,
-        COUNT_count: number
+        MATCH_pattern: ["MATCH", string],
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -16846,7 +16846,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        MATCH_pattern: string
+        MATCH_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -16870,7 +16870,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        COUNT_count: number
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -16917,8 +16917,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        MATCH_pattern: string,
-        COUNT_count: number
+        MATCH_pattern: ["MATCH", string],
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -16942,7 +16942,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        MATCH_pattern: string
+        MATCH_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -16966,7 +16966,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        COUNT_count: number
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -17013,8 +17013,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        MATCH_pattern: string,
-        COUNT_count: number
+        MATCH_pattern: ["MATCH", string],
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
@@ -17038,7 +17038,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        MATCH_pattern: string
+        MATCH_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
@@ -17062,7 +17062,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        COUNT_count: number
+        COUNT_count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'

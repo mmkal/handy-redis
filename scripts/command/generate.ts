@@ -6,6 +6,7 @@ import { readFileSync } from "fs";
 import { redisDoc, simplifyName, makeArrayType, getDocs } from "../util";
 import * as _ from "lodash";
 import { createClient } from "redis";
+import { flattenDeep } from "../../src/flatten";
 
 const warn = (...args: any[]) => {
     // console.warn.apply(null, args);
@@ -15,6 +16,9 @@ const error: typeof console.error = (...args: any[]) => {
 };
 
 const typeFor = (arg: Argument): string => {
+    if (arg.command) {
+        return typeFor({ ...arg, type: flattenDeep([`"${arg.command}"`, arg.type]), command: undefined });
+    }
     switch (arg.type) {
         case "key":
         case "pattern":
@@ -32,6 +36,10 @@ const typeFor = (arg: Argument): string => {
                 if (Array.isArray(arg.type)) {
                     const types = arg.type.map(t => typeFor({ ...arg, type: t })).join(", ");
                     return `[${types}]`;
+                }
+                const literalValueRegex = /^"\w+"$/;
+                if (literalValueRegex.test(arg.type)) {
+                    return arg.type;
                 }
                 console.warn(`Argument ${JSON.stringify(arg)} has unknown type "${arg.type}"`);
                 return "any";

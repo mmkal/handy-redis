@@ -19,14 +19,14 @@ test("scripts/redis-doc/commands/georadius.md example 1", async t => {
         `await handy.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"])`,
         `await handy.georadius("Sicily", 15, 37, 200, "km", "WITHDIST")`,
         `await handy.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD")`,
-        `await handy.georadius("Sicily", 15, 37, 200, "km", "WITHDIST", "WITHCOORD")`,
+        `await handy.georadius("Sicily", 15, 37, 200, "km", "WITHDIST")`,
     ];
     const output: any[] = [];
     try {
         output.push(await handy.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]));
         output.push(await handy.georadius("Sicily", 15, 37, 200, "km", "WITHDIST"));
         output.push(await handy.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD"));
-        output.push(await handy.georadius("Sicily", 15, 37, 200, "km", "WITHDIST", "WITHCOORD"));
+        output.push(await handy.georadius("Sicily", 15, 37, 200, "km", "WITHDIST"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 99)} => ${JSON.stringify(pair[1])}`);
     } catch (err) {

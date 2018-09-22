@@ -42,8 +42,6 @@ dist
 # Generated code
 *.js
 *.js.map
-src/generated
-test/generated/**/*.ts
 
 # my todo list
 todo.md

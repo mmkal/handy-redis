@@ -12,6 +12,13 @@ test("create client from node_redis", async t => {
     t.truthy(await client.ping());
 });
 
+test("set", async t => {
+  const client = createHandyClient();
+
+  await client.set("a:foo", "123", 60);
+  t.deepEqual(await client.ttl("a:foo"), 60);
+})
+
 test("keys", async t => {
     const client = createHandyClient();
 

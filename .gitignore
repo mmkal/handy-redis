@@ -44,3 +44,6 @@ dist
 *.js.map
 src/generated
 test/generated/**/*.ts
+
+# my todo list
+todo.md

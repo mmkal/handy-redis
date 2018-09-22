@@ -11,6 +11,8 @@ node_js:
 before_script:
   - npm prune
   - npm run redis:up -- -d && sleep 10
+script:
+  - npm run ci
 after_success:
   - if [ $TRAVIS_NODE_VERSION == '10' ]; then npm run release; fi
   - npm run coverage

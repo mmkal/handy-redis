@@ -97,6 +97,7 @@ const checkFormattedArgType = (formatted: string, targetType: string): boolean =
     return checkFormattedArgType(formatted, arrayMatch[1] || arrayMatch[2]);
 };
 
+// todo: dedupe with generate-usages
 const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, literalTokens: string[]) => {
     const formattedArgs = new Array<string>();
     let nextLiteralIndex = 0;
@@ -113,7 +114,7 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
         const nextFormattedToken = (targetType = type) => {
             const literal = literalTokens[nextLiteralIndex++];
             if (typeof literal === "undefined") {
-                console.warn(`Ran out of literal tokens :(`);
+                console.warn(`Ran out of literal tokens. command ${overloadInfo.name}, tokens: ${literalTokens.join(" ")}`);
             }
             return targetType === "number" ? parseNumber(literal).toString() : quote(literal);
         };

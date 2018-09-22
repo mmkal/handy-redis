@@ -42,7 +42,7 @@ const checkType = (formattedArgs: string[], overloadInfo: BasicCommandInfo) => {
     while (formattedArgs.length > overloadArgs.length && overloadArgs[overloadArgs.length - 1].name.startsWith("...")) {
         overloadArgs.push(overloadArgs[overloadArgs.length - 1]);
     }
-    if (formattedArgs.length > overloadArgs.length) {
+    if (formattedArgs.length !== overloadArgs.length) {
         return false;
     }
     for (let i = 0; i < formattedArgs.length; i++) {
@@ -116,7 +116,7 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
         const nextFormattedToken = (targetType = type) => {
             const literal = literalTokens[nextLiteralIndex++];
             if (typeof literal === "undefined") {
-                console.warn(`Ran out of literal tokens :(`);
+                console.warn(`Ran out of literal tokens. command ${overloadInfo.name}, tokens: ${literalTokens.join(" ")}`);
             }
             return targetType === "number" ? parseNumber(literal).toString() : quote(literal);
         };
@@ -154,7 +154,7 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             formattedArgs.push(nextArg);
         }
     }
-    // todo ensure all literalTokesns have been used up
+    // todo ensure all literalTokens have been used up
     return formattedArgs;
 };
 

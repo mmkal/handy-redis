@@ -19,7 +19,7 @@
     "test": "ava",
     "lint": "tslint **/*.ts",
     "check-clean": "if [ \"$(git status --porcelain)\" != '' ]; then git status && exit 1; fi",
-    "ci": "run-s build test lint check-clean",
+    "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
     "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"

@@ -1,8 +1,7 @@
-import test from "ava";
 import { Argument } from "../command";
 import { getOverloads } from "../overloads";
 
-test("get overloads", () => {
+it("get overloads", () => {
     const args: Argument[] = [
         { name: "a", type: "string" },
         { name: "b", type: "string", optional: true },

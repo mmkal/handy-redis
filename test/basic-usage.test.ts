@@ -1,4 +1,3 @@
-import it from "ava";
 import { createHandyClient } from "../src";
 import { createClient, Multi } from "redis";
 

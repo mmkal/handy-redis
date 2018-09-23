@@ -221,7 +221,7 @@ export const generateTests = async () => {
             `} catch (err) {`,
             `    snapshot = { _commands: commands, _output: output, err };`,
             `}`,
-            `t.snapshot(snapshot);`,
+            `expect(snapshot).toMatchInlineSnapshot();`,
         ]
         .map(line => `${tab}${line}`);
 
@@ -229,10 +229,10 @@ export const generateTests = async () => {
             "scripts/redis-doc/commands/swapdb.md",
             "scripts/redis-doc/commands/unlink.md",
         ].indexOf(ex.example.file) > -1;
-        const runTest = isSkipped ? "test.skip" : "test";
+        const runTest = isSkipped ? "it.skip" : "it";
 
         const testSrc = [
-            `${runTest}(${quote(testName)}, async t => {`,
+            `${runTest}(${quote(testName)}, async () => {`,
             ...body,
             `});`,
         ]

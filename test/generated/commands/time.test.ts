@@ -1,18 +1,16 @@
-import ava from "ava";
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
 let handy: IHandyRedis;
-ava.before(async t => {
+beforeAll(async () => {
     handy = createHandyClient();
     await handy.ping("ping");
 });
-ava.beforeEach(async t => {
+beforeEach(async () => {
     await handy.flushall();
 });
-const test = ava.serial;
 
-test("scripts/redis-doc/commands/time.md example 1", async t => {
+it("scripts/redis-doc/commands/time.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/time.md");
     let snapshot: any;
     const commands = [
@@ -28,5 +26,5 @@ test("scripts/redis-doc/commands/time.md example 1", async t => {
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    t.snapshot(snapshot);
+    expect(snapshot).toMatchInlineSnapshot();
 });

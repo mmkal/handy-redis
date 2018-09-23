@@ -1,7 +1,6 @@
-import { test } from "ava";
 import { _isFinite, _typeOf, _sorted, _firstTwoCharacters } from "./_manual-overrides";
 
-test("isFinite", t => t.is(_isFinite(123), "isFinite => true"));
-test("typeof", t => t.is(_typeOf("foo"), "typeOf => string"));
-test("sorted", t => t.is(_sorted([3, 2, 1]), "sorted => [ 1, 2, 3 ]"));
-test("firstTwoCharacters", t => t.is(_firstTwoCharacters("hello"), "firstTwoCharacters => he***"));
+it("isFinite", () => expect(_isFinite(123)).toEqual("isFinite => true"));
+it("typeof", () => expect(_typeOf("foo")).toEqual("typeOf => string"));
+it("sorted", () => expect(_sorted([3, 2, 1])).toEqual("sorted => [ 1, 2, 3 ]"));
+it("firstTwoCharacters", () => expect(_firstTwoCharacters("hello")).toEqual("firstTwoCharacters => he***"));

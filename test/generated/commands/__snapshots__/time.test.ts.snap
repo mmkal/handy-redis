@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/time.md example 1 1`] = `
 Array [
-  "await handy.time()  => 'isFinite => false'",
-  "await handy.time()  => 'isFinite => false'",
+  "await client.time()  => 'isFinite => false'",
+  "await client.time()  => 'isFinite => false'",
 ]
 `;

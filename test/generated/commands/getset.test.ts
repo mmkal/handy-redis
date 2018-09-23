@@ -1,31 +1,31 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it("scripts/redis-doc/commands/getset.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/getset.md");
     let snapshot: any;
     const commands = [
-        `await handy.incr("mycounter")`,
-        `await handy.getset("mycounter", "0")`,
-        `await handy.get("mycounter")`,
+        `await client.incr("mycounter")`,
+        `await client.getset("mycounter", "0")`,
+        `await client.get("mycounter")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.incr("mycounter"));
-        output.push(await handy.getset("mycounter", "0"));
-        output.push(await handy.get("mycounter"));
+        output.push(await client.incr("mycounter"));
+        output.push(await client.getset("mycounter", "0"));
+        output.push(await client.get("mycounter"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 37)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
@@ -36,18 +36,18 @@ it("scripts/redis-doc/commands/getset.md example 2", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/getset.md");
     let snapshot: any;
     const commands = [
-        `await handy.set("mykey", "Hello")`,
-        `await handy.getset("mykey", "World")`,
-        `await handy.get("mykey")`,
+        `await client.set("mykey", "Hello")`,
+        `await client.getset("mykey", "World")`,
+        `await client.get("mykey")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.set("mykey", "Hello"));
-        output.push(await handy.getset("mykey", "World"));
-        output.push(await handy.get("mykey"));
+        output.push(await client.set("mykey", "Hello"));
+        output.push(await client.getset("mykey", "World"));
+        output.push(await client.get("mykey"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 37)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

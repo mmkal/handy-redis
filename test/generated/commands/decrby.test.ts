@@ -1,29 +1,29 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it("scripts/redis-doc/commands/decrby.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/decrby.md");
     let snapshot: any;
     const commands = [
-        `await handy.set("mykey", "10")`,
-        `await handy.decrby("mykey", 3)`,
+        `await client.set("mykey", "10")`,
+        `await client.decrby("mykey", 3)`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.set("mykey", "10"));
-        output.push(await handy.decrby("mykey", 3));
+        output.push(await client.set("mykey", "10"));
+        output.push(await client.decrby("mykey", 3));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 31)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 32)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

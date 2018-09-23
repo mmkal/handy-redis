@@ -2,18 +2,18 @@
 
 exports[`scripts/redis-doc/commands/append.md example 1 1`] = `
 Array [
-  "await handy.exists('mykey')            => 0",
-  "await handy.append('mykey', 'Hello')   => 5",
-  "await handy.append('mykey', ' World')  => 11",
-  "await handy.get('mykey')               => 'Hello World'",
+  "await client.exists('mykey')            => 0",
+  "await client.append('mykey', 'Hello')   => 5",
+  "await client.append('mykey', ' World')  => 11",
+  "await client.get('mykey')               => 'Hello World'",
 ]
 `;
 
 exports[`scripts/redis-doc/commands/append.md example 2 1`] = `
 Array [
-  "await handy.append('ts', '0043')  => 4",
-  "await handy.append('ts', '0035')  => 8",
-  "await handy.getrange('ts', 0, 3)  => '0043'",
-  "await handy.getrange('ts', 4, 7)  => '0035'",
+  "await client.append('ts', '0043')  => 4",
+  "await client.append('ts', '0035')  => 8",
+  "await client.getrange('ts', 0, 3)  => '0043'",
+  "await client.getrange('ts', 4, 7)  => '0035'",
 ]
 `;

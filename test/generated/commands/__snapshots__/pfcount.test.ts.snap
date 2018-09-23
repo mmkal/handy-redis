@@ -2,11 +2,11 @@
 
 exports[`scripts/redis-doc/commands/pfcount.md example 1 1`] = `
 Array [
-  "await handy.pfadd('hll', 'foo', 'bar', 'zap')       => 1",
-  "await handy.pfadd('hll', 'zap', 'zap', 'zap')       => 0",
-  "await handy.pfadd('hll', 'foo', 'bar')              => 0",
-  "await handy.pfcount('hll')                          => 3",
-  "await handy.pfadd('some-other-hll', '1', '2', '3')  => 1",
-  "await handy.pfcount('hll', 'some-other-hll')        => 6",
+  "await client.pfadd('hll', 'foo', 'bar', 'zap')       => 1",
+  "await client.pfadd('hll', 'zap', 'zap', 'zap')       => 0",
+  "await client.pfadd('hll', 'foo', 'bar')              => 0",
+  "await client.pfcount('hll')                          => 3",
+  "await client.pfadd('some-other-hll', '1', '2', '3')  => 1",
+  "await client.pfcount('hll', 'some-other-hll')        => 6",
 ]
 `;

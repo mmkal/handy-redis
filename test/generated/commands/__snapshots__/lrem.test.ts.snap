@@ -2,11 +2,11 @@
 
 exports[`scripts/redis-doc/commands/lrem.md example 1 1`] = `
 Array [
-  "await handy.rpush('mylist', 'hello')     => 1",
-  "await handy.rpush('mylist', 'hello')     => 2",
-  "await handy.rpush('mylist', 'foo')       => 3",
-  "await handy.rpush('mylist', 'hello')     => 4",
-  "await handy.lrem('mylist', -2, 'hello')  => 2",
-  "await handy.lrange('mylist', 0, -1)      => ['hello','foo']",
+  "await client.rpush('mylist', 'hello')     => 1",
+  "await client.rpush('mylist', 'hello')     => 2",
+  "await client.rpush('mylist', 'foo')       => 3",
+  "await client.rpush('mylist', 'hello')     => 4",
+  "await client.lrem('mylist', -2, 'hello')  => 2",
+  "await client.lrange('mylist', 0, -1)      => ['hello','foo']",
 ]
 `;

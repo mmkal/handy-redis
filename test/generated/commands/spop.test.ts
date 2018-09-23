@@ -1,43 +1,43 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it("scripts/redis-doc/commands/spop.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/spop.md");
     let snapshot: any;
     const commands = [
-        `await handy.sadd("myset", "one")`,
-        `await handy.sadd("myset", "two")`,
-        `await handy.sadd("myset", "three")`,
-        `await handy.spop("myset")`,
-        `await handy.smembers("myset")`,
-        `await handy.sadd("myset", "four")`,
-        `await handy.sadd("myset", "five")`,
-        `await handy.spop("myset", 3)`,
-        `await handy.smembers("myset")`,
+        `await client.sadd("myset", "one")`,
+        `await client.sadd("myset", "two")`,
+        `await client.sadd("myset", "three")`,
+        `await client.spop("myset")`,
+        `await client.smembers("myset")`,
+        `await client.sadd("myset", "four")`,
+        `await client.sadd("myset", "five")`,
+        `await client.spop("myset", 3)`,
+        `await client.smembers("myset")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.sadd("myset", "one"));
-        output.push(await handy.sadd("myset", "two"));
-        output.push(await handy.sadd("myset", "three"));
-        output.push(await handy.spop("myset"));
-        output.push(await handy.smembers("myset"));
-        output.push(await handy.sadd("myset", "four"));
-        output.push(await handy.sadd("myset", "five"));
-        output.push(await handy.spop("myset", 3));
-        output.push(await handy.smembers("myset"));
+        output.push(await client.sadd("myset", "one"));
+        output.push(await client.sadd("myset", "two"));
+        output.push(await client.sadd("myset", "three"));
+        output.push(await client.spop("myset"));
+        output.push(await client.smembers("myset"));
+        output.push(await client.sadd("myset", "four"));
+        output.push(await client.sadd("myset", "five"));
+        output.push(await client.spop("myset", 3));
+        output.push(await client.smembers("myset"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 35)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 36)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

@@ -2,11 +2,11 @@
 
 exports[`scripts/redis-doc/commands/smove.md example 1 1`] = `
 Array [
-  "await handy.sadd('myset', 'one')                 => 1",
-  "await handy.sadd('myset', 'two')                 => 1",
-  "await handy.sadd('myotherset', 'three')          => 1",
-  "await handy.smove('myset', 'myotherset', 'two')  => 1",
-  "await handy.smembers('myset')                    => 'sorted => [ \\"one\\" ]'",
-  "await handy.smembers('myotherset')               => 'sorted => [ \\"three\\", \\"two\\" ]'",
+  "await client.sadd('myset', 'one')                 => 1",
+  "await client.sadd('myset', 'two')                 => 1",
+  "await client.sadd('myotherset', 'three')          => 1",
+  "await client.smove('myset', 'myotherset', 'two')  => 1",
+  "await client.smembers('myset')                    => 'sorted => [ \\"one\\" ]'",
+  "await client.smembers('myotherset')               => 'sorted => [ \\"three\\", \\"two\\" ]'",
 ]
 `;

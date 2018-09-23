@@ -1,27 +1,27 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it.skip("scripts/redis-doc/commands/swapdb.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/swapdb.md");
     let snapshot: any;
     const commands = [
-        "await handy.swapdb(0, 1)",
+        "await client.swapdb(0, 1)",
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.swapdb(0, 1));
+        output.push(await client.swapdb(0, 1));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 25)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 26)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/expire.md example 1 1`] = `
 Array [
-  "await handy.set('mykey', 'Hello')        => 'OK'",
-  "await handy.expire('mykey', 10)          => 1",
-  "await handy.ttl('mykey')                 => 10",
-  "await handy.set('mykey', 'Hello World')  => 'OK'",
-  "await handy.ttl('mykey')                 => -1",
+  "await client.set('mykey', 'Hello')        => 'OK'",
+  "await client.expire('mykey', 10)          => 1",
+  "await client.ttl('mykey')                 => 10",
+  "await client.set('mykey', 'Hello World')  => 'OK'",
+  "await client.ttl('mykey')                 => -1",
 ]
 `;

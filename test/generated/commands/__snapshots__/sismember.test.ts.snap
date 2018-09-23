@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/sismember.md example 1 1`] = `
 Array [
-  "await handy.sadd('myset', 'one')       => 1",
-  "await handy.sismember('myset', 'one')  => 1",
-  "await handy.sismember('myset', 'two')  => 0",
+  "await client.sadd('myset', 'one')       => 1",
+  "await client.sismember('myset', 'one')  => 1",
+  "await client.sismember('myset', 'two')  => 0",
 ]
 `;

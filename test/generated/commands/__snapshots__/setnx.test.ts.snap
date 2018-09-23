@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/setnx.md example 1 1`] = `
 Array [
-  "await handy.setnx('mykey', 'Hello')  => 1",
-  "await handy.setnx('mykey', 'World')  => 0",
-  "await handy.get('mykey')             => 'Hello'",
+  "await client.setnx('mykey', 'Hello')  => 1",
+  "await client.setnx('mykey', 'World')  => 0",
+  "await client.get('mykey')             => 'Hello'",
 ]
 `;

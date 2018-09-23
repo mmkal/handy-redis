@@ -1,31 +1,31 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it("scripts/redis-doc/commands/hvals.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/hvals.md");
     let snapshot: any;
     const commands = [
-        `await handy.hset("myhash", "field1", "Hello")`,
-        `await handy.hset("myhash", "field2", "World")`,
-        `await handy.hvals("myhash")`,
+        `await client.hset("myhash", "field1", "Hello")`,
+        `await client.hset("myhash", "field2", "World")`,
+        `await client.hvals("myhash")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.hset("myhash", "field1", "Hello"));
-        output.push(await handy.hset("myhash", "field2", "World"));
-        output.push(await handy.hvals("myhash"));
+        output.push(await client.hset("myhash", "field1", "Hello"));
+        output.push(await client.hset("myhash", "field2", "World"));
+        output.push(await client.hvals("myhash"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 46)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 47)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

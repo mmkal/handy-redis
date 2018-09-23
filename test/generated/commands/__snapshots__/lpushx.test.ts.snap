@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/lpushx.md example 1 1`] = `
 Array [
-  "await handy.lpush('mylist', 'World')        => 1",
-  "await handy.lpushx('mylist', 'Hello')       => 2",
-  "await handy.lpushx('myotherlist', 'Hello')  => 0",
-  "await handy.lrange('mylist', 0, -1)         => ['Hello','World']",
-  "await handy.lrange('myotherlist', 0, -1)    => []",
+  "await client.lpush('mylist', 'World')        => 1",
+  "await client.lpushx('mylist', 'Hello')       => 2",
+  "await client.lpushx('myotherlist', 'Hello')  => 0",
+  "await client.lrange('mylist', 0, -1)         => ['Hello','World']",
+  "await client.lrange('myotherlist', 0, -1)    => []",
 ]
 `;

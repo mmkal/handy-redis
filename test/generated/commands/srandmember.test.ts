@@ -1,33 +1,33 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it("scripts/redis-doc/commands/srandmember.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/srandmember.md");
     let snapshot: any;
     const commands = [
-        `await handy.sadd("myset", "one", "two", "three")`,
-        `await handy.srandmember("myset")`,
-        `await handy.srandmember("myset", 2)`,
-        `await handy.srandmember("myset", -5)`,
+        `await client.sadd("myset", "one", "two", "three")`,
+        `await client.srandmember("myset")`,
+        `await client.srandmember("myset", 2)`,
+        `await client.srandmember("myset", -5)`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.sadd("myset", "one", "two", "three"));
-        output.push(await handy.srandmember("myset"));
-        output.push(await handy.srandmember("myset", 2));
-        output.push(await handy.srandmember("myset", -5));
+        output.push(await client.sadd("myset", "one", "two", "three"));
+        output.push(await client.srandmember("myset"));
+        output.push(await client.srandmember("myset", 2));
+        output.push(await client.srandmember("myset", -5));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 50)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/msetnx.md example 1 1`] = `
 Array [
-  "await handy.msetnx(['key1', 'Hello'], ['key2', 'there'])  => 1",
-  "await handy.msetnx(['key2', 'there'], ['key3', 'world'])  => 0",
-  "await handy.mget('key1', 'key2', 'key3')                  => ['Hello','there',null]",
+  "await client.msetnx(['key1', 'Hello'], ['key2', 'there'])  => 1",
+  "await client.msetnx(['key2', 'there'], ['key3', 'world'])  => 0",
+  "await client.mget('key1', 'key2', 'key3')                  => ['Hello','there',null]",
 ]
 `;

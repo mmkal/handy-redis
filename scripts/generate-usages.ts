@@ -6,6 +6,7 @@ import { getCliExamples } from "./cli-examples";
 import { getBasicCommands, FullCommandInfo } from "./command";
 import * as tsc from "typescript";
 import { readFileSync } from "fs";
+import { warn } from "./log";
 
 const tokenizeCommand = (command: string) => {
     return (command
@@ -110,13 +111,12 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
         const { type } = arg;
         const arrayMatch = type.match(arrayRegex);
         const isTuple = tupleRegex.test(type);
-        const isVariadic = arg.name.startsWith("...");
 
         /** Formats the next literal token into the target list, coercing it into the target type first */
         const nextFormattedToken = (targetType = type) => {
             const literal = literalTokens[nextLiteralIndex++];
             if (typeof literal === "undefined") {
-                console.warn(`Ran out of literal tokens. command ${overloadInfo.name}, tokens: ${literalTokens.join(" ")}`);
+                warn(`Ran out of literal tokens. command ${overloadInfo.name}, tokens: ${literalTokens.join(" ")}`);
             }
             return targetType === "number" ? parseNumber(literal).toString() : quote(literal);
         };
@@ -135,7 +135,10 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             return `[${formattedTupleParts.join(", ")}]`;
         };
 
-        if (arrayMatch && isVariadic) {
+        if (isTuple) { // todo use ternary like above
+            const nextArg = nextFormattedTuple(type);
+            formattedArgs.push(nextArg);
+        } else if (arrayMatch) {
             const itemType = arrayMatch[1] || arrayMatch[2];
             const getNext = tupleRegex.test(itemType)
                 ? nextFormattedTuple
@@ -143,11 +146,6 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             while (nextLiteralIndex < literalTokens.length) {
                 formattedArgs.push(getNext(itemType));
             }
-        } else if (arrayMatch) {
-            throw new Error(`This is a genuine error. This library doesn't support arbitrary arrays not at the end of the argument list`);
-        } else if (isTuple) { // todo use ternary like above
-            const nextArg = nextFormattedTuple(type);
-            formattedArgs.push(nextArg);
         } else {
             // regular arg
             const nextArg = nextFormattedToken();
@@ -209,12 +207,12 @@ export const getReturnValuesFuncSrc = async () => {
 
             return [
                 `try {`,
-                `    console.log("running", "${command}", ${args});`,
+                `    logger.log("running", "${command}", ${args});`,
                 `    const value = await client.${command}(${args});`,
                 `    getOrCreate(${quote(formatted.overload.name)}).push(value);`,
-                `    console.log("ran", "${command}", ${args});`,
+                `    logger.log("ran", "${command}", ${args});`,
                 `} catch (e) {`,
-                `    console.error(e);`,
+                `    logger.error(e);`,
                 `}`,
             ].join(EOL);
         }));
@@ -222,6 +220,7 @@ export const getReturnValuesFuncSrc = async () => {
     const getReturnValuesTs = [
         `async (client) => {`,
         `    await client.ping();`,
+        `    const logger = require("${__dirname.replace(/\\/g, "/")}/log")`,
         `    const returnValues = new Map<string, any[]>();`,
         `    const getOrCreate = (commandName: string) => {`,
         `        if (!returnValues.has(commandName)) {`,

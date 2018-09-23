@@ -47,7 +47,7 @@ export const run = async (task: () => void | Promise<any>) => {
         await task();
         process.exit(0);
     } catch (e) {
-        console.error(e);
+        console.error(e); // tslint:disable-line no-console
         process.exit(1);
     }
 };

@@ -112,9 +112,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
-        SET_type_offset_value: ["SET", string, number, number],
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        type_offset: ["GET", string, number],
+        type_offset_value: ["SET", string, number, number],
+        type_offset_increment: ["INCRBY", string, number, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -140,9 +140,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
-        SET_type_offset_value: ["SET", string, number, number],
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
+        type_offset: ["GET", string, number],
+        type_offset_value: ["SET", string, number, number],
+        type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -167,8 +167,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
-        SET_type_offset_value: ["SET", string, number, number],
+        type_offset: ["GET", string, number],
+        type_offset_value: ["SET", string, number, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -194,8 +194,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
-        SET_type_offset_value: ["SET", string, number, number]
+        type_offset: ["GET", string, number],
+        type_offset_value: ["SET", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -220,8 +220,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        type_offset: ["GET", string, number],
+        type_offset_increment: ["INCRBY", string, number, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -247,8 +247,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
+        type_offset: ["GET", string, number],
+        type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -273,7 +273,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number],
+        type_offset: ["GET", string, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -299,7 +299,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        GET_type_offset: ["GET", string, number]
+        type_offset: ["GET", string, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -324,8 +324,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: ["SET", string, number, number],
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        type_offset_value: ["SET", string, number, number],
+        type_offset_increment: ["INCRBY", string, number, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -351,8 +351,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: ["SET", string, number, number],
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
+        type_offset_value: ["SET", string, number, number],
+        type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -377,7 +377,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: ["SET", string, number, number],
+        type_offset_value: ["SET", string, number, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -403,7 +403,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        SET_type_offset_value: ["SET", string, number, number]
+        type_offset_value: ["SET", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -428,7 +428,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number],
+        type_offset_increment: ["INCRBY", string, number, number],
         OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
@@ -454,7 +454,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        INCRBY_type_offset_increment: ["INCRBY", string, number, number]
+        type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -624,6 +624,44 @@ export interface IHandyRedis extends AdditionalFunctions {
         bit: number
     ): Promise<number>;
     /**
+     * summary: 'Remove and get the first element in a list, or block until one is available'
+     *
+     * complexity: O(1)
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     * since: 2.0.0
+     *
+     * group: list
+     */
+    blpop(
+        keys: string[],
+        timeout: number
+    ): Promise<any>;
+    /**
+     * summary: 'Remove and get the last element in a list, or block until one is available'
+     *
+     * complexity: O(1)
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     * since: 2.0.0
+     *
+     * group: list
+     */
+    brpop(
+        keys: string[],
+        timeout: number
+    ): Promise<any>;
+    /**
      * summary: 'Pop a value from a list, push it to another list and return it; or block until one is available'
      *
      * complexity: O(1)
@@ -786,7 +824,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     eval(
         script: string,
         numkeys: number,
-        ...key_arg_pairs: Array<[string, string]>
+        keys: string[],
+        args: string[]
     ): Promise<any>;
     /**
      * summary: 'Execute a Lua script server side'
@@ -810,7 +849,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     evalsha(
         sha1: string,
         numkeys: number,
-        ...key_arg_pairs: Array<[string, string]>
+        keys: string[],
+        args: string[]
     ): Promise<any>;
     /**
      * summary: 'Execute all commands issued after MULTI'
@@ -1076,7 +1116,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -1125,7 +1165,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -1173,7 +1213,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -1221,7 +1261,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -1268,7 +1308,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -1316,7 +1356,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -1363,7 +1403,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -1410,7 +1450,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1827,7 +1867,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -1875,7 +1915,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -1922,7 +1962,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -1969,7 +2009,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -2015,7 +2055,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -2062,7 +2102,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -2108,7 +2148,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -2154,7 +2194,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2563,7 +2603,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -2611,7 +2651,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -2658,7 +2698,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -2705,7 +2745,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -2751,7 +2791,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -2798,7 +2838,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -2844,7 +2884,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -2890,7 +2930,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3298,7 +3338,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -3345,7 +3385,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -3391,7 +3431,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -3437,7 +3477,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -3482,7 +3522,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -3528,7 +3568,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -3573,7 +3613,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -3618,7 +3658,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4019,7 +4059,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -4067,7 +4107,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -4114,7 +4154,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -4161,7 +4201,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -4207,7 +4247,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -4254,7 +4294,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -4300,7 +4340,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -4346,7 +4386,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4754,7 +4794,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -4801,7 +4841,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -4847,7 +4887,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -4893,7 +4933,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -4938,7 +4978,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -4984,7 +5024,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -5029,7 +5069,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -5074,7 +5114,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5474,7 +5514,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -5521,7 +5561,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -5567,7 +5607,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -5613,7 +5653,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -5658,7 +5698,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -5704,7 +5744,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -5749,7 +5789,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -5794,7 +5834,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6193,7 +6233,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -6239,7 +6279,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
@@ -6284,7 +6324,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -6329,7 +6369,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<any[]>;
     /**
@@ -6373,7 +6413,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
@@ -6418,7 +6458,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<any[]>;
     /**
@@ -6462,7 +6502,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
@@ -6506,7 +6546,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6897,7 +6937,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -6943,7 +6983,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -6988,7 +7028,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -7033,7 +7073,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -7077,7 +7117,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -7122,7 +7162,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -7166,7 +7206,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -7210,7 +7250,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7600,7 +7640,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -7645,7 +7685,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -7689,7 +7729,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -7733,7 +7773,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -7776,7 +7816,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -7820,7 +7860,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -7863,7 +7903,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -7906,7 +7946,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8288,7 +8328,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -8333,7 +8373,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -8377,7 +8417,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -8421,7 +8461,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -8464,7 +8504,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -8508,7 +8548,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -8551,7 +8591,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -8594,7 +8634,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8975,7 +9015,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -9019,7 +9059,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -9062,7 +9102,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -9105,7 +9145,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -9147,7 +9187,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -9190,7 +9230,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -9232,7 +9272,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -9274,7 +9314,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9648,7 +9688,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -9693,7 +9733,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -9737,7 +9777,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -9781,7 +9821,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -9824,7 +9864,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -9868,7 +9908,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -9911,7 +9951,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -9954,7 +9994,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10335,7 +10375,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -10379,7 +10419,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -10422,7 +10462,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -10465,7 +10505,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -10507,7 +10547,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -10550,7 +10590,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -10592,7 +10632,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -10634,7 +10674,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11007,7 +11047,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -11051,7 +11091,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -11094,7 +11134,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -11137,7 +11177,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -11179,7 +11219,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -11222,7 +11262,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -11264,7 +11304,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -11306,7 +11346,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11678,7 +11718,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
@@ -11721,7 +11761,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
@@ -11763,7 +11803,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC",
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -11805,7 +11845,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         order: "ASC" | "DESC"
     ): Promise<string[]>;
     /**
@@ -11846,7 +11886,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
@@ -11888,7 +11928,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STORE_key: ["STORE", string]
     ): Promise<string[]>;
     /**
@@ -11929,7 +11969,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number],
+        count: ["COUNT", number],
         STOREDIST_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
@@ -11970,7 +12010,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -13944,8 +13984,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: ["EX", number],
-        PX_milliseconds: ["PX", number],
+        seconds: ["EX", number],
+        milliseconds: ["PX", number],
         condition: "NX" | "XX"
     ): Promise<string>;
     /**
@@ -13972,8 +14012,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: ["EX", number],
-        PX_milliseconds: ["PX", number]
+        seconds: ["EX", number],
+        milliseconds: ["PX", number]
     ): Promise<string>;
     /**
      * summary: 'Set the string value of a key'
@@ -13999,7 +14039,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: ["EX", number],
+        seconds: ["EX", number],
         condition: "NX" | "XX"
     ): Promise<string>;
     /**
@@ -14026,7 +14066,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        EX_seconds: ["EX", number]
+        seconds: ["EX", number]
     ): Promise<string>;
     /**
      * summary: 'Set the string value of a key'
@@ -14052,7 +14092,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        PX_milliseconds: ["PX", number],
+        milliseconds: ["PX", number],
         condition: "NX" | "XX"
     ): Promise<string>;
     /**
@@ -14079,7 +14119,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        PX_milliseconds: ["PX", number]
+        milliseconds: ["PX", number]
     ): Promise<string>;
     /**
      * summary: 'Set the string value of a key'
@@ -14329,7 +14369,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     slowlog(
         subcommand: string,
-        argument: string
+        arg: string
     ): Promise<any>;
     /**
      * summary: 'Manages the Redis slow queries log'
@@ -14412,42 +14452,12 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
-        ...GET_patterns: Array<["GET", string]>
-    ): Promise<any>;
-    /**
-     * summary: 'Sort the elements in a list, set or sorted set'
-     *
-     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {command: BY, name: pattern, type: pattern, optional: true}
-     *
-     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
-     *
-     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
-     *
-     *     - {command: STORE, name: destination, type: key, optional: true}
-     *
-     * since: 1.0.0
-     *
-     * group: generic
-     */
-    sort(
-        key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14476,8 +14486,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -14508,10 +14519,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14540,8 +14552,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -14571,10 +14584,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14603,8 +14617,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -14634,9 +14649,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number],
-        STORE_destination: ["STORE", string]
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14665,37 +14681,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        LIMIT_offset_count: ["LIMIT", number, number]
-    ): Promise<any>;
-    /**
-     * summary: 'Sort the elements in a list, set or sorted set'
-     *
-     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
-     *
-     * arguments:
-     *
-     *     - {name: key, type: key}
-     *
-     *     - {command: BY, name: pattern, type: pattern, optional: true}
-     *
-     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
-     *
-     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
-     *
-     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
-     *
-     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
-     *
-     *     - {command: STORE, name: destination, type: key, optional: true}
-     *
-     * since: 1.0.0
-     *
-     * group: generic
-     */
-    sort(
-        key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         ...GET_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
@@ -14725,10 +14712,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14757,7 +14745,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -14788,9 +14777,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14819,7 +14809,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -14849,9 +14840,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14880,7 +14872,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -14910,8 +14903,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string],
-        STORE_destination: ["STORE", string]
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number],
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14940,7 +14934,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        BY_pattern: ["BY", string]
+        pattern: ["BY", string],
+        offset_count: ["LIMIT", number, number]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -14969,7 +14964,229 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
+        GET_patterns: Array<["GET", string]>,
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        pattern: ["BY", string],
         ...GET_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
@@ -14999,10 +15216,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15031,7 +15248,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -15062,9 +15279,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
         order: "ASC" | "DESC",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15093,7 +15310,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -15123,9 +15340,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15154,7 +15371,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
+        pattern: ["BY", string],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -15184,8 +15401,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number],
-        STORE_destination: ["STORE", string]
+        pattern: ["BY", string],
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15214,7 +15431,718 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        LIMIT_offset_count: ["LIMIT", number, number]
+        pattern: ["BY", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        GET_patterns: Array<["GET", string]>,
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        ...GET_patterns: Array<["GET", string]>
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        order: "ASC" | "DESC",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        order: "ASC" | "DESC"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number],
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        offset_count: ["LIMIT", number, number]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        order: "ASC" | "DESC"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        sorting: "ALPHA",
+        destination: ["STORE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        sorting: "ALPHA"
+    ): Promise<any>;
+    /**
+     * summary: 'Sort the elements in a list, set or sorted set'
+     *
+     * complexity: 'O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {command: BY, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: LIMIT, name: [offset, count], type: [integer, integer], optional: true}
+     *
+     *     - {command: GET, name: pattern, type: string, optional: true, multiple: true}
+     *
+     *     - {name: order, type: enum, enum: [ASC, DESC], optional: true}
+     *
+     *     - {name: sorting, type: enum, enum: [ALPHA], optional: true}
+     *
+     *     - {command: STORE, name: destination, type: key, optional: true}
+     *
+     * since: 1.0.0
+     *
+     * group: generic
+     */
+    sort(
+        key: string,
+        GET_patterns: Array<["GET", string]>,
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15274,7 +16202,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15334,7 +16262,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sort(
         key: string,
         order: "ASC" | "DESC",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15393,7 +16321,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sort(
         key: string,
         sorting: "ALPHA",
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15451,7 +16379,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        STORE_destination: ["STORE", string]
+        destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16111,6 +17039,88 @@ export interface IHandyRedis extends AdditionalFunctions {
     zinterstore(
         destination: string,
         numkeys: number,
+        keys: string[],
+        weight: ["WEIGHTS", number],
+        aggregate: ["AGGREGATE", "SUM" | "MIN" | "MAX"]
+    ): Promise<number>;
+    /**
+     * summary: 'Intersect multiple sorted sets and store the resulting sorted set in a new key'
+     *
+     * complexity: 'O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: destination, type: key}
+     *
+     *     - {name: numkeys, type: integer}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {command: WEIGHTS, name: weight, type: integer, variadic: true, optional: true}
+     *
+     *     - {command: AGGREGATE, name: aggregate, type: enum, enum: [SUM, MIN, MAX], optional: true}
+     *
+     * since: 2.0.0
+     *
+     * group: sorted_set
+     */
+    zinterstore(
+        destination: string,
+        numkeys: number,
+        keys: string[],
+        weight: ["WEIGHTS", number]
+    ): Promise<number>;
+    /**
+     * summary: 'Intersect multiple sorted sets and store the resulting sorted set in a new key'
+     *
+     * complexity: 'O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: destination, type: key}
+     *
+     *     - {name: numkeys, type: integer}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {command: WEIGHTS, name: weight, type: integer, variadic: true, optional: true}
+     *
+     *     - {command: AGGREGATE, name: aggregate, type: enum, enum: [SUM, MIN, MAX], optional: true}
+     *
+     * since: 2.0.0
+     *
+     * group: sorted_set
+     */
+    zinterstore(
+        destination: string,
+        numkeys: number,
+        keys: string[],
+        aggregate: ["AGGREGATE", "SUM" | "MIN" | "MAX"]
+    ): Promise<number>;
+    /**
+     * summary: 'Intersect multiple sorted sets and store the resulting sorted set in a new key'
+     *
+     * complexity: 'O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: destination, type: key}
+     *
+     *     - {name: numkeys, type: integer}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {command: WEIGHTS, name: weight, type: integer, variadic: true, optional: true}
+     *
+     *     - {command: AGGREGATE, name: aggregate, type: enum, enum: [SUM, MIN, MAX], optional: true}
+     *
+     * since: 2.0.0
+     *
+     * group: sorted_set
+     */
+    zinterstore(
+        destination: string,
+        numkeys: number,
         ...keys: string[]
     ): Promise<number>;
     /**
@@ -16207,7 +17217,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: string,
         max: string,
-        LIMIT_offset_count: ["LIMIT", number, number]
+        offset_count: ["LIMIT", number, number]
     ): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range'
@@ -16256,7 +17266,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: string,
         min: string,
-        LIMIT_offset_count: ["LIMIT", number, number]
+        offset_count: ["LIMIT", number, number]
     ): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
@@ -16308,7 +17318,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         min: number,
         max: number,
         withscores: "WITHSCORES",
-        LIMIT_offset_count: ["LIMIT", number, number]
+        offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
@@ -16362,7 +17372,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: number,
         max: number,
-        LIMIT_offset_count: ["LIMIT", number, number]
+        offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
@@ -16569,7 +17579,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         max: number,
         min: number,
         withscores: "WITHSCORES",
-        LIMIT_offset_count: ["LIMIT", number, number]
+        offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
@@ -16623,7 +17633,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: number,
         min: number,
-        LIMIT_offset_count: ["LIMIT", number, number]
+        offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
@@ -16713,6 +17723,88 @@ export interface IHandyRedis extends AdditionalFunctions {
     zunionstore(
         destination: string,
         numkeys: number,
+        keys: string[],
+        weight: ["WEIGHTS", number],
+        aggregate: ["AGGREGATE", "SUM" | "MIN" | "MAX"]
+    ): Promise<number>;
+    /**
+     * summary: 'Add multiple sorted sets and store the resulting sorted set in a new key'
+     *
+     * complexity: 'O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: destination, type: key}
+     *
+     *     - {name: numkeys, type: integer}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {command: WEIGHTS, name: weight, type: integer, variadic: true, optional: true}
+     *
+     *     - {command: AGGREGATE, name: aggregate, type: enum, enum: [SUM, MIN, MAX], optional: true}
+     *
+     * since: 2.0.0
+     *
+     * group: sorted_set
+     */
+    zunionstore(
+        destination: string,
+        numkeys: number,
+        keys: string[],
+        weight: ["WEIGHTS", number]
+    ): Promise<number>;
+    /**
+     * summary: 'Add multiple sorted sets and store the resulting sorted set in a new key'
+     *
+     * complexity: 'O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: destination, type: key}
+     *
+     *     - {name: numkeys, type: integer}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {command: WEIGHTS, name: weight, type: integer, variadic: true, optional: true}
+     *
+     *     - {command: AGGREGATE, name: aggregate, type: enum, enum: [SUM, MIN, MAX], optional: true}
+     *
+     * since: 2.0.0
+     *
+     * group: sorted_set
+     */
+    zunionstore(
+        destination: string,
+        numkeys: number,
+        keys: string[],
+        aggregate: ["AGGREGATE", "SUM" | "MIN" | "MAX"]
+    ): Promise<number>;
+    /**
+     * summary: 'Add multiple sorted sets and store the resulting sorted set in a new key'
+     *
+     * complexity: 'O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: destination, type: key}
+     *
+     *     - {name: numkeys, type: integer}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {command: WEIGHTS, name: weight, type: integer, variadic: true, optional: true}
+     *
+     *     - {command: AGGREGATE, name: aggregate, type: enum, enum: [SUM, MIN, MAX], optional: true}
+     *
+     * since: 2.0.0
+     *
+     * group: sorted_set
+     */
+    zunionstore(
+        destination: string,
+        numkeys: number,
         ...keys: string[]
     ): Promise<number>;
     /**
@@ -16734,8 +17826,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        MATCH_pattern: ["MATCH", string],
-        COUNT_count: ["COUNT", number]
+        pattern: ["MATCH", string],
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -16756,7 +17848,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        MATCH_pattern: ["MATCH", string]
+        pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -16777,7 +17869,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -16821,8 +17913,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        MATCH_pattern: ["MATCH", string],
-        COUNT_count: ["COUNT", number]
+        pattern: ["MATCH", string],
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -16846,7 +17938,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        MATCH_pattern: ["MATCH", string]
+        pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -16870,7 +17962,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -16917,8 +18009,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        MATCH_pattern: ["MATCH", string],
-        COUNT_count: ["COUNT", number]
+        pattern: ["MATCH", string],
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -16942,7 +18034,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        MATCH_pattern: ["MATCH", string]
+        pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -16966,7 +18058,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -17013,8 +18105,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        MATCH_pattern: ["MATCH", string],
-        COUNT_count: ["COUNT", number]
+        pattern: ["MATCH", string],
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
@@ -17038,7 +18130,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        MATCH_pattern: ["MATCH", string]
+        pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
@@ -17062,7 +18154,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        COUNT_count: ["COUNT", number]
+        count: ["COUNT", number]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'

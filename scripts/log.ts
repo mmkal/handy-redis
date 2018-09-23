@@ -3,7 +3,7 @@ import { load } from "dotenv-extended";
 load();
 
 const maybeLog = (logFn: Function, regex: string | undefined) => (...args: any[]) => {
-    if (regex === "" || args.join(" ").match(regex || ".*")) {
+    if (process.env.VERBOSE || regex === "" || args.join(" ").match(regex || ".*")) {
         logFn(...args);
     }
 };

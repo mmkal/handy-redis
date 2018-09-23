@@ -207,12 +207,12 @@ export const getReturnValuesFuncSrc = async () => {
 
             return [
                 `try {`,
-                `    console.log("running", "${command}", ${args});`,
+                `    logger.log("running", "${command}", ${args});`,
                 `    const value = await client.${command}(${args});`,
                 `    getOrCreate(${quote(formatted.overload.name)}).push(value);`,
-                `    console.log("ran", "${command}", ${args});`,
+                `    logger.log("ran", "${command}", ${args});`,
                 `} catch (e) {`,
-                `    console.error(e);`,
+                `    logger.error(e);`,
                 `}`,
             ].join(EOL);
         }));
@@ -220,6 +220,7 @@ export const getReturnValuesFuncSrc = async () => {
     const getReturnValuesTs = [
         `async (client) => {`,
         `    await client.ping();`,
+        `    const logger = require("${__dirname.replace(/\\/g, "/")}/log")`,
         `    const returnValues = new Map<string, any[]>();`,
         `    const getOrCreate = (commandName: string) => {`,
         `        if (!returnValues.has(commandName)) {`,

@@ -11,9 +11,10 @@ node_js:
 before_script:
   - npm prune
   - npm run redis:up -- -d && sleep 10
+script:
+  - npm run ci
 after_success:
-  - npm install -g travis-deploy-once
-  - travis-deploy-once "npm run release"
+  - if [ $TRAVIS_NODE_VERSION == '10' ]; then npm run release; fi
   - npm run coverage
 branches:
   except:

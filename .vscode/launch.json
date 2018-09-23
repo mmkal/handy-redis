@@ -9,7 +9,17 @@
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
-            "preLaunchTask": "build"
+            "preLaunchTask": "compile"
+        },
+        {
+            "name": "generate types",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/scripts/generate-types.js",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": "compile"
         },
         {
             "type": "node",

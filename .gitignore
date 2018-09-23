@@ -42,5 +42,12 @@ dist
 # Generated code
 *.js
 *.js.map
-src/generated
-test/generated/**/*.ts
+
+# my todo list
+todo.md
+
+# local package testing
+handy-redis-0.0.0-development.tgz
+
+# local environment variable overrides
+.env

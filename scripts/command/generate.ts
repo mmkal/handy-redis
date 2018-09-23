@@ -1,20 +1,16 @@
-import { stringify as yamlify } from "yamljs";
 import { Command, BasicCommandInfo, Argument, TypeScriptArg, CommandCollection } from "./types";
 import { getOverloads } from "../overloads";
-import { EOL } from "os";
 import { readFileSync } from "fs";
 import { redisDoc, simplifyName, makeArrayType, getDocs } from "../util";
 import * as _ from "lodash";
 import { createClient } from "redis";
-
-const warn = (...args: any[]) => {
-    // console.warn.apply(null, args);
-};
-const error: typeof console.error = (...args: any[]) => {
-    // console.error.apply(null, args);
-};
+import { flattenDeep } from "../../src/flatten";
+import { warn } from "../log";
 
 const typeFor = (arg: Argument): string => {
+    if (arg.command) {
+        return typeFor({ ...arg, type: flattenDeep([`"${arg.command}"`, arg.type]), command: undefined });
+    }
     switch (arg.type) {
         case "key":
         case "pattern":
@@ -33,7 +29,11 @@ const typeFor = (arg: Argument): string => {
                     const types = arg.type.map(t => typeFor({ ...arg, type: t })).join(", ");
                     return `[${types}]`;
                 }
-                console.warn(`Argument ${JSON.stringify(arg)} has unknown type "${arg.type}"`);
+                const literalValueRegex = /^"\w+"$/;
+                if (literalValueRegex.test(arg.type)) {
+                    return arg.type;
+                }
+                warn(`Argument ${JSON.stringify(arg)} has unknown type "${arg.type}"`);
                 return "any";
             }
     }
@@ -45,7 +45,10 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
         if (a.name) {
             nameParts.push(a.name);
         }
-        if (a.command) {
+        const previousArgsWithSameName = all
+            .slice(0, index)
+            .filter(other => other !== a && other.name === a.name);
+        if (a.command && (nameParts.length === 0 || previousArgsWithSameName.length > 0)) {
             nameParts.unshift(a.command);
         }
         const argJson = JSON.stringify(a);
@@ -64,38 +67,19 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
     });
 
     return getOverloads(baseArgs).map(allArgs => {
-        const numMultiples = allArgs.filter(a => a.multiple).length;
-        let firstMultipleIndex = allArgs.findIndex(a => !!a.multiple);
-        if (firstMultipleIndex === -1) {
-            firstMultipleIndex = allArgs.length;
-        }
-        if (firstMultipleIndex >= 0 && firstMultipleIndex !== allArgs.length - numMultiples) {
-            error(`"multiple" argument appears before the end of argument list:${EOL}${yamlify(allArgs)}.`);
-            return null;
-        }
-
         const typescriptArgs: TypeScriptArg[] = allArgs
-            .slice(0, firstMultipleIndex)
-            .map(a => ({ name: a.name, type: typeFor(a) }))
-            ;
-
-        if (numMultiples === 1) {
-            const lastArg = allArgs[allArgs.length - 1];
-            const argName = lastArg.name.replace("argument", "arg");
-            typescriptArgs.push({
-                name: `...${argName}s`,
-                type: makeArrayType(typeFor(lastArg)),
+            .map((argument, index, list) => {
+                let tsArgName = argument.name.replace("argument", "arg");
+                let tsArgType = typeFor(argument);
+                if (argument.multiple) {
+                    tsArgName += "s";
+                    tsArgType = makeArrayType(tsArgType);
+                    if (index === list.length - 1 && allArgs.filter(a => a.multiple).length <= 1) {
+                        tsArgName =  "..." + tsArgName;
+                    }
+                }
+                return { name: tsArgName, type: tsArgType };
             });
-        } else if (numMultiples > 1) {
-            const multipleArgs = allArgs.slice(firstMultipleIndex);
-            const tupleName = numMultiples === 2 ? "pair" : "tuple";
-            const grouping = multipleArgs.map(a => a.name).concat([tupleName]).join("_");
-            const groupingsTypes = multipleArgs.map(typeFor).join(", ");
-            typescriptArgs.push({
-                name: `...${grouping}s`,
-                type: makeArrayType(`[${groupingsTypes}]`),
-            });
-        }
 
         const docs = getDocs(command);
 

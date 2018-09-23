@@ -43,3 +43,10 @@ test("multi rejects correctly", async t => {
 
     await t.throws(client.execMulti(fakeMulti), "foo");
 });
+
+test("set with expiry", async t => {
+    const client = createHandyClient();
+    await client.set("a:foo", "123", ["EX", 60]);
+    const ttl = await client.ttl("a:foo");
+    t.true(ttl <= 60 && ttl > 55); // hopefully it didn't take over 5s to run a command...
+});

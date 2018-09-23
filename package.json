@@ -16,11 +16,10 @@
     "compile": "tsc -p .",
     "prebuild": "ts-node -D scripts/generate-types && ts-node scripts/generate-tests",
     "build": "tsc -p .",
+    "test": "jest",
     "lint": "tslint **/*.ts",
-    "pretest": "npm run build",
-    "test": "ava",
-    "jest": "jest",
-    "posttest": "npm run lint",
+    "check-clean": "if [ \"$(git status --porcelain)\" != '' ]; then git status && exit 1; fi",
+    "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
     "coverage": "nyc ava && nyc report --reporter=text-lcov | coveralls"
@@ -55,7 +54,7 @@
     "tabWidth": 4
   },
   "dependencies": {
-    "@types/redis": "^0.12.36",
+    "@types/redis": "^2.8.6",
     "redis": "^2.8.0"
   },
   "devDependencies": {
@@ -70,7 +69,9 @@
     "cross-spawn": "^6.0.5",
     "del-cli": "^1.1.0",
     "jest": "^23.5.0",
+    "dotenv-extended": "^2.3.0",
     "lodash": "^4.17.10",
+    "npm-run-all": "^4.1.3",
     "nyc": "^13.0.1",
     "prettier": "^1.14.2",
     "semantic-release": "^15.9.10",

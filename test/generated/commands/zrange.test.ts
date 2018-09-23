@@ -34,7 +34,7 @@ it("scripts/redis-doc/commands/zrange.md example 1", async () => {
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    expect(snapshot).toMatchInlineSnapshot();
+    expect(snapshot).toMatchSnapshot();
 });
 it("scripts/redis-doc/commands/zrange.md example 2", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zrange.md");
@@ -50,5 +50,5 @@ it("scripts/redis-doc/commands/zrange.md example 2", async () => {
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    expect(snapshot).toMatchInlineSnapshot();
+    expect(snapshot).toMatchSnapshot();
 });

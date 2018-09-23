@@ -28,5 +28,5 @@ it.skip("scripts/redis-doc/commands/unlink.md example 1", async () => {
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    expect(snapshot).toMatchInlineSnapshot();
+    expect(snapshot).toMatchSnapshot();
 });

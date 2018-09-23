@@ -221,7 +221,7 @@ export const generateTests = async () => {
             `} catch (err) {`,
             `    snapshot = { _commands: commands, _output: output, err };`,
             `}`,
-            `expect(snapshot).toMatchInlineSnapshot();`,
+            `expect(snapshot).toMatchSnapshot();`,
         ]
         .map(line => `${tab}${line}`);
 

@@ -24,5 +24,5 @@ it("scripts/redis-doc/commands/echo.md example 1", async () => {
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    expect(snapshot).toMatchInlineSnapshot();
+    expect(snapshot).toMatchSnapshot();
 });

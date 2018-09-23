@@ -16,7 +16,7 @@
     "compile": "tsc -p .",
     "prebuild": "ts-node -D scripts/generate-types && ts-node scripts/generate-tests",
     "build": "tsc -p .",
-    "test": "jest --runInBand --detectOpenHandles",
+    "test": "jest --runInBand --forceExit",
     "lint": "tslint **/*.ts",
     "check-clean": "if [ \"$(git status --porcelain)\" != '' ]; then git status && exit 1; fi",
     "ci": "run-s clean build test lint check-clean",

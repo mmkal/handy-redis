@@ -40,7 +40,7 @@ it("multi rejects correctly", async () => {
         exec: (callback: Function) => callback(new Error("foo")),
     } as any;
 
-    await expect(client.execMulti(fakeMulti)).rejects.toEqual("foo");
+    await expect(client.execMulti(fakeMulti)).rejects.toEqual(new Error("foo"));
 });
 
 it("set with expiry", async () => {

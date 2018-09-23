@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/hincrby.md example 1 1`] = `
 Array [
-  "await handy.hset('myhash', 'field', '5')     => 1",
-  "await handy.hincrby('myhash', 'field', 1)    => 6",
-  "await handy.hincrby('myhash', 'field', -1)   => 5",
-  "await handy.hincrby('myhash', 'field', -10)  => -5",
+  "await client.hset('myhash', 'field', '5')     => 1",
+  "await client.hincrby('myhash', 'field', 1)    => 6",
+  "await client.hincrby('myhash', 'field', -1)   => 5",
+  "await client.hincrby('myhash', 'field', -10)  => -5",
 ]
 `;

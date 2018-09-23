@@ -2,12 +2,12 @@
 
 exports[`scripts/redis-doc/commands/zrangebyscore.md example 1 1`] = `
 Array [
-  "await handy.zadd('myzset', [1, 'one'])                         => 1",
-  "await handy.zadd('myzset', [2, 'two'])                         => 1",
-  "await handy.zadd('myzset', [3, 'three'])                       => 1",
-  "await handy.zrangebyscore('myzset', -Infinity, Infinity)       => ['one','two','three']",
-  "await handy.zrangebyscore('myzset', 1, 2)                      => ['one','two']",
-  "await handy.zrangebyscore('myzset', '(1' as any, 2)            => ['two']",
-  "await handy.zrangebyscore('myzset', '(1' as any, '(2' as any)  => []",
+  "await client.zadd('myzset', [1, 'one'])                         => 1",
+  "await client.zadd('myzset', [2, 'two'])                         => 1",
+  "await client.zadd('myzset', [3, 'three'])                       => 1",
+  "await client.zrangebyscore('myzset', -Infinity, Infinity)       => ['one','two','three']",
+  "await client.zrangebyscore('myzset', 1, 2)                      => ['one','two']",
+  "await client.zrangebyscore('myzset', '(1' as any, 2)            => ['two']",
+  "await client.zrangebyscore('myzset', '(1' as any, '(2' as any)  => []",
 ]
 `;

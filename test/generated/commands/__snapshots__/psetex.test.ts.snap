@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/psetex.md example 1 1`] = `
 Array [
-  "await handy.psetex('mykey', 1000, 'Hello')  => 'OK'",
-  "await handy.pttl('mykey')                   => '[a number]'",
-  "await handy.get('mykey')                    => 'Hello'",
+  "await client.psetex('mykey', 1000, 'Hello')  => 'OK'",
+  "await client.pttl('mykey')                   => '[a number]'",
+  "await client.get('mykey')                    => 'Hello'",
 ]
 `;

@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/zcard.md example 1 1`] = `
 Array [
-  "await handy.zadd('myzset', [1, 'one'])  => 1",
-  "await handy.zadd('myzset', [2, 'two'])  => 1",
-  "await handy.zcard('myzset')             => 2",
+  "await client.zadd('myzset', [1, 'one'])  => 1",
+  "await client.zadd('myzset', [2, 'two'])  => 1",
+  "await client.zcard('myzset')             => 2",
 ]
 `;

@@ -2,14 +2,14 @@
 
 exports[`scripts/redis-doc/commands/spop.md example 1 1`] = `
 Array [
-  "await handy.sadd('myset', 'one')    => 'typeOf => number'",
-  "await handy.sadd('myset', 'two')    => 'typeOf => number'",
-  "await handy.sadd('myset', 'three')  => 'typeOf => number'",
-  "await handy.spop('myset')           => 'typeOf => string'",
-  "await handy.smembers('myset')       => 'arrayLength => 2'",
-  "await handy.sadd('myset', 'four')   => 'typeOf => number'",
-  "await handy.sadd('myset', 'five')   => 'typeOf => number'",
-  "await handy.spop('myset', 3)        => 'arrayLength => 3'",
-  "await handy.smembers('myset')       => 'arrayLength => 1'",
+  "await client.sadd('myset', 'one')    => 'typeOf => number'",
+  "await client.sadd('myset', 'two')    => 'typeOf => number'",
+  "await client.sadd('myset', 'three')  => 'typeOf => number'",
+  "await client.spop('myset')           => 'typeOf => string'",
+  "await client.smembers('myset')       => 'arrayLength => 2'",
+  "await client.sadd('myset', 'four')   => 'typeOf => number'",
+  "await client.sadd('myset', 'five')   => 'typeOf => number'",
+  "await client.spop('myset', 3)        => 'arrayLength => 3'",
+  "await client.smembers('myset')       => 'arrayLength => 1'",
 ]
 `;

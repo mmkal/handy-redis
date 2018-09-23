@@ -2,6 +2,6 @@
 
 exports[`scripts/redis-doc/commands/command-count.md example 1 1`] = `
 Array [
-  "await handy.command('COUNT')  => '[a number]'",
+  "await client.command('COUNT')  => '[a number]'",
 ]
 `;

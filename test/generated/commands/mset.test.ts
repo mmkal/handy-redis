@@ -1,31 +1,31 @@
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
-let handy: IHandyRedis;
+let client: IHandyRedis;
 beforeAll(async () => {
-    handy = createHandyClient();
-    await handy.ping("ping");
+    client = createHandyClient();
+    await client.ping("ping");
 });
 beforeEach(async () => {
-    await handy.flushall();
+    await client.flushall();
 });
 
 it("scripts/redis-doc/commands/mset.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/mset.md");
     let snapshot: any;
     const commands = [
-        `await handy.mset(["key1", "Hello"], ["key2", "World"])`,
-        `await handy.get("key1")`,
-        `await handy.get("key2")`,
+        `await client.mset(["key1", "Hello"], ["key2", "World"])`,
+        `await client.get("key1")`,
+        `await client.get("key2")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await handy.mset(["key1", "Hello"], ["key2", "World"]));
-        output.push(await handy.get("key1"));
-        output.push(await handy.get("key2"));
+        output.push(await client.mset(["key1", "Hello"], ["key2", "World"]));
+        output.push(await client.get("key1"));
+        output.push(await client.get("key2"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 55)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 56)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

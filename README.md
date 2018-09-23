@@ -23,7 +23,7 @@ import { createHandyClient } from 'handy-redis';
 
 (async function() {
     const client = createHandyClient();
-    // or, call createHandyClient(opts) using opts for https://npmjs.com/package/redis
+    // or, call createHandyClient(opts) using opts for https://www.npmjs.com/package/redis#rediscreateclient
     // or, call createHandyClient(oldClient) where oldClient is an existing node_redis client.
 
     await client.set('foo', 'bar');
@@ -49,7 +49,7 @@ The package is published with TypeScript types, with the redis documentation and
 
 ### Examples
 
-See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/generated/commands/snapshots) for tons of usage examples (look at the `.md` files).
+See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/generated/commands/__snapshots__) for tons of usage examples.
 
 ### Multi
 

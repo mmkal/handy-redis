@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/linsert.md example 1 1`] = `
 Array [
-  "await handy.rpush('mylist', 'Hello')                       => 1",
-  "await handy.rpush('mylist', 'World')                       => 2",
-  "await handy.linsert('mylist', 'BEFORE', 'World', 'There')  => 3",
-  "await handy.lrange('mylist', 0, -1)                        => ['Hello','There','World']",
+  "await client.rpush('mylist', 'Hello')                       => 1",
+  "await client.rpush('mylist', 'World')                       => 2",
+  "await client.linsert('mylist', 'BEFORE', 'World', 'There')  => 3",
+  "await client.lrange('mylist', 0, -1)                        => ['Hello','There','World']",
 ]
 `;

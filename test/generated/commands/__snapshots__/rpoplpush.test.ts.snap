@@ -2,11 +2,11 @@
 
 exports[`scripts/redis-doc/commands/rpoplpush.md example 1 1`] = `
 Array [
-  "await handy.rpush('mylist', 'one')              => 1",
-  "await handy.rpush('mylist', 'two')              => 2",
-  "await handy.rpush('mylist', 'three')            => 3",
-  "await handy.rpoplpush('mylist', 'myotherlist')  => 'three'",
-  "await handy.lrange('mylist', 0, -1)             => ['one','two']",
-  "await handy.lrange('myotherlist', 0, -1)        => ['three']",
+  "await client.rpush('mylist', 'one')              => 1",
+  "await client.rpush('mylist', 'two')              => 2",
+  "await client.rpush('mylist', 'three')            => 3",
+  "await client.rpoplpush('mylist', 'myotherlist')  => 'three'",
+  "await client.lrange('mylist', 0, -1)             => ['one','two']",
+  "await client.lrange('myotherlist', 0, -1)        => ['three']",
 ]
 `;

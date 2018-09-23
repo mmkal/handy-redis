@@ -2,15 +2,15 @@
 
 exports[`scripts/redis-doc/commands/setrange.md example 1 1`] = `
 Array [
-  "await handy.set('key1', 'Hello World')    => 'OK'",
-  "await handy.setrange('key1', 6, 'Redis')  => 11",
-  "await handy.get('key1')                   => 'Hello Redis'",
+  "await client.set('key1', 'Hello World')    => 'OK'",
+  "await client.setrange('key1', 6, 'Redis')  => 11",
+  "await client.get('key1')                   => 'Hello Redis'",
 ]
 `;
 
 exports[`scripts/redis-doc/commands/setrange.md example 2 1`] = `
 Array [
-  "await handy.setrange('key2', 6, 'Redis')  => 11",
-  "await handy.get('key2')                   => '\\\\u0000\\\\u0000\\\\u0000\\\\u0000\\\\u0000\\\\u0000Redis'",
+  "await client.setrange('key2', 6, 'Redis')  => 11",
+  "await client.get('key2')                   => '\\\\u0000\\\\u0000\\\\u0000\\\\u0000\\\\u0000\\\\u0000Redis'",
 ]
 `;

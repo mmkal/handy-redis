@@ -197,7 +197,7 @@ export const generateTests = async () => {
                 ? "// not implemented by node redis: "
                 : "";
 
-            return `${prefix}await handy.${command}(${args})`;
+            return `${prefix}await client.${command}(${args})`;
         });
 
         const longestCommand = _.maxBy(commandSrcs, src => src.length);
@@ -250,13 +250,13 @@ export const generateTests = async () => {
             `import { zip, padEnd } from "lodash";`,
             `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
             `import { getOverride } from "${dots}/_manual-overrides";`,
-            `let handy: IHandyRedis;`,
+            `let client: IHandyRedis;`,
             `beforeAll(async () => {`,
-            `    handy = createHandyClient();`,
-            `    await handy.ping("ping");`,
+            `    client = createHandyClient();`,
+            `    await client.ping("ping");`,
             `});`,
             `beforeEach(async () => {`,
-            `    await handy.flushall();`,
+            `    await client.flushall();`,
             `});`,
             ``,
             ...testGroup.map(t => t.testSrc),

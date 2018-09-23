@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/zrevrank.md example 1 1`] = `
 Array [
-  "await handy.zadd('myzset', [1, 'one'])    => 1",
-  "await handy.zadd('myzset', [2, 'two'])    => 1",
-  "await handy.zadd('myzset', [3, 'three'])  => 1",
-  "await handy.zrevrank('myzset', 'one')     => 2",
-  "await handy.zrevrank('myzset', 'four')    => null",
+  "await client.zadd('myzset', [1, 'one'])    => 1",
+  "await client.zadd('myzset', [2, 'two'])    => 1",
+  "await client.zadd('myzset', [3, 'three'])  => 1",
+  "await client.zrevrank('myzset', 'one')     => 2",
+  "await client.zrevrank('myzset', 'four')    => null",
 ]
 `;

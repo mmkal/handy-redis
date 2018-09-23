@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/pfadd.md example 1 1`] = `
 Array [
-  "await handy.pfadd('hll', 'a', 'b', 'c', 'd', 'e', 'f', 'g')  => 1",
-  "await handy.pfcount('hll')                                   => 7",
+  "await client.pfadd('hll', 'a', 'b', 'c', 'd', 'e', 'f', 'g')  => 1",
+  "await client.pfcount('hll')                                   => 7",
 ]
 `;

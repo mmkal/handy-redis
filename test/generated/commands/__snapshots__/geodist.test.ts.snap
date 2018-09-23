@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/geodist.md example 1 1`] = `
 Array [
-  "await handy.geoadd('Sicily', [13.361389, 38.115556, 'Palermo'], [15.087269, 37.502669, 'Catania'])  => 2",
-  "await handy.geodist('Sicily', 'Palermo', 'Catania')                                                 => '166274.??'",
-  "await handy.geodist('Sicily', 'Palermo', 'Catania', 'km')                                           => '166.??'",
-  "await handy.geodist('Sicily', 'Palermo', 'Catania', 'mi')                                           => '103.??'",
-  "await handy.geodist('Sicily', 'Foo', 'Bar')                                                         => null",
+  "await client.geoadd('Sicily', [13.361389, 38.115556, 'Palermo'], [15.087269, 37.502669, 'Catania'])  => 2",
+  "await client.geodist('Sicily', 'Palermo', 'Catania')                                                 => '166274.??'",
+  "await client.geodist('Sicily', 'Palermo', 'Catania', 'km')                                           => '166.??'",
+  "await client.geodist('Sicily', 'Palermo', 'Catania', 'mi')                                           => '103.??'",
+  "await client.geodist('Sicily', 'Foo', 'Bar')                                                         => null",
 ]
 `;

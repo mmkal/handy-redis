@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/hkeys.md example 1 1`] = `
 Array [
-  "await handy.hset('myhash', 'field1', 'Hello')  => 1",
-  "await handy.hset('myhash', 'field2', 'World')  => 1",
-  "await handy.hkeys('myhash')                    => ['field1','field2']",
+  "await client.hset('myhash', 'field1', 'Hello')  => 1",
+  "await client.hset('myhash', 'field2', 'World')  => 1",
+  "await client.hkeys('myhash')                    => ['field1','field2']",
 ]
 `;

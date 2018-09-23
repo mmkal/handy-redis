@@ -46,15 +46,7 @@ const checkType = (formattedArgs: string[], overloadInfo: BasicCommandInfo) => {
     if (formattedArgs.length !== overloadArgs.length) {
         return false;
     }
-    for (let i = 0; i < formattedArgs.length; i++) {
-        const formatted = formattedArgs[i];
-        const targetArg = overloadArgs[i];
-
-        if (!checkFormattedArgType(formatted, targetArg.type)) {
-            return false;
-        }
-    }
-    return true;
+    return formattedArgs.every((formatted, i) => checkFormattedArgType(formatted, overloadArgs[i].type));
 };
 
 const arrayRegex = /^Array<(.+)>|(.+)\[\]$/;

@@ -1,7 +1,5 @@
-import { stringify as yamlify } from "yamljs";
 import { Command, BasicCommandInfo, Argument, TypeScriptArg, CommandCollection } from "./types";
 import { getOverloads } from "../overloads";
-import { EOL } from "os";
 import { readFileSync } from "fs";
 import { redisDoc, simplifyName, makeArrayType, getDocs } from "../util";
 import * as _ from "lodash";
@@ -10,9 +8,6 @@ import { flattenDeep } from "../../src/flatten";
 
 const warn = (...args: any[]) => {
     // console.warn.apply(null, args);
-};
-const error: typeof console.error = (...args: any[]) => {
-    // console.error.apply(null, args);
 };
 
 const typeFor = (arg: Argument): string => {

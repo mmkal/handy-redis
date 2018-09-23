@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/more-cli-examples/readme.md example 1 1`] = `
+Array [
+  "await handy.set(\\"mykey\\", \\"foo\\")  => \\"OK\\"",
+  "await handy.get(\\"mykey\\")         => \\"foo\\"",
+]
+`;

@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/smove.md example 1 1`] = `
+Array [
+  "await handy.sadd(\\"myset\\", \\"one\\")                 => 1",
+  "await handy.sadd(\\"myset\\", \\"two\\")                 => 1",
+  "await handy.sadd(\\"myotherset\\", \\"three\\")          => 1",
+  "await handy.smove(\\"myset\\", \\"myotherset\\", \\"two\\")  => 0",
+  "await handy.smembers(\\"myset\\")                    => \\"sorted => []\\"",
+  "await handy.smembers(\\"myotherset\\")               => \\"sorted => []\\"",
+]
+`;

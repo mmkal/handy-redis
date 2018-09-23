@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/hstrlen.md example 1 1`] = `
+Array [
+  "await handy.hmset(\\"myhash\\", [\\"f1\\", \\"HelloWorld\\"], [\\"f2\\", \\"99\\"], [\\"f3\\", \\"-256\\"])  => \\"OK\\"",
+  "await handy.hstrlen(\\"myhash\\", \\"f1\\")                                              => 10",
+  "await handy.hstrlen(\\"myhash\\", \\"f2\\")                                              => 2",
+  "await handy.hstrlen(\\"myhash\\", \\"f3\\")                                              => 4",
+]
+`;

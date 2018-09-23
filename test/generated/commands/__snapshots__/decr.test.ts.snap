@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/decr.md example 1 1`] = `
+Object {
+  "_commands": Array [
+    "await handy.set(\\"mykey\\", \\"10\\")",
+    "await handy.decr(\\"mykey\\")",
+    "await handy.set(\\"mykey\\", \\"234293482390480948029348230948\\")",
+    "await handy.decr(\\"mykey\\")",
+  ],
+  "_output": Array [
+    "OK",
+    9,
+    "OK",
+  ],
+  "err": [ReplyError: ERR value is not an integer or out of range],
+}
+`;

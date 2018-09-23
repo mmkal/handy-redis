@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/hincrbyfloat.md example 1 1`] = `
+Object {
+  "_commands": Array [
+    "await handy.hset(\\"mykey\\", \\"field\\", \\"10.50\\")",
+    "await handy.hincrbyfloat(\\"mykey\\", \\"field\\", 0.1)",
+    "await handy.hincrbyfloat(\\"mykey\\", \\"field\\", -5)",
+    "await handy.hset(\\"mykey\\", \\"field\\", \\"5.0e3\\")",
+    "await handy.hincrbyfloat(\\"mykey\\", \\"field\\", 200)",
+  ],
+  "_output": Array [
+    1,
+    "10.6",
+  ],
+  "err": [ReplyError: WRONGTYPE Operation against a key holding the wrong kind of value],
+}
+`;

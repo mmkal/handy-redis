@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/hvals.md example 1 1`] = `
+Array [
+  "await handy.hset(\\"myhash\\", \\"field1\\", \\"Hello\\")  => 1",
+  "await handy.hset(\\"myhash\\", \\"field2\\", \\"World\\")  => 1",
+  "await handy.hvals(\\"myhash\\")                    => []",
+]
+`;

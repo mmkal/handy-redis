@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/time.md example 1 1`] = `
+Array [
+  "await handy.time()  => \\"isFinite => false\\"",
+  "await handy.time()  => \\"isFinite => false\\"",
+]
+`;

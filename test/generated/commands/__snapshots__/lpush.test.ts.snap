@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/lpush.md example 1 1`] = `
+Array [
+  "await handy.lpush(\\"mylist\\", \\"world\\")  => 1",
+  "await handy.lpush(\\"mylist\\", \\"hello\\")  => 2",
+  "await handy.lrange(\\"mylist\\", 0, -1)   => [\\"hello\\",\\"world\\"]",
+]
+`;

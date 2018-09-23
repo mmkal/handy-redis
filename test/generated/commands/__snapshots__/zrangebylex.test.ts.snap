@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/zrangebylex.md example 1 1`] = `
+Array [
+  "await handy.zadd(\\"myzset\\", [0, \\"a\\"], [0, \\"b\\"], [0, \\"c\\"], [0, \\"d\\"], [0, \\"e\\"], [0, \\"f\\"], [0, \\"g\\"])  => 7",
+  "await handy.zrangebylex(\\"myzset\\", \\"-\\", \\"[c\\")                                                      => [\\"a\\",\\"b\\",\\"c\\"]",
+  "await handy.zrangebylex(\\"myzset\\", \\"-\\", \\"(c\\")                                                      => []",
+  "await handy.zrangebylex(\\"myzset\\", \\"[aaa\\", \\"(g\\")                                                   => []",
+]
+`;

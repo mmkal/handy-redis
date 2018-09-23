@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/command-info.md example 1 1`] = `
+Array [
+  "await handy.command(\\"INFO\\", \\"get\\", \\"set\\", \\"eval\\")               => [[\\"get\\",2,[\\"readonly\\",\\"fast\\"],1,1,1],[\\"set\\",-3,[\\"write\\",\\"denyoom\\"],1,1,1],[\\"eval\\",-3,[\\"noscript\\",\\"movablekeys\\"],0,0,0]]",
+  "await handy.command(\\"INFO\\", \\"foo\\", \\"evalsha\\", \\"config\\", \\"bar\\")  => [null,[\\"evalsha\\",-3,[\\"noscript\\",\\"movablekeys\\"],0,0,0],[\\"config\\",-2,[\\"admin\\",\\"loading\\",\\"stale\\"],0,0,0],null]",
+]
+`;

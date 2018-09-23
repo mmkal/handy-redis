@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/incrbyfloat.md example 1 1`] = `
+Array [
+  "await handy.set(\\"mykey\\", \\"10.50\\")      => \\"OK\\"",
+  "await handy.incrbyfloat(\\"mykey\\", 0.1)  => \\"10.6\\"",
+  "await handy.incrbyfloat(\\"mykey\\", -5)   => \\"5.6\\"",
+  "await handy.set(\\"mykey\\", \\"5.0e3\\")      => \\"OK\\"",
+  "await handy.incrbyfloat(\\"mykey\\", 200)  => \\"5200\\"",
+]
+`;

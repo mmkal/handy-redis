@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/lrange.md example 1 1`] = `
+Array [
+  "await handy.rpush(\\"mylist\\", \\"one\\")       => 3",
+  "await handy.rpush(\\"mylist\\", \\"two\\")       => 4",
+  "await handy.rpush(\\"mylist\\", \\"three\\")     => 5",
+  "await handy.lrange(\\"mylist\\", 0, 0)       => []",
+  "await handy.lrange(\\"mylist\\", -3, 2)      => []",
+  "await handy.lrange(\\"mylist\\", -100, 100)  => []",
+  "await handy.lrange(\\"mylist\\", 5, 10)      => []",
+]
+`;

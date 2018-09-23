@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/psetex.md example 1 1`] = `
+Array [
+  "await handy.psetex(\\"mykey\\", 1000, \\"Hello\\")  => \\"OK\\"",
+  "await handy.pttl(\\"mykey\\")                   => \\"[a number]\\"",
+  "await handy.get(\\"mykey\\")                    => \\"Hello\\"",
+]
+`;

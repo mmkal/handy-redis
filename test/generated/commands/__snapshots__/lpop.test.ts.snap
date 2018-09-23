@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/lpop.md example 1 1`] = `
+Array [
+  "await handy.rpush(\\"mylist\\", \\"one\\")    => 1",
+  "await handy.rpush(\\"mylist\\", \\"two\\")    => 2",
+  "await handy.rpush(\\"mylist\\", \\"three\\")  => 4",
+  "await handy.lpop(\\"mylist\\")            => \\"Hello\\"",
+  "await handy.lrange(\\"mylist\\", 0, -1)   => []",
+]
+`;

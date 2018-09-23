@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/lrem.md example 1 1`] = `
+Array [
+  "await handy.rpush(\\"mylist\\", \\"hello\\")     => 1",
+  "await handy.rpush(\\"mylist\\", \\"hello\\")     => 2",
+  "await handy.rpush(\\"mylist\\", \\"foo\\")       => 1",
+  "await handy.rpush(\\"mylist\\", \\"hello\\")     => 2",
+  "await handy.lrem(\\"mylist\\", -2, \\"hello\\")  => 0",
+  "await handy.lrange(\\"mylist\\", 0, -1)      => []",
+]
+`;

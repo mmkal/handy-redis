@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/zcard.md example 1 1`] = `
+Array [
+  "await handy.zadd(\\"myzset\\", [1, \\"one\\"])  => 1",
+  "await handy.zadd(\\"myzset\\", [2, \\"two\\"])  => 1",
+  "await handy.zcard(\\"myzset\\")             => 2",
+]
+`;

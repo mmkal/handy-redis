@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/bitpos.md example 1 1`] = `
+Array [
+  "await handy.set(\\"mykey\\", \\"xffxf0x00\\")  => \\"OK\\"",
+  "await handy.bitpos(\\"mykey\\", 0)         => 0",
+  "await handy.set(\\"mykey\\", \\"x00xffxf0\\")  => \\"OK\\"",
+  "await handy.bitpos(\\"mykey\\", 1, 0)      => 1",
+  "await handy.bitpos(\\"mykey\\", 1, 2)      => 18",
+  "await handy.set(\\"mykey\\", \\"x00x00x00\\")  => \\"OK\\"",
+  "await handy.bitpos(\\"mykey\\", 1)         => 1",
+]
+`;

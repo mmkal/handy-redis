@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/pexpireat.md example 1 1`] = `
+Array [
+  "await handy.set(\\"mykey\\", \\"Hello\\")              => \\"typeOf => string\\"",
+  "await handy.pexpireat(\\"mykey\\", 1555555555005)  => \\"typeOf => number\\"",
+  "await handy.ttl(\\"mykey\\")                       => \\"typeOf => number\\"",
+  "await handy.pttl(\\"mykey\\")                      => \\"typeOf => number\\"",
+]
+`;

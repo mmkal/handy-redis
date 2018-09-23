@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/georadius.md example 1 1`] = `
+Array [
+  "await handy.geoadd(\\"Sicily\\", [13.361389, 38.115556, \\"Palermo\\"], [15.087269, 37.502669, \\"Catania\\"])  => 2",
+  "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHDIST\\")                                      => [[\\"Palermo\\",\\"190.??\\"],[\\"Catania\\",\\"56.??\\"]]",
+  "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHCOORD\\")                                     => []",
+  "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHDIST\\")                                      => []",
+]
+`;

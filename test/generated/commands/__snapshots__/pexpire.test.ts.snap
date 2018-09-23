@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/pexpire.md example 1 1`] = `
+Array [
+  "await handy.set(\\"mykey\\", \\"Hello\\")   => \\"OK\\"",
+  "await handy.pexpire(\\"mykey\\", 1500)  => \\"[a number]\\"",
+  "await handy.ttl(\\"mykey\\")            => -2",
+  "await handy.pttl(\\"mykey\\")           => -2",
+]
+`;

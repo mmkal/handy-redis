@@ -26,7 +26,9 @@ it("scripts/redis-doc/commands/bitop.md example 1", async () => {
         output.push(await handy.bitop("AND", "dest", "key1", "key2"));
         output.push(await handy.get("dest"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

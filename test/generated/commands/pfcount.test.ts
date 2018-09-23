@@ -30,7 +30,9 @@ it("scripts/redis-doc/commands/pfcount.md example 1", async () => {
         output.push(await handy.pfadd("some-other-hll", "1", "2", "3"));
         output.push(await handy.pfcount("hll", "some-other-hll"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 51)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 51)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

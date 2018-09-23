@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/get.md example 1 1`] = `
 Array [
-  "await handy.get(\\"nonexisting\\")     => null",
-  "await handy.set(\\"mykey\\", \\"Hello\\")  => \\"OK\\"",
-  "await handy.get(\\"mykey\\")           => \\"Hello\\"",
+  "await handy.get('nonexisting')     => null",
+  "await handy.set('mykey', 'Hello')  => 'OK'",
+  "await handy.get('mykey')           => 'Hello'",
 ]
 `;

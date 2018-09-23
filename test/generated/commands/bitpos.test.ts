@@ -32,7 +32,9 @@ it("scripts/redis-doc/commands/bitpos.md example 1", async () => {
         output.push(await handy.set("mykey", "x00x00x00"));
         output.push(await handy.bitpos("mykey", 1));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

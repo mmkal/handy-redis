@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/geoadd.md example 1 1`] = `
 Array [
-  "await handy.geoadd(\\"Sicily\\", [13.361389, 38.115556, \\"Palermo\\"], [15.087269, 37.502669, \\"Catania\\"])  => 2",
-  "await handy.geodist(\\"Sicily\\", \\"Palermo\\", \\"Catania\\")                                                 => \\"166274.??\\"",
-  "await handy.georadius(\\"Sicily\\", 15, 37, 100, \\"km\\")                                                  => [\\"Catania\\"]",
-  "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\")                                                  => [\\"Palermo\\",\\"Catania\\"]",
+  "await handy.geoadd('Sicily', [13.361389, 38.115556, 'Palermo'], [15.087269, 37.502669, 'Catania'])  => 2",
+  "await handy.geodist('Sicily', 'Palermo', 'Catania')                                                 => '166274.??'",
+  "await handy.georadius('Sicily', 15, 37, 100, 'km')                                                  => ['Catania']",
+  "await handy.georadius('Sicily', 15, 37, 200, 'km')                                                  => ['Palermo','Catania']",
 ]
 `;

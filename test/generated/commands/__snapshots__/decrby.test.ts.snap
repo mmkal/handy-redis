@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/decrby.md example 1 1`] = `
 Array [
-  "await handy.set(\\"mykey\\", \\"10\\")  => \\"OK\\"",
-  "await handy.decrby(\\"mykey\\", 3)  => 7",
+  "await handy.set('mykey', '10')  => 'OK'",
+  "await handy.decrby('mykey', 3)  => 7",
 ]
 `;

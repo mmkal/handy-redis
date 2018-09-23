@@ -26,7 +26,9 @@ it("scripts/redis-doc/commands/geoadd.md example 1", async () => {
         output.push(await handy.georadius("Sicily", 15, 37, 100, "km"));
         output.push(await handy.georadius("Sicily", 15, 37, 200, "km"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 99)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 99)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/scard.md example 1 1`] = `
 Array [
-  "await handy.sadd(\\"myset\\", \\"Hello\\")  => 1",
-  "await handy.sadd(\\"myset\\", \\"World\\")  => 1",
-  "await handy.scard(\\"myset\\")          => 2",
+  "await handy.sadd('myset', 'Hello')  => 1",
+  "await handy.sadd('myset', 'World')  => 1",
+  "await handy.scard('myset')          => 2",
 ]
 `;

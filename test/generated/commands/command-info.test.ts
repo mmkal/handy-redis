@@ -22,7 +22,9 @@ it("scripts/redis-doc/commands/command-info.md example 1", async () => {
         output.push(await handy.command("INFO", "get", "set", "eval"));
         output.push(await handy.command("INFO", "foo", "evalsha", "config", "bar"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 63)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 63)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

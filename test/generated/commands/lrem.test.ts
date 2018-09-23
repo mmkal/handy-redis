@@ -30,7 +30,9 @@ it("scripts/redis-doc/commands/lrem.md example 1", async () => {
         output.push(await handy.lrem("mylist", -2, "hello"));
         output.push(await handy.lrange("mylist", 0, -1));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 40)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 40)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

@@ -28,7 +28,9 @@ it("scripts/redis-doc/commands/zrem.md example 1", async () => {
         output.push(await handy.zrem("myzset", "two"));
         output.push(await handy.zrange("myzset", 0, -1, "WITHSCORES"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 50)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 50)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

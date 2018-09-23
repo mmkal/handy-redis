@@ -32,7 +32,9 @@ it("scripts/redis-doc/commands/zunionstore.md example 1", async () => {
         output.push(await handy.zunionstore("out", 2, "zset1", "zset2", "WEIGHTS", "2", "3"));
         output.push(await handy.zrange("out", 0, -1, "WITHSCORES"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 73)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 73)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/zadd.md example 1 1`] = `
 Array [
-  "await handy.zadd(\\"myzset\\", [1, \\"one\\"])                => 1",
-  "await handy.zadd(\\"myzset\\", [1, \\"uno\\"])                => 1",
-  "await handy.zadd(\\"myzset\\", [2, \\"two\\"], [3, \\"three\\"])  => 2",
-  "await handy.zrange(\\"myzset\\", 0, -1, \\"WITHSCORES\\")     => [\\"one\\",\\"1\\",\\"uno\\",\\"1\\",\\"two\\",\\"2\\",\\"three\\",\\"3\\"]",
+  "await handy.zadd('myzset', [1, 'one'])                => 1",
+  "await handy.zadd('myzset', [1, 'uno'])                => 1",
+  "await handy.zadd('myzset', [2, 'two'], [3, 'three'])  => 2",
+  "await handy.zrange('myzset', 0, -1, 'WITHSCORES')     => ['one','1','uno','1','two','2','three','3']",
 ]
 `;

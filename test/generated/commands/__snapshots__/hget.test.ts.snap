@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/hget.md example 1 1`] = `
 Array [
-  "await handy.hset(\\"myhash\\", \\"field1\\", \\"foo\\")  => 1",
-  "await handy.hget(\\"myhash\\", \\"field1\\")         => \\"foo\\"",
-  "await handy.hget(\\"myhash\\", \\"field2\\")         => null",
+  "await handy.hset('myhash', 'field1', 'foo')  => 1",
+  "await handy.hget('myhash', 'field1')         => 'foo'",
+  "await handy.hget('myhash', 'field2')         => null",
 ]
 `;

@@ -28,7 +28,9 @@ it("scripts/redis-doc/commands/geodist.md example 1", async () => {
         output.push(await handy.geodist("Sicily", "Palermo", "Catania", "mi"));
         output.push(await handy.geodist("Sicily", "Foo", "Bar"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 99)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 99)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

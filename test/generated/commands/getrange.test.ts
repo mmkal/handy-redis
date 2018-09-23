@@ -28,7 +28,9 @@ it("scripts/redis-doc/commands/getrange.md example 1", async () => {
         output.push(await handy.getrange("mykey", 0, -1));
         output.push(await handy.getrange("mykey", 10, 100));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 45)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 45)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

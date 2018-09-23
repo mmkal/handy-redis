@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/zscore.md example 1 1`] = `
 Array [
-  "await handy.zadd(\\"myzset\\", [1, \\"one\\"])  => 1",
-  "await handy.zscore(\\"myzset\\", \\"one\\")     => \\"1\\"",
+  "await handy.zadd('myzset', [1, 'one'])  => 1",
+  "await handy.zscore('myzset', 'one')     => '1'",
 ]
 `;

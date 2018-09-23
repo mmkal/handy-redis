@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/exists.md example 1 1`] = `
 Array [
-  "await handy.set(\\"key1\\", \\"Hello\\")                 => \\"OK\\"",
-  "await handy.exists(\\"key1\\")                       => 1",
-  "await handy.exists(\\"nosuchkey\\")                  => 0",
-  "await handy.set(\\"key2\\", \\"World\\")                 => \\"OK\\"",
-  "await handy.exists(\\"key1\\", \\"key2\\", \\"nosuchkey\\")  => 2",
+  "await handy.set('key1', 'Hello')                 => 'OK'",
+  "await handy.exists('key1')                       => 1",
+  "await handy.exists('nosuchkey')                  => 0",
+  "await handy.set('key2', 'World')                 => 'OK'",
+  "await handy.exists('key1', 'key2', 'nosuchkey')  => 2",
 ]
 `;

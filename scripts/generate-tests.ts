@@ -215,9 +215,9 @@ export const generateTests = async () => {
             `try {`,
             ...commandSrcs.map(cmd => cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`).map(indent),
             `    const overridenOutput = overrider(output);`,
-            `    snapshot = zip(commands, overridenOutput).map(pair => `
-                + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`"
-                + `);`,
+            `    snapshot = zip(commands, overridenOutput)`,
+            `        .map(pair => ` + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`" + `)`,
+            `        .map(expression => expression.replace(/['"]/g, q => q === \`'\` ? \`"\` : \`'\`));`,
             `} catch (err) {`,
             `    snapshot = { _commands: commands, _output: output, err };`,
             `}`,

@@ -28,7 +28,9 @@ it("scripts/redis-doc/commands/hincrbyfloat.md example 1", async () => {
         output.push(await handy.hset("mykey", "field", "5.0e3"));
         output.push(await handy.hincrbyfloat("mykey", "field", 200));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 48)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 48)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

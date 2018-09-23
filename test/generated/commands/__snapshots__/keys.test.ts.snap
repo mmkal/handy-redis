@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/keys.md example 1 1`] = `
 Array [
-  "await handy.mset([\\"one\\", \\"1\\"], [\\"two\\", \\"2\\"], [\\"three\\", \\"3\\"], [\\"four\\", \\"4\\"])  => \\"OK\\"",
-  "await handy.keys(\\"*o*\\")                                                      => \\"sorted => [ 'four', 'one', 'two' ]\\"",
-  "await handy.keys(\\"t??\\")                                                      => \\"sorted => [ 'two' ]\\"",
-  "await handy.keys(\\"*\\")                                                        => \\"sorted => [ 'four', 'one', 'three', 'two' ]\\"",
+  "await handy.mset(['one', '1'], ['two', '2'], ['three', '3'], ['four', '4'])  => 'OK'",
+  "await handy.keys('*o*')                                                      => 'sorted => [ \\"four\\", \\"one\\", \\"two\\" ]'",
+  "await handy.keys('t??')                                                      => 'sorted => [ \\"two\\" ]'",
+  "await handy.keys('*')                                                        => 'sorted => [ \\"four\\", \\"one\\", \\"three\\", \\"two\\" ]'",
 ]
 `;

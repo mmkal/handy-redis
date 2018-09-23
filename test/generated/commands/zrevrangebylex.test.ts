@@ -26,7 +26,9 @@ it("scripts/redis-doc/commands/zrevrangebylex.md example 1", async () => {
         output.push(await handy.zrevrangebylex("myzset", "(c", "-"));
         output.push(await handy.zrevrangebylex("myzset", "(g", "[aaa"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 97)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 97)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

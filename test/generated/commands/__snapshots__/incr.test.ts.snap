@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/incr.md example 1 1`] = `
 Array [
-  "await handy.set(\\"mykey\\", \\"10\\")  => \\"OK\\"",
-  "await handy.incr(\\"mykey\\")       => 11",
-  "await handy.get(\\"mykey\\")        => \\"11\\"",
+  "await handy.set('mykey', '10')  => 'OK'",
+  "await handy.incr('mykey')       => 11",
+  "await handy.get('mykey')        => '11'",
 ]
 `;

@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/strlen.md example 1 1`] = `
 Array [
-  "await handy.set(\\"mykey\\", \\"Hello world\\")  => \\"OK\\"",
-  "await handy.strlen(\\"mykey\\")              => 11",
-  "await handy.strlen(\\"nonexisting\\")        => 0",
+  "await handy.set('mykey', 'Hello world')  => 'OK'",
+  "await handy.strlen('mykey')              => 11",
+  "await handy.strlen('nonexisting')        => 0",
 ]
 `;

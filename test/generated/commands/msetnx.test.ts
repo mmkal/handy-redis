@@ -24,7 +24,9 @@ it("scripts/redis-doc/commands/msetnx.md example 1", async () => {
         output.push(await handy.msetnx(["key2", "there"], ["key3", "world"]));
         output.push(await handy.mget("key1", "key2", "key3"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 57)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 57)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

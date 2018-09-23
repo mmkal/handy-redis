@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/zrank.md example 1 1`] = `
 Array [
-  "await handy.zadd(\\"myzset\\", [1, \\"one\\"])    => 1",
-  "await handy.zadd(\\"myzset\\", [2, \\"two\\"])    => 1",
-  "await handy.zadd(\\"myzset\\", [3, \\"three\\"])  => 1",
-  "await handy.zrank(\\"myzset\\", \\"three\\")      => 2",
-  "await handy.zrank(\\"myzset\\", \\"four\\")       => null",
+  "await handy.zadd('myzset', [1, 'one'])    => 1",
+  "await handy.zadd('myzset', [2, 'two'])    => 1",
+  "await handy.zadd('myzset', [3, 'three'])  => 1",
+  "await handy.zrank('myzset', 'three')      => 2",
+  "await handy.zrank('myzset', 'four')       => null",
 ]
 `;

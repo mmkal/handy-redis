@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/srandmember.md example 1 1`] = `
 Array [
-  "await handy.sadd(\\"myset\\", \\"one\\", \\"two\\", \\"three\\")  => \\"typeOf => number\\"",
-  "await handy.srandmember(\\"myset\\")                  => \\"typeOf => string\\"",
-  "await handy.srandmember(\\"myset\\", 2)               => \\"arrayLength => 2\\"",
-  "await handy.srandmember(\\"myset\\", -5)              => \\"arrayLength => 5\\"",
+  "await handy.sadd('myset', 'one', 'two', 'three')  => 'typeOf => number'",
+  "await handy.srandmember('myset')                  => 'typeOf => string'",
+  "await handy.srandmember('myset', 2)               => 'arrayLength => 2'",
+  "await handy.srandmember('myset', -5)              => 'arrayLength => 5'",
 ]
 `;

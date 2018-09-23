@@ -32,7 +32,9 @@ it("scripts/redis-doc/commands/zrevrangebyscore.md example 1", async () => {
         output.push(await handy.zrevrangebyscore("myzset", 2, "(1" as any));
         output.push(await handy.zrevrangebyscore("myzset", "(2" as any, "(1" as any));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 65)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 65)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

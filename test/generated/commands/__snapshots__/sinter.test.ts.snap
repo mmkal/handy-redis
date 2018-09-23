@@ -2,12 +2,12 @@
 
 exports[`scripts/redis-doc/commands/sinter.md example 1 1`] = `
 Array [
-  "await handy.sadd(\\"key1\\", \\"a\\")       => 1",
-  "await handy.sadd(\\"key1\\", \\"b\\")       => 1",
-  "await handy.sadd(\\"key1\\", \\"c\\")       => 1",
-  "await handy.sadd(\\"key2\\", \\"c\\")       => 1",
-  "await handy.sadd(\\"key2\\", \\"d\\")       => 1",
-  "await handy.sadd(\\"key2\\", \\"e\\")       => 1",
-  "await handy.sinter(\\"key1\\", \\"key2\\")  => [\\"c\\"]",
+  "await handy.sadd('key1', 'a')       => 1",
+  "await handy.sadd('key1', 'b')       => 1",
+  "await handy.sadd('key1', 'c')       => 1",
+  "await handy.sadd('key2', 'c')       => 1",
+  "await handy.sadd('key2', 'd')       => 1",
+  "await handy.sadd('key2', 'e')       => 1",
+  "await handy.sinter('key1', 'key2')  => ['c']",
 ]
 `;

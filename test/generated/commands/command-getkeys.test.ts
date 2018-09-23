@@ -24,7 +24,9 @@ it("scripts/redis-doc/commands/command-getkeys.md example 1", async () => {
         output.push(await handy.command("GETKEYS", "EVAL", "not consulted", "3", "key1", "key2", "key3", "arg1", "arg2", "arg3", "argN"));
         output.push(await handy.command("GETKEYS", "SORT", "mylist", "ALPHA", "STORE", "outlist"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 117)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 117)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

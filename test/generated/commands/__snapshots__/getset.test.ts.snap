@@ -2,16 +2,16 @@
 
 exports[`scripts/redis-doc/commands/getset.md example 1 1`] = `
 Array [
-  "await handy.incr(\\"mycounter\\")         => 1",
-  "await handy.getset(\\"mycounter\\", \\"0\\")  => \\"1\\"",
-  "await handy.get(\\"mycounter\\")          => \\"0\\"",
+  "await handy.incr('mycounter')         => 1",
+  "await handy.getset('mycounter', '0')  => '1'",
+  "await handy.get('mycounter')          => '0'",
 ]
 `;
 
 exports[`scripts/redis-doc/commands/getset.md example 2 1`] = `
 Array [
-  "await handy.set(\\"mykey\\", \\"Hello\\")     => \\"OK\\"",
-  "await handy.getset(\\"mykey\\", \\"World\\")  => \\"Hello\\"",
-  "await handy.get(\\"mykey\\")              => \\"World\\"",
+  "await handy.set('mykey', 'Hello')     => 'OK'",
+  "await handy.getset('mykey', 'World')  => 'Hello'",
+  "await handy.get('mykey')              => 'World'",
 ]
 `;

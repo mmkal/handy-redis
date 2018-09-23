@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/dump.md example 1 1`] = `
 Array [
-  "await handy.set(\\"mykey\\", \\"10\\")  => \\"typeOf => string\\"",
-  "await handy.dump(\\"mykey\\")       => \\"typeOf => string\\"",
+  "await handy.set('mykey', '10')  => 'typeOf => string'",
+  "await handy.dump('mykey')       => 'typeOf => string'",
 ]
 `;

@@ -26,7 +26,9 @@ it("scripts/redis-doc/commands/hstrlen.md example 1", async () => {
         output.push(await handy.hstrlen("myhash", "f2"));
         output.push(await handy.hstrlen("myhash", "f3"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 80)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 80)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

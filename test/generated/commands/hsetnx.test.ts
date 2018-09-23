@@ -24,7 +24,9 @@ it("scripts/redis-doc/commands/hsetnx.md example 1", async () => {
         output.push(await handy.hsetnx("myhash", "field", "World"));
         output.push(await handy.hget("myhash", "field"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 47)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 47)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

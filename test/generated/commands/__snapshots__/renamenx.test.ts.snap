@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/renamenx.md example 1 1`] = `
 Array [
-  "await handy.set(\\"mykey\\", \\"Hello\\")            => \\"OK\\"",
-  "await handy.set(\\"myotherkey\\", \\"World\\")       => \\"OK\\"",
-  "await handy.renamenx(\\"mykey\\", \\"myotherkey\\")  => 0",
-  "await handy.get(\\"myotherkey\\")                => \\"World\\"",
+  "await handy.set('mykey', 'Hello')            => 'OK'",
+  "await handy.set('myotherkey', 'World')       => 'OK'",
+  "await handy.renamenx('mykey', 'myotherkey')  => 0",
+  "await handy.get('myotherkey')                => 'World'",
 ]
 `;

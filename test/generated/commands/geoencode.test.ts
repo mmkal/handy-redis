@@ -24,7 +24,9 @@ it("scripts/redis-doc/commands/geoencode.md example 1", async () => {
         output.push(await handy.zscore("Sicily", "Palermo"));
         output.push("// not implemented by node redis: await handy.geoencode(`Couldn't format arguments: Couldn't find command \"geoencode\"`)");
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 120)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 120)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

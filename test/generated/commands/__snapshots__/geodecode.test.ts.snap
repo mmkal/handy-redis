@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/geodecode.md example 1 1`] = `
 Array [
-  "await handy.geoadd(\\"Sicily\\", [13.361389, 38.115556, \\"Palermo\\"], [15.087269, 37.502669, \\"Catania\\"])                       => 2",
-  "await handy.zscore(\\"Sicily\\", \\"Palermo\\")                                                                                  => \\"3479099956230698\\"",
-  "// not implemented by node redis: await handy.geodecode(\`Couldn't format arguments: Couldn't find command \\"geodecode\\"\`)  => \\"// not implemented by node redis: await handy.geodecode(\`Couldn't format arguments: Couldn't find command \\\\\\"geodecode\\\\\\"\`)\\"",
+  "await handy.geoadd('Sicily', [13.361389, 38.115556, 'Palermo'], [15.087269, 37.502669, 'Catania'])                       => 2",
+  "await handy.zscore('Sicily', 'Palermo')                                                                                  => '3479099956230698'",
+  "// not implemented by node redis: await handy.geodecode(\`Couldn\\"t format arguments: Couldn\\"t find command 'geodecode'\`)  => '// not implemented by node redis: await handy.geodecode(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'geodecode\\\\'\`)'",
 ]
 `;

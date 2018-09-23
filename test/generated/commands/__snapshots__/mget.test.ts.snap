@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/mget.md example 1 1`] = `
 Array [
-  "await handy.set(\\"key1\\", \\"Hello\\")                 => \\"OK\\"",
-  "await handy.set(\\"key2\\", \\"World\\")                 => \\"OK\\"",
-  "await handy.mget(\\"key1\\", \\"key2\\", \\"nonexisting\\")  => [\\"Hello\\",\\"World\\",null]",
+  "await handy.set('key1', 'Hello')                 => 'OK'",
+  "await handy.set('key2', 'World')                 => 'OK'",
+  "await handy.mget('key1', 'key2', 'nonexisting')  => ['Hello','World',null]",
 ]
 `;

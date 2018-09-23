@@ -5,10 +5,7 @@ import { redisDoc, simplifyName, makeArrayType, getDocs } from "../util";
 import * as _ from "lodash";
 import { createClient } from "redis";
 import { flattenDeep } from "../../src/flatten";
-
-const warn = (...args: any[]) => {
-    // console.warn.apply(null, args);
-};
+import { warn } from "../log";
 
 const typeFor = (arg: Argument): string => {
     if (arg.command) {
@@ -36,7 +33,7 @@ const typeFor = (arg: Argument): string => {
                 if (literalValueRegex.test(arg.type)) {
                     return arg.type;
                 }
-                console.warn(`Argument ${JSON.stringify(arg)} has unknown type "${arg.type}"`);
+                warn(`Argument ${JSON.stringify(arg)} has unknown type "${arg.type}"`);
                 return "any";
             }
     }

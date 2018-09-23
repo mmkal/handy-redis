@@ -6,6 +6,7 @@ import { getCliExamples } from "./cli-examples";
 import { getBasicCommands, FullCommandInfo } from "./command";
 import * as tsc from "typescript";
 import { readFileSync } from "fs";
+import { warn } from "./log";
 
 const tokenizeCommand = (command: string) => {
     return (command
@@ -116,7 +117,7 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
         const nextFormattedToken = (targetType = type) => {
             const literal = literalTokens[nextLiteralIndex++];
             if (typeof literal === "undefined") {
-                console.warn(`Ran out of literal tokens. command ${overloadInfo.name}, tokens: ${literalTokens.join(" ")}`);
+                warn(`Ran out of literal tokens. command ${overloadInfo.name}, tokens: ${literalTokens.join(" ")}`);
             }
             return targetType === "number" ? parseNumber(literal).toString() : quote(literal);
         };

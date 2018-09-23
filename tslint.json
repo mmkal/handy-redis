@@ -4,7 +4,7 @@
     ],
     "rules": {
         "no-console": [
-            false
+            true
         ],
         "no-angle-bracket-type-assertion": false,
         "unified-signatures": false,

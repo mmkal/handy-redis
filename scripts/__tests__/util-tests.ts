@@ -1,13 +1,13 @@
 import { test } from "ava";
 import { quote } from "../util";
 
-test("quote empty string", t => t.is(quote(""), `""`));
+it("quotes empty string", () => expect(quote("")).toEqual(`""`));
 
-test("quote with double quotes", t => t.is(quote(`hello "foo"`), `\`hello "foo"\``));
+test("quote with double quotes", () => expect(quote(`hello "foo"`)).toEqual(`\`hello "foo"\``));
 
-test("quote with backtick", t => t.is(quote("hello `foo`"), `"hello \`foo\`"`));
+test("quote with backtick", () => expect(quote("hello `foo`")).toEqual(`"hello \`foo\`"`));
 
-test("quote with backtick and double quotes", t => {
+test("quote with backtick and double quotes", () => {
     const original = `hello \`foo\` you are "bar"`;
-    t.is(quote(original), JSON.stringify(original));
+    expect(quote(original)).toEqual(JSON.stringify(original));
 });

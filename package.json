@@ -38,6 +38,20 @@
     "url": "https://github.com/mmkal/handy-redis/issues"
   },
   "homepage": "https://github.com/mmkal/handy-redis#readme",
+  "jest": {
+    "transform": {
+        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": ".*.test.ts$",
+    "testURL": "http://localhost",
+    "moduleFileExtensions": [
+        "ts",
+        "tsx",
+        "js",
+        "jsx",
+        "json"
+    ]
+  },
   "ava": {
     "files": [
       "test",

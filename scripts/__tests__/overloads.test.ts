@@ -2,7 +2,7 @@ import test from "ava";
 import { Argument } from "../command";
 import { getOverloads } from "../overloads";
 
-test("get overloads", t => {
+test("get overloads", () => {
     const args: Argument[] = [
         { name: "a", type: "string" },
         { name: "b", type: "string", optional: true },
@@ -16,5 +16,5 @@ test("get overloads", t => {
         args.filter(a => a.name === "a")
     ];
 
-    t.deepEqual(overloads, expected);
+    expect(overloads).toEqual(expected);
 });

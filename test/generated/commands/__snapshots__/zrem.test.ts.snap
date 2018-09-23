@@ -6,6 +6,6 @@ Array [
   "await handy.zadd(\\"myzset\\", [2, \\"two\\"])             => 1",
   "await handy.zadd(\\"myzset\\", [3, \\"three\\"])           => 1",
   "await handy.zrem(\\"myzset\\", \\"two\\")                  => 1",
-  "await handy.zrange(\\"myzset\\", 0, -1, \\"WITHSCORES\\")  => [\\"f\\",\\"0\\",\\"g\\",\\"0\\",\\"one\\",\\"1\\",\\"three\\",\\"3\\"]",
+  "await handy.zrange(\\"myzset\\", 0, -1, \\"WITHSCORES\\")  => [\\"one\\",\\"1\\",\\"three\\",\\"3\\"]",
 ]
 `;

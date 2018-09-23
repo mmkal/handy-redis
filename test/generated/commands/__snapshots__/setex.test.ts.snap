@@ -4,6 +4,6 @@ exports[`scripts/redis-doc/commands/setex.md example 1 1`] = `
 Array [
   "await handy.setex(\\"mykey\\", 10, \\"Hello\\")  => \\"OK\\"",
   "await handy.ttl(\\"mykey\\")                 => 10",
-  "await handy.get(\\"mykey\\")                 => null",
+  "await handy.get(\\"mykey\\")                 => \\"Hello\\"",
 ]
 `;

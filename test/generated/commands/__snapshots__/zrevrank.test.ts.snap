@@ -5,7 +5,7 @@ Array [
   "await handy.zadd(\\"myzset\\", [1, \\"one\\"])    => 1",
   "await handy.zadd(\\"myzset\\", [2, \\"two\\"])    => 1",
   "await handy.zadd(\\"myzset\\", [3, \\"three\\"])  => 1",
-  "await handy.zrevrank(\\"myzset\\", \\"one\\")     => null",
+  "await handy.zrevrank(\\"myzset\\", \\"one\\")     => 2",
   "await handy.zrevrank(\\"myzset\\", \\"four\\")    => null",
 ]
 `;

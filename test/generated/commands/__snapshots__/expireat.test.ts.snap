@@ -3,8 +3,8 @@
 exports[`scripts/redis-doc/commands/expireat.md example 1 1`] = `
 Array [
   "await handy.set(\\"mykey\\", \\"Hello\\")          => \\"OK\\"",
-  "await handy.exists(\\"mykey\\")                => 1",
-  "await handy.expireat(\\"mykey\\", 1293840000)  => 1",
+  "await handy.exists(\\"mykey\\")                => 0",
+  "await handy.expireat(\\"mykey\\", 1293840000)  => 0",
   "await handy.exists(\\"mykey\\")                => 0",
 ]
 `;

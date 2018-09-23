@@ -1,21 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`scripts/redis-doc/commands/lset.md example 1 1`] = `
-Object {
-  "_commands": Array [
-    "await handy.rpush(\\"mylist\\", \\"one\\")",
-    "await handy.rpush(\\"mylist\\", \\"two\\")",
-    "await handy.rpush(\\"mylist\\", \\"three\\")",
-    "await handy.lset(\\"mylist\\", 0, \\"four\\")",
-    "await handy.lset(\\"mylist\\", -2, \\"five\\")",
-    "await handy.lrange(\\"mylist\\", 0, -1)",
-  ],
-  "_output": Array [
-    1,
-    2,
-    1,
-    "OK",
-  ],
-  "err": [ReplyError: ERR index out of range],
-}
+Array [
+  "await handy.rpush(\\"mylist\\", \\"one\\")      => 1",
+  "await handy.rpush(\\"mylist\\", \\"two\\")      => 2",
+  "await handy.rpush(\\"mylist\\", \\"three\\")    => 3",
+  "await handy.lset(\\"mylist\\", 0, \\"four\\")   => \\"OK\\"",
+  "await handy.lset(\\"mylist\\", -2, \\"five\\")  => \\"OK\\"",
+  "await handy.lrange(\\"mylist\\", 0, -1)     => [\\"four\\",\\"five\\",\\"three\\"]",
+]
 `;

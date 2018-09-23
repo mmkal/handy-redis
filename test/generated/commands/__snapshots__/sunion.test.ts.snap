@@ -8,6 +8,6 @@ Array [
   "await handy.sadd(\\"key2\\", \\"c\\")       => 1",
   "await handy.sadd(\\"key2\\", \\"d\\")       => 1",
   "await handy.sadd(\\"key2\\", \\"e\\")       => 1",
-  "await handy.sunion(\\"key1\\", \\"key2\\")  => \\"sorted => [ 'a', 'b', 'c', 'd', 'e' ]\\"",
+  "await handy.sunion(\\"key1\\", \\"key2\\")  => \\"sorted => [ 'b', 'c', 'd', 'e' ]\\"",
 ]
 `;

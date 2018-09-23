@@ -4,7 +4,7 @@ exports[`scripts/redis-doc/commands/zlexcount.md example 1 1`] = `
 Array [
   "await handy.zadd(\\"myzset\\", [0, \\"a\\"], [0, \\"b\\"], [0, \\"c\\"], [0, \\"d\\"], [0, \\"e\\"])  => 5",
   "await handy.zadd(\\"myzset\\", [0, \\"f\\"], [0, \\"g\\"])                                => 2",
-  "await handy.zlexcount(\\"myzset\\", \\"-\\", \\"+\\")                                     => 2",
-  "await handy.zlexcount(\\"myzset\\", \\"[b\\", \\"[f\\")                                   => 1",
+  "await handy.zlexcount(\\"myzset\\", \\"-\\", \\"+\\")                                     => 7",
+  "await handy.zlexcount(\\"myzset\\", \\"[b\\", \\"[f\\")                                   => 5",
 ]
 `;

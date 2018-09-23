@@ -4,7 +4,7 @@ exports[`scripts/redis-doc/commands/zincrby.md example 1 1`] = `
 Array [
   "await handy.zadd(\\"myzset\\", [1, \\"one\\"])             => 1",
   "await handy.zadd(\\"myzset\\", [2, \\"two\\"])             => 1",
-  "await handy.zincrby(\\"myzset\\", 2, \\"one\\")            => \\"2\\"",
-  "await handy.zrange(\\"myzset\\", 0, -1, \\"WITHSCORES\\")  => [\\"one\\",\\"2\\"]",
+  "await handy.zincrby(\\"myzset\\", 2, \\"one\\")            => \\"3\\"",
+  "await handy.zrange(\\"myzset\\", 0, -1, \\"WITHSCORES\\")  => [\\"two\\",\\"2\\",\\"one\\",\\"3\\"]",
 ]
 `;

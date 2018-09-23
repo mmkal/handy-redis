@@ -4,6 +4,6 @@ exports[`scripts/redis-doc/commands/setnx.md example 1 1`] = `
 Array [
   "await handy.setnx(\\"mykey\\", \\"Hello\\")  => 1",
   "await handy.setnx(\\"mykey\\", \\"World\\")  => 0",
-  "await handy.get(\\"mykey\\")             => \\"11\\"",
+  "await handy.get(\\"mykey\\")             => \\"Hello\\"",
 ]
 `;

@@ -4,8 +4,8 @@ exports[`scripts/redis-doc/commands/rpop.md example 1 1`] = `
 Array [
   "await handy.rpush(\\"mylist\\", \\"one\\")    => 1",
   "await handy.rpush(\\"mylist\\", \\"two\\")    => 2",
-  "await handy.rpush(\\"mylist\\", \\"three\\")  => 3",
+  "await handy.rpush(\\"mylist\\", \\"three\\")  => 1",
   "await handy.rpop(\\"mylist\\")            => \\"three\\"",
-  "await handy.lrange(\\"mylist\\", 0, -1)   => [\\"one\\",\\"two\\"]",
+  "await handy.lrange(\\"mylist\\", 0, -1)   => []",
 ]
 `;

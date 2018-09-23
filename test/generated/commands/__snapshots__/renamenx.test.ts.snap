@@ -1,17 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`scripts/redis-doc/commands/renamenx.md example 1 1`] = `
-Object {
-  "_commands": Array [
-    "await handy.set(\\"mykey\\", \\"Hello\\")",
-    "await handy.set(\\"myotherkey\\", \\"World\\")",
-    "await handy.renamenx(\\"mykey\\", \\"myotherkey\\")",
-    "await handy.get(\\"myotherkey\\")",
-  ],
-  "_output": Array [
-    "OK",
-    "OK",
-  ],
-  "err": [ReplyError: ERR no such key],
-}
+Array [
+  "await handy.set(\\"mykey\\", \\"Hello\\")            => \\"OK\\"",
+  "await handy.set(\\"myotherkey\\", \\"World\\")       => \\"OK\\"",
+  "await handy.renamenx(\\"mykey\\", \\"myotherkey\\")  => 0",
+  "await handy.get(\\"myotherkey\\")                => \\"World\\"",
+]
 `;

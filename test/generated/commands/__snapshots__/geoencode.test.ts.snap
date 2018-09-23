@@ -3,7 +3,7 @@
 exports[`scripts/redis-doc/commands/geoencode.md example 1 1`] = `
 Array [
   "await handy.geoadd(\\"Sicily\\", [13.361389, 38.115556, \\"Palermo\\"], [15.087269, 37.502669, \\"Catania\\"])                       => 2",
-  "await handy.zscore(\\"Sicily\\", \\"Palermo\\")                                                                                  => \\"3479099956230698\\"",
+  "await handy.zscore(\\"Sicily\\", \\"Palermo\\")                                                                                  => null",
   "// not implemented by node redis: await handy.geoencode(\`Couldn't format arguments: Couldn't find command \\"geoencode\\"\`)  => \\"// not implemented by node redis: await handy.geoencode(\`Couldn't format arguments: Couldn't find command \\\\\\"geoencode\\\\\\"\`)\\"",
 ]
 `;

@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/lindex.md example 1 1`] = `
 Array [
-  "await handy.lpush(\\"mylist\\", \\"World\\")  => 3",
-  "await handy.lpush(\\"mylist\\", \\"Hello\\")  => 5",
-  "await handy.lindex(\\"mylist\\", 0)       => \\"World\\"",
+  "await handy.lpush(\\"mylist\\", \\"World\\")  => 1",
+  "await handy.lpush(\\"mylist\\", \\"Hello\\")  => 2",
+  "await handy.lindex(\\"mylist\\", 0)       => null",
   "await handy.lindex(\\"mylist\\", -1)      => null",
   "await handy.lindex(\\"mylist\\", 3)       => null",
 ]

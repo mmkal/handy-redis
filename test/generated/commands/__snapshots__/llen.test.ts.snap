@@ -3,7 +3,7 @@
 exports[`scripts/redis-doc/commands/llen.md example 1 1`] = `
 Array [
   "await handy.lpush(\\"mylist\\", \\"World\\")  => 1",
-  "await handy.lpush(\\"mylist\\", \\"Hello\\")  => 2",
-  "await handy.llen(\\"mylist\\")            => 3",
+  "await handy.lpush(\\"mylist\\", \\"Hello\\")  => 1",
+  "await handy.llen(\\"mylist\\")            => 0",
 ]
 `;

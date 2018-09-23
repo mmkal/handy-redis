@@ -4,6 +4,6 @@ exports[`scripts/redis-doc/commands/setbit.md example 1 1`] = `
 Array [
   "await handy.setbit(\\"mykey\\", 7, \\"1\\")  => 0",
   "await handy.setbit(\\"mykey\\", 7, \\"0\\")  => 1",
-  "await handy.get(\\"mykey\\")             => \\"\\\\u0000\\"",
+  "await handy.get(\\"mykey\\")             => \\"x00x00x00\\"",
 ]
 `;

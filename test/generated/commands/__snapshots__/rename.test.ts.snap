@@ -4,6 +4,6 @@ exports[`scripts/redis-doc/commands/rename.md example 1 1`] = `
 Array [
   "await handy.set(\\"mykey\\", \\"Hello\\")          => \\"OK\\"",
   "await handy.rename(\\"mykey\\", \\"myotherkey\\")  => \\"OK\\"",
-  "await handy.get(\\"myotherkey\\")              => null",
+  "await handy.get(\\"myotherkey\\")              => \\"Hello\\"",
 ]
 `;

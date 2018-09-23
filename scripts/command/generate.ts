@@ -53,7 +53,10 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
         if (a.name) {
             nameParts.push(a.name);
         }
-        if (a.command) {
+        const previousArgsWithSameName = all
+            .slice(0, index)
+            .filter(other => other !== a && other.name === a.name);
+        if (a.command && (nameParts.length === 0 || previousArgsWithSameName.length > 0)) {
             nameParts.unshift(a.command);
         }
         const argJson = JSON.stringify(a);
@@ -72,38 +75,19 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
     });
 
     return getOverloads(baseArgs).map(allArgs => {
-        const numMultiples = allArgs.filter(a => a.multiple).length;
-        let firstMultipleIndex = allArgs.findIndex(a => !!a.multiple);
-        if (firstMultipleIndex === -1) {
-            firstMultipleIndex = allArgs.length;
-        }
-        if (firstMultipleIndex >= 0 && firstMultipleIndex !== allArgs.length - numMultiples) {
-            error(`"multiple" argument appears before the end of argument list:${EOL}${yamlify(allArgs)}.`);
-            return null;
-        }
-
         const typescriptArgs: TypeScriptArg[] = allArgs
-            .slice(0, firstMultipleIndex)
-            .map(a => ({ name: a.name, type: typeFor(a) }))
-            ;
-
-        if (numMultiples === 1) {
-            const lastArg = allArgs[allArgs.length - 1];
-            const argName = lastArg.name.replace("argument", "arg");
-            typescriptArgs.push({
-                name: `...${argName}s`,
-                type: makeArrayType(typeFor(lastArg)),
+            .map((a, i, list) => {
+                let tsArgName = a.name.replace("argument", "arg");
+                let tsArgType = typeFor(a);
+                if (a.multiple) {
+                    tsArgName += "s";
+                    tsArgType = makeArrayType(tsArgType);
+                    if (i === list.length - 1) {
+                        tsArgName =  "..." + tsArgName;
+                    }
+                }
+                return { name: tsArgName, type: tsArgType };
             });
-        } else if (numMultiples > 1) {
-            const multipleArgs = allArgs.slice(firstMultipleIndex);
-            const tupleName = numMultiples === 2 ? "pair" : "tuple";
-            const grouping = multipleArgs.map(a => a.name).concat([tupleName]).join("_");
-            const groupingsTypes = multipleArgs.map(typeFor).join(", ");
-            typescriptArgs.push({
-                name: `...${grouping}s`,
-                type: makeArrayType(`[${groupingsTypes}]`),
-            });
-        }
 
         const docs = getDocs(command);
 

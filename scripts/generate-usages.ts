@@ -143,8 +143,6 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             while (nextLiteralIndex < literalTokens.length) {
                 formattedArgs.push(getNext(itemType));
             }
-        } else if (arrayMatch) {
-            throw new Error(`This is a genuine error. This library doesn't support arbitrary arrays not at the end of the argument list`);
         } else if (isTuple) { // todo use ternary like above
             const nextArg = nextFormattedTuple(type);
             formattedArgs.push(nextArg);

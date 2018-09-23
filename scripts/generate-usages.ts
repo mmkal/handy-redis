@@ -111,7 +111,6 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
         const { type } = arg;
         const arrayMatch = type.match(arrayRegex);
         const isTuple = tupleRegex.test(type);
-        const isVariadic = arg.name.startsWith("...");
 
         /** Formats the next literal token into the target list, coercing it into the target type first */
         const nextFormattedToken = (targetType = type) => {
@@ -136,7 +135,10 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             return `[${formattedTupleParts.join(", ")}]`;
         };
 
-        if (arrayMatch && isVariadic) {
+        if (isTuple) { // todo use ternary like above
+            const nextArg = nextFormattedTuple(type);
+            formattedArgs.push(nextArg);
+        } else if (arrayMatch) {
             const itemType = arrayMatch[1] || arrayMatch[2];
             const getNext = tupleRegex.test(itemType)
                 ? nextFormattedTuple
@@ -144,9 +146,6 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             while (nextLiteralIndex < literalTokens.length) {
                 formattedArgs.push(getNext(itemType));
             }
-        } else if (isTuple) { // todo use ternary like above
-            const nextArg = nextFormattedTuple(type);
-            formattedArgs.push(nextArg);
         } else {
             // regular arg
             const nextArg = nextFormattedToken();

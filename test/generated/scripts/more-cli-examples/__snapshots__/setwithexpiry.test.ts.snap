@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/more-cli-examples/setwithexpiry.md example 1 1`] = `
+Array [
+  "await handy.set('foo', 'bar', ['EX', 60])  => 'OK'",
+]
+`;

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/mset.md example 1 1`] = `
+Array [
+  "await handy.mset(['key1', 'Hello'], ['key2', 'World'])  => 'OK'",
+  "await handy.get('key1')                                 => 'Hello'",
+  "await handy.get('key2')                                 => 'World'",
+]
+`;

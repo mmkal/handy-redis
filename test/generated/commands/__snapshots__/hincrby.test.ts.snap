@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/hincrby.md example 1 1`] = `
+Array [
+  "await handy.hset('myhash', 'field', '5')     => 1",
+  "await handy.hincrby('myhash', 'field', 1)    => 6",
+  "await handy.hincrby('myhash', 'field', -1)   => 5",
+  "await handy.hincrby('myhash', 'field', -10)  => -5",
+]
+`;

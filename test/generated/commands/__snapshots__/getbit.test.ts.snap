@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/getbit.md example 1 1`] = `
+Array [
+  "await handy.setbit('mykey', 7, '1')  => 0",
+  "await handy.getbit('mykey', 0)       => 0",
+  "await handy.getbit('mykey', 7)       => 1",
+  "await handy.getbit('mykey', 100)     => 0",
+]
+`;

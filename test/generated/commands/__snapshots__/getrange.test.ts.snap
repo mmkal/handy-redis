@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/getrange.md example 1 1`] = `
+Array [
+  "await handy.set('mykey', 'This is a string')  => 'OK'",
+  "await handy.getrange('mykey', 0, 3)           => 'This'",
+  "await handy.getrange('mykey', -3, -1)         => 'ing'",
+  "await handy.getrange('mykey', 0, -1)          => 'This is a string'",
+  "await handy.getrange('mykey', 10, 100)        => 'string'",
+]
+`;

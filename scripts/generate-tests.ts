@@ -215,13 +215,13 @@ export const generateTests = async () => {
             `try {`,
             ...commandSrcs.map(cmd => cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`).map(indent),
             `    const overridenOutput = overrider(output);`,
-            `    snapshot = zip(commands, overridenOutput).map(pair => `
-                + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`"
-                + `);`,
+            `    snapshot = zip(commands, overridenOutput)`,
+            `        .map(pair => ` + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`" + `)`,
+            `        .map(expression => expression.replace(/['"]/g, q => q === \`'\` ? \`"\` : \`'\`));`,
             `} catch (err) {`,
             `    snapshot = { _commands: commands, _output: output, err };`,
             `}`,
-            `t.snapshot(snapshot);`,
+            `expect(snapshot).toMatchSnapshot();`,
         ]
         .map(line => `${tab}${line}`);
 
@@ -229,10 +229,10 @@ export const generateTests = async () => {
             "scripts/redis-doc/commands/swapdb.md",
             "scripts/redis-doc/commands/unlink.md",
         ].indexOf(ex.example.file) > -1;
-        const runTest = isSkipped ? "test.skip" : "test";
+        const runTest = isSkipped ? "it.skip" : "it";
 
         const testSrc = [
-            `${runTest}(${quote(testName)}, async t => {`,
+            `${runTest}(${quote(testName)}, async () => {`,
             ...body,
             `});`,
         ]
@@ -247,19 +247,17 @@ export const generateTests = async () => {
         // determine how many "../"s will be needed to get to src folder based on example file path
         const dots = file.split("/").map(() => "..").join("/");
         return [
-            `import ava from "ava";`,
             `import { zip, padEnd } from "lodash";`,
             `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
             `import { getOverride } from "${dots}/_manual-overrides";`,
             `let handy: IHandyRedis;`,
-            `ava.before(async t => {`,
+            `beforeAll(async () => {`,
             `    handy = createHandyClient();`,
             `    await handy.ping("ping");`,
             `});`,
-            `ava.beforeEach(async t => {`,
+            `beforeEach(async () => {`,
             `    await handy.flushall();`,
             `});`,
-            `const test = ava.serial;`,
             ``,
             ...testGroup.map(t => t.testSrc),
             ``,

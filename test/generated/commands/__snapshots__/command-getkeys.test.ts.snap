@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/command-getkeys.md example 1 1`] = `
+Array [
+  "await handy.command('GETKEYS', 'MSET', 'a', 'b', 'c', 'd', 'e', 'f')                                                  => ['a','c','e']",
+  "await handy.command('GETKEYS', 'EVAL', 'not consulted', '3', 'key1', 'key2', 'key3', 'arg1', 'arg2', 'arg3', 'argN')  => ['key1','key2','key3']",
+  "await handy.command('GETKEYS', 'SORT', 'mylist', 'ALPHA', 'STORE', 'outlist')                                         => ['mylist','outlist']",
+]
+`;

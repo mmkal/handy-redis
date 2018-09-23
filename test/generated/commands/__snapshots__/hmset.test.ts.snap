@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/hmset.md example 1 1`] = `
+Array [
+  "await handy.hmset('myhash', ['field1', 'Hello'], ['field2', 'World'])  => 'OK'",
+  "await handy.hget('myhash', 'field1')                                   => 'Hello'",
+  "await handy.hget('myhash', 'field2')                                   => 'World'",
+]
+`;

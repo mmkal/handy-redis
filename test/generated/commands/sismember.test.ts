@@ -1,18 +1,16 @@
-import ava from "ava";
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
 let handy: IHandyRedis;
-ava.before(async t => {
+beforeAll(async () => {
     handy = createHandyClient();
     await handy.ping("ping");
 });
-ava.beforeEach(async t => {
+beforeEach(async () => {
     await handy.flushall();
 });
-const test = ava.serial;
 
-test("scripts/redis-doc/commands/sismember.md example 1", async t => {
+it("scripts/redis-doc/commands/sismember.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/sismember.md");
     let snapshot: any;
     const commands = [
@@ -26,9 +24,11 @@ test("scripts/redis-doc/commands/sismember.md example 1", async t => {
         output.push(await handy.sismember("myset", "one"));
         output.push(await handy.sismember("myset", "two"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    t.snapshot(snapshot);
+    expect(snapshot).toMatchSnapshot();
 });

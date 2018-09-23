@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/incrby.md example 1 1`] = `
+Array [
+  "await handy.set('mykey', '10')  => 'OK'",
+  "await handy.incrby('mykey', 5)  => 15",
+]
+`;

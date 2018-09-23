@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/hexists.md example 1 1`] = `
+Array [
+  "await handy.hset('myhash', 'field1', 'foo')  => 1",
+  "await handy.hexists('myhash', 'field1')      => 1",
+  "await handy.hexists('myhash', 'field2')      => 0",
+]
+`;

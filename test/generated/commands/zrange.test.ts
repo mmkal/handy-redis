@@ -1,18 +1,16 @@
-import ava from "ava";
 import { zip, padEnd } from "lodash";
 import { IHandyRedis, createHandyClient } from "../../../src";
 import { getOverride } from "../../_manual-overrides";
 let handy: IHandyRedis;
-ava.before(async t => {
+beforeAll(async () => {
     handy = createHandyClient();
     await handy.ping("ping");
 });
-ava.beforeEach(async t => {
+beforeEach(async () => {
     await handy.flushall();
 });
-const test = ava.serial;
 
-test("scripts/redis-doc/commands/zrange.md example 1", async t => {
+it("scripts/redis-doc/commands/zrange.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zrange.md");
     let snapshot: any;
     const commands = [
@@ -32,13 +30,15 @@ test("scripts/redis-doc/commands/zrange.md example 1", async t => {
         output.push(await handy.zrange("myzset", 2, 3));
         output.push(await handy.zrange("myzset", -2, -1));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 41)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 41)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    t.snapshot(snapshot);
+    expect(snapshot).toMatchSnapshot();
 });
-test("scripts/redis-doc/commands/zrange.md example 2", async t => {
+it("scripts/redis-doc/commands/zrange.md example 2", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zrange.md");
     let snapshot: any;
     const commands = [
@@ -48,9 +48,11 @@ test("scripts/redis-doc/commands/zrange.md example 2", async t => {
     try {
         output.push(await handy.zrange("myzset", 0, 1, "WITHSCORES"));
         const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput).map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`);
+        snapshot = zip(commands, overridenOutput)
+            .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
+            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
-    t.snapshot(snapshot);
+    expect(snapshot).toMatchSnapshot();
 });

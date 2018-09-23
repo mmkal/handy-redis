@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/srem.md example 1 1`] = `
+Array [
+  "await handy.sadd('myset', 'one')    => 1",
+  "await handy.sadd('myset', 'two')    => 1",
+  "await handy.sadd('myset', 'three')  => 1",
+  "await handy.srem('myset', 'one')    => 1",
+  "await handy.srem('myset', 'four')   => 0",
+  "await handy.smembers('myset')       => 'sorted => [ \\"three\\", \\"two\\" ]'",
+]
+`;

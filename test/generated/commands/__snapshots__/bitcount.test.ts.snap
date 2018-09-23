@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/bitcount.md example 1 1`] = `
+Array [
+  "await handy.set('mykey', 'foobar')     => 'OK'",
+  "await handy.bitcount('mykey')          => 26",
+  "await handy.bitcount('mykey', [0, 0])  => 4",
+  "await handy.bitcount('mykey', [1, 1])  => 6",
+]
+`;

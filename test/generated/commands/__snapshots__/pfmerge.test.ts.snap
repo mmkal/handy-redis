@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/pfmerge.md example 1 1`] = `
+Array [
+  "await handy.pfadd('hll1', 'foo', 'bar', 'zap', 'a')  => 1",
+  "await handy.pfadd('hll2', 'a', 'b', 'c', 'foo')      => 1",
+  "await handy.pfmerge('hll3', 'hll1', 'hll2')          => 'OK'",
+  "await handy.pfcount('hll3')                          => 6",
+]
+`;

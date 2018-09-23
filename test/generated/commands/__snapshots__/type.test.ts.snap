@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/type.md example 1 1`] = `
+Array [
+  "await handy.set('key1', 'value')    => 'OK'",
+  "await handy.lpush('key2', 'value')  => 1",
+  "await handy.sadd('key3', 'value')   => 1",
+  "await handy.type('key1')            => 'string'",
+  "await handy.type('key2')            => 'list'",
+  "await handy.type('key3')            => 'set'",
+]
+`;

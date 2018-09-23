@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/zcount.md example 1 1`] = `
+Array [
+  "await handy.zadd('myzset', [1, 'one'])             => 1",
+  "await handy.zadd('myzset', [2, 'two'])             => 1",
+  "await handy.zadd('myzset', [3, 'three'])           => 1",
+  "await handy.zcount('myzset', -Infinity, Infinity)  => 3",
+  "await handy.zcount('myzset', '(1' as any, 3)       => 2",
+]
+`;

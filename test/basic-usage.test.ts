@@ -1,8 +1,10 @@
 import { createHandyClient } from "../src";
 import { createClient, Multi } from "redis";
 
-it("creates client", () => {
-    expect(createHandyClient()).toBeTruthy();
+it("creates client", async () => {
+    const client = createHandyClient();
+    expect(client).toBeTruthy();
+    expect(await client.ping()).toBeTruthy();
 });
 
 it("creates client from node_redis", async () => {

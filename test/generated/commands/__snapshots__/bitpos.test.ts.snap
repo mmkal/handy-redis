@@ -6,7 +6,7 @@ Array [
   "await handy.bitpos(\\"mykey\\", 0)         => 0",
   "await handy.set(\\"mykey\\", \\"x00xffxf0\\")  => \\"OK\\"",
   "await handy.bitpos(\\"mykey\\", 1, 0)      => 1",
-  "await handy.bitpos(\\"mykey\\", 1, 2)      => -1",
+  "await handy.bitpos(\\"mykey\\", 1, 2)      => 18",
   "await handy.set(\\"mykey\\", \\"x00x00x00\\")  => \\"OK\\"",
   "await handy.bitpos(\\"mykey\\", 1)         => 1",
 ]

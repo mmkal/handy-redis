@@ -2,10 +2,10 @@
 
 exports[`scripts/redis-doc/commands/append.md example 1 1`] = `
 Array [
-  "await handy.exists(\\"mykey\\")            => 1",
-  "await handy.append(\\"mykey\\", \\"Hello\\")   => 10",
-  "await handy.append(\\"mykey\\", \\" World\\")  => 6",
-  "await handy.get(\\"mykey\\")               => null",
+  "await handy.exists(\\"mykey\\")            => 0",
+  "await handy.append(\\"mykey\\", \\"Hello\\")   => 5",
+  "await handy.append(\\"mykey\\", \\" World\\")  => 11",
+  "await handy.get(\\"mykey\\")               => \\"Hello World\\"",
 ]
 `;
 

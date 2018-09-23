@@ -4,6 +4,6 @@ exports[`scripts/redis-doc/commands/smembers.md example 1 1`] = `
 Array [
   "await handy.sadd(\\"myset\\", \\"Hello\\")  => 1",
   "await handy.sadd(\\"myset\\", \\"World\\")  => 1",
-  "await handy.smembers(\\"myset\\")       => \\"sorted => []\\"",
+  "await handy.smembers(\\"myset\\")       => \\"sorted => [ 'Hello', 'World' ]\\"",
 ]
 `;

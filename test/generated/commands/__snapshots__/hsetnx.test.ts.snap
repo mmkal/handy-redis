@@ -4,6 +4,6 @@ exports[`scripts/redis-doc/commands/hsetnx.md example 1 1`] = `
 Array [
   "await handy.hsetnx(\\"myhash\\", \\"field\\", \\"Hello\\")  => 1",
   "await handy.hsetnx(\\"myhash\\", \\"field\\", \\"World\\")  => 0",
-  "await handy.hget(\\"myhash\\", \\"field\\")             => null",
+  "await handy.hget(\\"myhash\\", \\"field\\")             => \\"Hello\\"",
 ]
 `;

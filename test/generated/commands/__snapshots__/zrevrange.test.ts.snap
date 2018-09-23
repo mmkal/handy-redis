@@ -5,8 +5,8 @@ Array [
   "await handy.zadd(\\"myzset\\", [1, \\"one\\"])    => 1",
   "await handy.zadd(\\"myzset\\", [2, \\"two\\"])    => 1",
   "await handy.zadd(\\"myzset\\", [3, \\"three\\"])  => 1",
-  "await handy.zrevrange(\\"myzset\\", 0, -1)    => [\\"three\\",\\"two\\"]",
-  "await handy.zrevrange(\\"myzset\\", 2, 3)     => []",
-  "await handy.zrevrange(\\"myzset\\", -2, -1)   => [\\"three\\",\\"two\\"]",
+  "await handy.zrevrange(\\"myzset\\", 0, -1)    => [\\"three\\",\\"two\\",\\"one\\"]",
+  "await handy.zrevrange(\\"myzset\\", 2, 3)     => [\\"one\\"]",
+  "await handy.zrevrange(\\"myzset\\", -2, -1)   => [\\"two\\",\\"one\\"]",
 ]
 `;

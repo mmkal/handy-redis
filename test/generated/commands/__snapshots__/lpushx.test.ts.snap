@@ -5,7 +5,7 @@ Array [
   "await handy.lpush(\\"mylist\\", \\"World\\")        => 1",
   "await handy.lpushx(\\"mylist\\", \\"Hello\\")       => 2",
   "await handy.lpushx(\\"myotherlist\\", \\"Hello\\")  => 0",
-  "await handy.lrange(\\"mylist\\", 0, -1)         => []",
+  "await handy.lrange(\\"mylist\\", 0, -1)         => [\\"Hello\\",\\"World\\"]",
   "await handy.lrange(\\"myotherlist\\", 0, -1)    => []",
 ]
 `;

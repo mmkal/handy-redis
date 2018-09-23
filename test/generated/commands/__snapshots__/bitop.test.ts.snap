@@ -4,7 +4,7 @@ exports[`scripts/redis-doc/commands/bitop.md example 1 1`] = `
 Array [
   "await handy.set(\\"key1\\", \\"foobar\\")                 => \\"OK\\"",
   "await handy.set(\\"key2\\", \\"abcdef\\")                 => \\"OK\\"",
-  "await handy.bitop(\\"AND\\", \\"dest\\", \\"key1\\", \\"key2\\")  => 0",
-  "await handy.get(\\"dest\\")                           => null",
+  "await handy.bitop(\\"AND\\", \\"dest\\", \\"key1\\", \\"key2\\")  => 6",
+  "await handy.get(\\"dest\\")                           => \\"\`bc\`ab\\"",
 ]
 `;

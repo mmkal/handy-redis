@@ -5,6 +5,6 @@ Array [
   "await handy.geoadd(\\"Sicily\\", [13.361389, 38.115556, \\"Palermo\\"], [15.087269, 37.502669, \\"Catania\\"])  => 2",
   "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHDIST\\")                                      => [[\\"Palermo\\",\\"190.??\\"],[\\"Catania\\",\\"56.??\\"]]",
   "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHCOORD\\")                                     => [[\\"Palermo\\",[\\"13.??\\",\\"38.??\\"]],[\\"Catania\\",[\\"15.??\\",\\"37.??\\"]]]",
-  "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHDIST\\")                                      => []",
+  "await handy.georadius(\\"Sicily\\", 15, 37, 200, \\"km\\", \\"WITHDIST\\")                                      => [[\\"Palermo\\",\\"190.??\\"],[\\"Catania\\",\\"56.??\\"]]",
 ]
 `;

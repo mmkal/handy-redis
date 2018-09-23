@@ -2,24 +2,25 @@ import { commandDoc, readdirWithPaths } from "./util";
 import { readFileSync } from "fs";
 import * as _ from "lodash";
 import * as spawn from "cross-spawn";
+import { log, warn, error } from "./log";
 
 export const getExampleRuns = async () => {
     const examples = getCliExamples();
     const redisCli = spawn("docker", ["exec", "-i", "handy_redis", "redis-cli", "--no-raw"], { env: process.env });
     redisCli.stdin.setDefaultEncoding("utf-8");
     const redisInteractor = {
-        onstdout: (data: string) => console.log(data),
-        onstderr: (data: string) => console.warn(data),
+        onstdout: (data: string) => log(data),
+        onstderr: (data: string) => warn(data),
         sendCommand: (command: string) => new Promise<Output>((resolve, reject) => {
             redisInteractor.onstdout = data => {
-                console.log(data);
+                log(data);
                 resolve(parseCommandOutput(command, data, null));
             };
             redisInteractor.onstderr = data => {
-                console.error(data);
+                error(data);
                 resolve(parseCommandOutput(command, null, data));
             };
-            console.log(">", command);
+            log(">", command);
             redisCli.stdin.write(`${command}\n`);
         }),
     };

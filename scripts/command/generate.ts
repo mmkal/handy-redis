@@ -68,13 +68,13 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
 
     return getOverloads(baseArgs).map(allArgs => {
         const typescriptArgs: TypeScriptArg[] = allArgs
-            .map((a, i, list) => {
-                let tsArgName = a.name.replace("argument", "arg");
-                let tsArgType = typeFor(a);
-                if (a.multiple) {
+            .map((argument, index, list) => {
+                let tsArgName = argument.name.replace("argument", "arg");
+                let tsArgType = typeFor(argument);
+                if (argument.multiple) {
                     tsArgName += "s";
                     tsArgType = makeArrayType(tsArgType);
-                    if (i === list.length - 1) {
+                    if (index === list.length - 1 && allArgs.filter(a => a.multiple).length <= 1) {
                         tsArgName =  "..." + tsArgName;
                     }
                 }

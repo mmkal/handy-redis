@@ -825,7 +825,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         script: string,
         numkeys: number,
         keys: string[],
-        ...args: string[]
+        args: string[]
     ): Promise<any>;
     /**
      * summary: 'Execute a Lua script server side'
@@ -850,7 +850,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         sha1: string,
         numkeys: number,
         keys: string[],
-        ...args: string[]
+        args: string[]
     ): Promise<any>;
     /**
      * summary: 'Execute all commands issued after MULTI'

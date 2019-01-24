@@ -1022,7 +1022,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     geopos(
         key: string,
         ...members: string[]
-    ): Promise<string[] | null[]>;
+    ): Promise<(string[] | null)[]>;
     /**
      * summary: 'Returns the distance between two members of a geospatial index'
      *
@@ -12579,7 +12579,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hmget(
         key: string,
         ...fields: string[]
-    ): Promise<string | null[]>;
+    ): Promise<(string | null)[]>;
     /**
      * summary: 'Set multiple hash fields to multiple values'
      *
@@ -12999,7 +12999,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     mget(
         ...keys: string[]
-    ): Promise<string | null[]>;
+    ): Promise<(string | null)[]>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
      *

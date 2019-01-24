@@ -248,7 +248,7 @@ const getReturnType = (sampleValues: any[] | undefined): string => {
     if (sampleValues.every(v => Array.isArray(v))) {
         const itemReturnTypes = new Set(sampleValues.map(getReturnType));
         if (itemReturnTypes.size === 1) {
-            let first = itemReturnTypes.values().next().value;
+            const first = itemReturnTypes.values().next().value;
             return `Array<${first}>`;
         }
         return "any[]";

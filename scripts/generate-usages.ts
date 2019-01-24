@@ -249,7 +249,7 @@ const getReturnType = (sampleValues: any[] | undefined): string => {
         const itemReturnTypes = new Set(sampleValues.map(getReturnType));
         if (itemReturnTypes.size === 1) {
             const first = itemReturnTypes.values().next().value;
-            return `${first}[]`;
+            return `(${first})[]`;
         }
         return "any[]";
     }

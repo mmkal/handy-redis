@@ -3,6 +3,7 @@
         "tslint:recommended"
     ],
     "rules": {
+        "array-type": false,
         "no-console": [
             true
         ],

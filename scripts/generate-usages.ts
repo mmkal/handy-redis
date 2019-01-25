@@ -230,6 +230,7 @@ export const getReturnValuesFuncSrc = async () => {
 
 type ReturnValuesMap = Map<string, any[]>;
 
+const simpleTokenRegex = /^\w+$/;
 const getReturnType = (sampleValues: any[] | undefined): string => {
     if (!sampleValues || sampleValues.length === 0) {
         return "any";
@@ -249,7 +250,7 @@ const getReturnType = (sampleValues: any[] | undefined): string => {
         const itemReturnTypes = new Set(sampleValues.map(getReturnType));
         if (itemReturnTypes.size === 1) {
             const first = itemReturnTypes.values().next().value;
-            return `Array<${first}>`;
+            return simpleTokenRegex.test(first) ? `${first}[]` : `Array<${first}>`;
         }
         return "any[]";
     }

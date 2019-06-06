@@ -22,7 +22,7 @@
     "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+    "coverage": "jest --runInBand --forceExit --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -75,12 +75,11 @@
     "cross-spawn": "^6.0.5",
     "del-cli": "^1.1.0",
     "dotenv-extended": "^2.3.0",
-    "jest": "^23.5.0",
+    "jest": "^24.8.0",
     "lodash": "^4.17.11",
     "npm-run-all": "^4.1.5",
-    "nyc": "^13.0.1",
     "prettier": "^1.14.2",
-    "semantic-release": "^15.13.15",
+    "semantic-release": "^15.13.12",
     "shelljs": "^0.7.7",
     "shx": "^0.2.2",
     "ts-jest": "^23.1.4",

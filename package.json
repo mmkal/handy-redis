@@ -22,7 +22,7 @@
     "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
-    "coverage": "jest --coverage --coverageReporters=text-lcov | coveralls"
+    "coverage": "jest --runInBand --forceExit --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",

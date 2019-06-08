@@ -22,7 +22,7 @@
     "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
-    "coverage": "jest --runInBand --forceExit --detectOpenHandles --coverage",
+    "coverage": "npm run test -- --coverage",
     "coveralls": "npm run coverage -- --coverageReporters=text-lcov | coveralls"
   },
   "repository": {

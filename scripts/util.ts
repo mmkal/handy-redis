@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { stringify as yamlify } from "yamljs";
 import { Command } from "./command";
 import { EOL } from "os";

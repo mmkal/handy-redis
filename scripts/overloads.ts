@@ -1,9 +1,11 @@
+/* istanbul ignore file */
 import { Argument } from "./command";
+import { get } from "lodash";
 
 export const getOverloads = (args: Argument[]): Argument[][] => {
     if (args.length <= 1) {
         const overloads = [args];
-        if (args[0] && args[0].optional) {
+        if (get(args, "[0].optional")) {
             overloads.push([]);
         }
         return overloads;

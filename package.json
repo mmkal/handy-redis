@@ -22,7 +22,8 @@
     "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
-    "coverage": "jest --runInBand --forceExit --detectOpenHandles --coverage --coverageReporters=text-lcov | coveralls"
+    "coverage": "npm run test -- --coverage",
+    "coveralls": "npm run coverage -- --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -50,11 +51,6 @@
       "js",
       "jsx",
       "json"
-    ]
-  },
-  "nyc": {
-    "include": [
-      "src/*"
     ]
   },
   "prettier": {

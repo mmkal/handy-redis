@@ -8,13 +8,14 @@ notifications:
 node_js:
   - '8'
   - '10'
+  - '12'
 before_script:
   - npm prune
   - npm run redis:up -- -d && sleep 10
 script:
   - npm run ci
 after_success:
-  - if [ $TRAVIS_NODE_VERSION == '10' ]; then
+  - if [ $TRAVIS_NODE_VERSION == '12' ]; then
   -  npm run release
   -  npm run coveralls
   - fi

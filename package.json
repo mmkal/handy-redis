@@ -7,7 +7,7 @@
     "dist"
   ],
   "engines": {
-    "node": ">8"
+    "node": ">= 8.0.0"
   },
   "types": "dist/index.d.ts",
   "scripts": {

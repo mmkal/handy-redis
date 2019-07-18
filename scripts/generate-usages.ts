@@ -213,12 +213,12 @@ export const getReturnValuesFuncSrc = async () => {
         `async (client) => {`,
         `    await client.ping();`,
         `    const logger = require("${__dirname.replace(/\\/g, "/")}/log")`,
-        `    const returnValues = new Map<string, any[]>();`,
+        `    const returnValues = {};`,
         `    const getOrCreate = (commandName: string) => {`,
-        `        if (!returnValues.has(commandName)) {`,
-        `            returnValues.set(commandName, []);`,
+        `        if (!returnValues[commandName]) {`,
+        `            returnValues[commandName] = [];`,
         `        }`,
-        `        return returnValues.get(commandName)!;`,
+        `        return returnValues[commandName]!;`,
         `    };`,
         ..._.flatten(usages).map(indent),
         `    return returnValues;`,
@@ -228,7 +228,7 @@ export const getReturnValuesFuncSrc = async () => {
     return tsc.transpile(getReturnValuesTs, JSON.parse(readFileSync("tsconfig.json", "utf8")).compilerOptions);
 };
 
-type ReturnValuesMap = Map<string, any[]>;
+type ReturnValuesMap = Record<string, any[]>;
 
 const simpleTokenRegex = /^\w+$/;
 const getReturnType = (sampleValues: any[] | undefined): string => {
@@ -261,8 +261,8 @@ const getFullCommandsInfo = (returnValues: ReturnValuesMap) => {
     const basicCommandsInfo = getBasicCommands();
     return basicCommandsInfo.map(basicInfo => <FullCommandInfo> {
         ...basicInfo,
-        returnType: getReturnType(returnValues.get(basicInfo.name)),
-        sampleReturnValues: returnValues.get(basicInfo.name) || [],
+        returnType: getReturnType(returnValues[basicInfo.name]),
+        sampleReturnValues: returnValues[basicInfo.name] || [],
     });
 };
 

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/more-cli-examples/set-xx-nx.md example 1 1`] = `
+Array [
+  "await client.set('foo', 'bar1', 'XX')  => null",
+  "await client.set('foo', 'bar2', 'XX')  => null",
+  "await client.set('bar', 'foo1', 'NX')  => 'OK'",
+  "await client.set('bar', 'foo2', 'NX')  => null",
+]
+`;

@@ -13987,7 +13987,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         seconds: ["EX", number],
         milliseconds: ["PX", number],
         condition: "NX" | "XX"
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14014,7 +14014,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         value: string,
         seconds: ["EX", number],
         milliseconds: ["PX", number]
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14041,7 +14041,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         value: string,
         seconds: ["EX", number],
         condition: "NX" | "XX"
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14067,7 +14067,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         value: string,
         seconds: ["EX", number]
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14094,7 +14094,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         value: string,
         milliseconds: ["PX", number],
         condition: "NX" | "XX"
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14120,7 +14120,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         value: string,
         milliseconds: ["PX", number]
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14146,7 +14146,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         value: string,
         condition: "NX" | "XX"
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14171,7 +14171,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Sets or clears the bit at offset in the string value stored at key'
      *

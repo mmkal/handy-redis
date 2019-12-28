@@ -7,7 +7,7 @@ import { log, warn, error } from "./log";
 export const getExampleRuns = async () => {
     const examples = getCliExamples();
     const redisCli = spawn("docker", ["exec", "-i", "handy_redis", "redis-cli", "--no-raw"], { env: process.env });
-    redisCli.stdin.setDefaultEncoding("utf-8");
+    redisCli.stdin!.setDefaultEncoding("utf-8");
     const redisInteractor = {
         onstdout: (data: string) => log(data),
         onstderr: (data: string) => warn(data),
@@ -21,12 +21,12 @@ export const getExampleRuns = async () => {
                 resolve(parseCommandOutput(command, null, data));
             };
             log(">", command);
-            redisCli.stdin.write(`${command}\n`);
+            redisCli.stdin!.write(`${command}\n`);
         }),
     };
 
-    redisCli.stdout.on("data", data => redisInteractor.onstdout(data.toString()));
-    redisCli.stderr.on("data", data => redisInteractor.onstderr(data.toString()));
+    redisCli.stdout!.on("data", data => redisInteractor.onstdout(data.toString()));
+    redisCli.stderr!.on("data", data => redisInteractor.onstderr(data.toString()));
 
     const runs = new Array<CliExampleRun>();
     for (const example of examples) {
@@ -67,7 +67,7 @@ export const getCliExamples = () => {
                 matches.push(contents);
             }
 
-            return matches.map((m, index) => ({
+            return matches.map<CliExample>((m, index) => ({
                 file,
                 index,
                 lines: m
@@ -75,7 +75,31 @@ export const getCliExamples = () => {
                     .split(eolMarker)
                     .map(line => line.trim())
                     .filter(line => line),
-            }) as CliExample);
+                returnType: (() => {
+                    const mapping: Record<string, string> = {
+                        "@integer-reply": "number",
+                        "@simple-string-reply: `OK`": `string`,
+                        "@string-reply": "string",
+                        "@bulk-string-reply: `nil`": "null",
+                        "@bulk-string-reply": "string",
+                        "@simple-string-reply": "string",
+                        "@array-reply": "any[]",
+                        "@nil-reply": "null",
+                        "@null-reply": "null",
+                        "NULL": "null",
+                        "`nil`": "null",
+                    };
+                    const returnDoc = (contents + "@return").split("@return")[1].split("@example")[0] || "";
+                    const typeMatches = Object.keys(mapping).reduce(
+                        (obj, key) => ({
+                            returnDoc: obj.returnDoc.split(key).join(""),
+                            matches: obj.returnDoc.includes(key) ? obj.matches.concat([mapping[key]]) : obj.matches
+                        }),
+                        { returnDoc, matches: [] as string[] }
+                    );
+                    return typeMatches.matches.join(" | ");
+                })(),
+            }));
         })
     );
 
@@ -113,6 +137,10 @@ export interface CliExample {
      * The lines the example consists of
      */
     lines: string[];
+    /**
+     * Parsed return type
+     */
+    returnType: string;
 }
 
 export interface CliExampleRun {

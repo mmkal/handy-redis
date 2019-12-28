@@ -694,7 +694,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     command(
         ...args: any[]
-    ): Promise<Array<any[]>>;
+    ): Promise<any[]>;
     /**
      * summary: 'Get array of Redis command details'
      *
@@ -704,7 +704,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    command(): Promise<Array<any[]>>;
+    command(): Promise<any[]>;
     /**
      * summary: 'Return the number of keys in the selected database'
      *
@@ -1003,7 +1003,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     geohash(
         key: string,
         ...members: string[]
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Returns longitude and latitude of members of a geospatial index'
      *
@@ -1022,7 +1022,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     geopos(
         key: string,
         ...members: string[]
-    ): Promise<Array<string[] | null>>;
+    ): Promise<any[] | null>;
     /**
      * summary: 'Returns the distance between two members of a geospatial index'
      *
@@ -12411,7 +12411,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     getset(
         key: string,
         value: string
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Delete one or more hash fields'
      *
@@ -12484,7 +12484,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     hgetall(
         key: string
-    ): Promise<any>;
+    ): Promise<any[]>;
     /**
      * summary: 'Increment the integer value of a hash field by the given number'
      *
@@ -12528,7 +12528,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         field: string,
         increment: number
-    ): Promise<any>;
+    ): Promise<string>;
     /**
      * summary: 'Get all the fields in a hash'
      *
@@ -12544,7 +12544,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     hkeys(
         key: string
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Get the number of fields in a hash'
      *
@@ -12579,7 +12579,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hmget(
         key: string,
         ...fields: string[]
-    ): Promise<Array<string | null>>;
+    ): Promise<any[]>;
     /**
      * summary: 'Set multiple hash fields to multiple values'
      *
@@ -12677,7 +12677,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     hvals(
         key: string
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Increment the integer value of a key by one'
      *
@@ -12773,7 +12773,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     keys(
         pattern: string
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Get the UNIX time stamp of the last successful save to disk'
      *
@@ -12857,7 +12857,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     lpop(
         key: string
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Prepend one or multiple values to a list'
      *
@@ -12999,7 +12999,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     mget(
         ...keys: string[]
-    ): Promise<Array<string | null>>;
+    ): Promise<any[]>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
      *
@@ -13810,7 +13810,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     rpop(
         key: string
-    ): Promise<string>;
+    ): Promise<string | null>;
     /**
      * summary: 'Remove the last element in a list, prepend it to another list and return it'
      *
@@ -13926,7 +13926,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sdiff(
         ...keys: string[]
-    ): Promise<any>;
+    ): Promise<any[]>;
     /**
      * summary: 'Subtract multiple sets and store the resulting set in a key'
      *
@@ -13945,7 +13945,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sdiffstore(
         destination: string,
         ...keys: string[]
-    ): Promise<any>;
+    ): Promise<number>;
     /**
      * summary: 'Change the selected database for the current connection'
      *
@@ -14298,7 +14298,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sinter(
         ...keys: string[]
-    ): Promise<any>;
+    ): Promise<any[]>;
     /**
      * summary: 'Intersect multiple sets and store the resulting set in a key'
      *
@@ -14317,7 +14317,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sinterstore(
         destination: string,
         ...keys: string[]
-    ): Promise<any>;
+    ): Promise<number>;
     /**
      * summary: 'Determine if a given value is a member of a set'
      *
@@ -16427,7 +16427,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     spop(
         key: string,
         count: number
-    ): Promise<any>;
+    ): Promise<string | null>;
     /**
      * summary: 'Remove and return one or multiple random members from a set'
      *
@@ -16445,7 +16445,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     spop(
         key: string
-    ): Promise<any>;
+    ): Promise<string | null>;
     /**
      * summary: 'Get one or multiple random members from a set'
      *
@@ -16464,7 +16464,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     srandmember(
         key: string,
         count: number
-    ): Promise<any>;
+    ): Promise<string | any[] | null>;
     /**
      * summary: 'Get one or multiple random members from a set'
      *
@@ -16482,7 +16482,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     srandmember(
         key: string
-    ): Promise<any>;
+    ): Promise<string | any[] | null>;
     /**
      * summary: 'Remove one or more members from a set'
      *
@@ -16549,7 +16549,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sunion(
         ...keys: string[]
-    ): Promise<any>;
+    ): Promise<any[]>;
     /**
      * summary: 'Add multiple sets and store the resulting set in a key'
      *
@@ -16568,7 +16568,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sunionstore(
         destination: string,
         ...keys: string[]
-    ): Promise<any>;
+    ): Promise<number>;
     /**
      * summary: 'Swaps two Redis databases'
      *
@@ -16603,7 +16603,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    time(): Promise<string[]>;
+    time(): Promise<any[]>;
     /**
      * summary: 'Alters the last access time of a key(s). Returns the number of existing keys specified.'
      *
@@ -16770,7 +16770,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         change: "CH",
         increment: "INCR",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16797,7 +16797,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         condition: "NX" | "XX",
         change: "CH",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16824,7 +16824,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         condition: "NX" | "XX",
         increment: "INCR",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16850,7 +16850,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         condition: "NX" | "XX",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16877,7 +16877,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         change: "CH",
         increment: "INCR",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16903,7 +16903,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         change: "CH",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16929,7 +16929,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         increment: "INCR",
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -16954,7 +16954,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zadd(
         key: string,
         ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    ): Promise<number | string>;
     /**
      * summary: 'Get the number of members in a sorted set'
      *
@@ -17169,7 +17169,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         start: number,
         stop: number,
         withscores: "WITHSCORES"
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by index'
      *
@@ -17193,7 +17193,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         start: number,
         stop: number
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range'
      *
@@ -17218,7 +17218,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         min: string,
         max: string,
         offset_count: ["LIMIT", number, number]
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range'
      *
@@ -17242,7 +17242,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: string,
         max: string
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
      *
@@ -17267,7 +17267,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         max: string,
         min: string,
         offset_count: ["LIMIT", number, number]
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
      *
@@ -17291,7 +17291,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: string,
         min: string
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
      *
@@ -17528,7 +17528,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         start: number,
         stop: number,
         withscores: "WITHSCORES"
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by index, with scores ordered from high to low'
      *
@@ -17552,7 +17552,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         start: number,
         stop: number
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
      *

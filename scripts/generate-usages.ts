@@ -7,6 +7,7 @@ import { getBasicCommands, FullCommandInfo } from "./command";
 import * as tsc from "typescript";
 import { readFileSync } from "fs";
 import { warn } from "./log";
+import {keyBy} from "lodash";
 
 const tokenizeCommand = (command: string) => {
     return (command
@@ -259,9 +260,10 @@ const getReturnType = (sampleValues: any[] | undefined): string => {
 
 const getFullCommandsInfo = (returnValues: ReturnValuesMap) => {
     const basicCommandsInfo = getBasicCommands();
+    const examples = keyBy(getCliExamples(), e => e.file.split("/").slice(-1)[0].split(".")[0]);
     return basicCommandsInfo.map(basicInfo => <FullCommandInfo> {
         ...basicInfo,
-        returnType: getReturnType(returnValues[basicInfo.name]),
+        returnType: (examples[basicInfo.name] && examples[basicInfo.name].returnType) || getReturnType(returnValues[basicInfo.name]),
         sampleReturnValues: returnValues[basicInfo.name] || [],
     });
 };

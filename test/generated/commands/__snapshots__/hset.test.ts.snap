@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/hset.md example 1 1`] = `
 Array [
-  "await client.hset('myhash', 'field1', 'Hello')  => 1",
-  "await client.hget('myhash', 'field1')           => 'Hello'",
+  "await client.hset('myhash', ['field1', 'Hello'])  => 1",
+  "await client.hget('myhash', 'field1')             => 'Hello'",
 ]
 `;

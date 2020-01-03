@@ -662,7 +662,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         timeout: number
     ): Promise<any>;
     /**
-     * summary: 'Pop a value from a list, push it to another list and return it; or block until one is available'
+     * summary: 'Pop an element from a list, push it to another list and return it; or block until one is available'
      *
      * complexity: O(1)
      *
@@ -1036,7 +1036,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: member2, type: string}
      *
-     *     - {name: unit, type: string, optional: true}
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi], optional: true}
      *
      * since: 3.2.0
      *
@@ -1046,7 +1046,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         member1: string,
         member2: string,
-        unit: string
+        unit: "m" | "km" | "ft" | "mi"
     ): Promise<string | null>;
     /**
      * summary: 'Returns the distance between two members of a geospatial index'
@@ -1061,7 +1061,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: member2, type: string}
      *
-     *     - {name: unit, type: string, optional: true}
+     *     - {name: unit, type: enum, enum: [m, km, ft, mi], optional: true}
      *
      * since: 3.2.0
      *
@@ -12602,15 +12602,13 @@ export interface IHandyRedis extends AdditionalFunctions {
     /**
      * summary: 'Set the string value of a hash field'
      *
-     * complexity: O(1)
+     * complexity: 'O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.'
      *
      * arguments:
      *
      *     - {name: key, type: key}
      *
-     *     - {name: field, type: string}
-     *
-     *     - {name: value, type: string}
+     *     - {name: [field, value], type: [string, string], multiple: true}
      *
      * since: 2.0.0
      *
@@ -12618,8 +12616,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     hset(
         key: string,
-        field: string,
-        value: string
+        ...field_values: Array<[string, string]>
     ): Promise<number>;
     /**
      * summary: 'Set the value of a hash field, only if the field does not exist'
@@ -12814,7 +12811,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: pivot, type: string}
      *
-     *     - {name: value, type: string}
+     *     - {name: element, type: string}
      *
      * since: 2.2.0
      *
@@ -12824,7 +12821,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         where: "BEFORE" | "AFTER",
         pivot: string,
-        value: string
+        element: string
     ): Promise<number>;
     /**
      * summary: 'Get the length of a list'
@@ -12859,15 +12856,15 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string
     ): Promise<string>;
     /**
-     * summary: 'Prepend one or multiple values to a list'
+     * summary: 'Prepend one or multiple elements to a list'
      *
-     * complexity: O(1)
+     * complexity: 'O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.'
      *
      * arguments:
      *
      *     - {name: key, type: key}
      *
-     *     - {name: value, type: string, multiple: true}
+     *     - {name: element, type: string, multiple: true}
      *
      * since: 1.0.0
      *
@@ -12875,18 +12872,18 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     lpush(
         key: string,
-        ...values: string[]
+        ...elements: string[]
     ): Promise<number>;
     /**
-     * summary: 'Prepend a value to a list, only if the list exists'
+     * summary: 'Prepend an element to a list, only if the list exists'
      *
-     * complexity: O(1)
+     * complexity: 'O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.'
      *
      * arguments:
      *
      *     - {name: key, type: key}
      *
-     *     - {name: value, type: string}
+     *     - {name: element, type: string, multiple: true}
      *
      * since: 2.2.0
      *
@@ -12894,7 +12891,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     lpushx(
         key: string,
-        value: string
+        ...elements: string[]
     ): Promise<number>;
     /**
      * summary: 'Get a range of elements from a list'
@@ -12921,7 +12918,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     /**
      * summary: 'Remove elements from a list'
      *
-     * complexity: 'O(N) where N is the length of the list.'
+     * complexity: 'O(N+M) where N is the length of the list and M is the number of elements removed.'
      *
      * arguments:
      *
@@ -12929,7 +12926,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: count, type: integer}
      *
-     *     - {name: value, type: string}
+     *     - {name: element, type: string}
      *
      * since: 1.0.0
      *
@@ -12938,7 +12935,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     lrem(
         key: string,
         count: number,
-        value: string
+        element: string
     ): Promise<number>;
     /**
      * summary: 'Set the value of an element in a list by its index'
@@ -12951,7 +12948,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: index, type: integer}
      *
-     *     - {name: value, type: string}
+     *     - {name: element, type: string}
      *
      * since: 1.0.0
      *
@@ -12960,7 +12957,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     lset(
         key: string,
         index: number,
-        value: string
+        element: string
     ): Promise<string>;
     /**
      * summary: 'Trim a list to the specified range'
@@ -13021,6 +13018,87 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        replace: "REPLACE",
+        password: ["AUTH", string],
+        KEYS_key: ["KEYS", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        replace: "REPLACE",
+        password: ["AUTH", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
      * since: 2.6.0
@@ -13058,6 +13136,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
      * since: 2.6.0
@@ -13094,6 +13174,85 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        password: ["AUTH", string],
+        KEYS_key: ["KEYS", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        password: ["AUTH", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
      * since: 2.6.0
@@ -13129,6 +13288,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      *     - {name: copy, type: enum, enum: [COPY], optional: true}
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
      *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
@@ -13165,6 +13326,85 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        replace: "REPLACE",
+        password: ["AUTH", string],
+        KEYS_key: ["KEYS", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        replace: "REPLACE",
+        password: ["AUTH", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
      * since: 2.6.0
@@ -13201,6 +13441,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
      * since: 2.6.0
@@ -13236,6 +13478,83 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        password: ["AUTH", string],
+        KEYS_key: ["KEYS", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
+     *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | "\"\"",
+        destination_db: number,
+        timeout: number,
+        password: ["AUTH", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Atomically transfer a key from a Redis instance to another one.'
+     *
+     * complexity: 'This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     *     - {name: key, type: enum, enum: [key, '""']}
+     *
+     *     - {name: destination-db, type: integer}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     *     - {name: copy, type: enum, enum: [COPY], optional: true}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
+     *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
      * since: 2.6.0
@@ -13270,6 +13589,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      *     - {name: copy, type: enum, enum: [COPY], optional: true}
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {command: AUTH, name: password, type: string, optional: true}
      *
      *     - {name: key, command: KEYS, type: key, variadic: true, optional: true}
      *
@@ -13681,7 +14002,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     randomkey(): Promise<any>;
     /**
-     * summary: 'Enables read queries for a connection to a cluster slave node'
+     * summary: 'Enables read queries for a connection to a cluster replica node'
      *
      * complexity: O(1)
      *
@@ -13691,7 +14012,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     readonly(): Promise<any>;
     /**
-     * summary: 'Disables read queries for a connection to a cluster slave node'
+     * summary: 'Disables read queries for a connection to a cluster replica node'
      *
      * complexity: O(1)
      *
@@ -13753,6 +14074,241 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
      *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL",
+        seconds: ["IDLETIME", number],
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL",
+        seconds: ["IDLETIME", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL",
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL"
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        seconds: ["IDLETIME", number],
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        seconds: ["IDLETIME", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
      * since: 2.6.0
      *
      * group: generic
@@ -13777,6 +14333,234 @@ export interface IHandyRedis extends AdditionalFunctions {
      *     - {name: serialized-value, type: string}
      *
      *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL",
+        seconds: ["IDLETIME", number],
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL",
+        seconds: ["IDLETIME", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL",
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL"
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        seconds: ["IDLETIME", number],
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        seconds: ["IDLETIME", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
+     *
+     * since: 2.6.0
+     *
+     * group: generic
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        frequency: ["FREQ", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
+     *
+     * complexity: 'O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ttl, type: integer}
+     *
+     *     - {name: serialized-value, type: string}
+     *
+     *     - {name: replace, type: enum, enum: [REPLACE], optional: true}
+     *
+     *     - {name: absttl, type: enum, enum: [ABSTTL], optional: true}
+     *
+     *     - {command: IDLETIME, name: seconds, type: integer, optional: true}
+     *
+     *     - {command: FREQ, name: frequency, type: integer, optional: true}
      *
      * since: 2.6.0
      *
@@ -13831,15 +14615,15 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination: string
     ): Promise<string>;
     /**
-     * summary: 'Append one or multiple values to a list'
+     * summary: 'Append one or multiple elements to a list'
      *
-     * complexity: O(1)
+     * complexity: 'O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.'
      *
      * arguments:
      *
      *     - {name: key, type: key}
      *
-     *     - {name: value, type: string, multiple: true}
+     *     - {name: element, type: string, multiple: true}
      *
      * since: 1.0.0
      *
@@ -13847,18 +14631,18 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     rpush(
         key: string,
-        ...values: string[]
+        ...elements: string[]
     ): Promise<number>;
     /**
-     * summary: 'Append a value to a list, only if the list exists'
+     * summary: 'Append an element to a list, only if the list exists'
      *
-     * complexity: O(1)
+     * complexity: 'O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.'
      *
      * arguments:
      *
      *     - {name: key, type: key}
      *
-     *     - {name: value, type: string}
+     *     - {name: element, type: string, multiple: true}
      *
      * since: 2.2.0
      *
@@ -13866,7 +14650,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     rpushx(
         key: string,
-        value: string
+        ...elements: string[]
     ): Promise<number>;
     /**
      * summary: 'Add one or more members to a set'
@@ -14183,7 +14967,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: offset, type: integer}
      *
-     *     - {name: value, type: string}
+     *     - {name: value, type: integer}
      *
      * since: 2.2.0
      *
@@ -14192,7 +14976,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     setbit(
         key: string,
         offset: number,
-        value: string
+        value: number
     ): Promise<number>;
     /**
      * summary: 'Set the value and expiration of a key'
@@ -14338,7 +15122,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string
     ): Promise<number>;
     /**
-     * summary: 'Make the server a slave of another instance, or promote it as master'
+     * summary: 'Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.'
      *
      * arguments:
      *
@@ -16525,14 +17309,14 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * arguments:
      *
-     *     - {name: [channel], type: [string], multiple: true}
+     *     - {name: channel, type: string, multiple: true}
      *
      * since: 2.0.0
      *
      * group: pubsub
      */
     subscribe(
-        ...channels: Array<[string]>
+        ...channels: string[]
     ): Promise<any>;
     /**
      * summary: 'Add multiple sets'
@@ -16574,18 +17358,18 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * arguments:
      *
-     *     - {name: index, type: integer}
+     *     - {name: index1, type: integer}
      *
-     *     - {name: index, type: integer}
+     *     - {name: index2, type: integer}
      *
      * since: 4.0.0
      *
      * group: connection
      */
     swapdb(
-        index: number,
-        index_2: number
-    ): Promise<string>;
+        index1: number,
+        index2: number
+    ): Promise<any>;
     /**
      * summary: 'Internal command used for replication'
      *
@@ -16594,6 +17378,23 @@ export interface IHandyRedis extends AdditionalFunctions {
      * group: server
      */
     sync(): Promise<any>;
+    /**
+     * summary: 'Internal command used for replication'
+     *
+     * arguments:
+     *
+     *     - {name: replicationid, type: integer}
+     *
+     *     - {name: offset, type: integer}
+     *
+     * since: 2.8.0
+     *
+     * group: server
+     */
+    psync(
+        replicationid: number,
+        offset: number
+    ): Promise<any>;
     /**
      * summary: 'Return the current server time'
      *
@@ -16715,7 +17516,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * arguments:
      *
-     *     - {name: numslaves, type: integer}
+     *     - {name: numreplicas, type: integer}
      *
      *     - {name: timeout, type: integer}
      *
@@ -16724,7 +17525,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      * group: generic
      */
     wait(
-        numslaves: number,
+        numreplicas: number,
         timeout: number
     ): Promise<any>;
     /**
@@ -17820,6 +18621,33 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {command: COUNT, name: count, type: integer, optional: true}
      *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
+     * since: 2.8.0
+     *
+     * group: generic
+     */
+    scan(
+        cursor: number,
+        pattern: ["MATCH", string],
+        count: ["COUNT", number],
+        type: ["TYPE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Incrementally iterate the keys space'
+     *
+     * complexity: 'O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.'
+     *
+     * arguments:
+     *
+     *     - {name: cursor, type: integer}
+     *
+     *     - {command: MATCH, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
      * since: 2.8.0
      *
      * group: generic
@@ -17842,6 +18670,32 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {command: COUNT, name: count, type: integer, optional: true}
      *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
+     * since: 2.8.0
+     *
+     * group: generic
+     */
+    scan(
+        cursor: number,
+        pattern: ["MATCH", string],
+        type: ["TYPE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Incrementally iterate the keys space'
+     *
+     * complexity: 'O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.'
+     *
+     * arguments:
+     *
+     *     - {name: cursor, type: integer}
+     *
+     *     - {command: MATCH, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
      * since: 2.8.0
      *
      * group: generic
@@ -17863,6 +18717,32 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {command: COUNT, name: count, type: integer, optional: true}
      *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
+     * since: 2.8.0
+     *
+     * group: generic
+     */
+    scan(
+        cursor: number,
+        count: ["COUNT", number],
+        type: ["TYPE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Incrementally iterate the keys space'
+     *
+     * complexity: 'O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.'
+     *
+     * arguments:
+     *
+     *     - {name: cursor, type: integer}
+     *
+     *     - {command: MATCH, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
      * since: 2.8.0
      *
      * group: generic
@@ -17883,6 +18763,31 @@ export interface IHandyRedis extends AdditionalFunctions {
      *     - {command: MATCH, name: pattern, type: pattern, optional: true}
      *
      *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: TYPE, name: type, type: string, optional: true}
+     *
+     * since: 2.8.0
+     *
+     * group: generic
+     */
+    scan(
+        cursor: number,
+        type: ["TYPE", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Incrementally iterate the keys space'
+     *
+     * complexity: 'O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.'
+     *
+     * arguments:
+     *
+     *     - {name: cursor, type: integer}
+     *
+     *     - {command: MATCH, name: pattern, type: pattern, optional: true}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: TYPE, name: type, type: string, optional: true}
      *
      * since: 2.8.0
      *

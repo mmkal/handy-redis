@@ -10,18 +10,18 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-it.skip("scripts/redis-doc/commands/swapdb.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/swapdb.md");
+it("scripts/redis-doc/commands/client-id.md example 1", async () => {
+    const overrider = getOverride("scripts/redis-doc/commands/client-id.md");
     let snapshot: any;
     const commands = [
-        "await client.swapdb(0, 1)",
+        "// not implemented by node redis: await client.client(`Couldn't format arguments: Couldn't find command \"client\"`)",
     ];
     const output: any[] = [];
     try {
-        output.push(await client.swapdb(0, 1));
+        output.push("// not implemented by node redis: await client.client(`Couldn't format arguments: Couldn't find command \"client\"`)");
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 26)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 115)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

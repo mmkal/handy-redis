@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/xack.md example 1 1`] = `
+Array [
+  "// not implemented by node redis: await client.xack(\`Couldn\\"t format arguments: Couldn\\"t find command 'xack'\`)  => '// not implemented by node redis: await client.xack(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xack\\\\'\`)'",
+]
+`;

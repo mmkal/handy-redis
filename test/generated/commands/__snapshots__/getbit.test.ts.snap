@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/getbit.md example 1 1`] = `
 Array [
-  "await client.setbit('mykey', 7, '1')  => 0",
-  "await client.getbit('mykey', 0)       => 0",
-  "await client.getbit('mykey', 7)       => 1",
-  "await client.getbit('mykey', 100)     => 0",
+  "await client.setbit('mykey', 7, 1)  => 0",
+  "await client.getbit('mykey', 0)     => 0",
+  "await client.getbit('mykey', 7)     => 1",
+  "await client.getbit('mykey', 100)   => 0",
 ]
 `;

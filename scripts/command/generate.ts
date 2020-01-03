@@ -99,10 +99,57 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
     .map(x => x!);
 };
 
-export const getBasicCommands = _.once(() => {
-    const referenceClient: { [methodName: string]: any } = createClient();
+const getCommandCollection = () => {
     const commandsJson = readFileSync(`${redisDoc}/commands.json`, "utf8");
     const commandCollection: CommandCollection = JSON.parse(commandsJson);
+
+    // hack: workaround while waiting for https://github.com/antirez/redis-doc/pulls/1231
+    const expectedSetArgs = '[{"name":"key","type":"key"},{"name":"value","type":"string"},{"name":"expiration","type":"enum","enum":["EX seconds","PX milliseconds"],"optional":true},{"name":"condition","type":"enum","enum":["NX","XX"],"optional":true}]';
+    if (JSON.stringify(commandCollection.SET.arguments) !== expectedSetArgs) {
+        throw Error([
+            "unexpected arguments value for command SET",
+            "hack working around https://github.com/antirez/redis-doc/pulls/1231 might not be needed anymore",
+            "expected: " + expectedSetArgs,
+            "actual:   " + JSON.stringify(commandCollection.SET.arguments),
+        ].join("\n"));
+    }
+    commandCollection.SET.arguments = [
+        {
+            name: "key",
+            type: "key"
+          },
+          {
+            name: "value",
+            type: "string"
+          },
+          {
+            command: "EX",
+            name: "seconds",
+            type: "integer",
+            optional: true
+          },
+          {
+            command: "PX",
+            name: "milliseconds",
+            type: "integer",
+            optional: true
+          },
+          {
+            name: "condition",
+            type: "enum",
+            enum: [
+              "NX",
+              "XX"
+            ],
+            optional: true
+          }
+    ];
+    return commandCollection;
+};
+
+export const getBasicCommands = _.once(() => {
+    const referenceClient: { [methodName: string]: any } = createClient();
+    const commandCollection = getCommandCollection();
 
     const basicCommands = _.flatten(Object.keys(commandCollection).map(name => {
         const methodName = simplifyName(name);

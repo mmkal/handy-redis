@@ -110,41 +110,17 @@ const getCommandCollection = () => {
     if (JSON.stringify(commandCollection.SET.arguments) !== expectedSetArgs) {
         throw Error([
             "unexpected arguments value for command SET",
-            "hack working around https://github.com/antirez/redis-doc/pulls/1231 might not be needed anymore",
+            "hack working around the issue mentioned in https://github.com/antirez/redis-doc/pulls/1231 might not be needed anymore",
             "expected: " + expectedSetArgs,
             "actual:   " + JSON.stringify(commandCollection.SET.arguments),
         ].join("\n"));
     }
     commandCollection.SET.arguments = [
-        {
-            name: "key",
-            type: "key"
-          },
-          {
-            name: "value",
-            type: "string"
-          },
-          {
-            command: "EX",
-            name: "seconds",
-            type: "integer",
-            optional: true
-          },
-          {
-            command: "PX",
-            name: "milliseconds",
-            type: "integer",
-            optional: true
-          },
-          {
-            name: "condition",
-            type: "enum",
-            enum: [
-              "NX",
-              "XX"
-            ],
-            optional: true
-          }
+        { name: "key", type: "key" },
+        { name: "value", type: "string" },
+        { command: "EX", name: "seconds", type: "integer", optional: true },
+        { command: "PX", name: "milliseconds", type: "integer", optional: true },
+        { name: "condition", type: "enum", enum: ["NX", "XX"], optional: true }
     ];
     return commandCollection;
 };

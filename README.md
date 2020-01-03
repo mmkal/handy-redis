@@ -47,7 +47,7 @@ client
 The package is published with TypeScript types, with the redis documentation and response type attached to each command:
 ![](./docs/intellisense.png)
 
-Note: the [redis](https://npmjs.com/package/redis) is listed as a peer dependency, so should be installed separately. If you need to use recent redis commands (e.g. `xadd` (recent at time of writing, at least)), you can run `npm install redis-commands` to tell the `redis` package to use more up-to-date commands than the default install.
+Note: the [redis](https://npmjs.com/package/redis) package is listed as a peer dependency, so should be installed separately. If you need to use recent redis commands (e.g. `xadd` (recent at time of writing, at least)), you can run `npm install redis-commands` to tell the `redis` package to use more up-to-date commands than [redis](https://npmjs.com/package/redis) pulls in by default.
 
 ### Examples
 

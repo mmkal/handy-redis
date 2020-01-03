@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/zpopmax.md example 1 1`] = `
 Array [
-  "await client.zadd('myzset', [1, 'one'])                                                                               => 1",
-  "await client.zadd('myzset', [2, 'two'])                                                                               => 1",
-  "await client.zadd('myzset', [3, 'three'])                                                                             => 1",
-  "// not implemented by node redis: await client.zpopmax(\`Couldn\\"t format arguments: Couldn\\"t find command 'zpopmax'\`)  => '// not implemented by node redis: await client.zpopmax(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'zpopmax\\\\'\`)'",
+  "await client.zadd('myzset', [1, 'one'])    => 1",
+  "await client.zadd('myzset', [2, 'two'])    => 1",
+  "await client.zadd('myzset', [3, 'three'])  => 1",
+  "await client.zpopmax('myzset')             => ['three','3']",
 ]
 `;

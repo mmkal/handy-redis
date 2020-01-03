@@ -17,17 +17,17 @@ it("scripts/redis-doc/commands/zpopmax.md example 1", async () => {
         `await client.zadd("myzset", [1, "one"])`,
         `await client.zadd("myzset", [2, "two"])`,
         `await client.zadd("myzset", [3, "three"])`,
-        "// not implemented by node redis: await client.zpopmax(`Couldn't format arguments: Couldn't find command \"zpopmax\"`)",
+        `await client.zpopmax("myzset")`,
     ];
     const output: any[] = [];
     try {
         output.push(await client.zadd("myzset", [1, "one"]));
         output.push(await client.zadd("myzset", [2, "two"]));
         output.push(await client.zadd("myzset", [3, "three"]));
-        output.push("// not implemented by node redis: await client.zpopmax(`Couldn't format arguments: Couldn't find command \"zpopmax\"`)");
+        output.push(await client.zpopmax("myzset"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 117)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 42)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

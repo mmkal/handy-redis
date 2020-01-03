@@ -2,12 +2,12 @@
 
 exports[`scripts/redis-doc/commands/xrange.md example 1 1`] = `
 Array [
-  "// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command 'xadd'\`)      => '// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xadd\\\\'\`)'",
-  "// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command 'xadd'\`)      => '// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xadd\\\\'\`)'",
-  "// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command 'xadd'\`)      => '// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xadd\\\\'\`)'",
-  "// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command 'xadd'\`)      => '// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xadd\\\\'\`)'",
-  "// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command 'xadd'\`)      => '// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xadd\\\\'\`)'",
-  "// not implemented by node redis: await client.xlen(\`Couldn\\"t format arguments: Couldn\\"t find command 'xlen'\`)      => '// not implemented by node redis: await client.xlen(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xlen\\\\'\`)'",
-  "// not implemented by node redis: await client.xrange(\`Couldn\\"t format arguments: Couldn\\"t find command 'xrange'\`)  => '// not implemented by node redis: await client.xrange(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xrange\\\\'\`)'",
+  "await client.xadd('writers', '*', ['name', 'Virginia'], ['surname', 'Woolf'])   => '<<stream_0>>'",
+  "await client.xadd('writers', '*', ['name', 'Jane'], ['surname', 'Austen'])      => '<<stream_1>>'",
+  "await client.xadd('writers', '*', ['name', 'Toni'], ['surname', 'Morris'])      => '<<stream_2>>'",
+  "await client.xadd('writers', '*', ['name', 'Agatha'], ['surname', 'Christie'])  => '<<stream_3>>'",
+  "await client.xadd('writers', '*', ['name', 'Ngozi'], ['surname', 'Adichie'])    => '<<stream_4>>'",
+  "await client.xlen('writers')                                                    => 5",
+  "await client.xrange('writers', '-', '+', ['COUNT', 2])                          => [['<<stream_0>>',['name','Virginia','surname','Woolf']],['<<stream_1>>',['name','Jane','surname','Austen']]]",
 ]
 `;

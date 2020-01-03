@@ -42,14 +42,13 @@ const typeFor = (arg: Argument): string => {
 const buildTypeScriptCommandInfo = (name: string, command: Command): BasicCommandInfo[] => {
     const baseArgs = (command.arguments || []).map((a, index, all) => {
         const nameParts = new Array<string | number>();
-        if (a.name) {
-            nameParts.push(a.name);
+        if (a.command) {
+            nameParts.push(a.command);
         }
-        const previousArgsWithSameName = all
-            .slice(0, index)
-            .filter(other => other !== a && other.name === a.name);
-        if (a.command && (nameParts.length === 0 || previousArgsWithSameName.length > 0)) {
-            nameParts.unshift(a.command);
+        if (Array.isArray(a.name)) {
+            nameParts.push(...a.name);
+        } else if (a.name && a.name.toUpperCase() !== a.command) {
+            nameParts.push(a.name);
         }
         const argJson = JSON.stringify(a);
         if (all.map(other => JSON.stringify(other)).indexOf(argJson) !== index) {
@@ -59,7 +58,10 @@ const buildTypeScriptCommandInfo = (name: string, command: Command): BasicComman
             nameParts.push("arg");
             nameParts.push(index);
         }
-        const argName = nameParts.join("_").replace(/\W/g, "_");
+        const argName = nameParts
+            .map(p => _.camelCase(p.toString()))
+            .join("_")
+            .replace(/idOr$/, "idOr$");
         return {
             ...a,
             name: argName,

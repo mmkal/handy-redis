@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/xtrim.md example 1 1`] = `
 Array [
-  "// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command 'xadd'\`)      => '// not implemented by node redis: await client.xadd(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xadd\\\\'\`)'",
-  "// not implemented by node redis: await client.xtrim(\`Couldn\\"t format arguments: Couldn\\"t find command 'xtrim'\`)    => '// not implemented by node redis: await client.xtrim(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xtrim\\\\'\`)'",
-  "// not implemented by node redis: await client.xrange(\`Couldn\\"t format arguments: Couldn\\"t find command 'xrange'\`)  => '// not implemented by node redis: await client.xrange(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xrange\\\\'\`)'",
+  "await client.xadd('mystream', '*', ['field1', 'A'], ['field2', 'B'], ['field3', 'C'], ['field4', 'D'])  => '<<stream_0>>'",
+  "await client.xtrim('mystream', 'MAXLEN', 2)                                                             => 0",
+  "await client.xrange('mystream', '-', '+')                                                               => [['<<stream_0>>',['field1','A','field2','B','field3','C','field4','D']]]",
 ]
 `;

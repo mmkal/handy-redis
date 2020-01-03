@@ -112,10 +112,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        type_offset_value: ["SET", string, number, number],
-        type_offset_increment: ["INCRBY", string, number, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        get_type_offset: ["GET", string, number],
+        set_type_offset_value: ["SET", string, number, number],
+        incrby_type_offset_increment: ["INCRBY", string, number, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -140,9 +140,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        type_offset_value: ["SET", string, number, number],
-        type_offset_increment: ["INCRBY", string, number, number]
+        get_type_offset: ["GET", string, number],
+        set_type_offset_value: ["SET", string, number, number],
+        incrby_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -167,9 +167,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        type_offset_value: ["SET", string, number, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        get_type_offset: ["GET", string, number],
+        set_type_offset_value: ["SET", string, number, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -194,8 +194,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        type_offset_value: ["SET", string, number, number]
+        get_type_offset: ["GET", string, number],
+        set_type_offset_value: ["SET", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -220,9 +220,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        type_offset_increment: ["INCRBY", string, number, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        get_type_offset: ["GET", string, number],
+        incrby_type_offset_increment: ["INCRBY", string, number, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -247,8 +247,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        type_offset_increment: ["INCRBY", string, number, number]
+        get_type_offset: ["GET", string, number],
+        incrby_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -273,8 +273,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        get_type_offset: ["GET", string, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -299,7 +299,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset: ["GET", string, number]
+        get_type_offset: ["GET", string, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -324,9 +324,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset_value: ["SET", string, number, number],
-        type_offset_increment: ["INCRBY", string, number, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        set_type_offset_value: ["SET", string, number, number],
+        incrby_type_offset_increment: ["INCRBY", string, number, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -351,8 +351,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset_value: ["SET", string, number, number],
-        type_offset_increment: ["INCRBY", string, number, number]
+        set_type_offset_value: ["SET", string, number, number],
+        incrby_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -377,8 +377,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset_value: ["SET", string, number, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        set_type_offset_value: ["SET", string, number, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -403,7 +403,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset_value: ["SET", string, number, number]
+        set_type_offset_value: ["SET", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -428,8 +428,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset_increment: ["INCRBY", string, number, number],
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        incrby_type_offset_increment: ["INCRBY", string, number, number],
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -454,7 +454,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        type_offset_increment: ["INCRBY", string, number, number]
+        incrby_type_offset_increment: ["INCRBY", string, number, number]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -479,7 +479,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     bitfield(
         key: string,
-        OVERFLOW: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
@@ -681,6 +681,44 @@ export interface IHandyRedis extends AdditionalFunctions {
     brpoplpush(
         source: string,
         destination: string,
+        timeout: number
+    ): Promise<any>;
+    /**
+     * summary: 'Remove and return the member with the lowest score from one or more sorted sets, or block until one is available'
+     *
+     * complexity: 'O(log(N)) with N being the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     * since: 5.0.0
+     *
+     * group: sorted_set
+     */
+    bzpopmin(
+        keys: string[],
+        timeout: number
+    ): Promise<any>;
+    /**
+     * summary: 'Remove and return the member with the highest score from one or more sorted sets, or block until one is available'
+     *
+     * complexity: 'O(log(N)) with N being the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: timeout, type: integer}
+     *
+     * since: 5.0.0
+     *
+     * group: sorted_set
+     */
+    bzpopmax(
+        keys: string[],
         timeout: number
     ): Promise<any>;
     /**
@@ -1118,8 +1156,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1167,7 +1205,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1215,7 +1253,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1309,8 +1347,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1357,7 +1395,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1404,7 +1442,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1497,8 +1535,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1545,7 +1583,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1592,7 +1630,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1684,8 +1722,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1731,7 +1769,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1777,7 +1815,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1869,8 +1907,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1917,7 +1955,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -1964,7 +2002,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2056,8 +2094,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2103,7 +2141,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2149,7 +2187,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2240,8 +2278,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2287,7 +2325,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2333,7 +2371,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2423,8 +2461,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2469,7 +2507,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2514,7 +2552,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2605,8 +2643,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2653,7 +2691,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2700,7 +2738,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2792,8 +2830,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2839,7 +2877,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2885,7 +2923,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -2976,8 +3014,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3023,7 +3061,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3069,7 +3107,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3159,8 +3197,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3205,7 +3243,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3250,7 +3288,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3340,8 +3378,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3387,7 +3425,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3433,7 +3471,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3523,8 +3561,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3569,7 +3607,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3614,7 +3652,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3703,8 +3741,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3749,7 +3787,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3794,7 +3832,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3882,8 +3920,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3927,7 +3965,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -3971,7 +4009,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4061,8 +4099,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4109,7 +4147,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4156,7 +4194,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4248,8 +4286,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4295,7 +4333,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4341,7 +4379,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4432,8 +4470,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4479,7 +4517,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4525,7 +4563,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4615,8 +4653,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4661,7 +4699,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4706,7 +4744,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4796,8 +4834,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4843,7 +4881,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4889,7 +4927,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -4979,8 +5017,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5025,7 +5063,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5070,7 +5108,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5159,8 +5197,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5205,7 +5243,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5250,7 +5288,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5338,8 +5376,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5383,7 +5421,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5427,7 +5465,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5516,8 +5554,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5563,7 +5601,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5609,7 +5647,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5699,8 +5737,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5745,7 +5783,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5790,7 +5828,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5879,8 +5917,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5925,7 +5963,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -5970,7 +6008,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6058,8 +6096,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6103,7 +6141,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6147,7 +6185,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6235,8 +6273,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6281,7 +6319,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6326,7 +6364,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6414,8 +6452,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6459,7 +6497,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6503,7 +6541,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6590,8 +6628,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6635,7 +6673,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6679,7 +6717,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6765,8 +6803,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6809,7 +6847,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6852,7 +6890,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<any[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
@@ -6939,8 +6977,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -6985,7 +7023,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7030,7 +7068,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7118,8 +7156,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7163,7 +7201,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7207,7 +7245,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7294,8 +7332,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7339,7 +7377,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7383,7 +7421,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7469,8 +7507,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7513,7 +7551,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7556,7 +7594,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7642,8 +7680,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7687,7 +7725,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7731,7 +7769,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7817,8 +7855,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7861,7 +7899,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7904,7 +7942,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -7989,8 +8027,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8033,7 +8071,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8076,7 +8114,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8160,8 +8198,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8203,7 +8241,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8245,7 +8283,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withdist: "WITHDIST",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8330,8 +8368,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8375,7 +8413,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8419,7 +8457,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8505,8 +8543,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8549,7 +8587,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8592,7 +8630,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8677,8 +8715,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8721,7 +8759,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8764,7 +8802,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8848,8 +8886,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8891,7 +8929,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -8933,7 +8971,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9017,8 +9055,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9061,7 +9099,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9104,7 +9142,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9188,8 +9226,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9231,7 +9269,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9273,7 +9311,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9356,8 +9394,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9399,7 +9437,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9441,7 +9479,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9523,8 +9561,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9565,7 +9603,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9606,7 +9644,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord: "WITHCOORD",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9690,8 +9728,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9735,7 +9773,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9779,7 +9817,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9865,8 +9903,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9909,7 +9947,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -9952,7 +9990,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10037,8 +10075,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10081,7 +10119,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10124,7 +10162,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10208,8 +10246,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10251,7 +10289,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10293,7 +10331,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10377,8 +10415,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10421,7 +10459,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10464,7 +10502,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withdist: "WITHDIST",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10548,8 +10586,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10591,7 +10629,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10633,7 +10671,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10716,8 +10754,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10759,7 +10797,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10801,7 +10839,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10883,8 +10921,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10925,7 +10963,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -10966,7 +11004,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist: "WITHDIST",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11049,8 +11087,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11093,7 +11131,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11136,7 +11174,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         withhash: "WITHHASH",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11220,8 +11258,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11263,7 +11301,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11305,7 +11343,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11388,8 +11426,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11431,7 +11469,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11473,7 +11511,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11555,8 +11593,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11597,7 +11635,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11638,7 +11676,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash: "WITHHASH",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11720,8 +11758,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11763,7 +11801,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11805,7 +11843,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11887,8 +11925,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11929,7 +11967,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -11970,7 +12008,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         count: ["COUNT", number],
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12051,8 +12089,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12093,7 +12131,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12134,7 +12172,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order: "ASC" | "DESC",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12214,8 +12252,8 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: ["STORE", string],
-        STOREDIST_key: ["STOREDIST", string]
+        store_key: ["STORE", string],
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12255,7 +12293,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STORE_key: ["STORE", string]
+        store_key: ["STORE", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12295,7 +12333,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        STOREDIST_key: ["STOREDIST", string]
+        storedist_key: ["STOREDIST", string]
     ): Promise<string[]>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member'
@@ -12756,6 +12794,32 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     info(): Promise<string>;
     /**
+     * summary: 'Display some computer art and the Redis version'
+     *
+     * arguments:
+     *
+     *     - {command: VERSION, name: version, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: server
+     */
+    lolwut(
+        version: ["VERSION", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Display some computer art and the Redis version'
+     *
+     * arguments:
+     *
+     *     - {command: VERSION, name: version, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: server
+     */
+    lolwut(): Promise<any>;
+    /**
      * summary: 'Find all keys matching the given pattern'
      *
      * complexity: 'O(N) with N being the number of keys in the database, under the assumption that the key names in the database and the given pattern have limited length.'
@@ -13030,12 +13094,12 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
         replace: "REPLACE",
-        password: ["AUTH", string],
-        KEYS_key: ["KEYS", string]
+        auth_password: ["AUTH", string],
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13070,11 +13134,11 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
         replace: "REPLACE",
-        password: ["AUTH", string]
+        auth_password: ["AUTH", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13109,11 +13173,11 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
         replace: "REPLACE",
-        KEYS_key: ["KEYS", string]
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13148,7 +13212,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
         replace: "REPLACE"
@@ -13186,11 +13250,11 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
-        password: ["AUTH", string],
-        KEYS_key: ["KEYS", string]
+        auth_password: ["AUTH", string],
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13225,10 +13289,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
-        password: ["AUTH", string]
+        auth_password: ["AUTH", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13263,10 +13327,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY",
-        KEYS_key: ["KEYS", string]
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13301,7 +13365,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         copy: "COPY"
     ): Promise<any>;
@@ -13338,11 +13402,11 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         replace: "REPLACE",
-        password: ["AUTH", string],
-        KEYS_key: ["KEYS", string]
+        auth_password: ["AUTH", string],
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13377,10 +13441,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         replace: "REPLACE",
-        password: ["AUTH", string]
+        auth_password: ["AUTH", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13415,10 +13479,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         replace: "REPLACE",
-        KEYS_key: ["KEYS", string]
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13453,7 +13517,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
         replace: "REPLACE"
     ): Promise<any>;
@@ -13490,10 +13554,10 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
-        password: ["AUTH", string],
-        KEYS_key: ["KEYS", string]
+        auth_password: ["AUTH", string],
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13528,9 +13592,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
-        password: ["AUTH", string]
+        auth_password: ["AUTH", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13565,9 +13629,9 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number,
-        KEYS_key: ["KEYS", string]
+        keys_key: ["KEYS", string]
     ): Promise<any>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
@@ -13602,7 +13666,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         host: string,
         port: string,
         key: "key" | "\"\"",
-        destination_db: number,
+        destinationDb: number,
         timeout: number
     ): Promise<any>;
     /**
@@ -13761,7 +13825,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     pexpireat(
         key: string,
-        milliseconds_timestamp: number
+        millisecondsTimestamp: number
     ): Promise<number>;
     /**
      * summary: 'Adds the specified elements to the specified HyperLogLog.'
@@ -14087,11 +14151,11 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
         absttl: "ABSTTL",
-        seconds: ["IDLETIME", number],
-        frequency: ["FREQ", number]
+        idletime_seconds: ["IDLETIME", number],
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14121,10 +14185,10 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
         absttl: "ABSTTL",
-        seconds: ["IDLETIME", number]
+        idletime_seconds: ["IDLETIME", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14154,10 +14218,10 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
         absttl: "ABSTTL",
-        frequency: ["FREQ", number]
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14187,7 +14251,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
         absttl: "ABSTTL"
     ): Promise<any>;
@@ -14219,10 +14283,10 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
-        seconds: ["IDLETIME", number],
-        frequency: ["FREQ", number]
+        idletime_seconds: ["IDLETIME", number],
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14252,9 +14316,9 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
-        seconds: ["IDLETIME", number]
+        idletime_seconds: ["IDLETIME", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14284,9 +14348,9 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE",
-        frequency: ["FREQ", number]
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14316,7 +14380,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         replace: "REPLACE"
     ): Promise<any>;
     /**
@@ -14347,10 +14411,10 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         absttl: "ABSTTL",
-        seconds: ["IDLETIME", number],
-        frequency: ["FREQ", number]
+        idletime_seconds: ["IDLETIME", number],
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14380,9 +14444,9 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         absttl: "ABSTTL",
-        seconds: ["IDLETIME", number]
+        idletime_seconds: ["IDLETIME", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14412,9 +14476,9 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         absttl: "ABSTTL",
-        frequency: ["FREQ", number]
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14444,7 +14508,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
+        serializedValue: string,
         absttl: "ABSTTL"
     ): Promise<any>;
     /**
@@ -14475,9 +14539,9 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
-        seconds: ["IDLETIME", number],
-        frequency: ["FREQ", number]
+        serializedValue: string,
+        idletime_seconds: ["IDLETIME", number],
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14507,8 +14571,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
-        seconds: ["IDLETIME", number]
+        serializedValue: string,
+        idletime_seconds: ["IDLETIME", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14538,8 +14602,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string,
-        frequency: ["FREQ", number]
+        serializedValue: string,
+        freq_frequency: ["FREQ", number]
     ): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
@@ -14569,7 +14633,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     restore(
         key: string,
         ttl: number,
-        serialized_value: string
+        serializedValue: string
     ): Promise<any>;
     /**
      * summary: 'Return the role of the instance in the context of replication'
@@ -14768,8 +14832,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        seconds: ["EX", number],
-        milliseconds: ["PX", number],
+        ex_seconds: ["EX", number],
+        px_milliseconds: ["PX", number],
         condition: "NX" | "XX"
     ): Promise<string | null>;
     /**
@@ -14796,8 +14860,8 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        seconds: ["EX", number],
-        milliseconds: ["PX", number]
+        ex_seconds: ["EX", number],
+        px_milliseconds: ["PX", number]
     ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
@@ -14823,7 +14887,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        seconds: ["EX", number],
+        ex_seconds: ["EX", number],
         condition: "NX" | "XX"
     ): Promise<string | null>;
     /**
@@ -14850,7 +14914,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        seconds: ["EX", number]
+        ex_seconds: ["EX", number]
     ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
@@ -14876,7 +14940,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        milliseconds: ["PX", number],
+        px_milliseconds: ["PX", number],
         condition: "NX" | "XX"
     ): Promise<string | null>;
     /**
@@ -14903,7 +14967,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     set(
         key: string,
         value: string,
-        milliseconds: ["PX", number]
+        px_milliseconds: ["PX", number]
     ): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
@@ -15053,7 +15117,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      * group: server
      */
     shutdown(
-        save_mode: "NOSAVE" | "SAVE"
+        saveMode: "NOSAVE" | "SAVE"
     ): Promise<any>;
     /**
      * summary: 'Synchronously save the dataset to disk and then shut down the server'
@@ -15135,6 +15199,23 @@ export interface IHandyRedis extends AdditionalFunctions {
      * group: server
      */
     slaveof(
+        host: string,
+        port: string
+    ): Promise<any>;
+    /**
+     * summary: 'Make the server a replica of another instance, or promote it as master.'
+     *
+     * arguments:
+     *
+     *     - {name: host, type: string}
+     *
+     *     - {name: port, type: string}
+     *
+     * since: 5.0.0
+     *
+     * group: server
+     */
+    replicaof(
         host: string,
         port: string
     ): Promise<any>;
@@ -15236,12 +15317,12 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15270,9 +15351,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -15303,11 +15384,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15336,9 +15417,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -15368,11 +15449,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15401,9 +15482,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -15433,10 +15514,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
-        destination: ["STORE", string]
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15465,9 +15546,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        ...GET_patterns: Array<["GET", string]>
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        ...get_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15496,11 +15577,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15529,8 +15610,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -15561,10 +15642,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15593,8 +15674,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -15624,10 +15705,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15656,8 +15737,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -15687,9 +15768,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number],
-        destination: ["STORE", string]
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number],
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15718,8 +15799,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        offset_count: ["LIMIT", number, number]
+        by_pattern: ["BY", string],
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15748,11 +15829,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15781,8 +15862,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -15813,10 +15894,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15845,8 +15926,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -15876,10 +15957,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15908,8 +15989,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -15939,9 +16020,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        GET_patterns: Array<["GET", string]>,
-        destination: ["STORE", string]
+        by_pattern: ["BY", string],
+        get_patterns: Array<["GET", string]>,
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -15970,8 +16051,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        ...GET_patterns: Array<["GET", string]>
+        by_pattern: ["BY", string],
+        ...get_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16000,10 +16081,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
+        by_pattern: ["BY", string],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16032,7 +16113,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
+        by_pattern: ["BY", string],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -16063,9 +16144,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
+        by_pattern: ["BY", string],
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16094,7 +16175,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
+        by_pattern: ["BY", string],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -16124,9 +16205,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
+        by_pattern: ["BY", string],
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16155,7 +16236,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
+        by_pattern: ["BY", string],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -16185,8 +16266,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string],
-        destination: ["STORE", string]
+        by_pattern: ["BY", string],
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16215,7 +16296,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        pattern: ["BY", string]
+        by_pattern: ["BY", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16244,11 +16325,11 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16277,8 +16358,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -16309,10 +16390,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16341,8 +16422,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -16372,10 +16453,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16404,8 +16485,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -16435,9 +16516,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        GET_patterns: Array<["GET", string]>,
-        destination: ["STORE", string]
+        limit_offset_count: ["LIMIT", number, number],
+        get_patterns: Array<["GET", string]>,
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16466,8 +16547,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        ...GET_patterns: Array<["GET", string]>
+        limit_offset_count: ["LIMIT", number, number],
+        ...get_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16496,10 +16577,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16528,7 +16609,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -16559,9 +16640,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16590,7 +16671,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
+        limit_offset_count: ["LIMIT", number, number],
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -16620,9 +16701,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
+        limit_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16651,7 +16732,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
+        limit_offset_count: ["LIMIT", number, number],
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -16681,8 +16762,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number],
-        destination: ["STORE", string]
+        limit_offset_count: ["LIMIT", number, number],
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16711,7 +16792,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16740,10 +16821,10 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16772,7 +16853,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
         sorting: "ALPHA"
     ): Promise<any>;
@@ -16803,9 +16884,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16834,7 +16915,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
+        get_patterns: Array<["GET", string]>,
         order: "ASC" | "DESC"
     ): Promise<any>;
     /**
@@ -16864,9 +16945,9 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16895,7 +16976,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
+        get_patterns: Array<["GET", string]>,
         sorting: "ALPHA"
     ): Promise<any>;
     /**
@@ -16925,8 +17006,8 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        GET_patterns: Array<["GET", string]>,
-        destination: ["STORE", string]
+        get_patterns: Array<["GET", string]>,
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16955,7 +17036,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        ...GET_patterns: Array<["GET", string]>
+        ...get_patterns: Array<["GET", string]>
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -16986,7 +17067,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         order: "ASC" | "DESC",
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -17046,7 +17127,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sort(
         key: string,
         order: "ASC" | "DESC",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -17105,7 +17186,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sort(
         key: string,
         sorting: "ALPHA",
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -17163,7 +17244,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     sort(
         key: string,
-        destination: ["STORE", string]
+        store_destination: ["STORE", string]
     ): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
@@ -17841,7 +17922,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination: string,
         numkeys: number,
         keys: string[],
-        weight: ["WEIGHTS", number],
+        weights_weight: ["WEIGHTS", number],
         aggregate: ["AGGREGATE", "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
     /**
@@ -17869,7 +17950,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination: string,
         numkeys: number,
         keys: string[],
-        weight: ["WEIGHTS", number]
+        weights_weight: ["WEIGHTS", number]
     ): Promise<number>;
     /**
      * summary: 'Intersect multiple sorted sets and store the resulting sorted set in a new key'
@@ -17947,6 +18028,80 @@ export interface IHandyRedis extends AdditionalFunctions {
         max: string
     ): Promise<number>;
     /**
+     * summary: 'Remove and return members with the highest scores in a sorted set'
+     *
+     * complexity: 'O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: sorted_set
+     */
+    zpopmax(
+        key: string,
+        count: number
+    ): Promise<string[]>;
+    /**
+     * summary: 'Remove and return members with the highest scores in a sorted set'
+     *
+     * complexity: 'O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: sorted_set
+     */
+    zpopmax(
+        key: string
+    ): Promise<string[]>;
+    /**
+     * summary: 'Remove and return members with the lowest scores in a sorted set'
+     *
+     * complexity: 'O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: sorted_set
+     */
+    zpopmin(
+        key: string,
+        count: number
+    ): Promise<string[]>;
+    /**
+     * summary: 'Remove and return members with the lowest scores in a sorted set'
+     *
+     * complexity: 'O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: sorted_set
+     */
+    zpopmin(
+        key: string
+    ): Promise<string[]>;
+    /**
      * summary: 'Return a range of members in a sorted set, by index'
      *
      * complexity: 'O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.'
@@ -18018,7 +18173,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: string,
         max: string,
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range'
@@ -18067,7 +18222,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: string,
         min: string,
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
@@ -18119,7 +18274,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         min: number,
         max: number,
         withscores: "WITHSCORES",
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
@@ -18173,7 +18328,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         min: number,
         max: number,
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
@@ -18380,7 +18535,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         max: number,
         min: number,
         withscores: "WITHSCORES",
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
@@ -18434,7 +18589,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: number,
         min: number,
-        offset_count: ["LIMIT", number, number]
+        limit_offset_count: ["LIMIT", number, number]
     ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
@@ -18525,7 +18680,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination: string,
         numkeys: number,
         keys: string[],
-        weight: ["WEIGHTS", number],
+        weights_weight: ["WEIGHTS", number],
         aggregate: ["AGGREGATE", "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
     /**
@@ -18553,7 +18708,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         destination: string,
         numkeys: number,
         keys: string[],
-        weight: ["WEIGHTS", number]
+        weights_weight: ["WEIGHTS", number]
     ): Promise<number>;
     /**
      * summary: 'Add multiple sorted sets and store the resulting sorted set in a new key'
@@ -18629,7 +18784,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        pattern: ["MATCH", string],
+        match_pattern: ["MATCH", string],
         count: ["COUNT", number],
         type: ["TYPE", string]
     ): Promise<any>;
@@ -18654,7 +18809,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        pattern: ["MATCH", string],
+        match_pattern: ["MATCH", string],
         count: ["COUNT", number]
     ): Promise<any>;
     /**
@@ -18678,7 +18833,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        pattern: ["MATCH", string],
+        match_pattern: ["MATCH", string],
         type: ["TYPE", string]
     ): Promise<any>;
     /**
@@ -18702,7 +18857,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     scan(
         cursor: number,
-        pattern: ["MATCH", string]
+        match_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
@@ -18818,7 +18973,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        pattern: ["MATCH", string],
+        match_pattern: ["MATCH", string],
         count: ["COUNT", number]
     ): Promise<any>;
     /**
@@ -18843,7 +18998,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     sscan(
         key: string,
         cursor: number,
-        pattern: ["MATCH", string]
+        match_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
@@ -18914,7 +19069,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        pattern: ["MATCH", string],
+        match_pattern: ["MATCH", string],
         count: ["COUNT", number]
     ): Promise<any>;
     /**
@@ -18939,7 +19094,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     hscan(
         key: string,
         cursor: number,
-        pattern: ["MATCH", string]
+        match_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
@@ -19010,7 +19165,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        pattern: ["MATCH", string],
+        match_pattern: ["MATCH", string],
         count: ["COUNT", number]
     ): Promise<any>;
     /**
@@ -19035,7 +19190,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number,
-        pattern: ["MATCH", string]
+        match_pattern: ["MATCH", string]
     ): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
@@ -19083,5 +19238,2725 @@ export interface IHandyRedis extends AdditionalFunctions {
     zscan(
         key: string,
         cursor: number
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        groups_key: ["GROUPS", string],
+        stream_key: ["STREAM", string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        groups_key: ["GROUPS", string],
+        stream_key: ["STREAM", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        groups_key: ["GROUPS", string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        groups_key: ["GROUPS", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        stream_key: ["STREAM", string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        stream_key: ["STREAM", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        consumers_key_groupname: ["CONSUMERS", string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        groups_key: ["GROUPS", string],
+        stream_key: ["STREAM", string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        groups_key: ["GROUPS", string],
+        stream_key: ["STREAM", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        groups_key: ["GROUPS", string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        groups_key: ["GROUPS", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        stream_key: ["STREAM", string],
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        stream_key: ["STREAM", string]
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(
+        help: "HELP"
+    ): Promise<any>;
+    /**
+     * summary: 'Get information on streams and consumer groups'
+     *
+     * complexity: 'O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.'
+     *
+     * arguments:
+     *
+     *     - {command: CONSUMERS, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: GROUPS, name: key, type: key, optional: true}
+     *
+     *     - {command: STREAM, name: key, type: key, optional: true}
+     *
+     *     - {name: help, type: enum, enum: [HELP], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xinfo(): Promise<any>;
+    /**
+     * summary: 'Appends a new entry to a stream'
+     *
+     * complexity: O(1)
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ID, type: string}
+     *
+     *     - {name: [field, value], type: [string, string], multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xadd(
+        key: string,
+        id: string,
+        ...field_values: Array<[string, string]>
+    ): Promise<string>;
+    /**
+     * summary: 'Trims the stream to (approximately if ''~'' is passed) a certain size'
+     *
+     * complexity: 'O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: strategy, type: enum, enum: [MAXLEN]}
+     *
+     *     - {name: approx, type: enum, enum: ['~'], optional: true}
+     *
+     *     - {name: count, type: integer}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xtrim(
+        key: string,
+        strategy: "MAXLEN",
+        approx: "~",
+        count: number
+    ): Promise<number>;
+    /**
+     * summary: 'Trims the stream to (approximately if ''~'' is passed) a certain size'
+     *
+     * complexity: 'O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: strategy, type: enum, enum: [MAXLEN]}
+     *
+     *     - {name: approx, type: enum, enum: ['~'], optional: true}
+     *
+     *     - {name: count, type: integer}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xtrim(
+        key: string,
+        strategy: "MAXLEN",
+        count: number
+    ): Promise<number>;
+    /**
+     * summary: 'Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.'
+     *
+     * complexity: 'O(1) for each single item to delete in the stream, regardless of the stream size.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xdel(
+        key: string,
+        ...ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval'
+     *
+     * complexity: 'O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: start, type: string}
+     *
+     *     - {name: end, type: string}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xrange(
+        key: string,
+        start: string,
+        end: string,
+        count: ["COUNT", number]
+    ): Promise<Array<any[]>>;
+    /**
+     * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval'
+     *
+     * complexity: 'O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: start, type: string}
+     *
+     *     - {name: end, type: string}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xrange(
+        key: string,
+        start: string,
+        end: string
+    ): Promise<Array<any[]>>;
+    /**
+     * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE'
+     *
+     * complexity: 'O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: end, type: string}
+     *
+     *     - {name: start, type: string}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xrevrange(
+        key: string,
+        end: string,
+        start: string,
+        count: ["COUNT", number]
+    ): Promise<Array<any[]>>;
+    /**
+     * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE'
+     *
+     * complexity: 'O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: end, type: string}
+     *
+     *     - {name: start, type: string}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xrevrange(
+        key: string,
+        end: string,
+        start: string
+    ): Promise<Array<any[]>>;
+    /**
+     * summary: 'Return the number of entires in a stream'
+     *
+     * complexity: O(1)
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xlen(
+        key: string
+    ): Promise<number>;
+    /**
+     * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: id, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xread(
+        count: ["COUNT", number],
+        block_milliseconds: ["BLOCK", number],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: id, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xread(
+        count: ["COUNT", number],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: id, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xread(
+        block_milliseconds: ["BLOCK", number],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: id, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xread(
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        setid_key_groupname_idOr$: ["SETID", string, string, string],
+        destroy_key_groupname: ["DESTROY", string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        setid_key_groupname_idOr$: ["SETID", string, string, string],
+        destroy_key_groupname: ["DESTROY", string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        setid_key_groupname_idOr$: ["SETID", string, string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        setid_key_groupname_idOr$: ["SETID", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        destroy_key_groupname: ["DESTROY", string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        destroy_key_groupname: ["DESTROY", string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        create_key_groupname_idOr$: ["CREATE", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        setid_key_groupname_idOr$: ["SETID", string, string, string],
+        destroy_key_groupname: ["DESTROY", string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        setid_key_groupname_idOr$: ["SETID", string, string, string],
+        destroy_key_groupname: ["DESTROY", string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        setid_key_groupname_idOr$: ["SETID", string, string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        setid_key_groupname_idOr$: ["SETID", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        destroy_key_groupname: ["DESTROY", string, string],
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        destroy_key_groupname: ["DESTROY", string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(
+        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
+    ): Promise<any>;
+    /**
+     * summary: 'Create, destroy, and manage consumer groups.'
+     *
+     * complexity: 'O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).'
+     *
+     * arguments:
+     *
+     *     - {command: CREATE, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: SETID, name: [key, groupname, id-or-$], type: [key, string, string], optional: true}
+     *
+     *     - {command: DESTROY, name: [key, groupname], type: [key, string], optional: true}
+     *
+     *     - {command: DELCONSUMER, name: [key, groupname, consumername], type: [key, string, string], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xgroup(): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        count: ["COUNT", number],
+        block_milliseconds: ["BLOCK", number],
+        noack: "NOACK",
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        count: ["COUNT", number],
+        block_milliseconds: ["BLOCK", number],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        count: ["COUNT", number],
+        noack: "NOACK",
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        count: ["COUNT", number],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        block_milliseconds: ["BLOCK", number],
+        noack: "NOACK",
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        block_milliseconds: ["BLOCK", number],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        noack: "NOACK",
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.'
+     *
+     * complexity: 'For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.'
+     *
+     * arguments:
+     *
+     *     - {command: GROUP, name: [group, consumer], type: [string, string]}
+     *
+     *     - {command: COUNT, name: count, type: integer, optional: true}
+     *
+     *     - {command: BLOCK, name: milliseconds, type: integer, optional: true}
+     *
+     *     - {name: noack, type: enum, enum: [NOACK], optional: true}
+     *
+     *     - {name: streams, type: enum, enum: [STREAMS]}
+     *
+     *     - {name: key, type: key, multiple: true}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xreadgroup(
+        group_group_consumer: ["GROUP", string, string],
+        streams: "STREAMS",
+        keys: string[],
+        ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.'
+     *
+     * complexity: 'O(1) for each message ID processed.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xack(
+        key: string,
+        group: string,
+        ...ids: string[]
+    ): Promise<number>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        time_msUnixTime: ["TIME", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        retrycount_count: ["RETRYCOUNT", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        idle_ms: ["IDLE", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        retrycount_count: ["RETRYCOUNT", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        time_msUnixTime: ["TIME", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        retrycount_count: ["RETRYCOUNT", number],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        retrycount_count: ["RETRYCOUNT", number],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        retrycount_count: ["RETRYCOUNT", number]
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        force: any,
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        force: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ids: string[],
+        justid: any
+    ): Promise<any>;
+    /**
+     * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
+     *
+     * complexity: 'O(log N) with N being the number of messages in the PEL of the consumer group.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: consumer, type: string}
+     *
+     *     - {name: min-idle-time, type: string}
+     *
+     *     - {name: ID, type: string, multiple: true}
+     *
+     *     - {command: IDLE, name: ms, type: integer, optional: true}
+     *
+     *     - {command: TIME, name: ms-unix-time, type: integer, optional: true}
+     *
+     *     - {command: RETRYCOUNT, name: count, type: integer, optional: true}
+     *
+     *     - {name: force, enum: [FORCE], optional: true}
+     *
+     *     - {name: justid, enum: [JUSTID], optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        minIdleTime: string,
+        ...ids: string[]
+    ): Promise<any>;
+    /**
+     * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
+     *
+     * complexity: 'O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: [start, end, count], type: [string, string, integer], optional: true}
+     *
+     *     - {name: consumer, type: string, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xpending(
+        key: string,
+        group: string,
+        start_end_count: [string, string, number],
+        consumer: string
+    ): Promise<any>;
+    /**
+     * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
+     *
+     * complexity: 'O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: [start, end, count], type: [string, string, integer], optional: true}
+     *
+     *     - {name: consumer, type: string, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xpending(
+        key: string,
+        group: string,
+        start_end_count: [string, string, number]
+    ): Promise<any>;
+    /**
+     * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
+     *
+     * complexity: 'O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: [start, end, count], type: [string, string, integer], optional: true}
+     *
+     *     - {name: consumer, type: string, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xpending(
+        key: string,
+        group: string,
+        consumer: string
+    ): Promise<any>;
+    /**
+     * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
+     *
+     * complexity: 'O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: group, type: string}
+     *
+     *     - {name: [start, end, count], type: [string, string, integer], optional: true}
+     *
+     *     - {name: consumer, type: string, optional: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xpending(
+        key: string,
+        group: string
     ): Promise<any>;
 }

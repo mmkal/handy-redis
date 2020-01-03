@@ -2,6 +2,6 @@
 
 exports[`scripts/redis-doc/commands/xack.md example 1 1`] = `
 Array [
-  "// not implemented by node redis: await client.xack(\`Couldn\\"t format arguments: Couldn\\"t find command 'xack'\`)  => '// not implemented by node redis: await client.xack(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'xack\\\\'\`)'",
+  "await client.xack('mystream', 'mygroup', '1526569495631-0')  => 0",
 ]
 `;

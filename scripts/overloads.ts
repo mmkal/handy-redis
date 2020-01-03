@@ -23,5 +23,18 @@ export const getOverloads = (args: Argument[]): Argument[][] => {
         variations = variations.concat(overloadsOfTheRest);
     }
 
+    const variationsWithMultipleTuplesFlattened = variations
+        .filter(v => {
+            const last = v[v.length - 1];
+            return last && last.multiple && Array.isArray(last.type);
+        })
+        .map(v => {
+            const last = v[v.length - 1];
+            const types: typeof last.type[] = last.type as any;
+            return v.slice(0, -1).concat(types.map((t, i) => ({ ...last, name: last.name.split("_")[i], type: t, multiple: false })));
+        });
+
+    variations = variationsWithMultipleTuplesFlattened.concat(variations);
+
     return variations;
 };

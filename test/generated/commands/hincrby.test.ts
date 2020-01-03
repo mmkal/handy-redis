@@ -14,14 +14,14 @@ it("scripts/redis-doc/commands/hincrby.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/hincrby.md");
     let snapshot: any;
     const commands = [
-        `await client.hset("myhash", ["field", "5"])`,
+        `await client.hset("myhash", "field", "5")`,
         `await client.hincrby("myhash", "field", 1)`,
         `await client.hincrby("myhash", "field", -1)`,
         `await client.hincrby("myhash", "field", -10)`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.hset("myhash", ["field", "5"]));
+        output.push(await client.hset("myhash", "field", "5"));
         output.push(await client.hincrby("myhash", "field", 1));
         output.push(await client.hincrby("myhash", "field", -1));
         output.push(await client.hincrby("myhash", "field", -10));

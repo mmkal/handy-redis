@@ -1021,6 +1021,27 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     geoadd(
         key: string,
+        longitude: number,
+        latitude: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more geospatial items in the geospatial index represented using a sorted set'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: [longitude, latitude, member], type: [double, double, string], multiple: true}
+     *
+     * since: 3.2.0
+     *
+     * group: geo
+     */
+    geoadd(
+        key: string,
         ...longitude_latitude_members: Array<[number, number, string]>
     ): Promise<number>;
     /**
@@ -1041,7 +1062,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     geohash(
         key: string,
         ...members: string[]
-    ): Promise<string[]>;
+    ): Promise<Array<string | null>>;
     /**
      * summary: 'Returns longitude and latitude of members of a geospatial index'
      *
@@ -1085,7 +1106,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         member1: string,
         member2: string,
         unit: "m" | "km" | "ft" | "mi"
-    ): Promise<string | null>;
+    ): Promise<any | null>;
     /**
      * summary: 'Returns the distance between two members of a geospatial index'
      *
@@ -1109,7 +1130,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         member1: string,
         member2: string
-    ): Promise<string | null>;
+    ): Promise<any | null>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
      *
@@ -12635,8 +12656,48 @@ export interface IHandyRedis extends AdditionalFunctions {
      */
     hmset(
         key: string,
+        field: string,
+        value: string
+    ): Promise<string>;
+    /**
+     * summary: 'Set multiple hash fields to multiple values'
+     *
+     * complexity: 'O(N) where N is the number of fields being set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: [field, value], type: [string, string], multiple: true}
+     *
+     * since: 2.0.0
+     *
+     * group: hash
+     */
+    hmset(
+        key: string,
         ...field_values: Array<[string, string]>
     ): Promise<string>;
+    /**
+     * summary: 'Set the string value of a hash field'
+     *
+     * complexity: 'O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: [field, value], type: [string, string], multiple: true}
+     *
+     * since: 2.0.0
+     *
+     * group: hash
+     */
+    hset(
+        key: string,
+        field: string,
+        value: string
+    ): Promise<number>;
     /**
      * summary: 'Set the string value of a hash field'
      *
@@ -17651,6 +17712,615 @@ export interface IHandyRedis extends AdditionalFunctions {
         condition: "NX" | "XX",
         change: "CH",
         increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        increment: "INCR",
         ...score_members: Array<[number, string]>
     ): Promise<number>;
     /**
@@ -17679,6 +18349,61 @@ export interface IHandyRedis extends AdditionalFunctions {
         condition: "NX" | "XX",
         change: "CH",
         ...score_members: Array<[number, string]>
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        score: number,
+        member: string
     ): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
@@ -17758,6 +18483,169 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         change: "CH",
         increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        increment: "INCR",
         ...score_members: Array<[number, string]>
     ): Promise<number>;
     /**
@@ -17785,6 +18673,59 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         change: "CH",
         ...score_members: Array<[number, string]>
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        increment: "INCR",
+        score: number,
+        member: string
+    ): Promise<number>;
+    /**
+     * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
+     *
+     * complexity: 'O(log(N)) for each item added, where N is the number of elements in the sorted set.'
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: condition, type: enum, enum: [NX, XX], optional: true}
+     *
+     *     - {name: change, type: enum, enum: [CH], optional: true}
+     *
+     *     - {name: increment, type: enum, enum: [INCR], optional: true}
+     *
+     *     - {name: [score, member], type: [double, string], multiple: true}
+     *
+     * since: 1.2.0
+     *
+     * group: sorted_set
+     */
+    zadd(
+        key: string,
+        score: number,
+        member: string
     ): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
@@ -18223,7 +19164,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         max: string,
         min: string,
         limit_offset_count: ["LIMIT", number, number]
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
      *
@@ -18247,7 +19188,7 @@ export interface IHandyRedis extends AdditionalFunctions {
         key: string,
         max: string,
         min: string
-    ): Promise<string[]>;
+    ): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
      *
@@ -19606,6 +20547,52 @@ export interface IHandyRedis extends AdditionalFunctions {
      * group: stream
      */
     xinfo(): Promise<any>;
+    /**
+     * summary: 'Appends a new entry to a stream'
+     *
+     * complexity: O(1)
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ID, type: string}
+     *
+     *     - {name: [field, value], type: [string, string], multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xadd(
+        key: string,
+        id: string,
+        field: string,
+        value: string
+    ): Promise<string>;
+    /**
+     * summary: 'Appends a new entry to a stream'
+     *
+     * complexity: O(1)
+     *
+     * arguments:
+     *
+     *     - {name: key, type: key}
+     *
+     *     - {name: ID, type: string}
+     *
+     *     - {name: [field, value], type: [string, string], multiple: true}
+     *
+     * since: 5.0.0
+     *
+     * group: stream
+     */
+    xadd(
+        key: string,
+        id: string,
+        field: string,
+        value: string
+    ): Promise<string>;
     /**
      * summary: 'Appends a new entry to a stream'
      *

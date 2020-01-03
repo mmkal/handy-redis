@@ -14,9 +14,9 @@ it("scripts/redis-doc/commands/zrevrangebyscore.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zrevrangebyscore.md");
     let snapshot: any;
     const commands = [
-        `await client.zadd("myzset", [1, "one"])`,
-        `await client.zadd("myzset", [2, "two"])`,
-        `await client.zadd("myzset", [3, "three"])`,
+        `await client.zadd("myzset", 1, "one")`,
+        `await client.zadd("myzset", 2, "two")`,
+        `await client.zadd("myzset", 3, "three")`,
         `await client.zrevrangebyscore("myzset", Infinity, -Infinity)`,
         `await client.zrevrangebyscore("myzset", 2, 1)`,
         `await client.zrevrangebyscore("myzset", 2, "(1" as any)`,
@@ -24,9 +24,9 @@ it("scripts/redis-doc/commands/zrevrangebyscore.md example 1", async () => {
     ];
     const output: any[] = [];
     try {
-        output.push(await client.zadd("myzset", [1, "one"]));
-        output.push(await client.zadd("myzset", [2, "two"]));
-        output.push(await client.zadd("myzset", [3, "three"]));
+        output.push(await client.zadd("myzset", 1, "one"));
+        output.push(await client.zadd("myzset", 2, "two"));
+        output.push(await client.zadd("myzset", 3, "three"));
         output.push(await client.zrevrangebyscore("myzset", Infinity, -Infinity));
         output.push(await client.zrevrangebyscore("myzset", 2, 1));
         output.push(await client.zrevrangebyscore("myzset", 2, "(1" as any));

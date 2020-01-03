@@ -14,21 +14,21 @@ it("scripts/redis-doc/commands/zinterstore.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zinterstore.md");
     let snapshot: any;
     const commands = [
-        `await client.zadd("zset1", [1, "one"])`,
-        `await client.zadd("zset1", [2, "two"])`,
-        `await client.zadd("zset2", [1, "one"])`,
-        `await client.zadd("zset2", [2, "two"])`,
-        `await client.zadd("zset2", [3, "three"])`,
+        `await client.zadd("zset1", 1, "one")`,
+        `await client.zadd("zset1", 2, "two")`,
+        `await client.zadd("zset2", 1, "one")`,
+        `await client.zadd("zset2", 2, "two")`,
+        `await client.zadd("zset2", 3, "three")`,
         `await client.zinterstore("out", 2, "zset1", "zset2", "WEIGHTS", "2", "3")`,
         `await client.zrange("out", 0, -1, "WITHSCORES")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.zadd("zset1", [1, "one"]));
-        output.push(await client.zadd("zset1", [2, "two"]));
-        output.push(await client.zadd("zset2", [1, "one"]));
-        output.push(await client.zadd("zset2", [2, "two"]));
-        output.push(await client.zadd("zset2", [3, "three"]));
+        output.push(await client.zadd("zset1", 1, "one"));
+        output.push(await client.zadd("zset1", 2, "two"));
+        output.push(await client.zadd("zset2", 1, "one"));
+        output.push(await client.zadd("zset2", 2, "two"));
+        output.push(await client.zadd("zset2", 3, "three"));
         output.push(await client.zinterstore("out", 2, "zset1", "zset2", "WEIGHTS", "2", "3"));
         output.push(await client.zrange("out", 0, -1, "WITHSCORES"));
         const overridenOutput = overrider(output);

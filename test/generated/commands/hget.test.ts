@@ -14,18 +14,18 @@ it("scripts/redis-doc/commands/hget.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/hget.md");
     let snapshot: any;
     const commands = [
-        `await client.hset("myhash", ["field1", "foo"])`,
+        `await client.hset("myhash", "field1", "foo")`,
         `await client.hget("myhash", "field1")`,
         `await client.hget("myhash", "field2")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.hset("myhash", ["field1", "foo"]));
+        output.push(await client.hset("myhash", "field1", "foo"));
         output.push(await client.hget("myhash", "field1"));
         output.push(await client.hget("myhash", "field2"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 47)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 45)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

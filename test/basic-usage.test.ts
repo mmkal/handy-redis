@@ -25,10 +25,35 @@ it("can use set and keys", async () => {
     expect(keys.sort()).toEqual(["x:foo", "x:bar"].sort());
 });
 
+it("can use hset with multiple fields", async () => {
+    const client = createHandyClient();
+
+    await client.hset("myhash", ["field1", "Hello"], ["field2", "Goodbye"]);
+
+    expect(await client.hgetall("myhash")).toMatchObject({
+        field1: "Hello",
+        field2: "Goodbye"
+    });
+});
+
+it("can use setbit with string or number", async () => {
+    const client = createHandyClient();
+
+    await client.setbit("mykey", 7, 1);
+    expect(await client.getbit("mykey", 7)).toEqual(1);
+
+    await client.setbit("mykey", 7, "0");
+    expect(await client.getbit("mykey", 7)).toEqual(0);
+});
+
 it("can use multi", async () => {
     const client = createHandyClient();
 
-    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
+    const multi = client
+        .multi()
+        .set("z:foo", "987")
+        .keys("z:*")
+        .get("z:foo");
 
     const result = await client.execMulti(multi);
 
@@ -39,7 +64,7 @@ it("multi rejects correctly", async () => {
     const client = createHandyClient();
 
     const fakeMulti: Multi = {
-        exec: (callback: Function) => callback(new Error("foo")),
+        exec: (callback: Function) => callback(new Error("foo"))
     } as any;
 
     await expect(client.execMulti(fakeMulti)).rejects.toEqual(new Error("foo"));

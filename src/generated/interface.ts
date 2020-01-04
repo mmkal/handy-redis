@@ -15101,7 +15101,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     setbit(
         key: string,
         offset: number,
-        value: number
+        value: number | string
     ): Promise<number>;
     /**
      * summary: 'Set the value and expiration of a key'

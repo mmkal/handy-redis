@@ -20,6 +20,10 @@ const generateClientInterface = async (getCommands: typeof getFullCommands) => {
         }
 
         const argList = commandInfo.args
+            // hack: setbit allowed a string as the last argument at one point.
+            // for backwards compatibility, continue allowing it even though redis-doc has updated
+            // todo: remove this hack in v2
+            .map(a => commandInfo.name === "setbit" && a.name === "value" ? { ...a, type: "number | string" } : a)
             .map(a => `${a.name}: ${a.type}`)
             .join(`,${EOL}${twotabs}`);
 

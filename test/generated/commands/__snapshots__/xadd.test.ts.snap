@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/xadd.md example 1 1`] = `
+Array [
+  "await client.xadd('mystream', '*', ['name', 'Sara'], ['surname', 'OConnor'])                          => '<<stream_0>>'",
+  "await client.xadd('mystream', '*', ['field1', 'value1'], ['field2', 'value2'], ['field3', 'value3'])  => '<<stream_1>>'",
+  "await client.xlen('mystream')                                                                         => 2",
+  "await client.xrange('mystream', '-', '+')                                                             => [['<<stream_0>>',['name','Sara','surname','OConnor']],['<<stream_1>>',['field1','value1','field2','value2','field3','value3']]]",
+]
+`;

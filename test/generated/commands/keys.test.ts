@@ -14,20 +14,20 @@ it("scripts/redis-doc/commands/keys.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/keys.md");
     let snapshot: any;
     const commands = [
-        `await client.mset(["one", "1"], ["two", "2"], ["three", "3"], ["four", "4"])`,
-        `await client.keys("*o*")`,
-        `await client.keys("t??")`,
+        `await client.mset(["firstname", "Jack"], ["lastname", "Stuntman"], ["age", "35"])`,
+        `await client.keys("*name*")`,
+        `await client.keys("a??")`,
         `await client.keys("*")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.mset(["one", "1"], ["two", "2"], ["three", "3"], ["four", "4"]));
-        output.push(await client.keys("*o*"));
-        output.push(await client.keys("t??"));
+        output.push(await client.mset(["firstname", "Jack"], ["lastname", "Stuntman"], ["age", "35"]));
+        output.push(await client.keys("*name*"));
+        output.push(await client.keys("a??"));
         output.push(await client.keys("*"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 77)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 82)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

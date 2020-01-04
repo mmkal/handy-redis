@@ -7,7 +7,7 @@ import { log, warn, error } from "./log";
 export const getExampleRuns = async () => {
     const examples = getCliExamples();
     const redisCli = spawn("docker", ["exec", "-i", "handy_redis", "redis-cli", "--no-raw"], { env: process.env });
-    redisCli.stdin.setDefaultEncoding("utf-8");
+    redisCli.stdin!.setDefaultEncoding("utf-8");
     const redisInteractor = {
         onstdout: (data: string) => log(data),
         onstderr: (data: string) => warn(data),
@@ -21,12 +21,12 @@ export const getExampleRuns = async () => {
                 resolve(parseCommandOutput(command, null, data));
             };
             log(">", command);
-            redisCli.stdin.write(`${command}\n`);
+            redisCli.stdin!.write(`${command}\n`);
         }),
     };
 
-    redisCli.stdout.on("data", data => redisInteractor.onstdout(data.toString()));
-    redisCli.stderr.on("data", data => redisInteractor.onstderr(data.toString()));
+    redisCli.stdout!.on("data", data => redisInteractor.onstdout(data.toString()));
+    redisCli.stderr!.on("data", data => redisInteractor.onstderr(data.toString()));
 
     const runs = new Array<CliExampleRun>();
     for (const example of examples) {

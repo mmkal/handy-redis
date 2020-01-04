@@ -15,13 +15,13 @@ it("scripts/redis-doc/commands/msetnx.md example 1", async () => {
     let snapshot: any;
     const commands = [
         `await client.msetnx(["key1", "Hello"], ["key2", "there"])`,
-        `await client.msetnx(["key2", "there"], ["key3", "world"])`,
+        `await client.msetnx(["key2", "new"], ["key3", "world"])`,
         `await client.mget("key1", "key2", "key3")`,
     ];
     const output: any[] = [];
     try {
         output.push(await client.msetnx(["key1", "Hello"], ["key2", "there"]));
-        output.push(await client.msetnx(["key2", "there"], ["key3", "world"]));
+        output.push(await client.msetnx(["key2", "new"], ["key3", "world"]));
         output.push(await client.mget("key1", "key2", "key3"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)

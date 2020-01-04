@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/xtrim.md example 1 1`] = `
+Array [
+  "await client.xadd('mystream', '*', ['field1', 'A'], ['field2', 'B'], ['field3', 'C'], ['field4', 'D'])  => '<<stream_0>>'",
+  "await client.xtrim('mystream', 'MAXLEN', 2)                                                             => 0",
+  "await client.xrange('mystream', '-', '+')                                                               => [['<<stream_0>>',['field1','A','field2','B','field3','C','field4','D']]]",
+]
+`;

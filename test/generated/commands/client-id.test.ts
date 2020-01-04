@@ -10,22 +10,18 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/set.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/set.md");
+it("scripts/redis-doc/commands/client-id.md example 1", async () => {
+    const overrider = getOverride("scripts/redis-doc/commands/client-id.md");
     let snapshot: any;
     const commands = [
-        `await client.set("mykey", "Hello")`,
-        `await client.get("mykey")`,
-        `await client.set("anotherkey", "will expire in a minute", ["EX", 60])`,
+        "// not implemented by node redis: await client.client(`Couldn't format arguments: Couldn't find command \"client\"`)",
     ];
     const output: any[] = [];
     try {
-        output.push(await client.set("mykey", "Hello"));
-        output.push(await client.get("mykey"));
-        output.push(await client.set("anotherkey", "will expire in a minute", ["EX", 60]));
+        output.push("// not implemented by node redis: await client.client(`Couldn't format arguments: Couldn't find command \"client\"`)");
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 70)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 115)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

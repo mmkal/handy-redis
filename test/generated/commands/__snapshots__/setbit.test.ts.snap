@@ -2,8 +2,8 @@
 
 exports[`scripts/redis-doc/commands/setbit.md example 1 1`] = `
 Array [
-  "await client.setbit('mykey', 7, '1')  => 0",
-  "await client.setbit('mykey', 7, '0')  => 1",
-  "await client.get('mykey')             => '\\\\u0000'",
+  "await client.setbit('mykey', 7, 1)  => 0",
+  "await client.setbit('mykey', 7, 0)  => 1",
+  "await client.get('mykey')           => '\\\\u0000'",
 ]
 `;

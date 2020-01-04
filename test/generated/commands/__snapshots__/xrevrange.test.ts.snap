@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/xrevrange.md example 1 1`] = `
+Array [
+  "await client.xadd('writers', '*', ['name', 'Virginia'], ['surname', 'Woolf'])   => '<<stream_0>>'",
+  "await client.xadd('writers', '*', ['name', 'Jane'], ['surname', 'Austen'])      => '<<stream_1>>'",
+  "await client.xadd('writers', '*', ['name', 'Toni'], ['surname', 'Morris'])      => '<<stream_2>>'",
+  "await client.xadd('writers', '*', ['name', 'Agatha'], ['surname', 'Christie'])  => '<<stream_3>>'",
+  "await client.xadd('writers', '*', ['name', 'Ngozi'], ['surname', 'Adichie'])    => '<<stream_4>>'",
+  "await client.xlen('writers')                                                    => 5",
+  "await client.xrevrange('writers', '+', '-', ['COUNT', 1])                       => [['<<stream_4>>',['name','Ngozi','surname','Adichie']]]",
+]
+`;

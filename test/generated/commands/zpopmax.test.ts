@@ -10,22 +10,24 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/set.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/set.md");
+it("scripts/redis-doc/commands/zpopmax.md example 1", async () => {
+    const overrider = getOverride("scripts/redis-doc/commands/zpopmax.md");
     let snapshot: any;
     const commands = [
-        `await client.set("mykey", "Hello")`,
-        `await client.get("mykey")`,
-        `await client.set("anotherkey", "will expire in a minute", ["EX", 60])`,
+        `await client.zadd("myzset", [1, "one"])`,
+        `await client.zadd("myzset", [2, "two"])`,
+        `await client.zadd("myzset", [3, "three"])`,
+        `await client.zpopmax("myzset")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.set("mykey", "Hello"));
-        output.push(await client.get("mykey"));
-        output.push(await client.set("anotherkey", "will expire in a minute", ["EX", 60]));
+        output.push(await client.zadd("myzset", [1, "one"]));
+        output.push(await client.zadd("myzset", [2, "two"]));
+        output.push(await client.zadd("myzset", [3, "three"]));
+        output.push(await client.zpopmax("myzset"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 70)} => ${JSON.stringify(pair[1])}`)
+            .map(pair => `${padEnd(pair[0], 42)} => ${JSON.stringify(pair[1])}`)
             .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };

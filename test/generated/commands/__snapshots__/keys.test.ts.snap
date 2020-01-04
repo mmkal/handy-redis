@@ -2,9 +2,9 @@
 
 exports[`scripts/redis-doc/commands/keys.md example 1 1`] = `
 Array [
-  "await client.mset(['one', '1'], ['two', '2'], ['three', '3'], ['four', '4'])  => 'OK'",
-  "await client.keys('*o*')                                                      => 'sorted => [ \\"four\\", \\"one\\", \\"two\\" ]'",
-  "await client.keys('t??')                                                      => 'sorted => [ \\"two\\" ]'",
-  "await client.keys('*')                                                        => 'sorted => [ \\"four\\", \\"one\\", \\"three\\", \\"two\\" ]'",
+  "await client.mset(['firstname', 'Jack'], ['lastname', 'Stuntman'], ['age', '35'])  => 'OK'",
+  "await client.keys('*name*')                                                        => 'sorted => [ \\"firstname\\", \\"lastname\\" ]'",
+  "await client.keys('a??')                                                           => 'sorted => [ \\"age\\" ]'",
+  "await client.keys('*')                                                             => 'sorted => [ \\"age\\", \\"firstname\\", \\"lastname\\" ]'",
 ]
 `;

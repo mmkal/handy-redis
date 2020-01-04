@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`scripts/redis-doc/commands/xlen.md example 1 1`] = `
+Array [
+  "await client.xadd('mystream', '*', ['item', '1'])  => '<<stream_0>>'",
+  "await client.xadd('mystream', '*', ['item', '2'])  => '<<stream_1>>'",
+  "await client.xadd('mystream', '*', ['item', '3'])  => '<<stream_2>>'",
+  "await client.xlen('mystream')                      => 3",
+]
+`;

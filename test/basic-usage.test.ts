@@ -29,10 +29,12 @@ it("can use hset with multiple fields", async () => {
     const client = createHandyClient();
 
     await client.hset("myhash", ["field1", "Hello"], ["field2", "Goodbye"]);
+    await client.hset("myhash", "field3", "foo");
 
     expect(await client.hgetall("myhash")).toMatchObject({
         field1: "Hello",
-        field2: "Goodbye"
+        field2: "Goodbye",
+        field3: "foo",
     });
 });
 

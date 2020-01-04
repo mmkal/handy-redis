@@ -33,8 +33,7 @@ export const _arrayLength = simplify(function arrayLength(x: any[]) { return x.l
 const noNumberValues = (o: any) => /^\d+$/.test(o) ? "[a number]" : o;
 const sortArrays = (o: any) => Array.isArray(o) ? _sorted(o) : o;
 const ignoreDecimals = (o: any) => JSON.parse(JSON.stringify(o).replace(/(\d+)\.(\d+)/g, number => number.split(".")[0] + ".??"));
-const streamIds = [] as string[];
-const ignoreStreamIds = (o: any) => JSON.parse(JSON.stringify(o).replace(/(\d+)-(\d+)/g, val => {
+const ignoreStreamIds = (streamIds: string[]) => (o: any) => JSON.parse(JSON.stringify(o).replace(/(\d+)-(\d+)/g, val => {
     streamIds.push(val);
     return `<<stream_${streamIds.indexOf(val)}>>`;
 }));
@@ -54,4 +53,4 @@ addOverride("/info.md", outputs => outputs.map(_typeOf));
 addOverride("/(sunionstore|sadd|smembers|sunion|smove|srem|spop|sinterstore|sdiffstore|sdiff).md", outputs => outputs.map(sortArrays));
 addOverride("/keys.md", outputs => outputs.map(sortArrays));
 addOverride("/geo(\\w+)\.md", outputs => outputs.map(ignoreDecimals));
-addOverride("/(xadd|xlen|xrange|xrevrange|xtrim).md", outputs => outputs.map(ignoreStreamIds));
+addOverride("/(xadd|xack|xlen|xrange|xrevrange|xtrim).md", outputs => outputs.map(ignoreStreamIds([])));

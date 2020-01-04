@@ -13,18 +13,5 @@ export const getOverloads = (args: Argument[]): Argument[][] => {
         overloads.push(...tailOverloads);
     }
 
-    const overloadsWithFlattenedTailTuples = overloads
-        .filter(v => {
-            const last = v[v.length - 1];
-            return last && last.multiple && Array.isArray(last.type);
-        })
-        .map(v => {
-            const last = v[v.length - 1];
-            const types: typeof last.type[] = last.type as any;
-            return v.slice(0, -1).concat(types.map((t, i) => ({ ...last, name: last.name.split("_")[i], type: t, multiple: false })));
-        });
-
-    overloads.unshift(...overloadsWithFlattenedTailTuples);
-
     return overloads;
 };

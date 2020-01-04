@@ -15,14 +15,14 @@ it("scripts/redis-doc/commands/zlexcount.md example 1", async () => {
     let snapshot: any;
     const commands = [
         `await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"])`,
-        `await client.zadd("myzset", 0, "f")`,
+        `await client.zadd("myzset", [0, "f"], [0, "g"])`,
         `await client.zlexcount("myzset", "-", "+")`,
         `await client.zlexcount("myzset", "[b", "[f")`,
     ];
     const output: any[] = [];
     try {
         output.push(await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"]));
-        output.push(await client.zadd("myzset", 0, "f"));
+        output.push(await client.zadd("myzset", [0, "f"], [0, "g"]));
         output.push(await client.zlexcount("myzset", "-", "+"));
         output.push(await client.zlexcount("myzset", "[b", "[f"));
         const overridenOutput = overrider(output);

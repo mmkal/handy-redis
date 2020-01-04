@@ -14,17 +14,17 @@ it("scripts/redis-doc/commands/zremrangebyrank.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zremrangebyrank.md");
     let snapshot: any;
     const commands = [
-        `await client.zadd("myzset", 1, "one")`,
-        `await client.zadd("myzset", 2, "two")`,
-        `await client.zadd("myzset", 3, "three")`,
+        `await client.zadd("myzset", [1, "one"])`,
+        `await client.zadd("myzset", [2, "two"])`,
+        `await client.zadd("myzset", [3, "three"])`,
         `await client.zremrangebyrank("myzset", 0, 1)`,
         `await client.zrange("myzset", 0, -1, "WITHSCORES")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.zadd("myzset", 1, "one"));
-        output.push(await client.zadd("myzset", 2, "two"));
-        output.push(await client.zadd("myzset", 3, "three"));
+        output.push(await client.zadd("myzset", [1, "one"]));
+        output.push(await client.zadd("myzset", [2, "two"]));
+        output.push(await client.zadd("myzset", [3, "three"]));
         output.push(await client.zremrangebyrank("myzset", 0, 1));
         output.push(await client.zrange("myzset", 0, -1, "WITHSCORES"));
         const overridenOutput = overrider(output);

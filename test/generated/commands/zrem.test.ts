@@ -14,17 +14,17 @@ it("scripts/redis-doc/commands/zrem.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zrem.md");
     let snapshot: any;
     const commands = [
-        `await client.zadd("myzset", 1, "one")`,
-        `await client.zadd("myzset", 2, "two")`,
-        `await client.zadd("myzset", 3, "three")`,
+        `await client.zadd("myzset", [1, "one"])`,
+        `await client.zadd("myzset", [2, "two"])`,
+        `await client.zadd("myzset", [3, "three"])`,
         `await client.zrem("myzset", "two")`,
         `await client.zrange("myzset", 0, -1, "WITHSCORES")`,
     ];
     const output: any[] = [];
     try {
-        output.push(await client.zadd("myzset", 1, "one"));
-        output.push(await client.zadd("myzset", 2, "two"));
-        output.push(await client.zadd("myzset", 3, "three"));
+        output.push(await client.zadd("myzset", [1, "one"]));
+        output.push(await client.zadd("myzset", [2, "two"]));
+        output.push(await client.zadd("myzset", [3, "three"]));
         output.push(await client.zrem("myzset", "two"));
         output.push(await client.zrange("myzset", 0, -1, "WITHSCORES"));
         const overridenOutput = overrider(output);

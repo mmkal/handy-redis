@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",
-    "@types/jest": "^24.0.18",
+    "@types/jest": "^25.1.0",
     "@types/lodash": "^4.14.120",
     "@types/node": "^7.0.69",
     "@types/shelljs": "^0.8.5",

@@ -60,8 +60,8 @@
     "tabWidth": 4
   },
   "dependencies": {
-    "@types/redis": "^2.8.6",
-    "redis": "^2.8.0"
+    "@types/redis": "^2.8.14",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",

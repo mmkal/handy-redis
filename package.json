@@ -86,7 +86,7 @@
     "ts-jest": "^25.0.0",
     "ts-node": "^8.3.0",
     "tslint": "^6.0.0",
-    "typescript": "^3.0.1",
+    "typescript": "^3.8.3",
     "yamljs": "^0.3.0"
   }
 }

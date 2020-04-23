@@ -24,10 +24,11 @@ export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
         if (useUnderlyingImpl.has(key)) {
             handyClient[key] = func.bind(nodeRedis);
         } else {
-            handyClient[key] = (...args: any[]) => new Promise((resolve, reject) => {
+            const wrapped = (...args: any[]) => new Promise((resolve, reject) => {
                 const flattened = flattenDeep(args);
                 func.apply(nodeRedis, flattened.concat([(err: any, data: any) => err ? reject(err) : resolve(data)]));
             });
+            handyClient[key] = wrapped as any
         }
     });
     Object.assign(handyClient, additionalFunctions);

@@ -10,14 +10,13 @@ node_js:
   - '10'
   - '12'
 before_script:
-  - npm prune
-  - npm run redis:up -- -d && sleep 10
+  - yarn redis:up -- -d && sleep 10
 script:
-  - npm run ci
+  - yarn ci
 after_success:
   - if [ $TRAVIS_NODE_VERSION == '12' ]; then
-  -  npm run release
-  -  npm run coveralls
+  -  yarn release
+  -  yarn coveralls
   - fi
 branches:
   except:

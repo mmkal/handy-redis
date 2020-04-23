@@ -43,6 +43,11 @@
   },
   "homepage": "https://github.com/mmkal/handy-redis#readme",
   "jest": {
+    "globals": {
+      "ts-jest": {
+        "diagnostics": false
+      }
+    },
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
     },

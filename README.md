@@ -82,15 +82,15 @@ git clone https://github.com/mmkal/handy-redis --recursive
 cd handy-redis
 npm install
 ```
-Then in a separate terminal, make sure you have docker installed and `docker-compose` is on your path, and start up a redis server in the background with `npm run redis:up`.
+Then in a separate terminal, make sure you have docker installed and `docker-compose` is on your path, and start up a redis server in the background with `yarn redis:up`.
 
 To fully test the package as it is on your machine, the same way travis does:
 
 ```cli
-npm run ci
+yarn ci
 ```
 
-`npm run ci` runs the build, test and lint scripts. It removes all generated code before, and after checks that your git status is clean. This is to allow tracking changes to the generated client over time, to make what the published package contains more visible, and to make sure that generated code hasn't been modified without auditing first. You should not manually edit any files under a `*/generated/*` path. If `npm run ci` fails for you because you deliberately changed the way the codegen works, take a look at the git changes, check them in and run `npm run ci` again.
+`yarn ci` runs the build, test and lint scripts. It removes all generated code before, and after checks that your git status is clean. This is to allow tracking changes to the generated client over time, to make what the published package contains more visible, and to make sure that generated code hasn't been modified without auditing first. You should not manually edit any files under a `*/generated/*` path. If `yarn ci` fails for you because you deliberately changed the way the codegen works, take a look at the git changes, check them in and run `yarn ci` again.
 
 The `build` script generates the client before using TypeScript to compile it. If you want to run the tests without rebuilding, use `npm test`.
 

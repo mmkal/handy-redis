@@ -21,7 +21,7 @@ export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
 
     Object.keys(nodeRedis.__proto__).forEach((key: keyof IHandyRedis) => {
         const func = nodeRedis[key];
-        if (useUnderlyingImpl.has(key)) {
+        if (useUnderlyingImpl.has(key as any)) {
             handyClient[key] = func.bind(nodeRedis);
         } else {
             const wrapped = (...args: any[]) => new Promise((resolve, reject) => {

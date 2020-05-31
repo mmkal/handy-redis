@@ -101,3 +101,5 @@ If you cloned without `--recursive` you'll need to run `git submodule update --i
 ### Testing
 
 If a snapshot test fails, it's possible it just needs to be updated. Make sure your git status is clean and run `npm test -- -u`.
+
+Types are tested using [expect-type](https://npmjs.com/package/expect-type).

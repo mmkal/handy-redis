@@ -87,3 +87,9 @@ it("works with redis-mock", async () => {
 
     expect(client.redis).toBe(mockClient);
 });
+
+it('has quit and end methods', async () => {
+    const client = createHandyClient();
+    expect(typeof client.quit).toBe('function');
+    expect(typeof client.end).toBe('function');
+})

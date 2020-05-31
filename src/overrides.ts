@@ -1,9 +1,7 @@
-import { IHandyRedis } from "./generated/interface";
-import { Multi } from "redis";
+import { Multi, RedisClient } from "redis";
 
-export const useUnderlyingImpl = new Set<keyof IHandyRedis>([
-    "multi"
-]);
+export const useUnderlyingImpl = new Set(['multi', 'end'] as const)
+type UnderlyingImplMethods = typeof useUnderlyingImpl extends Set<infer X> ? X : never
 
 export const additionalFunctions = {
     /** promisified multi execution */
@@ -12,4 +10,6 @@ export const additionalFunctions = {
     ),
 };
 
-export type AdditionalFunctions = typeof additionalFunctions;
+export type AdditionalFunctions = typeof additionalFunctions & {
+    [K in UnderlyingImplMethods]: RedisClient[K];
+};

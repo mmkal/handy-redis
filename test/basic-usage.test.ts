@@ -1,5 +1,6 @@
 import { createHandyClient } from "../src";
 import { createClient, Multi } from "redis";
+import * as redisMock from "redis-mock";
 
 it("creates client", async () => {
     const client = createHandyClient();
@@ -78,4 +79,11 @@ it("set with expiry", async () => {
     const ttl = await client.ttl("a:foo");
     expect(ttl).toBeLessThanOrEqual(60);
     expect(ttl).toBeGreaterThan(55); // hopefully it didn't take over 5s to run a command...
+});
+
+it("works with redis-mock", async () => {
+    const mockClient = redisMock.createClient();
+    const client = createHandyClient(mockClient);
+
+    expect(client.redis).toBe(mockClient);
 });

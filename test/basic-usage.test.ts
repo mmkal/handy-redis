@@ -82,7 +82,7 @@ it("set with expiry", async () => {
 });
 
 it("works with redis-mock", async () => {
-    const mockClient = redisMock.createClient();
+    const mockClient: any = redisMock.createClient();
     const client = createHandyClient(mockClient);
 
     expect(client.redis).toBe(mockClient);

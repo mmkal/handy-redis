@@ -2,7 +2,7 @@
 
 exports[`scripts/redis-doc/commands/command-info.md example 1 1`] = `
 Array [
-  "await client.command('INFO', 'get', 'set', 'eval')               => [['get',2,['readonly','fast'],1,1,1],['set',-3,['write','denyoom'],1,1,1],['eval',-3,['noscript','movablekeys'],0,0,0]]",
-  "await client.command('INFO', 'foo', 'evalsha', 'config', 'bar')  => [null,['evalsha',-3,['noscript','movablekeys'],0,0,0],['config',-2,['admin','noscript','loading','stale'],0,0,0],null]",
+  "await client.command('INFO', 'get', 'set', 'eval')               => [['get',2,['readonly','fast'],1,1,1,['@read','@string','@fast']],['set',-3,['write','denyoom'],1,1,1,['@write','@string','@slow']],['eval',-3,['noscript','movablekeys'],0,0,0,['@slow','@scripting']]]",
+  "await client.command('INFO', 'foo', 'evalsha', 'config', 'bar')  => [null,['evalsha',-3,['noscript','movablekeys'],0,0,0,['@slow','@scripting']],['config',-2,['admin','noscript','loading','stale'],0,0,0,['@admin','@slow','@dangerous']],null]",
 ]
 `;

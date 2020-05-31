@@ -13,7 +13,7 @@ export interface ICreateHandyClient {
 }
 
 export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
-    const nodeRedis = (typeof clientArgs[0] === "object" && typeof clientArgs[0].zscan === "function")
+    const nodeRedis = (typeof clientArgs[0] === "object" && typeof clientArgs[0].scan === "function")
         ? clientArgs[0]
         : createClient.apply(null, clientArgs);
 

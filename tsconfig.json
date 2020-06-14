@@ -11,7 +11,8 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "noEmit": true
     },
     "exclude": [
         "node_modules",

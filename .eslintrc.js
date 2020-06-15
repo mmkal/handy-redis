@@ -11,14 +11,14 @@ module.exports = {
   ],
   env: { 'jest/globals': true, node: true },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:unicorn/recommended',
+    // 'eslint:recommended',
+    // 'plugin:@typescript-eslint/eslint-recommended',
+    // 'plugin:@typescript-eslint/recommended',
+    // 'plugin:unicorn/recommended',
     'plugin:import/typescript',
     'plugin:jest/recommended',
-    'xo',
-    'xo-typescript',
+    // 'xo',
+    // 'xo-typescript',
   ],
   ignorePatterns: ['dist', 'node_modules', 'coverage', '.eslintrc.js'],
   rules: {
@@ -90,7 +90,6 @@ module.exports = {
     'no-warning-comments': 'off',
     'no-dupe-class-members': 'off',
 
-    // Sindre Sorwho? (defaults from unicorn/xo that feel a bit restrictive, for now)
     'unicorn/prevent-abbreviations': 'off',
     'unicorn/consistent-function-scoping': 'off',
     'unicorn/no-fn-reference-in-iterator': 'off',

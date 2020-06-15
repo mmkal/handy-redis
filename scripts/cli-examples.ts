@@ -11,7 +11,7 @@ export const getExampleRuns = async () => {
     const redisInteractor = {
         onstdout: (data: string) => log(data),
         onstderr: (data: string) => warn(data),
-        sendCommand: (command: string) => new Promise<Output>((resolve, reject) => {
+        sendCommand: (command: string) => new Promise<Output>((resolve) => {
             redisInteractor.onstdout = data => {
                 log(data);
                 resolve(parseCommandOutput(command, data, null));

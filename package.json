@@ -3,13 +3,13 @@
   "version": "0.0.0-development",
   "description": "A wrapper around node_redis with Promise and TypeScript support.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
   "engines": {
     "node": ">= 8.0.0"
   },
-  "types": "dist/index.d.ts",
   "scripts": {
     "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
     "redis:up": "docker-compose up",

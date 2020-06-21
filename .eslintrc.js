@@ -83,6 +83,7 @@ module.exports = {
     'unicorn/filename-case': 'off',
     '@typescript-eslint/restrict-plus-operands': 'off',
     '@typescript-eslint/prefer-regexp-exec': 'off',
+    'jest/no-disabled-tests': 'off',
 
     // covered by `@typescript-eslint/no-unsued-vars`
     'no-unused-vars': 'off',

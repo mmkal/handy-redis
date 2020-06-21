@@ -10,7 +10,6 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-// eslint-disable-next-line jest/no-disabled-tests
 it.skip("scripts/redis-doc/commands/unlink.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/unlink.md");
     let snapshot: any;

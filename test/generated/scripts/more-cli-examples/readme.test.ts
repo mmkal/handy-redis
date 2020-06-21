@@ -13,10 +13,7 @@ beforeEach(async () => {
 it("scripts/more-cli-examples/readme.md example 1", async () => {
     const overrider = getOverride("scripts/more-cli-examples/readme.md");
     let snapshot: any;
-    const commands = [
-        `await client.set("mykey", "foo")`,
-        `await client.get("mykey")`,
-    ];
+    const commands = [`await client.set("mykey", "foo")`, `await client.get("mykey")`];
     const output: any[] = [];
     try {
         output.push(await client.set("mykey", "foo"));
@@ -24,7 +21,7 @@ it("scripts/more-cli-examples/readme.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 33)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

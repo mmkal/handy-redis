@@ -1,5 +1,5 @@
 import { flattenDeep } from "../src/flatten";
-import {range, isEqual} from "lodash";
+import { range, isEqual } from "lodash";
 
 it("is already flat", () => {
     expect(flattenDeep([1, 2, 3])).toEqual([1, 2, 3]);

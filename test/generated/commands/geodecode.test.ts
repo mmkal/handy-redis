@@ -20,13 +20,17 @@ it("scripts/redis-doc/commands/geodecode.md example 1", async () => {
     ];
     const output: any[] = [];
     try {
-        output.push(await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]));
+        output.push(
+            await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"])
+        );
         output.push(await client.zscore("Sicily", "Palermo"));
-        output.push("// not implemented by node redis: await client.geodecode(`Couldn't format arguments: Couldn't find command \"geodecode\"`)");
+        output.push(
+            "// not implemented by node redis: await client.geodecode(`Couldn't format arguments: Couldn't find command \"geodecode\"`)"
+        );
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 121)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

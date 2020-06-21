@@ -9,14 +9,12 @@ import { readFileSync } from "fs";
 import { warn } from "./log";
 
 const tokenizeCommand = (command: string) => {
-    return (command
-        .match(/("(?:[^"\\]|\\.)*")|([^ ]+)/g) || []) // magic regex that "preserves \"escaped\" strings"
+    return (command.match(/("(?:[^"\\]|\\.)*")|([^ ]+)/g) || []) // magic regex that "preserves \"escaped\" strings"
         .map(token => {
             if (token.startsWith(`"`) && token.endsWith(`"`)) {
                 return token.slice(1, -1).replace(/\\(.)/g, "$1");
-            } 
-                return token;
-            
+            }
+            return token;
         });
 };
 
@@ -127,14 +125,13 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             return `[${formattedTupleParts.join(", ")}]`;
         };
 
-        if (isTuple) { // todo use ternary like above
+        if (isTuple) {
+            // todo use ternary like above
             const nextArg = nextFormattedTuple(type);
             formattedArgs.push(nextArg);
         } else if (arrayMatch) {
             const itemType = arrayMatch[1] || arrayMatch[2];
-            const getNext = tupleRegex.test(itemType)
-                ? nextFormattedTuple
-                : nextFormattedToken;
+            const getNext = tupleRegex.test(itemType) ? nextFormattedTuple : nextFormattedToken;
             while (nextLiteralIndex < literalTokens.length) {
                 formattedArgs.push(getNext(itemType));
             }
@@ -148,8 +145,7 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
     return formattedArgs;
 };
 
-class TypeCheckError extends Error {
-}
+class TypeCheckError extends Error {}
 
 interface Usage {
     code: string[];
@@ -167,9 +163,7 @@ export const getReturnValuesFuncSrc = async () => {
         const candidates: Array<Usage | null> = matchingCommands.map(overload => {
             try {
                 const formattedArgs = formatLiteralArgumentFromOverload(overload, literalTokens);
-                return checkType(formattedArgs, overload)
-                    ? { code: formattedArgs, overload }
-                    : null;
+                return checkType(formattedArgs, overload) ? { code: formattedArgs, overload } : null;
             } catch (err) {
                 if (err instanceof TypeCheckError) {
                     return null;
@@ -185,8 +179,8 @@ export const getReturnValuesFuncSrc = async () => {
     };
     const examples = getCliExamples();
 
-    const usages = examples.map(ex => ex.lines
-        .map(line => {
+    const usages = examples.map(ex =>
+        ex.lines.map(line => {
             const tokens = tokenizeCommand(line);
             const command = simplifyName(tokens[0]);
             const argTokens = tokens.slice(1);
@@ -207,7 +201,8 @@ export const getReturnValuesFuncSrc = async () => {
                 `    logger.error(e);`,
                 `}`,
             ].join(EOL);
-        }));
+        })
+    );
 
     const getReturnValuesTs = [
         `async (client) => {`,
@@ -259,11 +254,14 @@ const getReturnType = (sampleValues: any[] | undefined): string => {
 
 const getFullCommandsInfo = (returnValues: ReturnValuesMap) => {
     const basicCommandsInfo = getBasicCommands();
-    return basicCommandsInfo.map(basicInfo => <FullCommandInfo> {
-        ...basicInfo,
-        returnType: getReturnType(returnValues[basicInfo.name]),
-        sampleReturnValues: returnValues[basicInfo.name] || [],
-    });
+    return basicCommandsInfo.map(
+        basicInfo =>
+            <FullCommandInfo>{
+                ...basicInfo,
+                returnType: getReturnType(returnValues[basicInfo.name]),
+                sampleReturnValues: returnValues[basicInfo.name] || [],
+            }
+    );
 };
 
 export const getFullCommands = _.once(async () => {

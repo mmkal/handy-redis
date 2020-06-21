@@ -12,38 +12,30 @@ const generateClientInterface = async (getCommands: typeof getFullCommands) => {
     const hsetIndex = typescriptCommands.findIndex(c => c.name === "hset");
     typescriptCommands.splice(hsetIndex, 0, {
         ...typescriptCommands[hsetIndex],
-        args: ["key", "field", "value"].map(name => ({ name, type: "string" }))
+        args: ["key", "field", "value"].map(name => ({ name, type: "string" })),
     });
 
     const interfaceDeclarations = typescriptCommands.map(commandInfo => {
-        const docs = [
-            `/**`,
-            ` * ${commandInfo.docs}`,
-            ` */`,
-        ];
+        const docs = [`/**`, ` * ${commandInfo.docs}`, ` */`];
         if (useUnderlyingImpl.has(commandInfo.name as any)) {
-            return [
-                ...docs,
-                `${commandInfo.name}: RedisClient["${commandInfo.name}"];`,
-            ].map(line => `    ${line}`).join(EOL);
+            return [...docs, `${commandInfo.name}: RedisClient["${commandInfo.name}"];`]
+                .map(line => `    ${line}`)
+                .join(EOL);
         }
 
         const argList = commandInfo.args
             // hack: setbit allowed a string as the last argument at one point.
             // for backwards compatibility, continue allowing it even though redis-doc has updated
             // todo: remove this hack in v2
-            .map(a => commandInfo.name === "setbit" && a.name === "value" ? { ...a, type: "number | string" } : a)
+            .map(a => (commandInfo.name === "setbit" && a.name === "value" ? { ...a, type: "number | string" } : a))
             .map(a => `${a.name}: ${a.type}`)
             .join(`,${EOL}${twotabs}`);
 
-        const argDeclaration = argList.length > 0
-            ? [EOL, twotabs, argList, EOL, tab].join("")
-            : "";
+        const argDeclaration = argList.length > 0 ? [EOL, twotabs, argList, EOL, tab].join("") : "";
 
-        return [
-            ...docs,
-            `${commandInfo.name}(${argDeclaration}): Promise<${commandInfo.returnType}>;`,
-        ].map(line => `    ${line}`).join(EOL);
+        return [...docs, `${commandInfo.name}(${argDeclaration}): Promise<${commandInfo.returnType}>;`]
+            .map(line => `    ${line}`)
+            .join(EOL);
     });
     const interfaceContents = [
         `import { RedisClient } from "redis";`,

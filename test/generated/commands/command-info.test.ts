@@ -24,7 +24,7 @@ it("scripts/redis-doc/commands/command-info.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 64)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

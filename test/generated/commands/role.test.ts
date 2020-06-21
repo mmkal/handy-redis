@@ -13,16 +13,14 @@ beforeEach(async () => {
 it("scripts/redis-doc/commands/role.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/role.md");
     let snapshot: any;
-    const commands = [
-        "await client.role()",
-    ];
+    const commands = ["await client.role()"];
     const output: any[] = [];
     try {
         output.push(await client.role());
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 20)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

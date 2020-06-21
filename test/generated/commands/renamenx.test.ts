@@ -28,7 +28,7 @@ it("scripts/redis-doc/commands/renamenx.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 45)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

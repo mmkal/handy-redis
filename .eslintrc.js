@@ -22,7 +22,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', 'node_modules', 'coverage', '.eslintrc.js'],
   rules: {
-    'prettier/prettier': ['off', require('./.prettierrc')],
+    'prettier/prettier': ['warn', require('./.prettierrc')],
     'codegen/codegen': 'warn',
     
     '@typescript-eslint/explicit-function-return-type': 'off',

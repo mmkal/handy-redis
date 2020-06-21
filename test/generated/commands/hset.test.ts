@@ -13,10 +13,7 @@ beforeEach(async () => {
 it("scripts/redis-doc/commands/hset.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/hset.md");
     let snapshot: any;
-    const commands = [
-        `await client.hset("myhash", ["field1", "Hello"])`,
-        `await client.hget("myhash", "field1")`,
-    ];
+    const commands = [`await client.hset("myhash", ["field1", "Hello"])`, `await client.hget("myhash", "field1")`];
     const output: any[] = [];
     try {
         output.push(await client.hset("myhash", ["field1", "Hello"]));
@@ -24,7 +21,7 @@ it("scripts/redis-doc/commands/hset.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

@@ -22,13 +22,15 @@ it("scripts/redis-doc/commands/xadd.md example 1", async () => {
     const output: any[] = [];
     try {
         output.push(await client.xadd("mystream", "*", ["name", "Sara"], ["surname", "OConnor"]));
-        output.push(await client.xadd("mystream", "*", ["field1", "value1"], ["field2", "value2"], ["field3", "value3"]));
+        output.push(
+            await client.xadd("mystream", "*", ["field1", "value1"], ["field2", "value2"], ["field3", "value3"])
+        );
         output.push(await client.xlen("mystream"));
         output.push(await client.xrange("mystream", "-", "+"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 101)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

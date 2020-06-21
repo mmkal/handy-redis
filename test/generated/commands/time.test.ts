@@ -13,10 +13,7 @@ beforeEach(async () => {
 it("scripts/redis-doc/commands/time.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/time.md");
     let snapshot: any;
-    const commands = [
-        "await client.time()",
-        "await client.time()",
-    ];
+    const commands = ["await client.time()", "await client.time()"];
     const output: any[] = [];
     try {
         output.push(await client.time());
@@ -24,7 +21,7 @@ it("scripts/redis-doc/commands/time.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 20)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

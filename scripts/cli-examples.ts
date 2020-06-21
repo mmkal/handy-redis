@@ -11,18 +11,19 @@ export const getExampleRuns = async () => {
     const redisInteractor = {
         onstdout: (data: string) => log(data),
         onstderr: (data: string) => warn(data),
-        sendCommand: (command: string) => new Promise<Output>((resolve) => {
-            redisInteractor.onstdout = data => {
-                log(data);
-                resolve(parseCommandOutput(command, data, null));
-            };
-            redisInteractor.onstderr = data => {
-                error(data);
-                resolve(parseCommandOutput(command, null, data));
-            };
-            log(">", command);
-            redisCli.stdin!.write(`${command}\n`);
-        }),
+        sendCommand: (command: string) =>
+            new Promise<Output>(resolve => {
+                redisInteractor.onstdout = data => {
+                    log(data);
+                    resolve(parseCommandOutput(command, data, null));
+                };
+                redisInteractor.onstderr = data => {
+                    error(data);
+                    resolve(parseCommandOutput(command, null, data));
+                };
+                log(">", command);
+                redisCli.stdin!.write(`${command}\n`);
+            }),
     };
 
     redisCli.stdout!.on("data", data => redisInteractor.onstdout(data.toString()));
@@ -39,7 +40,7 @@ export const getExampleRuns = async () => {
 
         runs.push({
             example,
-            outputs
+            outputs,
         });
     }
     redisCli.kill();
@@ -50,13 +51,9 @@ export const getCliExamples = () => {
     const eolMarker = " END_OF_LINE_MARKER ";
     const moreExamplesDir = "scripts/more-cli-examples";
     const filesWithExamples = _.flatten([commandDoc, moreExamplesDir].map(readdirWithPaths));
-    const allExamples = _.flatten(filesWithExamples
-        .map(file => {
-            const contents = readFileSync(file, "utf8")
-                .split(/\r?\n/)
-                .join(eolMarker)
-                ;
-
+    const allExamples = _.flatten(
+        filesWithExamples.map(file => {
+            const contents = readFileSync(file, "utf8").split(/\r?\n/).join(eolMarker);
             const tripleBacktick = "```";
             const cliBlock = (body: string) => `${tripleBacktick}cli${eolMarker}${body}${tripleBacktick}`;
             const cliRegex = new RegExp(cliBlock(".+?"), "g");
@@ -67,15 +64,18 @@ export const getCliExamples = () => {
                 matches.push(contents);
             }
 
-            return matches.map((m, index) => ({
-                file,
-                index,
-                lines: m
-                    .replace(/```(cli)?/g, "")
-                    .split(eolMarker)
-                    .map(line => line.trim())
-                    .filter(line => line),
-            }) as CliExample);
+            return matches.map(
+                (m, index) =>
+                    ({
+                        file,
+                        index,
+                        lines: m
+                            .replace(/```(cli)?/g, "")
+                            .split(eolMarker)
+                            .map(line => line.trim())
+                            .filter(line => line),
+                    } as CliExample)
+            );
         })
     );
 

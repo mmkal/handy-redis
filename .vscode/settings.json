@@ -1,16 +1,19 @@
 {
-    "files.exclude": {
-        "**/*.js": {
-            "when": "$(basename).ts"
-        },
-        "**/*.js.map": {
-            "when": "$(basename)"
-        },
-        "**/*.snap": {
-            "when": "$(basename).md"
-        }
-    },
-    "tslint.autoFixOnSave": true,
-    "tslint.enable": true,
-    "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "files.exclude": {
+    "**/.git": false
+  },
+  "files.associations": {
+    ".env*": "shellscript"
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true
+  },
+  "javascript.implicitProjectConfig.checkJs": true,
+  "eslint.validate": ["markdown", "javascript", "typescript"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

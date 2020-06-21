@@ -14,9 +14,9 @@ const tokenizeCommand = (command: string) => {
         .map(token => {
             if (token.startsWith(`"`) && token.endsWith(`"`)) {
                 return token.slice(1, -1).replace(/\\(.)/g, "$1");
-            } else {
+            } 
                 return token;
-            }
+            
         });
 };
 

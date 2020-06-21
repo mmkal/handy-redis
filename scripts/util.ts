@@ -5,6 +5,7 @@ import { EOL } from "os";
 import { writeFileSync, existsSync, readdirSync } from "fs";
 import { dirname } from "path";
 import * as shelljs from "shelljs";
+import * as prettier from "prettier";
 
 export const tab = `    `;
 export const twotabs = `${tab}${tab}`;
@@ -63,7 +64,11 @@ export const writeFile = (filename: string, contents: string) => {
     if (!contents.endsWith("\n")) {
         contents += EOL;
     }
-    writeFileSync(filename, contents, "utf8");
+    const pretty = prettier.format(contents, {
+        ...require("../.prettierrc"),
+        filepath: filename,
+    });
+    writeFileSync(filename, pretty, "utf8");
 };
 
 export const readdirWithPaths = (dir: string) => {

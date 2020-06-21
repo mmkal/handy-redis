@@ -13,16 +13,14 @@ beforeEach(async () => {
 it("scripts/more-cli-examples/dbsize.md example 1", async () => {
     const overrider = getOverride("scripts/more-cli-examples/dbsize.md");
     let snapshot: any;
-    const commands = [
-        "await client.dbsize()",
-    ];
+    const commands = ["await client.dbsize()"];
     const output: any[] = [];
     try {
         output.push(await client.dbsize());
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 22)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

@@ -26,7 +26,7 @@ it("scripts/redis-doc/commands/setrange.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 42)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
@@ -35,10 +35,7 @@ it("scripts/redis-doc/commands/setrange.md example 1", async () => {
 it("scripts/redis-doc/commands/setrange.md example 2", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/setrange.md");
     let snapshot: any;
-    const commands = [
-        `await client.setrange("key2", 6, "Redis")`,
-        `await client.get("key2")`,
-    ];
+    const commands = [`await client.setrange("key2", 6, "Redis")`, `await client.get("key2")`];
     const output: any[] = [];
     try {
         output.push(await client.setrange("key2", 6, "Redis"));
@@ -46,7 +43,7 @@ it("scripts/redis-doc/commands/setrange.md example 2", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 42)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

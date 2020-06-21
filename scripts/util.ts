@@ -12,12 +12,13 @@ export const twotabs = `${tab}${tab}`;
 export const redisDoc = `scripts/redis-doc`;
 export const commandDoc = `${redisDoc}/commands`;
 
-export const indent = (input: string) => input
-    .split(/\r?\n/)
-    .join(EOL)
-    .split(EOL)
-    .map(line => `${tab}${line}`)
-    .join(EOL);
+export const indent = (input: string) =>
+    input
+        .split(/\r?\n/)
+        .join(EOL)
+        .split(EOL)
+        .map(line => `${tab}${line}`)
+        .join(EOL);
 
 export const quote = (input: string) => {
     if (!input) {
@@ -32,16 +33,11 @@ export const quote = (input: string) => {
     return JSON.stringify(input);
 };
 
-export const makeArrayType = (type: string) =>
-    type.match(/\W/) ? `Array<${type}>` : `${type}[]`;
+export const makeArrayType = (type: string) => (type.match(/\W/) ? `Array<${type}>` : `${type}[]`);
 
-export const simplifyName = (name: string) => name
-    .toLowerCase()
-    .replace(/(?:^([0-9])|[^a-zA-Z0-9_$])/g, "_$1");
+export const simplifyName = (name: string) => name.toLowerCase().replace(/(?:^([0-9])|[^a-zA-Z0-9_$])/g, "_$1");
 
-export const getDocs = (command: Command) => yamlify(command)
-    .trim()
-    .replace(/\r?\n/g, `${EOL}     *${EOL}     * `); // docs render better when they're double-spaced
+export const getDocs = (command: Command) => yamlify(command).trim().replace(/\r?\n/g, `${EOL}     *${EOL}     * `); // docs render better when they're double-spaced
 
 export const run = async (task: () => void | Promise<any>) => {
     try {

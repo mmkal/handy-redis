@@ -9,8 +9,7 @@ test("overloads for empty arguments", () => {
 });
 
 test("overloads for non-empty arguments", () => {
-    expect(getOverloads([{ name: "foo", type: "string" }]))
-        .toMatchInlineSnapshot(`
+    expect(getOverloads([{ name: "foo", type: "string" }])).toMatchInlineSnapshot(`
         Array [
           Array [
             Object {

@@ -20,7 +20,7 @@
     "prebuild": "ts-node --transpile-only scripts/generate-types && ts-node --transpile-only scripts/generate-tests",
     "build": "tsc -p .",
     "test": "jest --runInBand --forceExit --detectOpenHandles",
-    "lint": "eslint --ext .ts,.js,.md .",
+    "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
     "check-clean": "check-clean",
     "ci": "run-s clean build test lint check-clean",
     "prerelease": "tsc -p src",

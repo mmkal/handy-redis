@@ -52,11 +52,7 @@ it("can use setbit with string or number", async () => {
 it("can use multi", async () => {
     const client = createHandyClient();
 
-    const multi = client
-        .multi()
-        .set("z:foo", "987")
-        .keys("z:*")
-        .get("z:foo");
+    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
 
     const result = await client.execMulti(multi);
 
@@ -67,7 +63,7 @@ it("multi rejects correctly", async () => {
     const client = createHandyClient();
 
     const fakeMulti: Multi = {
-        exec: (callback: Function) => callback(new Error("foo"))
+        exec: (callback: Function) => callback(new Error("foo")),
     } as any;
 
     await expect(client.execMulti(fakeMulti)).rejects.toEqual(new Error("foo"));
@@ -88,8 +84,8 @@ it("works with redis-mock", async () => {
     expect(client.redis).toBe(mockClient);
 });
 
-it('has quit and end methods', async () => {
+it("has quit and end methods", async () => {
     const client = createHandyClient();
-    expect(typeof client.quit).toBe('function');
-    expect(typeof client.end).toBe('function');
-})
+    expect(typeof client.quit).toBe("function");
+    expect(typeof client.end).toBe("function");
+});

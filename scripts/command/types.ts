@@ -26,7 +26,8 @@ export interface Command {
     complexity: string;
     arguments?: Argument[];
     since: string;
-    group: "string"
+    group:
+        | "string"
         | "connection"
         | "server"
         | "list"
@@ -39,8 +40,7 @@ export interface Command {
         | "hyperloglog"
         | "pubsub"
         | "set"
-        | "sorted_set"
-        ;
+        | "sorted_set";
 }
 
 export type ArgumentType = "string" | "key" | "enum" | "pattern" | "integer" | "double" | "posix time";

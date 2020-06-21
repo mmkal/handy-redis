@@ -13,10 +13,7 @@ beforeEach(async () => {
 it("scripts/redis-doc/commands/pfadd.md example 1", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/pfadd.md");
     let snapshot: any;
-    const commands = [
-        `await client.pfadd("hll", "a", "b", "c", "d", "e", "f", "g")`,
-        `await client.pfcount("hll")`,
-    ];
+    const commands = [`await client.pfadd("hll", "a", "b", "c", "d", "e", "f", "g")`, `await client.pfcount("hll")`];
     const output: any[] = [];
     try {
         output.push(await client.pfadd("hll", "a", "b", "c", "d", "e", "f", "g"));
@@ -24,7 +21,7 @@ it("scripts/redis-doc/commands/pfadd.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 61)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

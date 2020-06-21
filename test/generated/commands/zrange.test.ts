@@ -32,7 +32,7 @@ it("scripts/redis-doc/commands/zrange.md example 1", async () => {
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 42)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }
@@ -41,16 +41,14 @@ it("scripts/redis-doc/commands/zrange.md example 1", async () => {
 it("scripts/redis-doc/commands/zrange.md example 2", async () => {
     const overrider = getOverride("scripts/redis-doc/commands/zrange.md");
     let snapshot: any;
-    const commands = [
-        `await client.zrange("myzset", 0, 1, "WITHSCORES")`,
-    ];
+    const commands = [`await client.zrange("myzset", 0, 1, "WITHSCORES")`];
     const output: any[] = [];
     try {
         output.push(await client.zrange("myzset", 0, 1, "WITHSCORES"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 50)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

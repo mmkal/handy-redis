@@ -18,10 +18,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    append(
-        key: string,
-        value: string
-    ): Promise<number>;
+    append(key: string, value: string): Promise<number>;
     /**
      * summary: 'Authenticate to the server'
      *
@@ -33,9 +30,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: connection
      */
-    auth(
-        password: string
-    ): Promise<any>;
+    auth(password: string): Promise<any>;
     /**
      * summary: 'Asynchronously rewrite the append-only file'
      *
@@ -67,10 +62,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitcount(
-        key: string,
-        start_end: [number, number]
-    ): Promise<number>;
+    bitcount(key: string, start_end: [number, number]): Promise<number>;
     /**
      * summary: 'Count set bits in a string'
      *
@@ -86,9 +78,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitcount(
-        key: string
-    ): Promise<number>;
+    bitcount(key: string): Promise<number>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
      *
@@ -297,10 +287,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitfield(
-        key: string,
-        get_type_offset: ["GET", string, number]
-    ): Promise<any>;
+    bitfield(key: string, get_type_offset: ["GET", string, number]): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
      *
@@ -401,10 +388,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitfield(
-        key: string,
-        set_type_offset_value: ["SET", string, number, number]
-    ): Promise<any>;
+    bitfield(key: string, set_type_offset_value: ["SET", string, number, number]): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
      *
@@ -452,10 +436,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitfield(
-        key: string,
-        incrby_type_offset_increment: ["INCRBY", string, number, number]
-    ): Promise<any>;
+    bitfield(key: string, incrby_type_offset_increment: ["INCRBY", string, number, number]): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
      *
@@ -477,10 +458,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitfield(
-        key: string,
-        overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
-    ): Promise<any>;
+    bitfield(key: string, overflow: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]): Promise<any>;
     /**
      * summary: 'Perform arbitrary bitfield integer operations on strings'
      *
@@ -502,9 +480,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitfield(
-        key: string
-    ): Promise<any>;
+    bitfield(key: string): Promise<any>;
     /**
      * summary: 'Perform bitwise operations between strings'
      *
@@ -522,11 +498,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitop(
-        operation: string,
-        destkey: string,
-        ...keys: string[]
-    ): Promise<number>;
+    bitop(operation: string, destkey: string, ...keys: string[]): Promise<number>;
     /**
      * summary: 'Find first bit set or clear in a string'
      *
@@ -546,12 +518,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitpos(
-        key: string,
-        bit: number,
-        start: number,
-        end: number
-    ): Promise<number>;
+    bitpos(key: string, bit: number, start: number, end: number): Promise<number>;
     /**
      * summary: 'Find first bit set or clear in a string'
      *
@@ -571,11 +538,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitpos(
-        key: string,
-        bit: number,
-        start: number
-    ): Promise<number>;
+    bitpos(key: string, bit: number, start: number): Promise<number>;
     /**
      * summary: 'Find first bit set or clear in a string'
      *
@@ -595,11 +558,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitpos(
-        key: string,
-        bit: number,
-        end: number
-    ): Promise<number>;
+    bitpos(key: string, bit: number, end: number): Promise<number>;
     /**
      * summary: 'Find first bit set or clear in a string'
      *
@@ -619,10 +578,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    bitpos(
-        key: string,
-        bit: number
-    ): Promise<number>;
+    bitpos(key: string, bit: number): Promise<number>;
     /**
      * summary: 'Remove and get the first element in a list, or block until one is available'
      *
@@ -638,10 +594,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    blpop(
-        keys: string[],
-        timeout: number
-    ): Promise<any>;
+    blpop(keys: string[], timeout: number): Promise<any>;
     /**
      * summary: 'Remove and get the last element in a list, or block until one is available'
      *
@@ -657,10 +610,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    brpop(
-        keys: string[],
-        timeout: number
-    ): Promise<any>;
+    brpop(keys: string[], timeout: number): Promise<any>;
     /**
      * summary: 'Pop an element from a list, push it to another list and return it; or block until one is available'
      *
@@ -678,11 +628,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    brpoplpush(
-        source: string,
-        destination: string,
-        timeout: number
-    ): Promise<any>;
+    brpoplpush(source: string, destination: string, timeout: number): Promise<any>;
     /**
      * summary: 'Remove and return the member with the lowest score from one or more sorted sets, or block until one is available'
      *
@@ -698,10 +644,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    bzpopmin(
-        keys: string[],
-        timeout: number
-    ): Promise<any>;
+    bzpopmin(keys: string[], timeout: number): Promise<any>;
     /**
      * summary: 'Remove and return the member with the highest score from one or more sorted sets, or block until one is available'
      *
@@ -717,10 +660,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    bzpopmax(
-        keys: string[],
-        timeout: number
-    ): Promise<any>;
+    bzpopmax(keys: string[], timeout: number): Promise<any>;
     /**
      * summary: 'Get array of Redis command details'
      *
@@ -730,9 +670,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    command(
-        ...args: any[]
-    ): Promise<Array<any[]>>;
+    command(...args: any[]): Promise<Array<any[]>>;
     /**
      * summary: 'Get array of Redis command details'
      *
@@ -764,9 +702,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    decr(
-        key: string
-    ): Promise<number>;
+    decr(key: string): Promise<number>;
     /**
      * summary: 'Decrement the integer value of a key by the given number'
      *
@@ -782,10 +718,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    decrby(
-        key: string,
-        decrement: number
-    ): Promise<number>;
+    decrby(key: string, decrement: number): Promise<number>;
     /**
      * summary: 'Delete a key'
      *
@@ -799,9 +732,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    del(
-        ...keys: string[]
-    ): Promise<number>;
+    del(...keys: string[]): Promise<number>;
     /**
      * summary: 'Discard all commands issued after MULTI'
      *
@@ -823,9 +754,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    dump(
-        key: string
-    ): Promise<string>;
+    dump(key: string): Promise<string>;
     /**
      * summary: 'Echo the given string'
      *
@@ -837,9 +766,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: connection
      */
-    echo(
-        message: string
-    ): Promise<string>;
+    echo(message: string): Promise<string>;
     /**
      * summary: 'Execute a Lua script server side'
      *
@@ -859,12 +786,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: scripting
      */
-    eval(
-        script: string,
-        numkeys: number,
-        keys: string[],
-        args: string[]
-    ): Promise<any>;
+    eval(script: string, numkeys: number, keys: string[], args: string[]): Promise<any>;
     /**
      * summary: 'Execute a Lua script server side'
      *
@@ -884,12 +806,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: scripting
      */
-    evalsha(
-        sha1: string,
-        numkeys: number,
-        keys: string[],
-        args: string[]
-    ): Promise<any>;
+    evalsha(sha1: string, numkeys: number, keys: string[], args: string[]): Promise<any>;
     /**
      * summary: 'Execute all commands issued after MULTI'
      *
@@ -911,9 +828,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    exists(
-        ...keys: string[]
-    ): Promise<number>;
+    exists(...keys: string[]): Promise<number>;
     /**
      * summary: 'Set a key''s time to live in seconds'
      *
@@ -929,10 +844,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    expire(
-        key: string,
-        seconds: number
-    ): Promise<number>;
+    expire(key: string, seconds: number): Promise<number>;
     /**
      * summary: 'Set the expiration for a key as a UNIX timestamp'
      *
@@ -948,10 +860,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    expireat(
-        key: string,
-        timestamp: number
-    ): Promise<number>;
+    expireat(key: string, timestamp: number): Promise<number>;
     /**
      * summary: 'Remove all keys from all databases'
      *
@@ -963,9 +872,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    flushall(
-        async: "ASYNC"
-    ): Promise<any>;
+    flushall(async: "ASYNC"): Promise<any>;
     /**
      * summary: 'Remove all keys from all databases'
      *
@@ -989,9 +896,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    flushdb(
-        async: "ASYNC"
-    ): Promise<any>;
+    flushdb(async: "ASYNC"): Promise<any>;
     /**
      * summary: 'Remove all keys from the current database'
      *
@@ -1019,10 +924,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: geo
      */
-    geoadd(
-        key: string,
-        ...longitude_latitude_members: Array<[number, number, string]>
-    ): Promise<number>;
+    geoadd(key: string, ...longitude_latitude_members: Array<[number, number, string]>): Promise<number>;
     /**
      * summary: 'Returns members of a geospatial index as standard geohash strings'
      *
@@ -1038,10 +940,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: geo
      */
-    geohash(
-        key: string,
-        ...members: string[]
-    ): Promise<string[]>;
+    geohash(key: string, ...members: string[]): Promise<string[]>;
     /**
      * summary: 'Returns longitude and latitude of members of a geospatial index'
      *
@@ -1057,10 +956,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: geo
      */
-    geopos(
-        key: string,
-        ...members: string[]
-    ): Promise<Array<string[] | null>>;
+    geopos(key: string, ...members: string[]): Promise<Array<string[] | null>>;
     /**
      * summary: 'Returns the distance between two members of a geospatial index'
      *
@@ -1080,12 +976,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: geo
      */
-    geodist(
-        key: string,
-        member1: string,
-        member2: string,
-        unit: "m" | "km" | "ft" | "mi"
-    ): Promise<string | null>;
+    geodist(key: string, member1: string, member2: string, unit: "m" | "km" | "ft" | "mi"): Promise<string | null>;
     /**
      * summary: 'Returns the distance between two members of a geospatial index'
      *
@@ -1105,11 +996,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: geo
      */
-    geodist(
-        key: string,
-        member1: string,
-        member2: string
-    ): Promise<string | null>;
+    geodist(key: string, member1: string, member2: string): Promise<string | null>;
     /**
      * summary: 'Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point'
      *
@@ -12368,12 +12255,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: geo
      */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi"
-    ): Promise<string[]>;
+    georadiusbymember(key: string, member: string, radius: number, unit: "m" | "km" | "ft" | "mi"): Promise<string[]>;
     /**
      * summary: 'Get the value of a key'
      *
@@ -12387,9 +12269,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    get(
-        key: string
-    ): Promise<string | null>;
+    get(key: string): Promise<string | null>;
     /**
      * summary: 'Returns the bit value at offset in the string value stored at key'
      *
@@ -12405,10 +12285,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    getbit(
-        key: string,
-        offset: number
-    ): Promise<number>;
+    getbit(key: string, offset: number): Promise<number>;
     /**
      * summary: 'Get a substring of the string stored at a key'
      *
@@ -12426,11 +12303,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    getrange(
-        key: string,
-        start: number,
-        end: number
-    ): Promise<string>;
+    getrange(key: string, start: number, end: number): Promise<string>;
     /**
      * summary: 'Set the string value of a key and return its old value'
      *
@@ -12446,10 +12319,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    getset(
-        key: string,
-        value: string
-    ): Promise<string>;
+    getset(key: string, value: string): Promise<string>;
     /**
      * summary: 'Delete one or more hash fields'
      *
@@ -12465,10 +12335,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hdel(
-        key: string,
-        ...fields: string[]
-    ): Promise<number>;
+    hdel(key: string, ...fields: string[]): Promise<number>;
     /**
      * summary: 'Determine if a hash field exists'
      *
@@ -12484,10 +12351,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hexists(
-        key: string,
-        field: string
-    ): Promise<number>;
+    hexists(key: string, field: string): Promise<number>;
     /**
      * summary: 'Get the value of a hash field'
      *
@@ -12503,10 +12367,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hget(
-        key: string,
-        field: string
-    ): Promise<string | null>;
+    hget(key: string, field: string): Promise<string | null>;
     /**
      * summary: 'Get all the fields and values in a hash'
      *
@@ -12520,9 +12381,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hgetall(
-        key: string
-    ): Promise<any>;
+    hgetall(key: string): Promise<any>;
     /**
      * summary: 'Increment the integer value of a hash field by the given number'
      *
@@ -12540,11 +12399,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hincrby(
-        key: string,
-        field: string,
-        increment: number
-    ): Promise<number>;
+    hincrby(key: string, field: string, increment: number): Promise<number>;
     /**
      * summary: 'Increment the float value of a hash field by the given amount'
      *
@@ -12562,11 +12417,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hincrbyfloat(
-        key: string,
-        field: string,
-        increment: number
-    ): Promise<any>;
+    hincrbyfloat(key: string, field: string, increment: number): Promise<any>;
     /**
      * summary: 'Get all the fields in a hash'
      *
@@ -12580,9 +12431,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hkeys(
-        key: string
-    ): Promise<string[]>;
+    hkeys(key: string): Promise<string[]>;
     /**
      * summary: 'Get the number of fields in a hash'
      *
@@ -12596,9 +12445,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hlen(
-        key: string
-    ): Promise<number>;
+    hlen(key: string): Promise<number>;
     /**
      * summary: 'Get the values of all the given hash fields'
      *
@@ -12614,10 +12461,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hmget(
-        key: string,
-        ...fields: string[]
-    ): Promise<Array<string | null>>;
+    hmget(key: string, ...fields: string[]): Promise<Array<string | null>>;
     /**
      * summary: 'Set multiple hash fields to multiple values'
      *
@@ -12633,10 +12477,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hmset(
-        key: string,
-        ...field_values: Array<[string, string]>
-    ): Promise<string>;
+    hmset(key: string, ...field_values: Array<[string, string]>): Promise<string>;
     /**
      * summary: 'Set the string value of a hash field'
      *
@@ -12652,11 +12493,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hset(
-        key: string,
-        field: string,
-        value: string
-    ): Promise<number>;
+    hset(key: string, field: string, value: string): Promise<number>;
     /**
      * summary: 'Set the string value of a hash field'
      *
@@ -12672,10 +12509,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hset(
-        key: string,
-        ...field_values: Array<[string, string]>
-    ): Promise<number>;
+    hset(key: string, ...field_values: Array<[string, string]>): Promise<number>;
     /**
      * summary: 'Set the value of a hash field, only if the field does not exist'
      *
@@ -12693,11 +12527,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hsetnx(
-        key: string,
-        field: string,
-        value: string
-    ): Promise<number>;
+    hsetnx(key: string, field: string, value: string): Promise<number>;
     /**
      * summary: 'Get the length of the value of a hash field'
      *
@@ -12713,10 +12543,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hstrlen(
-        key: string,
-        field: string
-    ): Promise<number>;
+    hstrlen(key: string, field: string): Promise<number>;
     /**
      * summary: 'Get all the values in a hash'
      *
@@ -12730,9 +12557,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hvals(
-        key: string
-    ): Promise<string[]>;
+    hvals(key: string): Promise<string[]>;
     /**
      * summary: 'Increment the integer value of a key by one'
      *
@@ -12746,9 +12571,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    incr(
-        key: string
-    ): Promise<number>;
+    incr(key: string): Promise<number>;
     /**
      * summary: 'Increment the integer value of a key by the given amount'
      *
@@ -12764,10 +12587,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    incrby(
-        key: string,
-        increment: number
-    ): Promise<number>;
+    incrby(key: string, increment: number): Promise<number>;
     /**
      * summary: 'Increment the float value of a key by the given amount'
      *
@@ -12783,10 +12603,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    incrbyfloat(
-        key: string,
-        increment: number
-    ): Promise<string>;
+    incrbyfloat(key: string, increment: number): Promise<string>;
     /**
      * summary: 'Get information and statistics about the server'
      *
@@ -12798,9 +12615,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    info(
-        section: string
-    ): Promise<string>;
+    info(section: string): Promise<string>;
     /**
      * summary: 'Get information and statistics about the server'
      *
@@ -12824,9 +12639,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    lolwut(
-        version: ["VERSION", number]
-    ): Promise<any>;
+    lolwut(version: ["VERSION", number]): Promise<any>;
     /**
      * summary: 'Display some computer art and the Redis version'
      *
@@ -12852,9 +12665,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    keys(
-        pattern: string
-    ): Promise<string[]>;
+    keys(pattern: string): Promise<string[]>;
     /**
      * summary: 'Get the UNIX time stamp of the last successful save to disk'
      *
@@ -12878,10 +12689,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lindex(
-        key: string,
-        index: number
-    ): Promise<string | null>;
+    lindex(key: string, index: number): Promise<string | null>;
     /**
      * summary: 'Insert an element before or after another element in a list'
      *
@@ -12901,12 +12709,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    linsert(
-        key: string,
-        where: "BEFORE" | "AFTER",
-        pivot: string,
-        element: string
-    ): Promise<number>;
+    linsert(key: string, where: "BEFORE" | "AFTER", pivot: string, element: string): Promise<number>;
     /**
      * summary: 'Get the length of a list'
      *
@@ -12920,9 +12723,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    llen(
-        key: string
-    ): Promise<number>;
+    llen(key: string): Promise<number>;
     /**
      * summary: 'Remove and get the first element in a list'
      *
@@ -12936,9 +12737,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lpop(
-        key: string
-    ): Promise<string>;
+    lpop(key: string): Promise<string>;
     /**
      * summary: 'Prepend one or multiple elements to a list'
      *
@@ -12954,10 +12753,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lpush(
-        key: string,
-        ...elements: string[]
-    ): Promise<number>;
+    lpush(key: string, ...elements: string[]): Promise<number>;
     /**
      * summary: 'Prepend an element to a list, only if the list exists'
      *
@@ -12973,10 +12769,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lpushx(
-        key: string,
-        ...elements: string[]
-    ): Promise<number>;
+    lpushx(key: string, ...elements: string[]): Promise<number>;
     /**
      * summary: 'Get a range of elements from a list'
      *
@@ -12994,11 +12787,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lrange(
-        key: string,
-        start: number,
-        stop: number
-    ): Promise<any[]>;
+    lrange(key: string, start: number, stop: number): Promise<any[]>;
     /**
      * summary: 'Remove elements from a list'
      *
@@ -13016,11 +12805,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lrem(
-        key: string,
-        count: number,
-        element: string
-    ): Promise<number>;
+    lrem(key: string, count: number, element: string): Promise<number>;
     /**
      * summary: 'Set the value of an element in a list by its index'
      *
@@ -13038,11 +12823,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    lset(
-        key: string,
-        index: number,
-        element: string
-    ): Promise<string>;
+    lset(key: string, index: number, element: string): Promise<string>;
     /**
      * summary: 'Trim a list to the specified range'
      *
@@ -13060,11 +12841,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    ltrim(
-        key: string,
-        start: number,
-        stop: number
-    ): Promise<string>;
+    ltrim(key: string, start: number, stop: number): Promise<string>;
     /**
      * summary: 'Get the values of all the given keys'
      *
@@ -13078,9 +12855,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    mget(
-        ...keys: string[]
-    ): Promise<Array<string | null>>;
+    mget(...keys: string[]): Promise<Array<string | null>>;
     /**
      * summary: 'Atomically transfer a key from a Redis instance to another one.'
      *
@@ -13113,7 +12888,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13153,7 +12928,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13192,7 +12967,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13231,7 +13006,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13269,7 +13044,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13308,7 +13083,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13346,7 +13121,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY",
@@ -13384,7 +13159,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         copy: "COPY"
@@ -13421,7 +13196,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         replace: "REPLACE",
@@ -13460,7 +13235,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         replace: "REPLACE",
@@ -13498,7 +13273,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         replace: "REPLACE",
@@ -13536,7 +13311,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         replace: "REPLACE"
@@ -13573,7 +13348,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         auth_password: ["AUTH", string],
@@ -13611,7 +13386,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         auth_password: ["AUTH", string]
@@ -13648,7 +13423,7 @@ export interface IHandyRedis extends AdditionalFunctions {
     migrate(
         host: string,
         port: string,
-        key: "key" | "\"\"",
+        key: "key" | '""',
         destinationDb: number,
         timeout: number,
         keys_key: ["KEYS", string]
@@ -13682,13 +13457,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    migrate(
-        host: string,
-        port: string,
-        key: "key" | "\"\"",
-        destinationDb: number,
-        timeout: number
-    ): Promise<any>;
+    migrate(host: string, port: string, key: "key" | '""', destinationDb: number, timeout: number): Promise<any>;
     /**
      * summary: 'Listen for all requests received by the server in real time'
      *
@@ -13712,10 +13481,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    move(
-        key: string,
-        db: number
-    ): Promise<any>;
+    move(key: string, db: number): Promise<any>;
     /**
      * summary: 'Set multiple keys to multiple values'
      *
@@ -13729,9 +13495,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    mset(
-        ...key_values: Array<[string, string]>
-    ): Promise<string>;
+    mset(...key_values: Array<[string, string]>): Promise<string>;
     /**
      * summary: 'Set multiple keys to multiple values, only if none of the keys exist'
      *
@@ -13745,9 +13509,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    msetnx(
-        ...key_values: Array<[string, string]>
-    ): Promise<number>;
+    msetnx(...key_values: Array<[string, string]>): Promise<number>;
     /**
      * summary: 'Mark the start of a transaction block'
      *
@@ -13771,10 +13533,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: arguments, type: string, optional: true, multiple: true}
      */
-    object(
-        subcommand: string,
-        ...argss: string[]
-    ): Promise<any>;
+    object(subcommand: string, ...argss: string[]): Promise<any>;
     /**
      * summary: 'Inspect the internals of Redis objects'
      *
@@ -13790,9 +13549,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      *     - {name: arguments, type: string, optional: true, multiple: true}
      */
-    object(
-        subcommand: string
-    ): Promise<any>;
+    object(subcommand: string): Promise<any>;
     /**
      * summary: 'Remove the expiration from a key'
      *
@@ -13806,9 +13563,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    persist(
-        key: string
-    ): Promise<number>;
+    persist(key: string): Promise<number>;
     /**
      * summary: 'Set a key''s time to live in milliseconds'
      *
@@ -13824,10 +13579,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    pexpire(
-        key: string,
-        milliseconds: number
-    ): Promise<number>;
+    pexpire(key: string, milliseconds: number): Promise<number>;
     /**
      * summary: 'Set the expiration for a key as a UNIX timestamp specified in milliseconds'
      *
@@ -13843,10 +13595,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    pexpireat(
-        key: string,
-        millisecondsTimestamp: number
-    ): Promise<number>;
+    pexpireat(key: string, millisecondsTimestamp: number): Promise<number>;
     /**
      * summary: 'Adds the specified elements to the specified HyperLogLog.'
      *
@@ -13862,10 +13611,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hyperloglog
      */
-    pfadd(
-        key: string,
-        ...elements: string[]
-    ): Promise<number>;
+    pfadd(key: string, ...elements: string[]): Promise<number>;
     /**
      * summary: 'Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).'
      *
@@ -13879,9 +13625,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hyperloglog
      */
-    pfcount(
-        ...keys: string[]
-    ): Promise<number>;
+    pfcount(...keys: string[]): Promise<number>;
     /**
      * summary: 'Merge N different HyperLogLogs into a single one.'
      *
@@ -13897,10 +13641,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hyperloglog
      */
-    pfmerge(
-        destkey: string,
-        ...sourcekeys: string[]
-    ): Promise<string>;
+    pfmerge(destkey: string, ...sourcekeys: string[]): Promise<string>;
     /**
      * summary: 'Ping the server'
      *
@@ -13912,9 +13653,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: connection
      */
-    ping(
-        message: string
-    ): Promise<string>;
+    ping(message: string): Promise<string>;
     /**
      * summary: 'Ping the server'
      *
@@ -13944,11 +13683,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    psetex(
-        key: string,
-        milliseconds: number,
-        value: string
-    ): Promise<string>;
+    psetex(key: string, milliseconds: number, value: string): Promise<string>;
     /**
      * summary: 'Listen for messages published to channels matching the given patterns'
      *
@@ -13962,9 +13697,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    psubscribe(
-        ...patterns: Array<[string]>
-    ): Promise<any>;
+    psubscribe(...patterns: Array<[string]>): Promise<any>;
     /**
      * summary: 'Inspect the state of the Pub/Sub subsystem'
      *
@@ -13980,10 +13713,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    pubsub(
-        subcommand: string,
-        ...args: string[]
-    ): Promise<any>;
+    pubsub(subcommand: string, ...args: string[]): Promise<any>;
     /**
      * summary: 'Inspect the state of the Pub/Sub subsystem'
      *
@@ -13999,9 +13729,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    pubsub(
-        subcommand: string
-    ): Promise<any>;
+    pubsub(subcommand: string): Promise<any>;
     /**
      * summary: 'Get the time to live for a key in milliseconds'
      *
@@ -14015,9 +13743,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    pttl(
-        key: string
-    ): Promise<number>;
+    pttl(key: string): Promise<number>;
     /**
      * summary: 'Post a message to a channel'
      *
@@ -14033,10 +13759,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    publish(
-        channel: string,
-        message: string
-    ): Promise<any>;
+    publish(channel: string, message: string): Promise<any>;
     /**
      * summary: 'Stop listening for messages posted to channels matching the given patterns'
      *
@@ -14050,9 +13773,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    punsubscribe(
-        ...patterns: string[]
-    ): Promise<any>;
+    punsubscribe(...patterns: string[]): Promise<any>;
     /**
      * summary: 'Stop listening for messages posted to channels matching the given patterns'
      *
@@ -14120,10 +13841,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    rename(
-        key: string,
-        newkey: string
-    ): Promise<string>;
+    rename(key: string, newkey: string): Promise<string>;
     /**
      * summary: 'Rename a key, only if the new key does not exist'
      *
@@ -14139,10 +13857,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    renamenx(
-        key: string,
-        newkey: string
-    ): Promise<number>;
+    renamenx(key: string, newkey: string): Promise<number>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
      *
@@ -14268,13 +13983,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    restore(
-        key: string,
-        ttl: number,
-        serializedValue: string,
-        replace: "REPLACE",
-        absttl: "ABSTTL"
-    ): Promise<any>;
+    restore(key: string, ttl: number, serializedValue: string, replace: "REPLACE", absttl: "ABSTTL"): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
      *
@@ -14397,12 +14106,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    restore(
-        key: string,
-        ttl: number,
-        serializedValue: string,
-        replace: "REPLACE"
-    ): Promise<any>;
+    restore(key: string, ttl: number, serializedValue: string, replace: "REPLACE"): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
      *
@@ -14525,12 +14229,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    restore(
-        key: string,
-        ttl: number,
-        serializedValue: string,
-        absttl: "ABSTTL"
-    ): Promise<any>;
+    restore(key: string, ttl: number, serializedValue: string, absttl: "ABSTTL"): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
      *
@@ -14588,12 +14287,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    restore(
-        key: string,
-        ttl: number,
-        serializedValue: string,
-        idletime_seconds: ["IDLETIME", number]
-    ): Promise<any>;
+    restore(key: string, ttl: number, serializedValue: string, idletime_seconds: ["IDLETIME", number]): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
      *
@@ -14619,12 +14313,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    restore(
-        key: string,
-        ttl: number,
-        serializedValue: string,
-        freq_frequency: ["FREQ", number]
-    ): Promise<any>;
+    restore(key: string, ttl: number, serializedValue: string, freq_frequency: ["FREQ", number]): Promise<any>;
     /**
      * summary: 'Create a key using the provided serialized value, previously obtained using DUMP.'
      *
@@ -14650,11 +14339,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    restore(
-        key: string,
-        ttl: number,
-        serializedValue: string
-    ): Promise<any>;
+    restore(key: string, ttl: number, serializedValue: string): Promise<any>;
     /**
      * summary: 'Return the role of the instance in the context of replication'
      *
@@ -14676,9 +14361,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    rpop(
-        key: string
-    ): Promise<string>;
+    rpop(key: string): Promise<string>;
     /**
      * summary: 'Remove the last element in a list, prepend it to another list and return it'
      *
@@ -14694,10 +14377,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    rpoplpush(
-        source: string,
-        destination: string
-    ): Promise<string>;
+    rpoplpush(source: string, destination: string): Promise<string>;
     /**
      * summary: 'Append one or multiple elements to a list'
      *
@@ -14713,10 +14393,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    rpush(
-        key: string,
-        ...elements: string[]
-    ): Promise<number>;
+    rpush(key: string, ...elements: string[]): Promise<number>;
     /**
      * summary: 'Append an element to a list, only if the list exists'
      *
@@ -14732,10 +14409,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: list
      */
-    rpushx(
-        key: string,
-        ...elements: string[]
-    ): Promise<number>;
+    rpushx(key: string, ...elements: string[]): Promise<number>;
     /**
      * summary: 'Add one or more members to a set'
      *
@@ -14751,10 +14425,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sadd(
-        key: string,
-        ...members: string[]
-    ): Promise<number>;
+    sadd(key: string, ...members: string[]): Promise<number>;
     /**
      * summary: 'Synchronously save the dataset to disk'
      *
@@ -14776,9 +14447,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    scard(
-        key: string
-    ): Promise<number>;
+    scard(key: string): Promise<number>;
     /**
      * summary: 'Subtract multiple sets'
      *
@@ -14792,9 +14461,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sdiff(
-        ...keys: string[]
-    ): Promise<any>;
+    sdiff(...keys: string[]): Promise<any>;
     /**
      * summary: 'Subtract multiple sets and store the resulting set in a key'
      *
@@ -14810,10 +14477,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sdiffstore(
-        destination: string,
-        ...keys: string[]
-    ): Promise<any>;
+    sdiffstore(destination: string, ...keys: string[]): Promise<any>;
     /**
      * summary: 'Change the selected database for the current connection'
      *
@@ -14825,9 +14489,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: connection
      */
-    select(
-        index: number
-    ): Promise<any>;
+    select(index: number): Promise<any>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14904,12 +14566,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    set(
-        key: string,
-        value: string,
-        ex_seconds: ["EX", number],
-        condition: "NX" | "XX"
-    ): Promise<string | null>;
+    set(key: string, value: string, ex_seconds: ["EX", number], condition: "NX" | "XX"): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14931,11 +14588,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    set(
-        key: string,
-        value: string,
-        ex_seconds: ["EX", number]
-    ): Promise<string | null>;
+    set(key: string, value: string, ex_seconds: ["EX", number]): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14957,12 +14610,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    set(
-        key: string,
-        value: string,
-        px_milliseconds: ["PX", number],
-        condition: "NX" | "XX"
-    ): Promise<string | null>;
+    set(key: string, value: string, px_milliseconds: ["PX", number], condition: "NX" | "XX"): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -14984,11 +14632,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    set(
-        key: string,
-        value: string,
-        px_milliseconds: ["PX", number]
-    ): Promise<string | null>;
+    set(key: string, value: string, px_milliseconds: ["PX", number]): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -15010,11 +14654,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    set(
-        key: string,
-        value: string,
-        condition: "NX" | "XX"
-    ): Promise<string | null>;
+    set(key: string, value: string, condition: "NX" | "XX"): Promise<string | null>;
     /**
      * summary: 'Set the string value of a key'
      *
@@ -15036,10 +14676,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    set(
-        key: string,
-        value: string
-    ): Promise<string | null>;
+    set(key: string, value: string): Promise<string | null>;
     /**
      * summary: 'Sets or clears the bit at offset in the string value stored at key'
      *
@@ -15057,11 +14694,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    setbit(
-        key: string,
-        offset: number,
-        value: number | string
-    ): Promise<number>;
+    setbit(key: string, offset: number, value: number | string): Promise<number>;
     /**
      * summary: 'Set the value and expiration of a key'
      *
@@ -15079,11 +14712,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    setex(
-        key: string,
-        seconds: number,
-        value: string
-    ): Promise<string>;
+    setex(key: string, seconds: number, value: string): Promise<string>;
     /**
      * summary: 'Set the value of a key, only if the key does not exist'
      *
@@ -15099,10 +14728,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    setnx(
-        key: string,
-        value: string
-    ): Promise<number>;
+    setnx(key: string, value: string): Promise<number>;
     /**
      * summary: 'Overwrite part of a string at key starting at the specified offset'
      *
@@ -15120,11 +14746,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    setrange(
-        key: string,
-        offset: number,
-        value: string
-    ): Promise<number>;
+    setrange(key: string, offset: number, value: string): Promise<number>;
     /**
      * summary: 'Synchronously save the dataset to disk and then shut down the server'
      *
@@ -15136,9 +14758,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    shutdown(
-        saveMode: "NOSAVE" | "SAVE"
-    ): Promise<any>;
+    shutdown(saveMode: "NOSAVE" | "SAVE"): Promise<any>;
     /**
      * summary: 'Synchronously save the dataset to disk and then shut down the server'
      *
@@ -15164,9 +14784,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sinter(
-        ...keys: string[]
-    ): Promise<any>;
+    sinter(...keys: string[]): Promise<any>;
     /**
      * summary: 'Intersect multiple sets and store the resulting set in a key'
      *
@@ -15182,10 +14800,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sinterstore(
-        destination: string,
-        ...keys: string[]
-    ): Promise<any>;
+    sinterstore(destination: string, ...keys: string[]): Promise<any>;
     /**
      * summary: 'Determine if a given value is a member of a set'
      *
@@ -15201,10 +14816,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sismember(
-        key: string,
-        member: string
-    ): Promise<number>;
+    sismember(key: string, member: string): Promise<number>;
     /**
      * summary: 'Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.'
      *
@@ -15218,10 +14830,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    slaveof(
-        host: string,
-        port: string
-    ): Promise<any>;
+    slaveof(host: string, port: string): Promise<any>;
     /**
      * summary: 'Make the server a replica of another instance, or promote it as master.'
      *
@@ -15235,10 +14844,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    replicaof(
-        host: string,
-        port: string
-    ): Promise<any>;
+    replicaof(host: string, port: string): Promise<any>;
     /**
      * summary: 'Manages the Redis slow queries log'
      *
@@ -15252,10 +14858,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    slowlog(
-        subcommand: string,
-        arg: string
-    ): Promise<any>;
+    slowlog(subcommand: string, arg: string): Promise<any>;
     /**
      * summary: 'Manages the Redis slow queries log'
      *
@@ -15269,9 +14872,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    slowlog(
-        subcommand: string
-    ): Promise<any>;
+    slowlog(subcommand: string): Promise<any>;
     /**
      * summary: 'Get all the members in a set'
      *
@@ -15285,9 +14886,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    smembers(
-        key: string
-    ): Promise<any[]>;
+    smembers(key: string): Promise<any[]>;
     /**
      * summary: 'Move a member from one set to another'
      *
@@ -15305,11 +14904,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    smove(
-        source: string,
-        destination: string,
-        member: string
-    ): Promise<number>;
+    smove(source: string, destination: string, member: string): Promise<number>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -15817,11 +15412,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        limit_offset_count: ["LIMIT", number, number]
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], limit_offset_count: ["LIMIT", number, number]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16007,12 +15598,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        get_patterns: Array<["GET", string]>,
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], get_patterns: Array<["GET", string]>, sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16069,11 +15655,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        ...get_patterns: Array<["GET", string]>
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], ...get_patterns: Array<["GET", string]>): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16131,12 +15713,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        order: "ASC" | "DESC",
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], order: "ASC" | "DESC", sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16193,11 +15770,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        order: "ASC" | "DESC"
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], order: "ASC" | "DESC"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16223,12 +15796,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        sorting: "ALPHA",
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], sorting: "ALPHA", store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16254,11 +15822,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16284,11 +15848,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string],
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string], store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16314,10 +15874,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        by_pattern: ["BY", string]
-    ): Promise<any>;
+    sort(key: string, by_pattern: ["BY", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16689,11 +16246,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        limit_offset_count: ["LIMIT", number, number],
-        order: "ASC" | "DESC"
-    ): Promise<any>;
+    sort(key: string, limit_offset_count: ["LIMIT", number, number], order: "ASC" | "DESC"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16750,11 +16303,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        limit_offset_count: ["LIMIT", number, number],
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, limit_offset_count: ["LIMIT", number, number], sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16810,10 +16359,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        limit_offset_count: ["LIMIT", number, number]
-    ): Promise<any>;
+    sort(key: string, limit_offset_count: ["LIMIT", number, number]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16871,12 +16417,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        get_patterns: Array<["GET", string]>,
-        order: "ASC" | "DESC",
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, get_patterns: Array<["GET", string]>, order: "ASC" | "DESC", sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16933,11 +16474,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        get_patterns: Array<["GET", string]>,
-        order: "ASC" | "DESC"
-    ): Promise<any>;
+    sort(key: string, get_patterns: Array<["GET", string]>, order: "ASC" | "DESC"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -16994,11 +16531,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        get_patterns: Array<["GET", string]>,
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, get_patterns: Array<["GET", string]>, sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17024,11 +16557,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        get_patterns: Array<["GET", string]>,
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, get_patterns: Array<["GET", string]>, store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17054,10 +16583,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        ...get_patterns: Array<["GET", string]>
-    ): Promise<any>;
+    sort(key: string, ...get_patterns: Array<["GET", string]>): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17083,12 +16609,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        order: "ASC" | "DESC",
-        sorting: "ALPHA",
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, order: "ASC" | "DESC", sorting: "ALPHA", store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17114,11 +16635,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        order: "ASC" | "DESC",
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, order: "ASC" | "DESC", sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17144,11 +16661,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        order: "ASC" | "DESC",
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, order: "ASC" | "DESC", store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17174,10 +16687,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        order: "ASC" | "DESC"
-    ): Promise<any>;
+    sort(key: string, order: "ASC" | "DESC"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17203,11 +16713,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        sorting: "ALPHA",
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, sorting: "ALPHA", store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17233,10 +16739,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        sorting: "ALPHA"
-    ): Promise<any>;
+    sort(key: string, sorting: "ALPHA"): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17262,10 +16765,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string,
-        store_destination: ["STORE", string]
-    ): Promise<any>;
+    sort(key: string, store_destination: ["STORE", string]): Promise<any>;
     /**
      * summary: 'Sort the elements in a list, set or sorted set'
      *
@@ -17291,9 +16791,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    sort(
-        key: string
-    ): Promise<any>;
+    sort(key: string): Promise<any>;
     /**
      * summary: 'Remove and return one or multiple random members from a set'
      *
@@ -17309,10 +16807,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    spop(
-        key: string,
-        count: number
-    ): Promise<any>;
+    spop(key: string, count: number): Promise<any>;
     /**
      * summary: 'Remove and return one or multiple random members from a set'
      *
@@ -17328,9 +16823,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    spop(
-        key: string
-    ): Promise<any>;
+    spop(key: string): Promise<any>;
     /**
      * summary: 'Get one or multiple random members from a set'
      *
@@ -17346,10 +16839,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    srandmember(
-        key: string,
-        count: number
-    ): Promise<any>;
+    srandmember(key: string, count: number): Promise<any>;
     /**
      * summary: 'Get one or multiple random members from a set'
      *
@@ -17365,9 +16855,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    srandmember(
-        key: string
-    ): Promise<any>;
+    srandmember(key: string): Promise<any>;
     /**
      * summary: 'Remove one or more members from a set'
      *
@@ -17383,10 +16871,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    srem(
-        key: string,
-        ...members: string[]
-    ): Promise<number>;
+    srem(key: string, ...members: string[]): Promise<number>;
     /**
      * summary: 'Get the length of the value stored in a key'
      *
@@ -17400,9 +16885,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: string
      */
-    strlen(
-        key: string
-    ): Promise<number>;
+    strlen(key: string): Promise<number>;
     /**
      * summary: 'Listen for messages published to the given channels'
      *
@@ -17416,9 +16899,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    subscribe(
-        ...channels: string[]
-    ): Promise<any>;
+    subscribe(...channels: string[]): Promise<any>;
     /**
      * summary: 'Add multiple sets'
      *
@@ -17432,9 +16913,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sunion(
-        ...keys: string[]
-    ): Promise<any>;
+    sunion(...keys: string[]): Promise<any>;
     /**
      * summary: 'Add multiple sets and store the resulting set in a key'
      *
@@ -17450,10 +16929,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sunionstore(
-        destination: string,
-        ...keys: string[]
-    ): Promise<any>;
+    sunionstore(destination: string, ...keys: string[]): Promise<any>;
     /**
      * summary: 'Swaps two Redis databases'
      *
@@ -17467,10 +16943,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: connection
      */
-    swapdb(
-        index1: number,
-        index2: number
-    ): Promise<any>;
+    swapdb(index1: number, index2: number): Promise<any>;
     /**
      * summary: 'Internal command used for replication'
      *
@@ -17492,10 +16965,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: server
      */
-    psync(
-        replicationid: number,
-        offset: number
-    ): Promise<any>;
+    psync(replicationid: number, offset: number): Promise<any>;
     /**
      * summary: 'Return the current server time'
      *
@@ -17519,9 +16989,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    touch(
-        ...keys: string[]
-    ): Promise<number>;
+    touch(...keys: string[]): Promise<number>;
     /**
      * summary: 'Get the time to live for a key'
      *
@@ -17535,9 +17003,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    ttl(
-        key: string
-    ): Promise<number>;
+    ttl(key: string): Promise<number>;
     /**
      * summary: 'Determine the type stored at key'
      *
@@ -17551,9 +17017,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    type(
-        key: string
-    ): Promise<string>;
+    type(key: string): Promise<string>;
     /**
      * summary: 'Stop listening for messages posted to the given channels'
      *
@@ -17567,9 +17031,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: pubsub
      */
-    unsubscribe(
-        ...channels: string[]
-    ): Promise<any>;
+    unsubscribe(...channels: string[]): Promise<any>;
     /**
      * summary: 'Stop listening for messages posted to the given channels'
      *
@@ -17597,9 +17059,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    unlink(
-        ...keys: string[]
-    ): Promise<number>;
+    unlink(...keys: string[]): Promise<number>;
     /**
      * summary: 'Forget about all watched keys'
      *
@@ -17625,10 +17085,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    wait(
-        numreplicas: number,
-        timeout: number
-    ): Promise<any>;
+    wait(numreplicas: number, timeout: number): Promise<any>;
     /**
      * summary: 'Watch the given keys to determine execution of the MULTI/EXEC block'
      *
@@ -17642,9 +17099,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: transactions
      */
-    watch(
-        ...keys: string[]
-    ): Promise<any>;
+    watch(...keys: string[]): Promise<any>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -17694,12 +17149,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zadd(
-        key: string,
-        condition: "NX" | "XX",
-        change: "CH",
-        ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    zadd(key: string, condition: "NX" | "XX", change: "CH", ...score_members: Array<[number, string]>): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -17748,11 +17198,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zadd(
-        key: string,
-        condition: "NX" | "XX",
-        ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    zadd(key: string, condition: "NX" | "XX", ...score_members: Array<[number, string]>): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -17774,12 +17220,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zadd(
-        key: string,
-        change: "CH",
-        increment: "INCR",
-        ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    zadd(key: string, change: "CH", increment: "INCR", ...score_members: Array<[number, string]>): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -17801,11 +17242,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zadd(
-        key: string,
-        change: "CH",
-        ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    zadd(key: string, change: "CH", ...score_members: Array<[number, string]>): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -17827,11 +17264,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zadd(
-        key: string,
-        increment: "INCR",
-        ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    zadd(key: string, increment: "INCR", ...score_members: Array<[number, string]>): Promise<number>;
     /**
      * summary: 'Add one or more members to a sorted set, or update its score if it already exists'
      *
@@ -17853,10 +17286,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zadd(
-        key: string,
-        ...score_members: Array<[number, string]>
-    ): Promise<number>;
+    zadd(key: string, ...score_members: Array<[number, string]>): Promise<number>;
     /**
      * summary: 'Get the number of members in a sorted set'
      *
@@ -17870,9 +17300,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zcard(
-        key: string
-    ): Promise<number>;
+    zcard(key: string): Promise<number>;
     /**
      * summary: 'Count the members in a sorted set with scores within the given values'
      *
@@ -17890,11 +17318,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zcount(
-        key: string,
-        min: number,
-        max: number
-    ): Promise<number>;
+    zcount(key: string, min: number, max: number): Promise<number>;
     /**
      * summary: 'Increment the score of a member in a sorted set'
      *
@@ -17912,11 +17336,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zincrby(
-        key: string,
-        increment: number,
-        member: string
-    ): Promise<string>;
+    zincrby(key: string, increment: number, member: string): Promise<string>;
     /**
      * summary: 'Intersect multiple sorted sets and store the resulting sorted set in a new key'
      *
@@ -18020,11 +17440,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zinterstore(
-        destination: string,
-        numkeys: number,
-        ...keys: string[]
-    ): Promise<number>;
+    zinterstore(destination: string, numkeys: number, ...keys: string[]): Promise<number>;
     /**
      * summary: 'Count the number of members in a sorted set between a given lexicographical range'
      *
@@ -18042,11 +17458,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zlexcount(
-        key: string,
-        min: string,
-        max: string
-    ): Promise<number>;
+    zlexcount(key: string, min: string, max: string): Promise<number>;
     /**
      * summary: 'Remove and return members with the highest scores in a sorted set'
      *
@@ -18062,10 +17474,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zpopmax(
-        key: string,
-        count: number
-    ): Promise<string[]>;
+    zpopmax(key: string, count: number): Promise<string[]>;
     /**
      * summary: 'Remove and return members with the highest scores in a sorted set'
      *
@@ -18081,9 +17490,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zpopmax(
-        key: string
-    ): Promise<string[]>;
+    zpopmax(key: string): Promise<string[]>;
     /**
      * summary: 'Remove and return members with the lowest scores in a sorted set'
      *
@@ -18099,10 +17506,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zpopmin(
-        key: string,
-        count: number
-    ): Promise<string[]>;
+    zpopmin(key: string, count: number): Promise<string[]>;
     /**
      * summary: 'Remove and return members with the lowest scores in a sorted set'
      *
@@ -18118,9 +17522,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zpopmin(
-        key: string
-    ): Promise<string[]>;
+    zpopmin(key: string): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by index'
      *
@@ -18140,12 +17542,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrange(
-        key: string,
-        start: number,
-        stop: number,
-        withscores: "WITHSCORES"
-    ): Promise<string[]>;
+    zrange(key: string, start: number, stop: number, withscores: "WITHSCORES"): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by index'
      *
@@ -18165,11 +17562,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrange(
-        key: string,
-        start: number,
-        stop: number
-    ): Promise<string[]>;
+    zrange(key: string, start: number, stop: number): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range'
      *
@@ -18214,11 +17607,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrangebylex(
-        key: string,
-        min: string,
-        max: string
-    ): Promise<string[]>;
+    zrangebylex(key: string, min: string, max: string): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.'
      *
@@ -18263,11 +17652,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrevrangebylex(
-        key: string,
-        max: string,
-        min: string
-    ): Promise<string[]>;
+    zrevrangebylex(key: string, max: string, min: string): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
      *
@@ -18317,12 +17702,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrangebyscore(
-        key: string,
-        min: number,
-        max: number,
-        withscores: "WITHSCORES"
-    ): Promise<any[]>;
+    zrangebyscore(key: string, min: number, max: number, withscores: "WITHSCORES"): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
      *
@@ -18344,12 +17724,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrangebyscore(
-        key: string,
-        min: number,
-        max: number,
-        limit_offset_count: ["LIMIT", number, number]
-    ): Promise<any[]>;
+    zrangebyscore(key: string, min: number, max: number, limit_offset_count: ["LIMIT", number, number]): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score'
      *
@@ -18371,11 +17746,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrangebyscore(
-        key: string,
-        min: number,
-        max: number
-    ): Promise<any[]>;
+    zrangebyscore(key: string, min: number, max: number): Promise<any[]>;
     /**
      * summary: 'Determine the index of a member in a sorted set'
      *
@@ -18391,10 +17762,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrank(
-        key: string,
-        member: string
-    ): Promise<number | null>;
+    zrank(key: string, member: string): Promise<number | null>;
     /**
      * summary: 'Remove one or more members from a sorted set'
      *
@@ -18410,10 +17778,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrem(
-        key: string,
-        ...members: string[]
-    ): Promise<number>;
+    zrem(key: string, ...members: string[]): Promise<number>;
     /**
      * summary: 'Remove all members in a sorted set between the given lexicographical range'
      *
@@ -18431,11 +17796,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zremrangebylex(
-        key: string,
-        min: string,
-        max: string
-    ): Promise<number>;
+    zremrangebylex(key: string, min: string, max: string): Promise<number>;
     /**
      * summary: 'Remove all members in a sorted set within the given indexes'
      *
@@ -18453,11 +17814,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zremrangebyrank(
-        key: string,
-        start: number,
-        stop: number
-    ): Promise<number>;
+    zremrangebyrank(key: string, start: number, stop: number): Promise<number>;
     /**
      * summary: 'Remove all members in a sorted set within the given scores'
      *
@@ -18475,11 +17832,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zremrangebyscore(
-        key: string,
-        min: number,
-        max: number
-    ): Promise<number>;
+    zremrangebyscore(key: string, min: number, max: number): Promise<number>;
     /**
      * summary: 'Return a range of members in a sorted set, by index, with scores ordered from high to low'
      *
@@ -18499,12 +17852,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrevrange(
-        key: string,
-        start: number,
-        stop: number,
-        withscores: "WITHSCORES"
-    ): Promise<string[]>;
+    zrevrange(key: string, start: number, stop: number, withscores: "WITHSCORES"): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by index, with scores ordered from high to low'
      *
@@ -18524,11 +17872,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrevrange(
-        key: string,
-        start: number,
-        stop: number
-    ): Promise<string[]>;
+    zrevrange(key: string, start: number, stop: number): Promise<string[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
      *
@@ -18578,12 +17922,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrevrangebyscore(
-        key: string,
-        max: number,
-        min: number,
-        withscores: "WITHSCORES"
-    ): Promise<any[]>;
+    zrevrangebyscore(key: string, max: number, min: number, withscores: "WITHSCORES"): Promise<any[]>;
     /**
      * summary: 'Return a range of members in a sorted set, by score, with scores ordered from high to low'
      *
@@ -18632,11 +17971,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrevrangebyscore(
-        key: string,
-        max: number,
-        min: number
-    ): Promise<any[]>;
+    zrevrangebyscore(key: string, max: number, min: number): Promise<any[]>;
     /**
      * summary: 'Determine the index of a member in a sorted set, with scores ordered from high to low'
      *
@@ -18652,10 +17987,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zrevrank(
-        key: string,
-        member: string
-    ): Promise<number | null>;
+    zrevrank(key: string, member: string): Promise<number | null>;
     /**
      * summary: 'Get the score associated with the given member in a sorted set'
      *
@@ -18671,10 +18003,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zscore(
-        key: string,
-        member: string
-    ): Promise<string>;
+    zscore(key: string, member: string): Promise<string>;
     /**
      * summary: 'Add multiple sorted sets and store the resulting sorted set in a new key'
      *
@@ -18778,11 +18107,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zunionstore(
-        destination: string,
-        numkeys: number,
-        ...keys: string[]
-    ): Promise<number>;
+    zunionstore(destination: string, numkeys: number, ...keys: string[]): Promise<number>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18827,11 +18152,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number,
-        match_pattern: ["MATCH", string],
-        count: ["COUNT", number]
-    ): Promise<any>;
+    scan(cursor: number, match_pattern: ["MATCH", string], count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18851,11 +18172,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number,
-        match_pattern: ["MATCH", string],
-        type: ["TYPE", string]
-    ): Promise<any>;
+    scan(cursor: number, match_pattern: ["MATCH", string], type: ["TYPE", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18875,10 +18192,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number,
-        match_pattern: ["MATCH", string]
-    ): Promise<any>;
+    scan(cursor: number, match_pattern: ["MATCH", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18898,11 +18212,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number,
-        count: ["COUNT", number],
-        type: ["TYPE", string]
-    ): Promise<any>;
+    scan(cursor: number, count: ["COUNT", number], type: ["TYPE", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18922,10 +18232,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number,
-        count: ["COUNT", number]
-    ): Promise<any>;
+    scan(cursor: number, count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18945,10 +18252,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number,
-        type: ["TYPE", string]
-    ): Promise<any>;
+    scan(cursor: number, type: ["TYPE", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate the keys space'
      *
@@ -18968,9 +18272,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: generic
      */
-    scan(
-        cursor: number
-    ): Promise<any>;
+    scan(cursor: number): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
      *
@@ -18990,12 +18292,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sscan(
-        key: string,
-        cursor: number,
-        match_pattern: ["MATCH", string],
-        count: ["COUNT", number]
-    ): Promise<any>;
+    sscan(key: string, cursor: number, match_pattern: ["MATCH", string], count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
      *
@@ -19015,11 +18312,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sscan(
-        key: string,
-        cursor: number,
-        match_pattern: ["MATCH", string]
-    ): Promise<any>;
+    sscan(key: string, cursor: number, match_pattern: ["MATCH", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
      *
@@ -19039,11 +18332,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sscan(
-        key: string,
-        cursor: number,
-        count: ["COUNT", number]
-    ): Promise<any>;
+    sscan(key: string, cursor: number, count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate Set elements'
      *
@@ -19063,10 +18352,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: set
      */
-    sscan(
-        key: string,
-        cursor: number
-    ): Promise<any>;
+    sscan(key: string, cursor: number): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
      *
@@ -19086,12 +18372,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hscan(
-        key: string,
-        cursor: number,
-        match_pattern: ["MATCH", string],
-        count: ["COUNT", number]
-    ): Promise<any>;
+    hscan(key: string, cursor: number, match_pattern: ["MATCH", string], count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
      *
@@ -19111,11 +18392,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hscan(
-        key: string,
-        cursor: number,
-        match_pattern: ["MATCH", string]
-    ): Promise<any>;
+    hscan(key: string, cursor: number, match_pattern: ["MATCH", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
      *
@@ -19135,11 +18412,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hscan(
-        key: string,
-        cursor: number,
-        count: ["COUNT", number]
-    ): Promise<any>;
+    hscan(key: string, cursor: number, count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate hash fields and associated values'
      *
@@ -19159,10 +18432,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: hash
      */
-    hscan(
-        key: string,
-        cursor: number
-    ): Promise<any>;
+    hscan(key: string, cursor: number): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
      *
@@ -19182,12 +18452,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zscan(
-        key: string,
-        cursor: number,
-        match_pattern: ["MATCH", string],
-        count: ["COUNT", number]
-    ): Promise<any>;
+    zscan(key: string, cursor: number, match_pattern: ["MATCH", string], count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
      *
@@ -19207,11 +18472,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zscan(
-        key: string,
-        cursor: number,
-        match_pattern: ["MATCH", string]
-    ): Promise<any>;
+    zscan(key: string, cursor: number, match_pattern: ["MATCH", string]): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
      *
@@ -19231,11 +18492,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zscan(
-        key: string,
-        cursor: number,
-        count: ["COUNT", number]
-    ): Promise<any>;
+    zscan(key: string, cursor: number, count: ["COUNT", number]): Promise<any>;
     /**
      * summary: 'Incrementally iterate sorted sets elements and associated scores'
      *
@@ -19255,10 +18512,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: sorted_set
      */
-    zscan(
-        key: string,
-        cursor: number
-    ): Promise<any>;
+    zscan(key: string, cursor: number): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19351,10 +18605,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        consumers_key_groupname: ["CONSUMERS", string, string],
-        groups_key: ["GROUPS", string]
-    ): Promise<any>;
+    xinfo(consumers_key_groupname: ["CONSUMERS", string, string], groups_key: ["GROUPS", string]): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19398,10 +18649,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        consumers_key_groupname: ["CONSUMERS", string, string],
-        stream_key: ["STREAM", string]
-    ): Promise<any>;
+    xinfo(consumers_key_groupname: ["CONSUMERS", string, string], stream_key: ["STREAM", string]): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19421,10 +18669,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        consumers_key_groupname: ["CONSUMERS", string, string],
-        help: "HELP"
-    ): Promise<any>;
+    xinfo(consumers_key_groupname: ["CONSUMERS", string, string], help: "HELP"): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19444,9 +18689,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        consumers_key_groupname: ["CONSUMERS", string, string]
-    ): Promise<any>;
+    xinfo(consumers_key_groupname: ["CONSUMERS", string, string]): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19466,11 +18709,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        groups_key: ["GROUPS", string],
-        stream_key: ["STREAM", string],
-        help: "HELP"
-    ): Promise<any>;
+    xinfo(groups_key: ["GROUPS", string], stream_key: ["STREAM", string], help: "HELP"): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19490,10 +18729,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        groups_key: ["GROUPS", string],
-        stream_key: ["STREAM", string]
-    ): Promise<any>;
+    xinfo(groups_key: ["GROUPS", string], stream_key: ["STREAM", string]): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19513,10 +18749,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        groups_key: ["GROUPS", string],
-        help: "HELP"
-    ): Promise<any>;
+    xinfo(groups_key: ["GROUPS", string], help: "HELP"): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19536,9 +18769,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        groups_key: ["GROUPS", string]
-    ): Promise<any>;
+    xinfo(groups_key: ["GROUPS", string]): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19558,10 +18789,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        stream_key: ["STREAM", string],
-        help: "HELP"
-    ): Promise<any>;
+    xinfo(stream_key: ["STREAM", string], help: "HELP"): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19581,9 +18809,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        stream_key: ["STREAM", string]
-    ): Promise<any>;
+    xinfo(stream_key: ["STREAM", string]): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19603,9 +18829,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xinfo(
-        help: "HELP"
-    ): Promise<any>;
+    xinfo(help: "HELP"): Promise<any>;
     /**
      * summary: 'Get information on streams and consumer groups'
      *
@@ -19643,11 +18867,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xadd(
-        key: string,
-        id: string,
-        ...field_values: Array<[string, string]>
-    ): Promise<string>;
+    xadd(key: string, id: string, ...field_values: Array<[string, string]>): Promise<string>;
     /**
      * summary: 'Trims the stream to (approximately if ''~'' is passed) a certain size'
      *
@@ -19667,12 +18887,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xtrim(
-        key: string,
-        strategy: "MAXLEN",
-        approx: "~",
-        count: number
-    ): Promise<number>;
+    xtrim(key: string, strategy: "MAXLEN", approx: "~", count: number): Promise<number>;
     /**
      * summary: 'Trims the stream to (approximately if ''~'' is passed) a certain size'
      *
@@ -19692,11 +18907,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xtrim(
-        key: string,
-        strategy: "MAXLEN",
-        count: number
-    ): Promise<number>;
+    xtrim(key: string, strategy: "MAXLEN", count: number): Promise<number>;
     /**
      * summary: 'Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.'
      *
@@ -19712,10 +18923,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xdel(
-        key: string,
-        ...ids: string[]
-    ): Promise<any>;
+    xdel(key: string, ...ids: string[]): Promise<any>;
     /**
      * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval'
      *
@@ -19735,12 +18943,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xrange(
-        key: string,
-        start: string,
-        end: string,
-        count: ["COUNT", number]
-    ): Promise<Array<any[]>>;
+    xrange(key: string, start: string, end: string, count: ["COUNT", number]): Promise<Array<any[]>>;
     /**
      * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval'
      *
@@ -19760,11 +18963,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xrange(
-        key: string,
-        start: string,
-        end: string
-    ): Promise<Array<any[]>>;
+    xrange(key: string, start: string, end: string): Promise<Array<any[]>>;
     /**
      * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE'
      *
@@ -19784,12 +18983,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xrevrange(
-        key: string,
-        end: string,
-        start: string,
-        count: ["COUNT", number]
-    ): Promise<Array<any[]>>;
+    xrevrange(key: string, end: string, start: string, count: ["COUNT", number]): Promise<Array<any[]>>;
     /**
      * summary: 'Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE'
      *
@@ -19809,11 +19003,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xrevrange(
-        key: string,
-        end: string,
-        start: string
-    ): Promise<Array<any[]>>;
+    xrevrange(key: string, end: string, start: string): Promise<Array<any[]>>;
     /**
      * summary: 'Return the number of entires in a stream'
      *
@@ -19827,9 +19017,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xlen(
-        key: string
-    ): Promise<number>;
+    xlen(key: string): Promise<number>;
     /**
      * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
      *
@@ -19879,12 +19067,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xread(
-        count: ["COUNT", number],
-        streams: "STREAMS",
-        keys: string[],
-        ids: string[]
-    ): Promise<any>;
+    xread(count: ["COUNT", number], streams: "STREAMS", keys: string[], ids: string[]): Promise<any>;
     /**
      * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
      *
@@ -19906,12 +19089,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xread(
-        block_milliseconds: ["BLOCK", number],
-        streams: "STREAMS",
-        keys: string[],
-        ids: string[]
-    ): Promise<any>;
+    xread(block_milliseconds: ["BLOCK", number], streams: "STREAMS", keys: string[], ids: string[]): Promise<any>;
     /**
      * summary: 'Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.'
      *
@@ -19933,11 +19111,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xread(
-        streams: "STREAMS",
-        keys: string[],
-        ids: string[]
-    ): Promise<any>;
+    xread(streams: "STREAMS", keys: string[], ids: string[]): Promise<any>;
     /**
      * summary: 'Create, destroy, and manage consumer groups.'
      *
@@ -20123,9 +19297,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xgroup(
-        create_key_groupname_idOr$: ["CREATE", string, string, string]
-    ): Promise<any>;
+    xgroup(create_key_groupname_idOr$: ["CREATE", string, string, string]): Promise<any>;
     /**
      * summary: 'Create, destroy, and manage consumer groups.'
      *
@@ -20215,9 +19387,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xgroup(
-        setid_key_groupname_idOr$: ["SETID", string, string, string]
-    ): Promise<any>;
+    xgroup(setid_key_groupname_idOr$: ["SETID", string, string, string]): Promise<any>;
     /**
      * summary: 'Create, destroy, and manage consumer groups.'
      *
@@ -20260,9 +19430,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xgroup(
-        destroy_key_groupname: ["DESTROY", string, string]
-    ): Promise<any>;
+    xgroup(destroy_key_groupname: ["DESTROY", string, string]): Promise<any>;
     /**
      * summary: 'Create, destroy, and manage consumer groups.'
      *
@@ -20282,9 +19450,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xgroup(
-        delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]
-    ): Promise<any>;
+    xgroup(delconsumer_key_groupname_consumername: ["DELCONSUMER", string, string, string]): Promise<any>;
     /**
      * summary: 'Create, destroy, and manage consumer groups.'
      *
@@ -20582,11 +19748,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xack(
-        key: string,
-        group: string,
-        ...ids: string[]
-    ): Promise<number>;
+    xack(key: string, group: string, ...ids: string[]): Promise<number>;
     /**
      * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
      *
@@ -21798,14 +20960,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        minIdleTime: string,
-        ids: string[],
-        force: any
-    ): Promise<any>;
+    xclaim(key: string, group: string, consumer: string, minIdleTime: string, ids: string[], force: any): Promise<any>;
     /**
      * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
      *
@@ -21837,14 +20992,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        minIdleTime: string,
-        ids: string[],
-        justid: any
-    ): Promise<any>;
+    xclaim(key: string, group: string, consumer: string, minIdleTime: string, ids: string[], justid: any): Promise<any>;
     /**
      * summary: 'Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.'
      *
@@ -21876,13 +21024,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        minIdleTime: string,
-        ...ids: string[]
-    ): Promise<any>;
+    xclaim(key: string, group: string, consumer: string, minIdleTime: string, ...ids: string[]): Promise<any>;
     /**
      * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
      *
@@ -21902,12 +21044,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xpending(
-        key: string,
-        group: string,
-        start_end_count: [string, string, number],
-        consumer: string
-    ): Promise<any>;
+    xpending(key: string, group: string, start_end_count: [string, string, number], consumer: string): Promise<any>;
     /**
      * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
      *
@@ -21927,11 +21064,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xpending(
-        key: string,
-        group: string,
-        start_end_count: [string, string, number]
-    ): Promise<any>;
+    xpending(key: string, group: string, start_end_count: [string, string, number]): Promise<any>;
     /**
      * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
      *
@@ -21951,11 +21084,7 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xpending(
-        key: string,
-        group: string,
-        consumer: string
-    ): Promise<any>;
+    xpending(key: string, group: string, consumer: string): Promise<any>;
     /**
      * summary: 'Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.'
      *
@@ -21975,8 +21104,5 @@ export interface IHandyRedis extends AdditionalFunctions {
      *
      * group: stream
      */
-    xpending(
-        key: string,
-        group: string
-    ): Promise<any>;
+    xpending(key: string, group: string): Promise<any>;
 }

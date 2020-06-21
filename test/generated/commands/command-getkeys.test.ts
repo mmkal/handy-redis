@@ -21,12 +21,26 @@ it("scripts/redis-doc/commands/command-getkeys.md example 1", async () => {
     const output: any[] = [];
     try {
         output.push(await client.command("GETKEYS", "MSET", "a", "b", "c", "d", "e", "f"));
-        output.push(await client.command("GETKEYS", "EVAL", "not consulted", "3", "key1", "key2", "key3", "arg1", "arg2", "arg3", "argN"));
+        output.push(
+            await client.command(
+                "GETKEYS",
+                "EVAL",
+                "not consulted",
+                "3",
+                "key1",
+                "key2",
+                "key3",
+                "arg1",
+                "arg2",
+                "arg3",
+                "argN"
+            )
+        );
         output.push(await client.command("GETKEYS", "SORT", "mylist", "ALPHA", "STORE", "outlist"));
         const overridenOutput = overrider(output);
         snapshot = zip(commands, overridenOutput)
             .map(pair => `${padEnd(pair[0], 118)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => q === `'` ? `"` : `'`));
+            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
     } catch (err) {
         snapshot = { _commands: commands, _output: output, err };
     }

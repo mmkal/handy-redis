@@ -12,7 +12,7 @@ it("get overloads", () => {
         args,
         args.filter(a => a.name !== "c"),
         args.filter(a => a.name !== "b"),
-        args.filter(a => a.name === "a")
+        args.filter(a => a.name === "a"),
     ];
 
     expect(overloads).toEqual(expected);

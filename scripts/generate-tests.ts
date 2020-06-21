@@ -7,14 +7,12 @@ import { getBasicCommands } from "./command";
 import { warn } from "./log";
 
 const tokenizeCommand = (command: string) => {
-    return (command
-        .match(/("(?:[^"\\]|\\.)*")|([^ ]+)/g) || []) // magic regex that "preserves \"escaped\" strings"
+    return (command.match(/("(?:[^"\\]|\\.)*")|([^ ]+)/g) || []) // magic regex that "preserves \"escaped\" strings"
         .map(token => {
             if (token.startsWith(`"`) && token.endsWith(`"`)) {
                 return token.slice(1, -1).replace(/\\(.)/g, "$1");
-            } 
-                return token;
-            
+            }
+            return token;
         });
 };
 
@@ -134,14 +132,13 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
             return `[${formattedTupleParts.join(", ")}]`;
         };
 
-        if (isTuple) { // todo use ternary like above
+        if (isTuple) {
+            // todo use ternary like above
             const nextArg = nextFormattedTuple(type);
             formattedArgs.push(nextArg);
         } else if (arrayMatch) {
             const itemType = arrayMatch[1] || arrayMatch[2];
-            const getNext = tupleRegex.test(itemType)
-                ? nextFormattedTuple
-                : nextFormattedToken;
+            const getNext = tupleRegex.test(itemType) ? nextFormattedTuple : nextFormattedToken;
             while (nextLiteralIndex < literalTokens.length) {
                 formattedArgs.push(getNext(itemType));
             }
@@ -155,8 +152,7 @@ const formatLiteralArgumentFromOverload = (overloadInfo: BasicCommandInfo, liter
     return formattedArgs;
 };
 
-class TypeCheckError extends Error {
-}
+class TypeCheckError extends Error {}
 
 export const generateTests = async () => {
     const typescriptCommands = getBasicCommands();
@@ -193,9 +189,7 @@ export const generateTests = async () => {
 
             const args = formatLiteralArguments(command, argTokens).join(", ");
 
-            const prefix = args.includes("Couldn't format arguments: ")
-                ? "// not implemented by node redis: "
-                : "";
+            const prefix = args.includes("Couldn't format arguments: ") ? "// not implemented by node redis: " : "";
 
             return `${prefix}await client.${command}(${args})`;
         });
@@ -209,34 +203,36 @@ export const generateTests = async () => {
             `const overrider = getOverride(${quote(ex.example.file)});`,
             `let snapshot: any;`,
             `const commands = [`,
-            ...commandSrcs.map(quote).map(indent).map(line => line + ","),
+            ...commandSrcs
+                .map(quote)
+                .map(indent)
+                .map(line => line + ","),
             `];`,
             `const output: any[] = [];`,
             `try {`,
-            ...commandSrcs.map(cmd => cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`).map(indent),
+            ...commandSrcs
+                .map(cmd => (cmd.startsWith("//") ? `output.push(${quote(cmd)});` : `output.push(${cmd});`))
+                .map(indent),
             `    const overridenOutput = overrider(output);`,
             `    snapshot = zip(commands, overridenOutput)`,
-            `        .map(pair => ` + "`${padEnd(pair[0], " + (maxLength + 1) + ")} => ${JSON.stringify(pair[1])}`" + `)`,
-            `        .map(expression => expression.replace(/['"]/g, q => q === \`'\` ? \`"\` : \`'\`));`,
+            `        .map(pair => ` +
+                "`${padEnd(pair[0], " +
+                (maxLength + 1) +
+                ")} => ${JSON.stringify(pair[1])}`" +
+                `)`,
+            `        .map(expression => expression.replace(/['"]/g, q => (q === \`'\` ? \`"\` : \`'\`)));`,
             `} catch (err) {`,
             `    snapshot = { _commands: commands, _output: output, err };`,
             `}`,
             `expect(snapshot).toMatchSnapshot();`,
-        ]
-        .map(line => `${tab}${line}`);
+        ].map(line => `${tab}${line}`);
 
-        const isSkipped = [
-            "scripts/redis-doc/commands/swapdb.md",
-            "scripts/redis-doc/commands/unlink.md",
-        ].indexOf(ex.example.file) > -1;
+        const isSkipped =
+            ["scripts/redis-doc/commands/swapdb.md", "scripts/redis-doc/commands/unlink.md"].indexOf(ex.example.file) >
+            -1;
         const runTest = isSkipped ? "it.skip" : "it";
 
-        const testSrc = [
-            `${runTest}(${quote(testName)}, async () => {`,
-            ...body,
-            `});`,
-        ]
-        .join(EOL);
+        const testSrc = [`${runTest}(${quote(testName)}, async () => {`, ...body, `});`].join(EOL);
 
         return { testSrc, exampleFile: ex.example.file };
     });
@@ -245,7 +241,10 @@ export const generateTests = async () => {
 
     return _.mapValues(grouped, (testGroup, file) => {
         // determine how many "../"s will be needed to get to src folder based on example file path
-        const dots = file.split("/").map(() => "..").join("/");
+        const dots = file
+            .split("/")
+            .map(() => "..")
+            .join("/");
         return [
             `import { zip, padEnd } from "lodash";`,
             `import { IHandyRedis, createHandyClient } from "../${dots}/src";`,
@@ -263,7 +262,6 @@ export const generateTests = async () => {
             ``,
         ].join(EOL);
     });
-
 };
 
 buildScript(module, async () => {

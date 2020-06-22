@@ -64,10 +64,12 @@ export const writeFile = (filename: string, contents: string) => {
     if (!contents.endsWith("\n")) {
         contents += EOL;
     }
-    const pretty = prettier.format(contents, {
-        ...require("../.prettierrc"),
-        filepath: filename,
-    });
+    const pretty =
+        // contents ||
+        prettier.format(contents, {
+            ...require("../.prettierrc"),
+            filepath: filename,
+        });
     writeFileSync(filename, pretty, "utf8");
 };
 

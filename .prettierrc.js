@@ -1,3 +1,4 @@
+/** @type {any} */
 module.exports = {
   singleQuote: false,
   semi: true,

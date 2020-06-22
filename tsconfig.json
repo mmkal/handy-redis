@@ -11,6 +11,7 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
         "strictNullChecks": true,
         "noEmit": true
     },

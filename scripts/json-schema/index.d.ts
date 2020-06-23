@@ -11,4 +11,6 @@ export type JsonSchemaCommand = {
     return: import("json-schema").JSONSchema7;
 };
 
+export type JsonSchemaCommandArgument = JsonSchemaCommand["arguments"][number];
+
 export declare const schema: Record<string, JsonSchemaCommand>;

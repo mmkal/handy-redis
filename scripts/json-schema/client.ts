@@ -1,9 +1,9 @@
-import { schema } from ".";
+import { schema, JsonSchemaCommandArgument } from ".";
 import { writeFile } from "../util";
 import { camelCase, snakeCase } from "lodash";
 import * as jsonSchema from "json-schema";
 
-const codeArgument = (arg: typeof schema[keyof typeof schema]["arguments"][number], i: number, arr: typeof arg[]) => {
+const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
     let name = snakeCase(arg.name);
     if (name === "arguments") {
         name = "args";

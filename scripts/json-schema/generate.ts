@@ -123,20 +123,24 @@ const jsonified = Object.keys(cmnds).reduce(
             const command: commandTypes.Command = cmnds[key] as commandTypes.Command;
             return {
                 ...dict,
-                [key]: {
-                    ...command,
-                    arguments: (command?.arguments || []).map(arg => ({
-                        name: [arg.command, ...(Array.isArray(arg.name) ? arg.name : [arg.name])]
-                            .filter((val, i, arr) => val && val !== arr[i - 1])
-                            .join("_"),
-                        optional: arg.optional,
-                        schema: argToSchema(arg),
-                    })),
-                    return: argToReturn(key),
-                },
+                [key]: jsonSchemaCommand(command, key),
             };
         })(),
     {}
 );
 
 writeFile(path.join(__dirname, "schema.json"), JSON.stringify(jsonified, null, 2));
+
+const jsonSchemaCommand = (command: commandTypes.Command, key: string) => ({
+    ...command,
+    arguments: (command?.arguments || []).map(arg => ({
+        name: [arg.command, ...(Array.isArray(arg.name) ? arg.name : [arg.name])]
+            .filter((val, i, arr) => val && val !== arr[i - 1])
+            .join("_"),
+        optional: arg.optional,
+        schema: argToSchema(arg),
+    })),
+    return: argToReturn(key),
+});
+
+export type JsonSchemaCommand = ReturnType<typeof jsonSchemaCommand>;

@@ -33,6 +33,12 @@ const schemaToType = (schema: jsonSchema.JSONSchema7): string => {
         const itemType = typeof schema.items === "object" ? schemaToType(schema.items) : unknownType;
         return `Array<${itemType}>`;
     }
+    if (Array.isArray(schema.anyOf)) {
+        return schema.anyOf
+            .map(schemaToType)
+            .map(type => `(${type})`)
+            .join(" | ");
+    }
     if (typeof schema.const === "string") {
         return JSON.stringify(schema.const);
     }

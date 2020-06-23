@@ -3,6 +3,7 @@ import * as cmnds from "../redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "../command/types";
+import { extras } from "./command-extra";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     if (arg.multiple || arg.variadic) {
@@ -76,6 +77,12 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
 };
 
 const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
+    if (command in extras) {
+        const returnType = extras[command].return;
+        if (returnType) {
+            return returnType;
+        }
+    }
     const docFile = path.join(__dirname, `../redis-doc/commands/${command.toLowerCase()}.md`);
     const fs = require("fs");
     if (!fs.existsSync(docFile)) {

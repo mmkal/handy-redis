@@ -267,7 +267,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.0.0
      */
-    blpop(key: Array<string>, timeout: number): Promise<unknown>;
+    blpop(key: Array<string>, timeout: number): Promise<Array<unknown> | null>;
 
     /**
      * Remove and get the last element in a list, or block until one is available
@@ -275,7 +275,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.0.0
      */
-    brpop(key: Array<string>, timeout: number): Promise<unknown>;
+    brpop(key: Array<string>, timeout: number): Promise<Array<unknown> | null>;
 
     /**
      * Pop an element from a list, push it to another list and return it; or block until one is available
@@ -283,7 +283,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.2.0
      */
-    brpoplpush(source: string, destination: string, timeout: number): Promise<unknown>;
+    brpoplpush(source: string, destination: string, timeout: number): Promise<string | null>;
 
     /**
      * Remove and return the member with the lowest score from one or more sorted sets, or block until one is available
@@ -291,7 +291,7 @@ export interface Client {
      * - _complexity_: O(log(N)) with N being the number of elements in the sorted set.
      * - _since_: 5.0.0
      */
-    bzpopmin(key: Array<string>, timeout: number): Promise<unknown>;
+    bzpopmin(key: Array<string>, timeout: number): Promise<Array<unknown> | null>;
 
     /**
      * Remove and return the member with the highest score from one or more sorted sets, or block until one is available
@@ -299,7 +299,7 @@ export interface Client {
      * - _complexity_: O(log(N)) with N being the number of elements in the sorted set.
      * - _since_: 5.0.0
      */
-    bzpopmax(key: Array<string>, timeout: number): Promise<unknown>;
+    bzpopmax(key: Array<string>, timeout: number): Promise<Array<unknown> | null>;
 
     /**
      * Returns the client ID for the current connection
@@ -1034,7 +1034,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.2.0
      */
-    exec(): Promise<unknown>;
+    exec(): Promise<Array<unknown> | null>;
 
     /**
      * Determine if a key exists
@@ -1114,7 +1114,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each member requested, where N is the number of elements in the sorted set.
      * - _since_: 3.2.0
      */
-    geopos(key: string, member: Array<string>): Promise<unknown>;
+    geopos(key: string, member: Array<string>): Promise<Array<unknown> | null>;
 
     /**
      * Returns the distance between two members of a geospatial index
@@ -1122,7 +1122,7 @@ export interface Client {
      * - _complexity_: O(log(N))
      * - _since_: 3.2.0
      */
-    geodist(key: string, member_1: string, member_2: string, unit: string): Promise<unknown>;
+    geodist(key: string, member_1: string, member_2: string, unit: string): Promise<string | null>;
 
     /**
      * Returns the distance between two members of a geospatial index
@@ -1130,7 +1130,7 @@ export interface Client {
      * - _complexity_: O(log(N))
      * - _since_: 3.2.0
      */
-    geodist(key: string, member_1: string, member_2: string): Promise<unknown>;
+    geodist(key: string, member_1: string, member_2: string): Promise<string | null>;
 
     /**
      * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
@@ -5455,7 +5455,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    get(key: string): Promise<unknown>;
+    get(key: string): Promise<string | null>;
 
     /**
      * Returns the bit value at offset in the string value stored at key
@@ -5479,7 +5479,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    getset(key: string, value: string): Promise<unknown>;
+    getset(key: string, value: string): Promise<string | null>;
 
     /**
      * Delete one or more hash fields
@@ -5503,7 +5503,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.0.0
      */
-    hget(key: string, field: string): Promise<unknown>;
+    hget(key: string, field: string): Promise<string | null>;
 
     /**
      * Get all the fields and values in a hash
@@ -5671,7 +5671,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of elements to traverse to get to the element at index. This makes asking for the first or the last element of the list O(1).
      * - _since_: 1.0.0
      */
-    lindex(key: string, index: number): Promise<unknown>;
+    lindex(key: string, index: number): Promise<string | null>;
 
     /**
      * Insert an element before or after another element in a list
@@ -5695,7 +5695,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    lpop(key: string): Promise<unknown>;
+    lpop(key: string): Promise<string | null>;
 
     /**
      * Prepend one or multiple elements to a list
@@ -6289,7 +6289,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    randomkey(): Promise<unknown>;
+    randomkey(): Promise<string | null>;
 
     /**
      * Enables read queries for a connection to a cluster replica node
@@ -6531,7 +6531,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    rpop(key: string): Promise<unknown>;
+    rpop(key: string): Promise<string | null>;
 
     /**
      * Remove the last element in a list, prepend it to another list and return it
@@ -6651,7 +6651,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, expiration: string, condition: string): Promise<unknown>;
+    set(key: string, value: string, expiration: string, condition: string): Promise<string | null>;
 
     /**
      * Set the string value of a key
@@ -6659,7 +6659,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, expiration: string): Promise<unknown>;
+    set(key: string, value: string, expiration: string): Promise<string | null>;
 
     /**
      * Set the string value of a key
@@ -6667,7 +6667,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, condition: string): Promise<unknown>;
+    set(key: string, value: string, condition: string): Promise<string | null>;
 
     /**
      * Set the string value of a key
@@ -6675,7 +6675,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string): Promise<unknown>;
+    set(key: string, value: string): Promise<string | null>;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key
@@ -6811,7 +6811,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6826,7 +6826,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6841,7 +6841,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6855,7 +6855,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
         order: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6870,7 +6870,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6884,7 +6884,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6898,7 +6898,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6911,7 +6911,7 @@ export interface Client {
         by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6926,7 +6926,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6940,7 +6940,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         order: string,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6954,7 +6954,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6967,7 +6967,7 @@ export interface Client {
         by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         order: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6981,7 +6981,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6994,7 +6994,7 @@ export interface Client {
         by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7007,7 +7007,7 @@ export interface Client {
         by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7015,7 +7015,11 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string], limit_offset_count: [string, [number, number]]): Promise<unknown>;
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        limit_offset_count: [string, [number, number]]
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7030,7 +7034,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7044,7 +7048,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7058,7 +7062,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7071,7 +7075,7 @@ export interface Client {
         by_pattern: [string, string],
         get_pattern: Array<[string, string]>,
         order: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7085,7 +7089,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7098,7 +7102,7 @@ export interface Client {
         by_pattern: [string, string],
         get_pattern: Array<[string, string]>,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7111,7 +7115,7 @@ export interface Client {
         by_pattern: [string, string],
         get_pattern: Array<[string, string]>,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7119,7 +7123,11 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string], get_pattern: Array<[string, string]>): Promise<unknown>;
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        get_pattern: Array<[string, string]>
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7133,7 +7141,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7141,7 +7149,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string], order: string, sorting: string): Promise<unknown>;
+    sort(key: string, by_pattern: [string, string], order: string, sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7154,7 +7162,7 @@ export interface Client {
         by_pattern: [string, string],
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7162,7 +7170,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string], order: string): Promise<unknown>;
+    sort(key: string, by_pattern: [string, string], order: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7175,7 +7183,7 @@ export interface Client {
         by_pattern: [string, string],
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7183,7 +7191,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string], sorting: string): Promise<unknown>;
+    sort(key: string, by_pattern: [string, string], sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7191,7 +7199,11 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string], store_destination: [string, string]): Promise<unknown>;
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7199,7 +7211,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, by_pattern: [string, string]): Promise<unknown>;
+    sort(key: string, by_pattern: [string, string]): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7214,7 +7226,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7228,7 +7240,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7242,7 +7254,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7255,7 +7267,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
         order: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7269,7 +7281,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7282,7 +7294,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
         sorting: string
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7295,7 +7307,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7307,7 +7319,7 @@ export interface Client {
         key: string,
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7321,7 +7333,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7329,7 +7341,12 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, limit_offset_count: [string, [number, number]], order: string, sorting: string): Promise<unknown>;
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        order: string,
+        sorting: string
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7342,7 +7359,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7350,7 +7367,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, limit_offset_count: [string, [number, number]], order: string): Promise<unknown>;
+    sort(key: string, limit_offset_count: [string, [number, number]], order: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7363,7 +7380,7 @@ export interface Client {
         limit_offset_count: [string, [number, number]],
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7371,7 +7388,11 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, limit_offset_count: [string, [number, number]], sorting: string): Promise<unknown>;
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        sorting: string
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7383,7 +7404,7 @@ export interface Client {
         key: string,
         limit_offset_count: [string, [number, number]],
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7391,7 +7412,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, limit_offset_count: [string, [number, number]]): Promise<unknown>;
+    sort(key: string, limit_offset_count: [string, [number, number]]): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7405,7 +7426,7 @@ export interface Client {
         order: string,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7413,7 +7434,12 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, get_pattern: Array<[string, string]>, order: string, sorting: string): Promise<unknown>;
+    sort(
+        key: string,
+        get_pattern: Array<[string, string]>,
+        order: string,
+        sorting: string
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7426,7 +7452,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         order: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7434,7 +7460,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, get_pattern: Array<[string, string]>, order: string): Promise<unknown>;
+    sort(key: string, get_pattern: Array<[string, string]>, order: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7447,7 +7473,7 @@ export interface Client {
         get_pattern: Array<[string, string]>,
         sorting: string,
         store_destination: [string, string]
-    ): Promise<unknown>;
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7455,7 +7481,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, get_pattern: Array<[string, string]>, sorting: string): Promise<unknown>;
+    sort(key: string, get_pattern: Array<[string, string]>, sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7463,7 +7489,11 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, get_pattern: Array<[string, string]>, store_destination: [string, string]): Promise<unknown>;
+    sort(
+        key: string,
+        get_pattern: Array<[string, string]>,
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7471,7 +7501,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, get_pattern: Array<[string, string]>): Promise<unknown>;
+    sort(key: string, get_pattern: Array<[string, string]>): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7479,7 +7509,12 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, order: string, sorting: string, store_destination: [string, string]): Promise<unknown>;
+    sort(
+        key: string,
+        order: string,
+        sorting: string,
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7487,7 +7522,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, order: string, sorting: string): Promise<unknown>;
+    sort(key: string, order: string, sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7495,7 +7530,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, order: string, store_destination: [string, string]): Promise<unknown>;
+    sort(key: string, order: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7503,7 +7538,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, order: string): Promise<unknown>;
+    sort(key: string, order: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7511,7 +7546,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, sorting: string, store_destination: [string, string]): Promise<unknown>;
+    sort(key: string, sorting: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7519,7 +7554,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, sorting: string): Promise<unknown>;
+    sort(key: string, sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7527,7 +7562,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, store_destination: [string, string]): Promise<unknown>;
+    sort(key: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7535,7 +7570,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string): Promise<unknown>;
+    sort(key: string): Promise<number | Array<unknown>>;
 
     /**
      * Remove and return one or multiple random members from a set
@@ -7543,7 +7578,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    spop(key: string, count: number): Promise<unknown>;
+    spop(key: string, count: number): Promise<string | null>;
 
     /**
      * Remove and return one or multiple random members from a set
@@ -7551,7 +7586,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    spop(key: string): Promise<unknown>;
+    spop(key: string): Promise<string | null>;
 
     /**
      * Get one or multiple random members from a set
@@ -7559,7 +7594,7 @@ export interface Client {
      * - _complexity_: Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.
      * - _since_: 1.0.0
      */
-    srandmember(key: string, count: number): Promise<unknown>;
+    srandmember(key: string, count: number): Promise<string | Array<unknown> | null>;
 
     /**
      * Get one or multiple random members from a set
@@ -7567,7 +7602,7 @@ export interface Client {
      * - _complexity_: Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.
      * - _since_: 1.0.0
      */
-    srandmember(key: string): Promise<unknown>;
+    srandmember(key: string): Promise<string | Array<unknown> | null>;
 
     /**
      * Remove one or more members from a set
@@ -7725,7 +7760,7 @@ export interface Client {
         change: string,
         increment: string,
         score_member: Array<[number, string]>
-    ): Promise<unknown>;
+    ): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7733,7 +7768,12 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, condition: string, change: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(
+        key: string,
+        condition: string,
+        change: string,
+        score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7741,7 +7781,12 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, condition: string, increment: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(
+        key: string,
+        condition: string,
+        increment: string,
+        score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7749,7 +7794,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, condition: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(key: string, condition: string, score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7757,7 +7802,12 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, change: string, increment: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(
+        key: string,
+        change: string,
+        increment: string,
+        score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7765,7 +7815,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, change: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(key: string, change: string, score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7773,7 +7823,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, increment: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(key: string, increment: string, score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7781,7 +7831,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, score_member: Array<[number, string]>): Promise<unknown>;
+    zadd(key: string, score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Get the number of members in a sorted set
@@ -8002,7 +8052,7 @@ export interface Client {
      * - _complexity_: O(log(N))
      * - _since_: 2.0.0
      */
-    zrank(key: string, member: string): Promise<unknown>;
+    zrank(key: string, member: string): Promise<number | null>;
 
     /**
      * Remove one or more members from a sorted set
@@ -8101,7 +8151,7 @@ export interface Client {
      * - _complexity_: O(log(N))
      * - _since_: 2.0.0
      */
-    zrevrank(key: string, member: string): Promise<unknown>;
+    zrevrank(key: string, member: string): Promise<number | null>;
 
     /**
      * Get the score associated with the given member in a sorted set

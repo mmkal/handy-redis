@@ -227,7 +227,7 @@ export interface Client {
      * - _complexity_: O(N)
      * - _since_: 2.6.0
      */
-    bitop(operation: string, destkey: string, key: Array<string>): Promise<number>;
+    bitop(operation: string, destkey: string, ...key: Array<string>): Promise<number>;
 
     /**
      * Find first bit set or clear in a string
@@ -682,7 +682,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of hash slot arguments
      * - _since_: 3.0.0
      */
-    clusterAddslots(slot: Array<number>): Promise<unknown>;
+    clusterAddslots(...slot: Array<number>): Promise<unknown>;
 
     /**
      * Advance the cluster config epoch
@@ -714,7 +714,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of hash slot arguments
      * - _since_: 3.0.0
      */
-    clusterDelslots(slot: Array<number>): Promise<unknown>;
+    clusterDelslots(...slot: Array<number>): Promise<unknown>;
 
     /**
      * Forces a replica to perform a manual failover of its master.
@@ -906,7 +906,7 @@ export interface Client {
      * - _complexity_: O(N) when N is number of commands to look up
      * - _since_: 2.8.13
      */
-    commandInfo(command_name: Array<string>): Promise<unknown>;
+    commandInfo(...command_name: Array<string>): Promise<unknown>;
 
     /**
      * Get the value of a configuration parameter
@@ -986,7 +986,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of keys that will be removed. When a key to remove holds a value other than a string, the individual complexity for this key is O(M) where M is the number of elements in the list, set, sorted set or hash. Removing a single key that holds a string value is O(1).
      * - _since_: 1.0.0
      */
-    del(key: Array<string>): Promise<number>;
+    del(...key: Array<string>): Promise<number>;
 
     /**
      * Discard all commands issued after MULTI
@@ -1018,7 +1018,7 @@ export interface Client {
      * - _complexity_: Depends on the script that is executed.
      * - _since_: 2.6.0
      */
-    eval(script: string, numkeys: number, key: Array<string>, arg: Array<string>): Promise<unknown>;
+    eval(script: string, numkeys: number, key: Array<string>, ...arg: Array<string>): Promise<unknown>;
 
     /**
      * Execute a Lua script server side
@@ -1026,7 +1026,7 @@ export interface Client {
      * - _complexity_: Depends on the script that is executed.
      * - _since_: 2.6.0
      */
-    evalsha(sha_1: string, numkeys: number, key: Array<string>, arg: Array<string>): Promise<unknown>;
+    evalsha(sha_1: string, numkeys: number, key: Array<string>, ...arg: Array<string>): Promise<unknown>;
 
     /**
      * Execute all commands issued after MULTI
@@ -1042,7 +1042,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    exists(key: Array<string>): Promise<number>;
+    exists(...key: Array<string>): Promise<number>;
 
     /**
      * Set a key's time to live in seconds
@@ -1098,7 +1098,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 3.2.0
      */
-    geoadd(key: string, longitude_latitude_member: Array<[number, number, string]>): Promise<number>;
+    geoadd(key: string, ...longitude_latitude_member: Array<[number, number, string]>): Promise<number>;
 
     /**
      * Returns members of a geospatial index as standard geohash strings
@@ -1106,7 +1106,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each member requested, where N is the number of elements in the sorted set.
      * - _since_: 3.2.0
      */
-    geohash(key: string, member: Array<string>): Promise<Array<unknown>>;
+    geohash(key: string, ...member: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Returns longitude and latitude of members of a geospatial index
@@ -1114,7 +1114,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each member requested, where N is the number of elements in the sorted set.
      * - _since_: 3.2.0
      */
-    geopos(key: string, member: Array<string>): Promise<Array<unknown> | null>;
+    geopos(key: string, ...member: Array<string>): Promise<Array<unknown> | null>;
 
     /**
      * Returns the distance between two members of a geospatial index
@@ -5487,7 +5487,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of fields to be removed.
      * - _since_: 2.0.0
      */
-    hdel(key: string, field: Array<string>): Promise<number>;
+    hdel(key: string, ...field: Array<string>): Promise<number>;
 
     /**
      * Determine if a hash field exists
@@ -5551,7 +5551,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of fields being requested.
      * - _since_: 2.0.0
      */
-    hmget(key: string, field: Array<string>): Promise<Array<unknown>>;
+    hmget(key: string, ...field: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Set multiple hash fields to multiple values
@@ -5559,7 +5559,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of fields being set.
      * - _since_: 2.0.0
      */
-    hmset(key: string, field_value: Array<[string, string]>): Promise<string>;
+    hmset(key: string, ...field_value: Array<[string, string]>): Promise<string>;
 
     /**
      * Set the string value of a hash field
@@ -5567,7 +5567,7 @@ export interface Client {
      * - _complexity_: O(1) for each field/value pair added, so O(N) to add N field/value pairs when the command is called with multiple field/value pairs.
      * - _since_: 2.0.0
      */
-    hset(key: string, field_value: Array<[string, string]>): Promise<number>;
+    hset(key: string, ...field_value: Array<[string, string]>): Promise<number>;
 
     /**
      * Set the value of a hash field, only if the field does not exist
@@ -5703,7 +5703,7 @@ export interface Client {
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
      * - _since_: 1.0.0
      */
-    lpush(key: string, element: Array<string>): Promise<number>;
+    lpush(key: string, ...element: Array<string>): Promise<number>;
 
     /**
      * Prepend an element to a list, only if the list exists
@@ -5711,7 +5711,7 @@ export interface Client {
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
      * - _since_: 2.2.0
      */
-    lpushx(key: string, element: Array<string>): Promise<number>;
+    lpushx(key: string, ...element: Array<string>): Promise<number>;
 
     /**
      * Get a range of elements from a list
@@ -5807,7 +5807,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of keys to retrieve.
      * - _since_: 1.0.0
      */
-    mget(key: Array<string>): Promise<Array<unknown>>;
+    mget(...key: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Atomically transfer a key from a Redis instance to another one.
@@ -5824,7 +5824,7 @@ export interface Client {
         copy: string,
         replace: string,
         auth_password: [string, string],
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -5858,7 +5858,7 @@ export interface Client {
         timeout: number,
         copy: string,
         replace: string,
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -5891,7 +5891,7 @@ export interface Client {
         timeout: number,
         copy: string,
         auth_password: [string, string],
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -5923,7 +5923,7 @@ export interface Client {
         destination_db: number,
         timeout: number,
         copy: string,
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -5955,7 +5955,7 @@ export interface Client {
         timeout: number,
         replace: string,
         auth_password: [string, string],
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -5987,7 +5987,7 @@ export interface Client {
         destination_db: number,
         timeout: number,
         replace: string,
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -6018,7 +6018,7 @@ export interface Client {
         destination_db: number,
         timeout: number,
         auth_password: [string, string],
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -6048,7 +6048,7 @@ export interface Client {
         key: string,
         destination_db: number,
         timeout: number,
-        keys_key: Array<[string, string]>
+        ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
     /**
@@ -6073,7 +6073,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 4.0.0
      */
-    moduleLoad(path: string, arg: Array<string>): Promise<unknown>;
+    moduleLoad(path: string, ...arg: Array<string>): Promise<unknown>;
 
     /**
      * Load a module
@@ -6113,7 +6113,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of keys to set.
      * - _since_: 1.0.1
      */
-    mset(key_value: Array<[string, string]>): Promise<string>;
+    mset(...key_value: Array<[string, string]>): Promise<string>;
 
     /**
      * Set multiple keys to multiple values, only if none of the keys exist
@@ -6121,7 +6121,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of keys to set.
      * - _since_: 1.0.1
      */
-    msetnx(key_value: Array<[string, string]>): Promise<number>;
+    msetnx(...key_value: Array<[string, string]>): Promise<number>;
 
     /**
      * Mark the start of a transaction block
@@ -6137,7 +6137,7 @@ export interface Client {
      * - _complexity_: O(1) for all the currently implemented subcommands.
      * - _since_: 2.2.3
      */
-    object(subcommand: string, args: Array<string>): Promise<unknown>;
+    object(subcommand: string, ...args: Array<string>): Promise<unknown>;
 
     /**
      * Inspect the internals of Redis objects
@@ -6177,7 +6177,7 @@ export interface Client {
      * - _complexity_: O(1) to add every element.
      * - _since_: 2.8.9
      */
-    pfadd(key: string, element: Array<string>): Promise<number>;
+    pfadd(key: string, ...element: Array<string>): Promise<number>;
 
     /**
      * Return the approximated cardinality of the set(s) observed by the HyperLogLog at key(s).
@@ -6185,7 +6185,7 @@ export interface Client {
      * - _complexity_: O(1) with a very small average constant time when called with a single key. O(N) with N being the number of keys, and much bigger constant times, when called with multiple keys.
      * - _since_: 2.8.9
      */
-    pfcount(key: Array<string>): Promise<number>;
+    pfcount(...key: Array<string>): Promise<number>;
 
     /**
      * Merge N different HyperLogLogs into a single one.
@@ -6193,7 +6193,7 @@ export interface Client {
      * - _complexity_: O(N) to merge N HyperLogLogs, but with high constant times.
      * - _since_: 2.8.9
      */
-    pfmerge(destkey: string, sourcekey: Array<string>): Promise<string>;
+    pfmerge(destkey: string, ...sourcekey: Array<string>): Promise<string>;
 
     /**
      * Ping the server
@@ -6225,7 +6225,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of patterns the client is already subscribed to.
      * - _since_: 2.0.0
      */
-    psubscribe(pattern: Array<[string]>): Promise<unknown>;
+    psubscribe(...pattern: Array<[string]>): Promise<unknown>;
 
     /**
      * Inspect the state of the Pub/Sub subsystem
@@ -6233,7 +6233,7 @@ export interface Client {
      * - _complexity_: O(N) for the CHANNELS subcommand, where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns). O(N) for the NUMSUB subcommand, where N is the number of requested channels. O(1) for the NUMPAT subcommand.
      * - _since_: 2.8.0
      */
-    pubsub(subcommand: string, argument: Array<string>): Promise<Array<unknown>>;
+    pubsub(subcommand: string, ...argument: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Inspect the state of the Pub/Sub subsystem
@@ -6265,7 +6265,7 @@ export interface Client {
      * - _complexity_: O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).
      * - _since_: 2.0.0
      */
-    punsubscribe(pattern: Array<string>): Promise<unknown>;
+    punsubscribe(...pattern: Array<string>): Promise<unknown>;
 
     /**
      * Stop listening for messages posted to channels matching the given patterns
@@ -6547,7 +6547,7 @@ export interface Client {
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
      * - _since_: 1.0.0
      */
-    rpush(key: string, element: Array<string>): Promise<number>;
+    rpush(key: string, ...element: Array<string>): Promise<number>;
 
     /**
      * Append an element to a list, only if the list exists
@@ -6555,7 +6555,7 @@ export interface Client {
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
      * - _since_: 2.2.0
      */
-    rpushx(key: string, element: Array<string>): Promise<number>;
+    rpushx(key: string, ...element: Array<string>): Promise<number>;
 
     /**
      * Add one or more members to a set
@@ -6563,7 +6563,7 @@ export interface Client {
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
      * - _since_: 1.0.0
      */
-    sadd(key: string, member: Array<string>): Promise<number>;
+    sadd(key: string, ...member: Array<string>): Promise<number>;
 
     /**
      * Synchronously save the dataset to disk
@@ -6595,7 +6595,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).
      * - _since_: 2.6.0
      */
-    scriptExists(sha_1: Array<string>): Promise<unknown>;
+    scriptExists(...sha_1: Array<string>): Promise<unknown>;
 
     /**
      * Remove all the scripts from the script cache.
@@ -6627,7 +6627,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of elements in all given sets.
      * - _since_: 1.0.0
      */
-    sdiff(key: Array<string>): Promise<Array<unknown>>;
+    sdiff(...key: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Subtract multiple sets and store the resulting set in a key
@@ -6635,7 +6635,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of elements in all given sets.
      * - _since_: 1.0.0
      */
-    sdiffstore(destination: string, key: Array<string>): Promise<number>;
+    sdiffstore(destination: string, ...key: Array<string>): Promise<number>;
 
     /**
      * Change the selected database for the current connection
@@ -6731,7 +6731,7 @@ export interface Client {
      * - _complexity_: O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.
      * - _since_: 1.0.0
      */
-    sinter(key: Array<string>): Promise<Array<unknown>>;
+    sinter(...key: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Intersect multiple sets and store the resulting set in a key
@@ -6739,7 +6739,7 @@ export interface Client {
      * - _complexity_: O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.
      * - _since_: 1.0.0
      */
-    sinterstore(destination: string, key: Array<string>): Promise<number>;
+    sinterstore(destination: string, ...key: Array<string>): Promise<number>;
 
     /**
      * Determine if a given value is a member of a set
@@ -6910,7 +6910,7 @@ export interface Client {
         key: string,
         by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>
+        ...get_pattern: Array<[string, string]>
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7126,7 +7126,7 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>
+        ...get_pattern: Array<[string, string]>
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7318,7 +7318,7 @@ export interface Client {
     sort(
         key: string,
         limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>
+        ...get_pattern: Array<[string, string]>
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7501,7 +7501,7 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
-    sort(key: string, get_pattern: Array<[string, string]>): Promise<number | Array<unknown>>;
+    sort(key: string, ...get_pattern: Array<[string, string]>): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7610,7 +7610,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of members to be removed.
      * - _since_: 1.0.0
      */
-    srem(key: string, member: Array<string>): Promise<number>;
+    srem(key: string, ...member: Array<string>): Promise<number>;
 
     /**
      * Get the length of the value stored in a key
@@ -7626,7 +7626,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of channels to subscribe to.
      * - _since_: 2.0.0
      */
-    subscribe(channel: Array<string>): Promise<unknown>;
+    subscribe(...channel: Array<string>): Promise<unknown>;
 
     /**
      * Add multiple sets
@@ -7634,7 +7634,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of elements in all given sets.
      * - _since_: 1.0.0
      */
-    sunion(key: Array<string>): Promise<Array<unknown>>;
+    sunion(...key: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Add multiple sets and store the resulting set in a key
@@ -7642,7 +7642,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of elements in all given sets.
      * - _since_: 1.0.0
      */
-    sunionstore(destination: string, key: Array<string>): Promise<number>;
+    sunionstore(destination: string, ...key: Array<string>): Promise<number>;
 
     /**
      * Swaps two Redis databases
@@ -7682,7 +7682,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of keys that will be touched.
      * - _since_: 3.2.1
      */
-    touch(key: Array<string>): Promise<number>;
+    touch(...key: Array<string>): Promise<number>;
 
     /**
      * Get the time to live for a key
@@ -7706,7 +7706,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of clients already subscribed to a channel.
      * - _since_: 2.0.0
      */
-    unsubscribe(channel: Array<string>): Promise<unknown>;
+    unsubscribe(...channel: Array<string>): Promise<unknown>;
 
     /**
      * Stop listening for messages posted to the given channels
@@ -7722,7 +7722,7 @@ export interface Client {
      * - _complexity_: O(1) for each key removed regardless of its size. Then the command does O(N) work in a different thread in order to reclaim memory, where N is the number of allocations the deleted objects where composed of.
      * - _since_: 4.0.0
      */
-    unlink(key: Array<string>): Promise<number>;
+    unlink(...key: Array<string>): Promise<number>;
 
     /**
      * Forget about all watched keys
@@ -7746,7 +7746,7 @@ export interface Client {
      * - _complexity_: O(1) for every key.
      * - _since_: 2.2.0
      */
-    watch(key: Array<string>): Promise<string>;
+    watch(...key: Array<string>): Promise<string>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7759,7 +7759,7 @@ export interface Client {
         condition: string,
         change: string,
         increment: string,
-        score_member: Array<[number, string]>
+        ...score_member: Array<[number, string]>
     ): Promise<number | string | null>;
 
     /**
@@ -7772,7 +7772,7 @@ export interface Client {
         key: string,
         condition: string,
         change: string,
-        score_member: Array<[number, string]>
+        ...score_member: Array<[number, string]>
     ): Promise<number | string | null>;
 
     /**
@@ -7785,7 +7785,7 @@ export interface Client {
         key: string,
         condition: string,
         increment: string,
-        score_member: Array<[number, string]>
+        ...score_member: Array<[number, string]>
     ): Promise<number | string | null>;
 
     /**
@@ -7794,7 +7794,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, condition: string, score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(key: string, condition: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7806,7 +7806,7 @@ export interface Client {
         key: string,
         change: string,
         increment: string,
-        score_member: Array<[number, string]>
+        ...score_member: Array<[number, string]>
     ): Promise<number | string | null>;
 
     /**
@@ -7815,7 +7815,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, change: string, score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(key: string, change: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7823,7 +7823,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, increment: string, score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(key: string, increment: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -7831,7 +7831,7 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(key: string, score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(key: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
 
     /**
      * Get the number of members in a sorted set
@@ -7881,7 +7881,7 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        weights_weight: Array<[string, number]>
+        ...weights_weight: Array<[string, number]>
     ): Promise<number>;
 
     /**
@@ -7903,7 +7903,7 @@ export interface Client {
      * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
      * - _since_: 2.0.0
      */
-    zinterstore(destination: string, numkeys: number, key: Array<string>): Promise<number>;
+    zinterstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
 
     /**
      * Count the number of members in a sorted set between a given lexicographical range
@@ -8060,7 +8060,7 @@ export interface Client {
      * - _complexity_: O(M*log(N)) with N being the number of elements in the sorted set and M the number of elements to be removed.
      * - _since_: 1.2.0
      */
-    zrem(key: string, member: Array<string>): Promise<number>;
+    zrem(key: string, ...member: Array<string>): Promise<number>;
 
     /**
      * Remove all members in a sorted set between the given lexicographical range
@@ -8185,7 +8185,7 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        weights_weight: Array<[string, number]>
+        ...weights_weight: Array<[string, number]>
     ): Promise<number>;
 
     /**
@@ -8207,7 +8207,7 @@ export interface Client {
      * - _complexity_: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
      * - _since_: 2.0.0
      */
-    zunionstore(destination: string, numkeys: number, key: Array<string>): Promise<number>;
+    zunionstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
 
     /**
      * Incrementally iterate the keys space
@@ -8540,7 +8540,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 5.0.0
      */
-    xadd(key: string, id: string, field_value: Array<[string, string]>): Promise<string>;
+    xadd(key: string, id: string, ...field_value: Array<[string, string]>): Promise<string>;
 
     /**
      * Trims the stream to (approximately if '~' is passed) a certain size
@@ -8564,7 +8564,7 @@ export interface Client {
      * - _complexity_: O(1) for each single item to delete in the stream, regardless of the stream size.
      * - _since_: 5.0.0
      */
-    xdel(key: string, id: Array<string>): Promise<number>;
+    xdel(key: string, ...id: Array<string>): Promise<number>;
 
     /**
      * Return a range of elements in a stream, with IDs matching the specified IDs interval
@@ -8617,7 +8617,7 @@ export interface Client {
         block_milliseconds: [string, number],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<Array<unknown>>;
 
     /**
@@ -8630,7 +8630,7 @@ export interface Client {
         count_count: [string, number],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<Array<unknown>>;
 
     /**
@@ -8643,7 +8643,7 @@ export interface Client {
         block_milliseconds: [string, number],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<Array<unknown>>;
 
     /**
@@ -8652,7 +8652,7 @@ export interface Client {
      * - _complexity_: For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.
      * - _since_: 5.0.0
      */
-    xread(streams: string, key: Array<string>, id: Array<string>): Promise<Array<unknown>>;
+    xread(streams: string, key: Array<string>, ...id: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Create, destroy, and manage consumer groups.
@@ -8834,7 +8834,7 @@ export interface Client {
         noack: string,
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8849,7 +8849,7 @@ export interface Client {
         block_milliseconds: [string, number],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8864,7 +8864,7 @@ export interface Client {
         noack: string,
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8878,7 +8878,7 @@ export interface Client {
         count_count: [string, number],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8893,7 +8893,7 @@ export interface Client {
         noack: string,
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8907,7 +8907,7 @@ export interface Client {
         block_milliseconds: [string, number],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8921,7 +8921,7 @@ export interface Client {
         noack: string,
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8934,7 +8934,7 @@ export interface Client {
         group_group_consumer: [string, [string, string]],
         streams: string,
         key: Array<string>,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<unknown>;
 
     /**
@@ -8943,7 +8943,7 @@ export interface Client {
      * - _complexity_: O(1) for each message ID processed.
      * - _since_: 5.0.0
      */
-    xack(key: string, group: string, id: Array<string>): Promise<number>;
+    xack(key: string, group: string, ...id: Array<string>): Promise<number>;
 
     /**
      * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
@@ -9470,7 +9470,7 @@ export interface Client {
         group: string,
         consumer: string,
         min_idle_time: string,
-        id: Array<string>
+        ...id: Array<string>
     ): Promise<Array<unknown>>;
 
     /**

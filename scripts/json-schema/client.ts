@@ -3,12 +3,15 @@ import { writeFile } from "../util";
 import { camelCase, snakeCase } from "lodash";
 import * as jsonSchema from "json-schema";
 
-const codeArgument = (arg: typeof schema[keyof typeof schema]["arguments"][number]) => {
+const codeArgument = (arg: typeof schema[keyof typeof schema]["arguments"][number], i: number, arr: typeof arg[]) => {
     let name = snakeCase(arg.name);
     if (name === "arguments") {
         name = "args";
     }
     const type = schemaToType(arg.schema);
+    if (type.startsWith("Array<") && i === arr.length - 1) {
+        name = "..." + name;
+    }
     return [name, ": ", type].join("");
 };
 

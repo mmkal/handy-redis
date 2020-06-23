@@ -117,19 +117,6 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
         anyOf: typeMatches.map(type => ({ type })),
     };
 };
-const jsonified = Object.keys(cmnds).reduce(
-    (dict, key: keyof typeof cmnds) =>
-        (() => {
-            const command: commandTypes.Command = cmnds[key] as commandTypes.Command;
-            return {
-                ...dict,
-                [key]: jsonSchemaCommand(command, key),
-            };
-        })(),
-    {}
-);
-
-writeFile(path.join(__dirname, "schema.json"), JSON.stringify(jsonified, null, 2));
 
 const jsonSchemaCommand = (command: commandTypes.Command, key: string) => ({
     ...command,
@@ -142,5 +129,24 @@ const jsonSchemaCommand = (command: commandTypes.Command, key: string) => ({
     })),
     return: argToReturn(key),
 });
-
 export type JsonSchemaCommand = ReturnType<typeof jsonSchemaCommand>;
+
+const main = () => {
+    const jsonified = Object.keys(cmnds).reduce(
+        (dict, key: keyof typeof cmnds) =>
+            (() => {
+                const command: commandTypes.Command = cmnds[key] as commandTypes.Command;
+                return {
+                    ...dict,
+                    [key]: jsonSchemaCommand(command, key),
+                };
+            })(),
+        {}
+    );
+
+    writeFile(path.join(__dirname, "schema.json"), JSON.stringify(jsonified, null, 2));
+};
+
+if (require.main === module) {
+    main();
+}

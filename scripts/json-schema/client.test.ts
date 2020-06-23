@@ -7,13 +7,14 @@ test("overloads", () => {
             { name: "requiredB", optional: false, schema: {} },
             { name: "requiredC", optional: false, schema: {} },
             { name: "optionalD", optional: true, schema: {} },
+            { name: "requiredE", optional: false, schema: {} },
         ]).map(args => args.map(a => a.name).join(","))
     ).toMatchInlineSnapshot(`
         Array [
-          "optionalA,requiredB,requiredC,optionalD",
-          "optionalA,requiredB,requiredC",
-          "requiredB,requiredC,optionalD",
-          "requiredB,requiredC",
+          "optionalA,requiredB,requiredC,optionalD,requiredE",
+          "optionalA,requiredB,requiredC,requiredE",
+          "requiredB,requiredC,optionalD,requiredE",
+          "requiredB,requiredC,requiredE",
         ]
     `);
 });

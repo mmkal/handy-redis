@@ -4,6 +4,7 @@ import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "../command/types";
 import { extras } from "./command-extra";
+import { JsonSchemaCommand } from ".";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     if (arg.multiple || arg.variadic) {
@@ -125,7 +126,7 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
     };
 };
 
-const jsonSchemaCommand = (command: commandTypes.Command, key: string) => ({
+const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
     arguments: (command?.arguments || []).map(arg => ({
         name: [arg.command, ...(Array.isArray(arg.name) ? arg.name : [arg.name])]
@@ -136,18 +137,13 @@ const jsonSchemaCommand = (command: commandTypes.Command, key: string) => ({
     })),
     return: argToReturn(key),
 });
-export type JsonSchemaCommand = ReturnType<typeof jsonSchemaCommand>;
 
 const main = () => {
     const jsonified = Object.keys(cmnds).reduce(
-        (dict, key: keyof typeof cmnds) =>
-            (() => {
-                const command: commandTypes.Command = cmnds[key] as commandTypes.Command;
-                return {
-                    ...dict,
-                    [key]: jsonSchemaCommand(command, key),
-                };
-            })(),
+        (dict, key: keyof typeof cmnds) => ({
+            ...dict,
+            [key]: jsonSchemaCommand(cmnds[key] as commandTypes.Command, key),
+        }),
         {}
     );
 

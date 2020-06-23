@@ -129,9 +129,7 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
 const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
     arguments: (command?.arguments || []).map(arg => ({
-        name: [arg.command, ...(Array.isArray(arg.name) ? arg.name : [arg.name])]
-            .filter((val, i, arr) => val && val !== arr[i - 1])
-            .join("_"),
+        name: [arg.command, [arg.name].flat()].filter((val, i, arr) => val && val !== arr[i - 1]).join("_"),
         optional: arg.optional,
         schema: argToSchema(arg),
     })),

@@ -1,4 +1,4 @@
-import {schema, JsonSchemaCommandArgument, JsonSchemaCommand} from ".";
+import {schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand} from ".";
 import {writeFile} from "../util";
 import {camelCase, snakeCase} from "lodash";
 import * as jsonSchema from "json-schema";
@@ -84,16 +84,18 @@ export const formatOverloads = (command: string, {arguments: originalArgs, ...sp
         `
     })
 
-export const main = () => {
+export const getTypeScriptInterface = (schema: typeof actualSchema) => {
     const properties = Object.entries(schema)
         .flatMap(([command, spec]) => formatOverloads(command, spec))
         .join("\n");
 
-    const src = `export interface Client {
-  ${properties}
-}`;
+    return `export interface Client {
+        ${properties}
+    }`;
+}
 
-    writeFile(process.cwd() + "/x.ts", src);
+export const main = () => {
+    writeFile(process.cwd() + "/x.ts", getTypeScriptInterface(actualSchema));
 }
 
 if (require.main === module) {

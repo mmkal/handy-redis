@@ -3,7 +3,7 @@ import * as cmnds from "../redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "../command/types";
-import { fixup } from "./command-extra";
+import { fixup } from "./fixup";
 import {JsonSchemaCommand} from ".";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
@@ -50,7 +50,7 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     }
     if (typeof arg.command === "string") {
         if (arg.multiple) {
-            throw Error(`don't know how to handle this`);
+            throw Error(`don't know how to handle multi-commands`);
         }
         const types = Array.isArray(arg.type) ? arg.type : [arg.type];
         const names = Array.isArray(arg.name) ? arg.name : [arg.name];

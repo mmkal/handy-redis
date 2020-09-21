@@ -37,7 +37,13 @@ const extractAllCliExamples = () => {
 type ExtractedCliExample = ReturnType<typeof extractAllCliExamples>[number];
 
 const tokenizeCliExample = (ex: ExtractedCliExample) => {
-    return ex;
+    return {
+        ...ex,
+        commands: ex.lines.map(x => {
+            if (x.includes('"')) throw Error(`CLI example tokenizer is too stupid to deal with quotes/escapes`)
+            return {argv: x.split(' ')}
+        }),
+    };
 };
 
 const usages = Object.keys(schema).map(command => {});

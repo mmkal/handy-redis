@@ -6726,7 +6726,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, expiration: "EX seconds" | "PX milliseconds"): Promise<string | null>;
+    set(key: string, value: string, expiration: ["EX" | "PX", number]): Promise<string | null>;
 
     /**
      * Set the string value of a key
@@ -6734,12 +6734,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(
-        key: string,
-        value: string,
-        expiration: "EX seconds" | "PX milliseconds",
-        condition: "NX" | "XX"
-    ): Promise<string | null>;
+    set(key: string, value: string, expiration: ["EX" | "PX", number], condition: "NX" | "XX"): Promise<string | null>;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key

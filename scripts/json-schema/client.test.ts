@@ -50,7 +50,7 @@ test("formatOverloads", () => {
                      * - _complexity_: O(1)
                      * - _since_: 1.0.0
                      */
-                    set(key: string,value: string,expiration: \\"EX seconds\\"|\\"PX milliseconds\\"):
+                    set(key: string,value: string,expiration: [\\"EX\\"|\\"PX\\", number]):
                         Promise<(string) | (null)>
                 ",
           "
@@ -60,7 +60,7 @@ test("formatOverloads", () => {
                      * - _complexity_: O(1)
                      * - _since_: 1.0.0
                      */
-                    set(key: string,value: string,expiration: \\"EX seconds\\"|\\"PX milliseconds\\",condition: \\"NX\\"|\\"XX\\"):
+                    set(key: string,value: string,expiration: [\\"EX\\"|\\"PX\\", number],condition: \\"NX\\"|\\"XX\\"):
                         Promise<(string) | (null)>
                 ",
         ]

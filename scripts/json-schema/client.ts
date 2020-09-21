@@ -1,6 +1,6 @@
-import { schema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
-import { writeFile } from "../util";
-import { camelCase, snakeCase } from "lodash";
+import {schema, JsonSchemaCommandArgument, JsonSchemaCommand} from ".";
+import {writeFile} from "../util";
+import {camelCase, snakeCase} from "lodash";
 import * as jsonSchema from "json-schema";
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
@@ -84,12 +84,18 @@ export const formatOverloads = (command: string, {arguments: originalArgs, ...sp
         `
     })
 
-const properties = Object.entries(schema)
-    .flatMap(([command, spec]) => formatOverloads(command, spec))
-    .join("\n");
+export const main = () => {
+    const properties = Object.entries(schema)
+        .flatMap(([command, spec]) => formatOverloads(command, spec))
+        .join("\n");
 
-const src = `export interface Client {
+    const src = `export interface Client {
   ${properties}
 }`;
 
-writeFile(process.cwd() + "/x.ts", src);
+    writeFile(process.cwd() + "/x.ts", src);
+}
+
+if (require.main === module) {
+    main()
+}

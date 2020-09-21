@@ -26,7 +26,8 @@
     "prerelease": "tsc -p src",
     "release": "semantic-release",
     "coverage": "yarn test --coverage",
-    "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls"
+    "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
+    "tsn": "ts-node --transpile-only"
   },
   "repository": {
     "type": "git",

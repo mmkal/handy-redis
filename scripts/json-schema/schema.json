@@ -3734,8 +3734,16 @@
                 "name": "expiration",
                 "optional": true,
                 "schema": {
-                    "type": "string",
-                    "enum": ["EX seconds", "PX milliseconds"]
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "enum": ["EX", "PX"]
+                        },
+                        {
+                            "type": "number"
+                        }
+                    ]
                 }
             },
             {

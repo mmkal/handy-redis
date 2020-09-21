@@ -3,8 +3,8 @@ import * as cmnds from "../redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "../command/types";
-import { extras } from "./command-extra";
-import { JsonSchemaCommand } from ".";
+import { fixup } from "./command-extra";
+import {JsonSchemaCommand} from ".";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     if (arg.multiple || arg.variadic) {
@@ -78,12 +78,6 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
 };
 
 const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
-    if (command in extras) {
-        const returnType = extras[command].return;
-        if (returnType) {
-            return returnType;
-        }
-    }
     const docFile = path.join(__dirname, `../redis-doc/commands/${command.toLowerCase()}.md`);
     const fs = require("fs");
     if (!fs.existsSync(docFile)) {
@@ -129,7 +123,7 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
 const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
     arguments: (command?.arguments || []).map(arg => ({
-        name: [arg.command, [arg.name].flat()].filter((val, i, arr) => val && val !== arr[i - 1]).join("_"),
+        name: [arg.command, arg.name].flat().filter((val, i, arr) => val && val !== arr[i - 1]).join("_"),
         optional: arg.optional,
         schema: argToSchema(arg),
     })),
@@ -145,7 +139,9 @@ const main = () => {
         {}
     );
 
-    writeFile(path.join(__dirname, "schema.json"), JSON.stringify(jsonified, null, 2));
+    const fixed = fixup(jsonified)
+
+    writeFile(path.join(__dirname, "schema.json"), JSON.stringify(fixed, null, 2));
 };
 
 if (require.main === module) {

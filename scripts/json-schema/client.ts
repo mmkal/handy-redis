@@ -1,4 +1,4 @@
-import { schema, JsonSchemaCommandArgument } from ".";
+import { schema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
 import { writeFile } from "../util";
 import { camelCase, snakeCase } from "lodash";
 import * as jsonSchema from "json-schema";
@@ -8,14 +8,14 @@ const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg
     if (name === "arguments") {
         name = "args";
     }
-    const type = schemaToType(arg.schema);
+    const type = schemaToTypeScript(arg.schema);
     if (type.startsWith("Array<") && i === arr.length - 1) {
         name = "..." + name;
     }
     return [name, ": ", type].join("");
 };
 
-const schemaToType = (schema: jsonSchema.JSONSchema7): string => {
+const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     const unknownType = "unknown";
     if (!schema) {
         return unknownType;
@@ -23,22 +23,22 @@ const schemaToType = (schema: jsonSchema.JSONSchema7): string => {
     if (schema.type === "number" || schema.type === "integer") {
         return "number";
     }
-    if (schema.type === "string") {
-        return "string";
-    }
     if (Array.isArray(schema.enum) && schema.enum.every(e => typeof e === "string")) {
         return schema.enum.map(e => JSON.stringify(e)).join("|");
     }
+    if (schema.type === "string") {
+        return "string";
+    }
     if (schema.type === "array") {
         if (Array.isArray(schema.items)) {
-            return `[${schema.items.map(schemaToType).join(", ")}]`;
+            return `[${schema.items.map(schemaToTypeScript).join(", ")}]`;
         }
-        const itemType = typeof schema.items === "object" ? schemaToType(schema.items) : unknownType;
+        const itemType = typeof schema.items === "object" ? schemaToTypeScript(schema.items) : unknownType;
         return `Array<${itemType}>`;
     }
     if (Array.isArray(schema.anyOf)) {
         return schema.anyOf
-            .map(schemaToType)
+            .map(schemaToTypeScript)
             .map(type => `(${type})`)
             .join(" | ");
     }
@@ -54,10 +54,7 @@ const schemaToType = (schema: jsonSchema.JSONSchema7): string => {
     return unknownType;
 };
 
-type SchemaDotJson = typeof schema;
-type JSONSchemaArgument = SchemaDotJson[keyof SchemaDotJson]["arguments"][number];
-
-export const overloads = (args: JSONSchemaArgument[]): JSONSchemaArgument[][] => {
+export const overloads = (args: JsonSchemaCommandArgument[]): JsonSchemaCommandArgument[][] => {
     if (args.length === 0) {
         // no args, so only one valid way to call this - with an empty args array
         return [[]];
@@ -67,17 +64,14 @@ export const overloads = (args: JSONSchemaArgument[]): JSONSchemaArgument[][] =>
 
     const withFirstArg = tailOverloads.map(array => [first, ...array]);
     if (first.optional) {
-        return [...withFirstArg, ...tailOverloads];
+        return [...tailOverloads, ...withFirstArg];
     }
 
     return withFirstArg;
 };
 
-const properties = Object.entries(schema)
-    .flatMap(([command, spec]) => {
-        return overloads(spec.arguments).map(args => [command, { ...spec, arguments: args }] as const);
-    })
-    .map(([command, spec]) => {
+export const formatOverloads = (command: string, {arguments: originalArgs, ...spec}: JsonSchemaCommand) =>
+    overloads(originalArgs).map(newArgs => {
         return `
             /**
              * ${spec.summary}
@@ -85,10 +79,13 @@ const properties = Object.entries(schema)
              * - _complexity_: ${spec.complexity}
              * - _since_: ${spec.since}
              */
-            ${camelCase(command)}(${spec.arguments.map(codeArgument)}):
-                Promise<${schemaToType(spec.return)}>
-        `;
+            ${camelCase(command)}(${newArgs.map(codeArgument)}):
+                Promise<${schemaToTypeScript(spec.return)}>
+        `
     })
+
+const properties = Object.entries(schema)
+    .flatMap(([command, spec]) => formatOverloads(command, spec))
     .join("\n");
 
 const src = `export interface Client {

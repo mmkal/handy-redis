@@ -37,7 +37,7 @@ export interface Client {
      * - _complexity_: O(N)
      * - _since_: 2.6.0
      */
-    bitcount(key: string, start_end: [number, number]): Promise<number>;
+    bitcount(key: string): Promise<number>;
 
     /**
      * Count set bits in a string
@@ -45,7 +45,31 @@ export interface Client {
      * - _complexity_: O(N)
      * - _since_: 2.6.0
      */
-    bitcount(key: string): Promise<number>;
+    bitcount(key: string, start_end: [number, number]): Promise<number>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(key: string): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(key: string, overflow: [string, "WRAP" | "SAT" | "FAIL"]): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(key: string, incrby_type_offset_increment: [string, [string, number, number]]): Promise<unknown>;
 
     /**
      * Perform arbitrary bitfield integer operations on strings
@@ -55,10 +79,28 @@ export interface Client {
      */
     bitfield(
         key: string,
-        get_type_offset: [string, [string, number]],
-        set_type_offset_value: [string, [string, number, number]],
         incrby_type_offset_increment: [string, [string, number, number]],
-        overflow: [string, string]
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
+    ): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(key: string, set_type_offset_value: [string, [string, number, number]]): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(
+        key: string,
+        set_type_offset_value: [string, [string, number, number]],
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -69,7 +111,6 @@ export interface Client {
      */
     bitfield(
         key: string,
-        get_type_offset: [string, [string, number]],
         set_type_offset_value: [string, [string, number, number]],
         incrby_type_offset_increment: [string, [string, number, number]]
     ): Promise<unknown>;
@@ -82,9 +123,54 @@ export interface Client {
      */
     bitfield(
         key: string,
-        get_type_offset: [string, [string, number]],
         set_type_offset_value: [string, [string, number, number]],
-        overflow: [string, string]
+        incrby_type_offset_increment: [string, [string, number, number]],
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
+    ): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(key: string, get_type_offset: [string, [string, number]]): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(
+        key: string,
+        get_type_offset: [string, [string, number]],
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
+    ): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(
+        key: string,
+        get_type_offset: [string, [string, number]],
+        incrby_type_offset_increment: [string, [string, number, number]]
+    ): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     */
+    bitfield(
+        key: string,
+        get_type_offset: [string, [string, number]],
+        incrby_type_offset_increment: [string, [string, number, number]],
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -108,8 +194,8 @@ export interface Client {
     bitfield(
         key: string,
         get_type_offset: [string, [string, number]],
-        incrby_type_offset_increment: [string, [string, number, number]],
-        overflow: [string, string]
+        set_type_offset_value: [string, [string, number, number]],
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -121,46 +207,6 @@ export interface Client {
     bitfield(
         key: string,
         get_type_offset: [string, [string, number]],
-        incrby_type_offset_increment: [string, [string, number, number]]
-    ): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(key: string, get_type_offset: [string, [string, number]], overflow: [string, string]): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(key: string, get_type_offset: [string, [string, number]]): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(
-        key: string,
-        set_type_offset_value: [string, [string, number, number]],
-        incrby_type_offset_increment: [string, [string, number, number]],
-        overflow: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(
-        key: string,
         set_type_offset_value: [string, [string, number, number]],
         incrby_type_offset_increment: [string, [string, number, number]]
     ): Promise<unknown>;
@@ -173,53 +219,11 @@ export interface Client {
      */
     bitfield(
         key: string,
+        get_type_offset: [string, [string, number]],
         set_type_offset_value: [string, [string, number, number]],
-        overflow: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(key: string, set_type_offset_value: [string, [string, number, number]]): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(
-        key: string,
         incrby_type_offset_increment: [string, [string, number, number]],
-        overflow: [string, string]
+        overflow: [string, "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(key: string, incrby_type_offset_increment: [string, [string, number, number]]): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(key: string, overflow: [string, string]): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     */
-    bitfield(key: string): Promise<unknown>;
 
     /**
      * Perform bitwise operations between strings
@@ -235,15 +239,7 @@ export interface Client {
      * - _complexity_: O(N)
      * - _since_: 2.8.7
      */
-    bitpos(key: string, bit: number, start: number, end: number): Promise<number>;
-
-    /**
-     * Find first bit set or clear in a string
-     * - _group_: string
-     * - _complexity_: O(N)
-     * - _since_: 2.8.7
-     */
-    bitpos(key: string, bit: number, start: number): Promise<number>;
+    bitpos(key: string, bit: number): Promise<number>;
 
     /**
      * Find first bit set or clear in a string
@@ -259,7 +255,15 @@ export interface Client {
      * - _complexity_: O(N)
      * - _since_: 2.8.7
      */
-    bitpos(key: string, bit: number): Promise<number>;
+    bitpos(key: string, bit: number, start: number): Promise<number>;
+
+    /**
+     * Find first bit set or clear in a string
+     * - _group_: string
+     * - _complexity_: O(N)
+     * - _since_: 2.8.7
+     */
+    bitpos(key: string, bit: number, start: number, end: number): Promise<number>;
 
     /**
      * Remove and get the first element in a list, or block until one is available
@@ -315,286 +319,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
-        ip_port: string,
-        id_client_id: [string, number],
-        type: [string, string],
-        addr_ip_port: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        ip_port: string,
-        id_client_id: [string, number],
-        type: [string, string],
-        addr_ip_port: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        ip_port: string,
-        id_client_id: [string, number],
-        type: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, id_client_id: [string, number], type: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        ip_port: string,
-        id_client_id: [string, number],
-        addr_ip_port: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, id_client_id: [string, number], addr_ip_port: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, id_client_id: [string, number], skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, id_client_id: [string, number]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        ip_port: string,
-        type: [string, string],
-        addr_ip_port: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, type: [string, string], addr_ip_port: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, type: [string, string], skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, type: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, addr_ip_port: [string, string], skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, addr_ip_port: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string, skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(ip_port: string): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        id_client_id: [string, number],
-        type: [string, string],
-        addr_ip_port: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        id_client_id: [string, number],
-        type: [string, string],
-        addr_ip_port: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        id_client_id: [string, number],
-        type: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(id_client_id: [string, number], type: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        id_client_id: [string, number],
-        addr_ip_port: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(id_client_id: [string, number], addr_ip_port: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(id_client_id: [string, number], skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(id_client_id: [string, number]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(
-        type: [string, string],
-        addr_ip_port: [string, string],
-        skipme_yes_no: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(type: [string, string], addr_ip_port: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(type: [string, string], skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(type: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(addr_ip_port: [string, string], skipme_yes_no: [string, string]): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: server
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     */
-    clientKill(addr_ip_port: [string, string]): Promise<unknown>;
+    clientKill(): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -610,15 +335,307 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(): Promise<unknown>;
+    clientKill(addr_ip_port: [string, string]): Promise<unknown>;
 
     /**
-     * Get the list of client connections
+     * Kill the connection of a client
      * - _group_: server
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientList(type: [string, string]): Promise<unknown>;
+    clientKill(addr_ip_port: [string, string], skipme_yes_no: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(type: [string, "normal" | "master" | "slave" | "pubsub"]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(id_client_id: [string, number]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(id_client_id: [string, number], skipme_yes_no: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(id_client_id: [string, number], addr_ip_port: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        id_client_id: [string, number],
+        addr_ip_port: [string, string],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, skipme_yes_no: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, addr_ip_port: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, addr_ip_port: [string, string], skipme_yes_no: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, type: [string, "normal" | "master" | "slave" | "pubsub"]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, id_client_id: [string, number]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, id_client_id: [string, number], skipme_yes_no: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(ip_port: string, id_client_id: [string, number], addr_ip_port: [string, string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        id_client_id: [string, number],
+        addr_ip_port: [string, string],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientKill(
+        ip_port: string,
+        id_client_id: [string, number],
+        type: [string, "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port: [string, string],
+        skipme_yes_no: [string, string]
+    ): Promise<unknown>;
 
     /**
      * Get the list of client connections
@@ -627,6 +644,14 @@ export interface Client {
      * - _since_: 2.4.0
      */
     clientList(): Promise<unknown>;
+
+    /**
+     * Get the list of client connections
+     * - _group_: server
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    clientList(type: [string, "normal" | "master" | "replica" | "pubsub"]): Promise<unknown>;
 
     /**
      * Get the current connection name
@@ -650,7 +675,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.2
      */
-    clientReply(reply_mode: string): Promise<unknown>;
+    clientReply(reply_mode: "ON" | "OFF" | "SKIP"): Promise<unknown>;
 
     /**
      * Set the current connection name
@@ -666,7 +691,7 @@ export interface Client {
      * - _complexity_: O(log N) where N is the number of client connections
      * - _since_: 5.0.0
      */
-    clientUnblock(client_id: number, unblock_type: string): Promise<unknown>;
+    clientUnblock(client_id: number): Promise<unknown>;
 
     /**
      * Unblock a client blocked in a blocking command from a different connection
@@ -674,7 +699,7 @@ export interface Client {
      * - _complexity_: O(log N) where N is the number of client connections
      * - _since_: 5.0.0
      */
-    clientUnblock(client_id: number): Promise<unknown>;
+    clientUnblock(client_id: number, unblock_type: "TIMEOUT" | "ERROR"): Promise<unknown>;
 
     /**
      * Assign new hash slots to receiving node
@@ -722,7 +747,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterFailover(options: string): Promise<unknown>;
+    clusterFailover(): Promise<unknown>;
 
     /**
      * Forces a replica to perform a manual failover of its master.
@@ -730,7 +755,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterFailover(): Promise<unknown>;
+    clusterFailover(options: "FORCE" | "TAKEOVER"): Promise<unknown>;
 
     /**
      * Delete a node's own slots information
@@ -810,7 +835,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of known nodes. The command may execute a FLUSHALL as a side effect.
      * - _since_: 3.0.0
      */
-    clusterReset(reset_type: string): Promise<unknown>;
+    clusterReset(): Promise<unknown>;
 
     /**
      * Reset a Redis Cluster node
@@ -818,7 +843,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of known nodes. The command may execute a FLUSHALL as a side effect.
      * - _since_: 3.0.0
      */
-    clusterReset(): Promise<unknown>;
+    clusterReset(reset_type: "HARD" | "SOFT"): Promise<unknown>;
 
     /**
      * Forces the node to save cluster state on disk
@@ -842,7 +867,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterSetslot(slot: number, subcommand: string, node_id: string): Promise<unknown>;
+    clusterSetslot(slot: number, subcommand: "IMPORTING" | "MIGRATING" | "STABLE" | "NODE"): Promise<unknown>;
 
     /**
      * Bind a hash slot to a specific node
@@ -850,7 +875,11 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterSetslot(slot: number, subcommand: string): Promise<unknown>;
+    clusterSetslot(
+        slot: number,
+        subcommand: "IMPORTING" | "MIGRATING" | "STABLE" | "NODE",
+        node_id: string
+    ): Promise<unknown>;
 
     /**
      * List replica nodes of the specified master node
@@ -1066,7 +1095,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    flushall(async: string): Promise<string>;
+    flushall(): Promise<string>;
 
     /**
      * Remove all keys from all databases
@@ -1074,15 +1103,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    flushall(): Promise<string>;
-
-    /**
-     * Remove all keys from the current database
-     * - _group_: server
-     * - _complexity_: undefined
-     * - _since_: 1.0.0
-     */
-    flushdb(async: string): Promise<string>;
+    flushall(async: "ASYNC"): Promise<string>;
 
     /**
      * Remove all keys from the current database
@@ -1091,6 +1112,14 @@ export interface Client {
      * - _since_: 1.0.0
      */
     flushdb(): Promise<string>;
+
+    /**
+     * Remove all keys from the current database
+     * - _group_: server
+     * - _complexity_: undefined
+     * - _since_: 1.0.0
+     */
+    flushdb(async: "ASYNC"): Promise<string>;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set
@@ -1122,7 +1151,7 @@ export interface Client {
      * - _complexity_: O(log(N))
      * - _since_: 3.2.0
      */
-    geodist(key: string, member_1: string, member_2: string, unit: string): Promise<string | null>;
+    geodist(key: string, member_1: string, member_2: string): Promise<string | null>;
 
     /**
      * Returns the distance between two members of a geospatial index
@@ -1130,7 +1159,7 @@ export interface Client {
      * - _complexity_: O(log(N))
      * - _since_: 3.2.0
      */
-    geodist(key: string, member_1: string, member_2: string): Promise<string | null>;
+    geodist(key: string, member_1: string, member_2: string, unit: "m" | "km" | "ft" | "mi"): Promise<string | null>;
 
     /**
      * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
@@ -1143,12 +1172,51 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
+        unit: "m" | "km" | "ft" | "mi"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
@@ -1164,13 +1232,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -1184,12 +1247,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1204,12 +1263,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -1223,11 +1279,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
@@ -1243,48 +1296,7 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -1299,12 +1311,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1319,11 +1327,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1338,194 +1343,7 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -1542,11 +1360,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -1560,10 +1376,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1578,9 +1393,175 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -1595,11 +1576,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1614,10 +1593,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1632,188 +1610,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -1830,11 +1628,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -1848,10 +1645,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1866,9 +1663,177 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -1883,11 +1848,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1902,10 +1865,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1920,183 +1882,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -2113,10 +1900,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -2130,9 +1917,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2147,8 +1935,186 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -2163,10 +2129,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2181,9 +2147,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2198,182 +2165,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withcoord: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withcoord: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -2390,11 +2184,11 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -2408,10 +2202,11 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2426,9 +2221,179 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -2443,11 +2408,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2462,10 +2425,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2480,183 +2442,8 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -2673,10 +2460,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -2690,9 +2477,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2707,8 +2495,186 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -2723,10 +2689,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2741,9 +2707,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2758,177 +2725,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withdist: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withdist: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -2945,10 +2744,11 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -2962,9 +2762,11 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -2979,8 +2781,188 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -2995,10 +2977,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -3013,9 +2995,10 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -3030,172 +3013,9 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        withhash: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -3212,9 +3032,11 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -3228,8 +3050,11 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -3244,7 +3069,197 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -3259,8 +3274,49 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        storedist_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        store_key: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
@@ -3276,9 +3332,12 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        order: string,
-        store_key: [string, string]
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC"
     ): Promise<Array<unknown>>;
 
     /**
@@ -3292,39 +3351,12 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        order: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -3339,7 +3371,12 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
         store_key: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -3354,17 +3391,23 @@ export interface Client {
         longitude: number,
         latitude: number,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<Array<unknown>>;
 
     /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
      * - _group_: geo
      * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
      * - _since_: 3.2.0
      */
-    georadius(key: string, longitude: number, latitude: number, radius: number, unit: string): Promise<Array<unknown>>;
+    georadiusbymember(key: string, member: string, radius: number, unit: "m" | "km" | "ft" | "mi"): Promise<unknown>;
 
     /**
      * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
@@ -3376,12 +3419,35 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<unknown>;
@@ -3396,13 +3462,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -3415,12 +3476,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -3434,12 +3491,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
     ): Promise<unknown>;
 
     /**
@@ -3452,11 +3506,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
+        unit: "m" | "km" | "ft" | "mi",
+        order: "ASC" | "DESC",
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<unknown>;
@@ -3471,46 +3522,7 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -3524,12 +3536,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -3543,11 +3551,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -3561,184 +3566,7 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        withhash: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -3754,11 +3582,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -3771,10 +3597,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -3788,9 +3613,165 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -3804,11 +3785,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -3822,10 +3801,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -3839,178 +3817,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withdist: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -4026,11 +3834,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -4043,10 +3850,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4060,9 +3867,167 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -4076,11 +4041,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4094,10 +4057,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -4111,173 +4073,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        withhash: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -4293,10 +4090,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -4309,9 +4106,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4325,8 +4123,176 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -4340,10 +4306,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4357,9 +4323,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -4373,166 +4340,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withcoord: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withcoord: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(key: string, member: string, radius: number, unit: string, withcoord: string): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -4548,11 +4358,11 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -4565,10 +4375,11 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4582,9 +4393,169 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -4598,11 +4569,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4616,10 +4585,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -4633,173 +4601,8 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        withhash: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -4815,10 +4618,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -4831,9 +4634,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4847,8 +4651,176 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -4862,10 +4834,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -4879,9 +4851,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -4895,161 +4868,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withdist: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withdist: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(key: string, member: string, radius: number, unit: string, withdist: string): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -5065,10 +4886,11 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -5081,9 +4903,11 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -5097,8 +4921,178 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withhash: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -5112,10 +5106,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withhash: string,
-        order: string,
-        store_key: [string, string],
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -5129,9 +5123,10 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withhash: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -5145,156 +5140,9 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        withhash: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        withhash: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(key: string, member: string, radius: number, unit: string, withhash: string): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string],
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        count_count: [string, number],
-        order: string
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
@@ -5310,9 +5158,11 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number],
-        store_key: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<unknown>;
 
     /**
@@ -5325,8 +5175,11 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
         count_count: [string, number],
+        order: "ASC" | "DESC",
         storedist_key: [string, string]
     ): Promise<unknown>;
 
@@ -5340,7 +5193,187 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        order: "ASC" | "DESC",
+        store_key: [string, string],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
         count_count: [string, number]
     ): Promise<unknown>;
 
@@ -5354,8 +5387,47 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        store_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<unknown>;
@@ -5370,8 +5442,49 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        order: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC"
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
+        storedist_key: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
         store_key: [string, string]
     ): Promise<unknown>;
 
@@ -5385,69 +5498,15 @@ export interface Client {
         key: string,
         member: string,
         radius: number,
-        unit: string,
-        order: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(key: string, member: string, radius: number, unit: string, order: string): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord: "WITHCOORD",
+        withdist: "WITHDIST",
+        withhash: "WITHHASH",
+        count_count: [string, number],
+        order: "ASC" | "DESC",
         store_key: [string, string],
         storedist_key: [string, string]
     ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        store_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: string,
-        storedist_key: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(key: string, member: string, radius: number, unit: string): Promise<unknown>;
 
     /**
      * Get the value of a key
@@ -5623,7 +5682,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    info(section: string): Promise<string>;
+    info(): Promise<string>;
 
     /**
      * Get information and statistics about the server
@@ -5631,15 +5690,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    info(): Promise<string>;
-
-    /**
-     * Display some computer art and the Redis version
-     * - _group_: server
-     * - _complexity_: undefined
-     * - _since_: 5.0.0
-     */
-    lolwut(version_version: [string, number]): Promise<string>;
+    info(section: string): Promise<string>;
 
     /**
      * Display some computer art and the Redis version
@@ -5648,6 +5699,14 @@ export interface Client {
      * - _since_: 5.0.0
      */
     lolwut(): Promise<string>;
+
+    /**
+     * Display some computer art and the Redis version
+     * - _group_: server
+     * - _complexity_: undefined
+     * - _since_: 5.0.0
+     */
+    lolwut(version_version: [string, number]): Promise<string>;
 
     /**
      * Find all keys matching the given pattern
@@ -5679,7 +5738,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of elements to traverse before seeing the value pivot. This means that inserting somewhere on the left end on the list (head) can be considered O(1) and inserting somewhere on the right end (tail) is O(N).
      * - _since_: 2.2.0
      */
-    linsert(key: string, where: string, pivot: string, element: string): Promise<number>;
+    linsert(key: string, where: "BEFORE" | "AFTER", pivot: string, element: string): Promise<number>;
 
     /**
      * Get the length of a list
@@ -5791,7 +5850,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of samples.
      * - _since_: 4.0.0
      */
-    memoryUsage(key: string, samples_count: [string, number]): Promise<unknown>;
+    memoryUsage(key: string): Promise<unknown>;
 
     /**
      * Estimate the memory usage of a key
@@ -5799,7 +5858,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of samples.
      * - _since_: 4.0.0
      */
-    memoryUsage(key: string): Promise<unknown>;
+    memoryUsage(key: string, samples_count: [string, number]): Promise<unknown>;
 
     /**
      * Get the values of all the given keys
@@ -5815,15 +5874,20 @@ export interface Client {
      * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
      * - _since_: 2.6.0
      */
+    migrate(host: string, port: string, key: "key" | '""', destination_db: number, timeout: number): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
     migrate(
         host: string,
         port: string,
-        key: string,
+        key: "key" | '""',
         destination_db: number,
         timeout: number,
-        copy: string,
-        replace: string,
-        auth_password: [string, string],
         ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
@@ -5836,11 +5900,9 @@ export interface Client {
     migrate(
         host: string,
         port: string,
-        key: string,
+        key: "key" | '""',
         destination_db: number,
         timeout: number,
-        copy: string,
-        replace: string,
         auth_password: [string, string]
     ): Promise<string>;
 
@@ -5853,168 +5915,7 @@ export interface Client {
     migrate(
         host: string,
         port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        copy: string,
-        replace: string,
-        ...keys_key: Array<[string, string]>
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        copy: string,
-        replace: string
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        copy: string,
-        auth_password: [string, string],
-        ...keys_key: Array<[string, string]>
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        copy: string,
-        auth_password: [string, string]
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        copy: string,
-        ...keys_key: Array<[string, string]>
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        copy: string
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        replace: string,
-        auth_password: [string, string],
-        ...keys_key: Array<[string, string]>
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        replace: string,
-        auth_password: [string, string]
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        replace: string,
-        ...keys_key: Array<[string, string]>
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
-        destination_db: number,
-        timeout: number,
-        replace: string
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: string,
+        key: "key" | '""',
         destination_db: number,
         timeout: number,
         auth_password: [string, string],
@@ -6030,9 +5931,41 @@ export interface Client {
     migrate(
         host: string,
         port: string,
-        key: string,
+        key: "key" | '""',
         destination_db: number,
         timeout: number,
+        replace: "REPLACE"
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        replace: "REPLACE",
+        ...keys_key: Array<[string, string]>
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        replace: "REPLACE",
         auth_password: [string, string]
     ): Promise<string>;
 
@@ -6045,9 +5978,11 @@ export interface Client {
     migrate(
         host: string,
         port: string,
-        key: string,
+        key: "key" | '""',
         destination_db: number,
         timeout: number,
+        replace: "REPLACE",
+        auth_password: [string, string],
         ...keys_key: Array<[string, string]>
     ): Promise<string>;
 
@@ -6057,7 +5992,131 @@ export interface Client {
      * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
      * - _since_: 2.6.0
      */
-    migrate(host: string, port: string, key: string, destination_db: number, timeout: number): Promise<string>;
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY"
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        ...keys_key: Array<[string, string]>
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        auth_password: [string, string]
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        auth_password: [string, string],
+        ...keys_key: Array<[string, string]>
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        replace: "REPLACE"
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        replace: "REPLACE",
+        ...keys_key: Array<[string, string]>
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        replace: "REPLACE",
+        auth_password: [string, string]
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy: "COPY",
+        replace: "REPLACE",
+        auth_password: [string, string],
+        ...keys_key: Array<[string, string]>
+    ): Promise<string>;
 
     /**
      * List all modules loaded by the server
@@ -6073,7 +6132,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 4.0.0
      */
-    moduleLoad(path: string, ...arg: Array<string>): Promise<unknown>;
+    moduleLoad(path: string): Promise<unknown>;
 
     /**
      * Load a module
@@ -6081,7 +6140,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 4.0.0
      */
-    moduleLoad(path: string): Promise<unknown>;
+    moduleLoad(path: string, ...arg: Array<string>): Promise<unknown>;
 
     /**
      * Unload a module
@@ -6137,7 +6196,7 @@ export interface Client {
      * - _complexity_: O(1) for all the currently implemented subcommands.
      * - _since_: 2.2.3
      */
-    object(subcommand: string, ...args: Array<string>): Promise<unknown>;
+    object(subcommand: string): Promise<unknown>;
 
     /**
      * Inspect the internals of Redis objects
@@ -6145,7 +6204,7 @@ export interface Client {
      * - _complexity_: O(1) for all the currently implemented subcommands.
      * - _since_: 2.2.3
      */
-    object(subcommand: string): Promise<unknown>;
+    object(subcommand: string, ...args: Array<string>): Promise<unknown>;
 
     /**
      * Remove the expiration from a key
@@ -6201,7 +6260,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    ping(message: string): Promise<string>;
+    ping(): Promise<string>;
 
     /**
      * Ping the server
@@ -6209,7 +6268,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    ping(): Promise<string>;
+    ping(message: string): Promise<string>;
 
     /**
      * Set the value and expiration in milliseconds of a key
@@ -6233,7 +6292,7 @@ export interface Client {
      * - _complexity_: O(N) for the CHANNELS subcommand, where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns). O(N) for the NUMSUB subcommand, where N is the number of requested channels. O(1) for the NUMPAT subcommand.
      * - _since_: 2.8.0
      */
-    pubsub(subcommand: string, ...argument: Array<string>): Promise<Array<unknown>>;
+    pubsub(subcommand: string): Promise<Array<unknown>>;
 
     /**
      * Inspect the state of the Pub/Sub subsystem
@@ -6241,7 +6300,7 @@ export interface Client {
      * - _complexity_: O(N) for the CHANNELS subcommand, where N is the number of active channels, and assuming constant time pattern matching (relatively short channels and patterns). O(N) for the NUMSUB subcommand, where N is the number of requested channels. O(1) for the NUMPAT subcommand.
      * - _since_: 2.8.0
      */
-    pubsub(subcommand: string): Promise<Array<unknown>>;
+    pubsub(subcommand: string, ...argument: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Get the time to live for a key in milliseconds
@@ -6265,7 +6324,7 @@ export interface Client {
      * - _complexity_: O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).
      * - _since_: 2.0.0
      */
-    punsubscribe(...pattern: Array<string>): Promise<unknown>;
+    punsubscribe(): Promise<unknown>;
 
     /**
      * Stop listening for messages posted to channels matching the given patterns
@@ -6273,7 +6332,7 @@ export interface Client {
      * - _complexity_: O(N+M) where N is the number of patterns the client is already subscribed and M is the number of total patterns subscribed in the system (by any client).
      * - _since_: 2.0.0
      */
-    punsubscribe(): Promise<unknown>;
+    punsubscribe(...pattern: Array<string>): Promise<unknown>;
 
     /**
      * Close the connection
@@ -6329,177 +6388,7 @@ export interface Client {
      * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
      * - _since_: 2.6.0
      */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace: string,
-        absttl: string,
-        idletime_seconds: [string, number],
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace: string,
-        absttl: string,
-        idletime_seconds: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace: string,
-        absttl: string,
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(key: string, ttl: number, serialized_value: string, replace: string, absttl: string): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace: string,
-        idletime_seconds: [string, number],
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace: string,
-        idletime_seconds: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace: string,
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(key: string, ttl: number, serialized_value: string, replace: string): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        absttl: string,
-        idletime_seconds: [string, number],
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        absttl: string,
-        idletime_seconds: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        absttl: string,
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(key: string, ttl: number, serialized_value: string, absttl: string): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        idletime_seconds: [string, number],
-        freq_frequency: [string, number]
-    ): Promise<string>;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     */
-    restore(key: string, ttl: number, serialized_value: string, idletime_seconds: [string, number]): Promise<string>;
+    restore(key: string, ttl: number, serialized_value: string): Promise<string>;
 
     /**
      * Create a key using the provided serialized value, previously obtained using DUMP.
@@ -6515,7 +6404,177 @@ export interface Client {
      * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
      * - _since_: 2.6.0
      */
-    restore(key: string, ttl: number, serialized_value: string): Promise<string>;
+    restore(key: string, ttl: number, serialized_value: string, idletime_seconds: [string, number]): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        idletime_seconds: [string, number],
+        freq_frequency: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(key: string, ttl: number, serialized_value: string, absttl: "ABSTTL"): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL",
+        freq_frequency: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL",
+        idletime_seconds: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        absttl: "ABSTTL",
+        idletime_seconds: [string, number],
+        freq_frequency: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(key: string, ttl: number, serialized_value: string, replace: "REPLACE"): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        freq_frequency: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        idletime_seconds: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        idletime_seconds: [string, number],
+        freq_frequency: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(key: string, ttl: number, serialized_value: string, replace: "REPLACE", absttl: "ABSTTL"): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL",
+        freq_frequency: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL",
+        idletime_seconds: [string, number]
+    ): Promise<string>;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace: "REPLACE",
+        absttl: "ABSTTL",
+        idletime_seconds: [string, number],
+        freq_frequency: [string, number]
+    ): Promise<string>;
 
     /**
      * Return the role of the instance in the context of replication
@@ -6587,7 +6646,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.2.0
      */
-    scriptDebug(mode: string): Promise<unknown>;
+    scriptDebug(mode: "YES" | "SYNC" | "NO"): Promise<unknown>;
 
     /**
      * Check existence of scripts in the script cache.
@@ -6651,31 +6710,36 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, expiration: string, condition: string): Promise<string | null>;
-
-    /**
-     * Set the string value of a key
-     * - _group_: string
-     * - _complexity_: O(1)
-     * - _since_: 1.0.0
-     */
-    set(key: string, value: string, expiration: string): Promise<string | null>;
-
-    /**
-     * Set the string value of a key
-     * - _group_: string
-     * - _complexity_: O(1)
-     * - _since_: 1.0.0
-     */
-    set(key: string, value: string, condition: string): Promise<string | null>;
-
-    /**
-     * Set the string value of a key
-     * - _group_: string
-     * - _complexity_: O(1)
-     * - _since_: 1.0.0
-     */
     set(key: string, value: string): Promise<string | null>;
+
+    /**
+     * Set the string value of a key
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 1.0.0
+     */
+    set(key: string, value: string, condition: "NX" | "XX"): Promise<string | null>;
+
+    /**
+     * Set the string value of a key
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 1.0.0
+     */
+    set(key: string, value: string, expiration: "EX seconds" | "PX milliseconds"): Promise<string | null>;
+
+    /**
+     * Set the string value of a key
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 1.0.0
+     */
+    set(
+        key: string,
+        value: string,
+        expiration: "EX seconds" | "PX milliseconds",
+        condition: "NX" | "XX"
+    ): Promise<string | null>;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key
@@ -6715,7 +6779,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    shutdown(save_mode: string): Promise<string>;
+    shutdown(): Promise<string>;
 
     /**
      * Synchronously save the dataset to disk and then shut down the server
@@ -6723,7 +6787,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    shutdown(): Promise<string>;
+    shutdown(save_mode: "NOSAVE" | "SAVE"): Promise<string>;
 
     /**
      * Intersect multiple sets
@@ -6771,7 +6835,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.2.12
      */
-    slowlog(subcommand: string, argument: string): Promise<unknown>;
+    slowlog(subcommand: string): Promise<unknown>;
 
     /**
      * Manages the Redis slow queries log
@@ -6779,7 +6843,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.2.12
      */
-    slowlog(subcommand: string): Promise<unknown>;
+    slowlog(subcommand: string, argument: string): Promise<unknown>;
 
     /**
      * Get all the members in a set
@@ -6803,13 +6867,128 @@ export interface Client {
      * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
      * - _since_: 1.0.0
      */
+    sort(key: string): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, sorting: "ALPHA"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, sorting: "ALPHA", store_destination: [string, string]): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, order: "ASC" | "DESC"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, order: "ASC" | "DESC", store_destination: [string, string]): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, order: "ASC" | "DESC", sorting: "ALPHA"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
     sort(
         key: string,
-        by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, ...get_pattern: Array<[string, string]>): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
         get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string,
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, get_pattern: Array<[string, string]>, sorting: "ALPHA"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, get_pattern: Array<[string, string]>, order: "ASC" | "DESC"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6821,11 +7000,9 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6836,10 +7013,29 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
-        order: string,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, limit_offset_count: [string, [number, number]]): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6851,10 +7047,8 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
-        order: string
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6865,10 +7059,8 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
-        sorting: string,
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6880,10 +7072,8 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
-        sorting: string
+        order: "ASC" | "DESC"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6894,9 +7084,8 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6908,7 +7097,33 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
+        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
         limit_offset_count: [string, [number, number]],
         ...get_pattern: Array<[string, string]>
     ): Promise<number | Array<unknown>>;
@@ -6921,10 +7136,153 @@ export interface Client {
      */
     sort(
         key: string,
-        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
-        order: string,
-        sorting: string,
+        get_pattern: Array<[string, string]>,
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA"
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC"
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, by_pattern: [string, string]): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, by_pattern: [string, string], sorting: "ALPHA"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(key: string, by_pattern: [string, string], order: "ASC" | "DESC"): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        order: "ASC" | "DESC",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6937,9 +7295,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
-        order: string,
-        sorting: string
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6951,8 +7308,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
-        order: string,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6965,8 +7322,7 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
-        order: string
+        ...get_pattern: Array<[string, string]>
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6978,8 +7334,7 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
-        sorting: string,
+        get_pattern: Array<[string, string]>,
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -6992,8 +7347,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
-        sorting: string
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7005,7 +7360,64 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC"
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
+        store_destination: [string, string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     */
+    sort(
+        key: string,
+        by_pattern: [string, string],
+        get_pattern: Array<[string, string]>,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -7030,9 +7442,7 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string,
+        limit_offset_count: [string, [number, number]],
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -7045,9 +7455,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string
+        limit_offset_count: [string, [number, number]],
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7059,8 +7468,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
-        order: string,
+        limit_offset_count: [string, [number, number]],
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -7073,8 +7482,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
-        order: string
+        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7086,8 +7495,8 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
-        sorting: string,
+        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -7100,8 +7509,9 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
-        sorting: string
+        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7113,7 +7523,9 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        get_pattern: Array<[string, string]>,
+        limit_offset_count: [string, [number, number]],
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
@@ -7126,6 +7538,7 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
+        limit_offset_count: [string, [number, number]],
         ...get_pattern: Array<[string, string]>
     ): Promise<number | Array<unknown>>;
 
@@ -7138,18 +7551,10 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        order: string,
-        sorting: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, by_pattern: [string, string], order: string, sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7160,17 +7565,10 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        order: string,
-        store_destination: [string, string]
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, by_pattern: [string, string], order: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7181,17 +7579,11 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        sorting: string,
+        limit_offset_count: [string, [number, number]],
+        get_pattern: Array<[string, string]>,
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, by_pattern: [string, string], sorting: string): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -7202,30 +7594,9 @@ export interface Client {
     sort(
         key: string,
         by_pattern: [string, string],
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, by_pattern: [string, string]): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string,
-        store_destination: [string, string]
+        order: "ASC" | "DESC"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7236,10 +7607,11 @@ export interface Client {
      */
     sort(
         key: string,
+        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string
+        order: "ASC" | "DESC",
+        store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7250,10 +7622,11 @@ export interface Client {
      */
     sort(
         key: string,
+        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
-        order: string,
-        store_destination: [string, string]
+        order: "ASC" | "DESC",
+        sorting: "ALPHA"
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7264,321 +7637,13 @@ export interface Client {
      */
     sort(
         key: string,
+        by_pattern: [string, string],
         limit_offset_count: [string, [number, number]],
         get_pattern: Array<[string, string]>,
-        order: string
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
-        sorting: string,
+        order: "ASC" | "DESC",
+        sorting: "ALPHA",
         store_destination: [string, string]
     ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
-        sorting: string
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        get_pattern: Array<[string, string]>,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        ...get_pattern: Array<[string, string]>
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        order: string,
-        sorting: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        order: string,
-        sorting: string
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        order: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, limit_offset_count: [string, [number, number]], order: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        sorting: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        sorting: string
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        limit_offset_count: [string, [number, number]],
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, limit_offset_count: [string, [number, number]]): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        get_pattern: Array<[string, string]>,
-        order: string,
-        sorting: string
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        get_pattern: Array<[string, string]>,
-        order: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, get_pattern: Array<[string, string]>, order: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        get_pattern: Array<[string, string]>,
-        sorting: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, get_pattern: Array<[string, string]>, sorting: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        get_pattern: Array<[string, string]>,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, ...get_pattern: Array<[string, string]>): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(
-        key: string,
-        order: string,
-        sorting: string,
-        store_destination: [string, string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, order: string, sorting: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, order: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, order: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, sorting: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, sorting: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string, store_destination: [string, string]): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     */
-    sort(key: string): Promise<number | Array<unknown>>;
-
-    /**
-     * Remove and return one or multiple random members from a set
-     * - _group_: set
-     * - _complexity_: O(1)
-     * - _since_: 1.0.0
-     */
-    spop(key: string, count: number): Promise<string | null>;
 
     /**
      * Remove and return one or multiple random members from a set
@@ -7589,12 +7654,12 @@ export interface Client {
     spop(key: string): Promise<string | null>;
 
     /**
-     * Get one or multiple random members from a set
+     * Remove and return one or multiple random members from a set
      * - _group_: set
-     * - _complexity_: Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.
+     * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    srandmember(key: string, count: number): Promise<string | Array<unknown> | null>;
+    spop(key: string, count: number): Promise<string | null>;
 
     /**
      * Get one or multiple random members from a set
@@ -7603,6 +7668,14 @@ export interface Client {
      * - _since_: 1.0.0
      */
     srandmember(key: string): Promise<string | Array<unknown> | null>;
+
+    /**
+     * Get one or multiple random members from a set
+     * - _group_: set
+     * - _complexity_: Without the count argument O(1), otherwise O(N) where N is the absolute value of the passed count.
+     * - _since_: 1.0.0
+     */
+    srandmember(key: string, count: number): Promise<string | Array<unknown> | null>;
 
     /**
      * Remove one or more members from a set
@@ -7706,7 +7779,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of clients already subscribed to a channel.
      * - _since_: 2.0.0
      */
-    unsubscribe(...channel: Array<string>): Promise<unknown>;
+    unsubscribe(): Promise<unknown>;
 
     /**
      * Stop listening for messages posted to the given channels
@@ -7714,7 +7787,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of clients already subscribed to a channel.
      * - _since_: 2.0.0
      */
-    unsubscribe(): Promise<unknown>;
+    unsubscribe(...channel: Array<string>): Promise<unknown>;
 
     /**
      * Delete a key asynchronously in another thread. Otherwise it is just as DEL, but non blocking.
@@ -7754,84 +7827,88 @@ export interface Client {
      * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
      * - _since_: 1.2.0
      */
-    zadd(
-        key: string,
-        condition: string,
-        change: string,
-        increment: string,
-        ...score_member: Array<[number, string]>
-    ): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
-    zadd(
-        key: string,
-        condition: string,
-        change: string,
-        ...score_member: Array<[number, string]>
-    ): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
-    zadd(
-        key: string,
-        condition: string,
-        increment: string,
-        ...score_member: Array<[number, string]>
-    ): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
-    zadd(key: string, condition: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
-    zadd(
-        key: string,
-        change: string,
-        increment: string,
-        ...score_member: Array<[number, string]>
-    ): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
-    zadd(key: string, change: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
-    zadd(key: string, increment: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     */
     zadd(key: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(key: string, increment: "INCR", ...score_member: Array<[number, string]>): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(key: string, change: "CH", ...score_member: Array<[number, string]>): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        change: "CH",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
 
     /**
      * Get the number of members in a sorted set
@@ -7863,12 +7940,19 @@ export interface Client {
      * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
      * - _since_: 2.0.0
      */
+    zinterstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
+
+    /**
+     * Intersect multiple sorted sets and store the resulting sorted set in a new key
+     * - _group_: sorted_set
+     * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+     * - _since_: 2.0.0
+     */
     zinterstore(
         destination: string,
         numkeys: number,
         key: Array<string>,
-        weights_weight: Array<[string, number]>,
-        aggregate_aggregate: [string, string]
+        aggregate_aggregate: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
@@ -7894,16 +7978,9 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        aggregate_aggregate: [string, string]
+        weights_weight: Array<[string, number]>,
+        aggregate_aggregate: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
-
-    /**
-     * Intersect multiple sorted sets and store the resulting sorted set in a new key
-     * - _group_: sorted_set
-     * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
-     * - _since_: 2.0.0
-     */
-    zinterstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
 
     /**
      * Count the number of members in a sorted set between a given lexicographical range
@@ -7919,7 +7996,7 @@ export interface Client {
      * - _complexity_: O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.
      * - _since_: 5.0.0
      */
-    zpopmax(key: string, count: number): Promise<Array<unknown>>;
+    zpopmax(key: string): Promise<Array<unknown>>;
 
     /**
      * Remove and return members with the highest scores in a sorted set
@@ -7927,15 +8004,7 @@ export interface Client {
      * - _complexity_: O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.
      * - _since_: 5.0.0
      */
-    zpopmax(key: string): Promise<Array<unknown>>;
-
-    /**
-     * Remove and return members with the lowest scores in a sorted set
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.
-     * - _since_: 5.0.0
-     */
-    zpopmin(key: string, count: number): Promise<Array<unknown>>;
+    zpopmax(key: string, count: number): Promise<Array<unknown>>;
 
     /**
      * Remove and return members with the lowest scores in a sorted set
@@ -7946,12 +8015,12 @@ export interface Client {
     zpopmin(key: string): Promise<Array<unknown>>;
 
     /**
-     * Return a range of members in a sorted set, by index
+     * Remove and return members with the lowest scores in a sorted set
      * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
-     * - _since_: 1.2.0
+     * - _complexity_: O(log(N)*M) with N being the number of elements in the sorted set, and M being the number of elements popped.
+     * - _since_: 5.0.0
      */
-    zrange(key: string, start: number, stop: number, withscores: string): Promise<Array<unknown>>;
+    zpopmin(key: string, count: number): Promise<Array<unknown>>;
 
     /**
      * Return a range of members in a sorted set, by index
@@ -7960,6 +8029,22 @@ export interface Client {
      * - _since_: 1.2.0
      */
     zrange(key: string, start: number, stop: number): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by index
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     */
+    zrange(key: string, start: number, stop: number, withscores: "WITHSCORES"): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by lexicographical range
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 2.8.9
+     */
+    zrangebylex(key: string, min: string, max: string): Promise<Array<unknown>>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range
@@ -7975,12 +8060,12 @@ export interface Client {
     ): Promise<Array<unknown>>;
 
     /**
-     * Return a range of members in a sorted set, by lexicographical range
+     * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
      * - _group_: sorted_set
      * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
      * - _since_: 2.8.9
      */
-    zrangebylex(key: string, min: string, max: string): Promise<Array<unknown>>;
+    zrevrangebylex(key: string, max: string, min: string): Promise<Array<unknown>>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
@@ -7996,55 +8081,47 @@ export interface Client {
     ): Promise<Array<unknown>>;
 
     /**
-     * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 2.8.9
-     */
-    zrevrangebylex(key: string, max: string, min: string): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of members in a sorted set, by score
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 1.0.5
-     */
-    zrangebyscore(
-        key: string,
-        min: number,
-        max: number,
-        withscores: string,
-        limit_offset_count: [string, [number, number]]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of members in a sorted set, by score
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 1.0.5
-     */
-    zrangebyscore(key: string, min: number, max: number, withscores: string): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of members in a sorted set, by score
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 1.0.5
-     */
-    zrangebyscore(
-        key: string,
-        min: number,
-        max: number,
-        limit_offset_count: [string, [number, number]]
-    ): Promise<Array<unknown>>;
-
-    /**
      * Return a range of members in a sorted set, by score
      * - _group_: sorted_set
      * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
      * - _since_: 1.0.5
      */
     zrangebyscore(key: string, min: number, max: number): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by score
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 1.0.5
+     */
+    zrangebyscore(
+        key: string,
+        min: number,
+        max: number,
+        limit_offset_count: [string, [number, number]]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by score
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 1.0.5
+     */
+    zrangebyscore(key: string, min: number, max: number, withscores: "WITHSCORES"): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by score
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 1.0.5
+     */
+    zrangebyscore(
+        key: string,
+        min: number,
+        max: number,
+        withscores: "WITHSCORES",
+        limit_offset_count: [string, [number, number]]
+    ): Promise<Array<unknown>>;
 
     /**
      * Determine the index of a member in a sorted set
@@ -8092,7 +8169,7 @@ export interface Client {
      * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
      * - _since_: 1.2.0
      */
-    zrevrange(key: string, start: number, stop: number, withscores: string): Promise<Array<unknown>>;
+    zrevrange(key: string, start: number, stop: number): Promise<Array<unknown>>;
 
     /**
      * Return a range of members in a sorted set, by index, with scores ordered from high to low
@@ -8100,42 +8177,7 @@ export interface Client {
      * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
      * - _since_: 1.2.0
      */
-    zrevrange(key: string, start: number, stop: number): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of members in a sorted set, by score, with scores ordered from high to low
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 2.2.0
-     */
-    zrevrangebyscore(
-        key: string,
-        max: number,
-        min: number,
-        withscores: string,
-        limit_offset_count: [string, [number, number]]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of members in a sorted set, by score, with scores ordered from high to low
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 2.2.0
-     */
-    zrevrangebyscore(key: string, max: number, min: number, withscores: string): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of members in a sorted set, by score, with scores ordered from high to low
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
-     * - _since_: 2.2.0
-     */
-    zrevrangebyscore(
-        key: string,
-        max: number,
-        min: number,
-        limit_offset_count: [string, [number, number]]
-    ): Promise<Array<unknown>>;
+    zrevrange(key: string, start: number, stop: number, withscores: "WITHSCORES"): Promise<Array<unknown>>;
 
     /**
      * Return a range of members in a sorted set, by score, with scores ordered from high to low
@@ -8144,6 +8186,41 @@ export interface Client {
      * - _since_: 2.2.0
      */
     zrevrangebyscore(key: string, max: number, min: number): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by score, with scores ordered from high to low
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 2.2.0
+     */
+    zrevrangebyscore(
+        key: string,
+        max: number,
+        min: number,
+        limit_offset_count: [string, [number, number]]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by score, with scores ordered from high to low
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 2.2.0
+     */
+    zrevrangebyscore(key: string, max: number, min: number, withscores: "WITHSCORES"): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of members in a sorted set, by score, with scores ordered from high to low
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements being returned. If M is constant (e.g. always asking for the first 10 elements with LIMIT), you can consider it O(log(N)).
+     * - _since_: 2.2.0
+     */
+    zrevrangebyscore(
+        key: string,
+        max: number,
+        min: number,
+        withscores: "WITHSCORES",
+        limit_offset_count: [string, [number, number]]
+    ): Promise<Array<unknown>>;
 
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low
@@ -8167,12 +8244,19 @@ export interface Client {
      * - _complexity_: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
      * - _since_: 2.0.0
      */
+    zunionstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
+
+    /**
+     * Add multiple sorted sets and store the resulting sorted set in a new key
+     * - _group_: sorted_set
+     * - _complexity_: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+     * - _since_: 2.0.0
+     */
     zunionstore(
         destination: string,
         numkeys: number,
         key: Array<string>,
-        weights_weight: Array<[string, number]>,
-        aggregate_aggregate: [string, string]
+        aggregate_aggregate: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
@@ -8198,69 +8282,17 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        aggregate_aggregate: [string, string]
+        weights_weight: Array<[string, number]>,
+        aggregate_aggregate: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
-     * Add multiple sorted sets and store the resulting sorted set in a new key
-     * - _group_: sorted_set
-     * - _complexity_: O(N)+O(M log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
-     * - _since_: 2.0.0
-     */
-    zunionstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
-
-    /**
      * Incrementally iterate the keys space
      * - _group_: generic
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
      * - _since_: 2.8.0
      */
-    scan(
-        cursor: number,
-        match_pattern: [string, string],
-        count_count: [string, number],
-        type_type: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Incrementally iterate the keys space
-     * - _group_: generic
-     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
-     * - _since_: 2.8.0
-     */
-    scan(cursor: number, match_pattern: [string, string], count_count: [string, number]): Promise<unknown>;
-
-    /**
-     * Incrementally iterate the keys space
-     * - _group_: generic
-     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
-     * - _since_: 2.8.0
-     */
-    scan(cursor: number, match_pattern: [string, string], type_type: [string, string]): Promise<unknown>;
-
-    /**
-     * Incrementally iterate the keys space
-     * - _group_: generic
-     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
-     * - _since_: 2.8.0
-     */
-    scan(cursor: number, match_pattern: [string, string]): Promise<unknown>;
-
-    /**
-     * Incrementally iterate the keys space
-     * - _group_: generic
-     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
-     * - _since_: 2.8.0
-     */
-    scan(cursor: number, count_count: [string, number], type_type: [string, string]): Promise<unknown>;
-
-    /**
-     * Incrementally iterate the keys space
-     * - _group_: generic
-     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
-     * - _since_: 2.8.0
-     */
-    scan(cursor: number, count_count: [string, number]): Promise<unknown>;
+    scan(cursor: number): Promise<unknown>;
 
     /**
      * Incrementally iterate the keys space
@@ -8276,19 +8308,51 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
      * - _since_: 2.8.0
      */
-    scan(cursor: number): Promise<unknown>;
+    scan(cursor: number, count_count: [string, number]): Promise<unknown>;
 
     /**
-     * Incrementally iterate Set elements
-     * - _group_: set
-     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
+     * Incrementally iterate the keys space
+     * - _group_: generic
+     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
      * - _since_: 2.8.0
      */
-    sscan(
-        key: string,
+    scan(cursor: number, count_count: [string, number], type_type: [string, string]): Promise<unknown>;
+
+    /**
+     * Incrementally iterate the keys space
+     * - _group_: generic
+     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
+     * - _since_: 2.8.0
+     */
+    scan(cursor: number, match_pattern: [string, string]): Promise<unknown>;
+
+    /**
+     * Incrementally iterate the keys space
+     * - _group_: generic
+     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
+     * - _since_: 2.8.0
+     */
+    scan(cursor: number, match_pattern: [string, string], type_type: [string, string]): Promise<unknown>;
+
+    /**
+     * Incrementally iterate the keys space
+     * - _group_: generic
+     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
+     * - _since_: 2.8.0
+     */
+    scan(cursor: number, match_pattern: [string, string], count_count: [string, number]): Promise<unknown>;
+
+    /**
+     * Incrementally iterate the keys space
+     * - _group_: generic
+     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
+     * - _since_: 2.8.0
+     */
+    scan(
         cursor: number,
         match_pattern: [string, string],
-        count_count: [string, number]
+        count_count: [string, number],
+        type_type: [string, string]
     ): Promise<unknown>;
 
     /**
@@ -8297,7 +8361,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    sscan(key: string, cursor: number, match_pattern: [string, string]): Promise<unknown>;
+    sscan(key: string, cursor: number): Promise<unknown>;
 
     /**
      * Incrementally iterate Set elements
@@ -8313,15 +8377,15 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    sscan(key: string, cursor: number): Promise<unknown>;
+    sscan(key: string, cursor: number, match_pattern: [string, string]): Promise<unknown>;
 
     /**
-     * Incrementally iterate hash fields and associated values
-     * - _group_: hash
+     * Incrementally iterate Set elements
+     * - _group_: set
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    hscan(
+    sscan(
         key: string,
         cursor: number,
         match_pattern: [string, string],
@@ -8334,7 +8398,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    hscan(key: string, cursor: number, match_pattern: [string, string]): Promise<unknown>;
+    hscan(key: string, cursor: number): Promise<unknown>;
 
     /**
      * Incrementally iterate hash fields and associated values
@@ -8350,15 +8414,15 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    hscan(key: string, cursor: number): Promise<unknown>;
+    hscan(key: string, cursor: number, match_pattern: [string, string]): Promise<unknown>;
 
     /**
-     * Incrementally iterate sorted sets elements and associated scores
-     * - _group_: sorted_set
+     * Incrementally iterate hash fields and associated values
+     * - _group_: hash
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    zscan(
+    hscan(
         key: string,
         cursor: number,
         match_pattern: [string, string],
@@ -8371,7 +8435,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    zscan(key: string, cursor: number, match_pattern: [string, string]): Promise<unknown>;
+    zscan(key: string, cursor: number): Promise<unknown>;
 
     /**
      * Incrementally iterate sorted sets elements and associated scores
@@ -8387,7 +8451,128 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    zscan(key: string, cursor: number): Promise<unknown>;
+    zscan(key: string, cursor: number, match_pattern: [string, string]): Promise<unknown>;
+
+    /**
+     * Incrementally iterate sorted sets elements and associated scores
+     * - _group_: sorted_set
+     * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
+     * - _since_: 2.8.0
+     */
+    zscan(
+        key: string,
+        cursor: number,
+        match_pattern: [string, string],
+        count_count: [string, number]
+    ): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(help: "HELP"): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(stream_key: [string, string]): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(stream_key: [string, string], help: "HELP"): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(groups_key: [string, string]): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(groups_key: [string, string], help: "HELP"): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(groups_key: [string, string], stream_key: [string, string]): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(groups_key: [string, string], stream_key: [string, string], help: "HELP"): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(consumers_key_groupname: [string, [string, string]]): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(consumers_key_groupname: [string, [string, string]], help: "HELP"): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(consumers_key_groupname: [string, [string, string]], stream_key: [string, string]): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(
+        consumers_key_groupname: [string, [string, string]],
+        stream_key: [string, string],
+        help: "HELP"
+    ): Promise<unknown>;
+
+    /**
+     * Get information on streams and consumer groups
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
+     * - _since_: 5.0.0
+     */
+    xinfo(consumers_key_groupname: [string, [string, string]], groups_key: [string, string]): Promise<unknown>;
 
     /**
      * Get information on streams and consumer groups
@@ -8398,8 +8583,7 @@ export interface Client {
     xinfo(
         consumers_key_groupname: [string, [string, string]],
         groups_key: [string, string],
-        stream_key: [string, string],
-        help: string
+        help: "HELP"
     ): Promise<unknown>;
 
     /**
@@ -8423,116 +8607,9 @@ export interface Client {
     xinfo(
         consumers_key_groupname: [string, [string, string]],
         groups_key: [string, string],
-        help: string
-    ): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(consumers_key_groupname: [string, [string, string]], groups_key: [string, string]): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(
-        consumers_key_groupname: [string, [string, string]],
         stream_key: [string, string],
-        help: string
+        help: "HELP"
     ): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(consumers_key_groupname: [string, [string, string]], stream_key: [string, string]): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(consumers_key_groupname: [string, [string, string]], help: string): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(consumers_key_groupname: [string, [string, string]]): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(groups_key: [string, string], stream_key: [string, string], help: string): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(groups_key: [string, string], stream_key: [string, string]): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(groups_key: [string, string], help: string): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(groups_key: [string, string]): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(stream_key: [string, string], help: string): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(stream_key: [string, string]): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(help: string): Promise<unknown>;
-
-    /**
-     * Get information on streams and consumer groups
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.
-     * - _since_: 5.0.0
-     */
-    xinfo(): Promise<unknown>;
 
     /**
      * Appends a new entry to a stream
@@ -8548,7 +8625,7 @@ export interface Client {
      * - _complexity_: O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.
      * - _since_: 5.0.0
      */
-    xtrim(key: string, strategy: string, approx: string, count: number): Promise<number>;
+    xtrim(key: string, strategy: "MAXLEN", count: number): Promise<number>;
 
     /**
      * Trims the stream to (approximately if '~' is passed) a certain size
@@ -8556,7 +8633,7 @@ export interface Client {
      * - _complexity_: O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.
      * - _since_: 5.0.0
      */
-    xtrim(key: string, strategy: string, count: number): Promise<number>;
+    xtrim(key: string, strategy: "MAXLEN", approx: "~", count: number): Promise<number>;
 
     /**
      * Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.
@@ -8572,7 +8649,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).
      * - _since_: 5.0.0
      */
-    xrange(key: string, start: string, end: string, count_count: [string, number]): Promise<Array<unknown>>;
+    xrange(key: string, start: string, end: string): Promise<Array<unknown>>;
 
     /**
      * Return a range of elements in a stream, with IDs matching the specified IDs interval
@@ -8580,15 +8657,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).
      * - _since_: 5.0.0
      */
-    xrange(key: string, start: string, end: string): Promise<Array<unknown>>;
-
-    /**
-     * Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).
-     * - _since_: 5.0.0
-     */
-    xrevrange(key: string, end: string, start: string, count_count: [string, number]): Promise<Array<unknown>>;
+    xrange(key: string, start: string, end: string, count_count: [string, number]): Promise<Array<unknown>>;
 
     /**
      * Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE
@@ -8597,6 +8666,14 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xrevrange(key: string, end: string, start: string): Promise<Array<unknown>>;
+
+    /**
+     * Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).
+     * - _since_: 5.0.0
+     */
+    xrevrange(key: string, end: string, start: string, count_count: [string, number]): Promise<Array<unknown>>;
 
     /**
      * Return the number of entires in a stream
@@ -8612,26 +8689,7 @@ export interface Client {
      * - _complexity_: For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.
      * - _since_: 5.0.0
      */
-    xread(
-        count_count: [string, number],
-        block_milliseconds: [string, number],
-        streams: string,
-        key: Array<string>,
-        ...id: Array<string>
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     */
-    xread(
-        count_count: [string, number],
-        streams: string,
-        key: Array<string>,
-        ...id: Array<string>
-    ): Promise<Array<unknown>>;
+    xread(streams: "STREAMS", key: Array<string>, ...id: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.
@@ -8641,7 +8699,7 @@ export interface Client {
      */
     xread(
         block_milliseconds: [string, number],
-        streams: string,
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<Array<unknown>>;
@@ -8652,7 +8710,50 @@ export interface Client {
      * - _complexity_: For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.
      * - _since_: 5.0.0
      */
-    xread(streams: string, key: Array<string>, ...id: Array<string>): Promise<Array<unknown>>;
+    xread(
+        count_count: [string, number],
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Return never seen elements in multiple streams, with IDs greater than the ones reported by the caller for each stream. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     */
+    xread(
+        count_count: [string, number],
+        block_milliseconds: [string, number],
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(delconsumer_key_groupname_consumername: [string, [string, string, string]]): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(destroy_key_groupname: [string, [string, string]]): Promise<unknown>;
 
     /**
      * Create, destroy, and manage consumer groups.
@@ -8661,8 +8762,6 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xgroup(
-        create_key_groupname_id_or: [string, [string, string, string]],
-        setid_key_groupname_id_or: [string, [string, string, string]],
         destroy_key_groupname: [string, [string, string]],
         delconsumer_key_groupname_consumername: [string, [string, string, string]]
     ): Promise<unknown>;
@@ -8673,8 +8772,26 @@ export interface Client {
      * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
      * - _since_: 5.0.0
      */
+    xgroup(setid_key_groupname_id_or: [string, [string, string, string]]): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
     xgroup(
-        create_key_groupname_id_or: [string, [string, string, string]],
+        setid_key_groupname_id_or: [string, [string, string, string]],
+        delconsumer_key_groupname_consumername: [string, [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
         setid_key_groupname_id_or: [string, [string, string, string]],
         destroy_key_groupname: [string, [string, string]]
     ): Promise<unknown>;
@@ -8686,8 +8803,50 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xgroup(
-        create_key_groupname_id_or: [string, [string, string, string]],
         setid_key_groupname_id_or: [string, [string, string, string]],
+        destroy_key_groupname: [string, [string, string]],
+        delconsumer_key_groupname_consumername: [string, [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(create_key_groupname_id_or: [string, [string, string, string]]): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or: [string, [string, string, string]],
+        delconsumer_key_groupname_consumername: [string, [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or: [string, [string, string, string]],
+        destroy_key_groupname: [string, [string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or: [string, [string, string, string]],
+        destroy_key_groupname: [string, [string, string]],
         delconsumer_key_groupname_consumername: [string, [string, string, string]]
     ): Promise<unknown>;
 
@@ -8710,7 +8869,7 @@ export interface Client {
      */
     xgroup(
         create_key_groupname_id_or: [string, [string, string, string]],
-        destroy_key_groupname: [string, [string, string]],
+        setid_key_groupname_id_or: [string, [string, string, string]],
         delconsumer_key_groupname_consumername: [string, [string, string, string]]
     ): Promise<unknown>;
 
@@ -8722,6 +8881,7 @@ export interface Client {
      */
     xgroup(
         create_key_groupname_id_or: [string, [string, string, string]],
+        setid_key_groupname_id_or: [string, [string, string, string]],
         destroy_key_groupname: [string, [string, string]]
     ): Promise<unknown>;
 
@@ -8733,95 +8893,12 @@ export interface Client {
      */
     xgroup(
         create_key_groupname_id_or: [string, [string, string, string]],
-        delconsumer_key_groupname_consumername: [string, [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(create_key_groupname_id_or: [string, [string, string, string]]): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(
         setid_key_groupname_id_or: [string, [string, string, string]],
         destroy_key_groupname: [string, [string, string]],
         delconsumer_key_groupname_consumername: [string, [string, string, string]]
     ): Promise<unknown>;
 
     /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(
-        setid_key_groupname_id_or: [string, [string, string, string]],
-        destroy_key_groupname: [string, [string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(
-        setid_key_groupname_id_or: [string, [string, string, string]],
-        delconsumer_key_groupname_consumername: [string, [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(setid_key_groupname_id_or: [string, [string, string, string]]): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(
-        destroy_key_groupname: [string, [string, string]],
-        delconsumer_key_groupname_consumername: [string, [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(destroy_key_groupname: [string, [string, string]]): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(delconsumer_key_groupname_consumername: [string, [string, string, string]]): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     */
-    xgroup(): Promise<unknown>;
-
-    /**
      * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
      * - _group_: stream
      * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
@@ -8829,10 +8906,7 @@ export interface Client {
      */
     xreadgroup(
         group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
-        block_milliseconds: [string, number],
-        noack: string,
-        streams: string,
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<unknown>;
@@ -8845,38 +8919,8 @@ export interface Client {
      */
     xreadgroup(
         group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
-        block_milliseconds: [string, number],
-        streams: string,
-        key: Array<string>,
-        ...id: Array<string>
-    ): Promise<unknown>;
-
-    /**
-     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     */
-    xreadgroup(
-        group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
-        noack: string,
-        streams: string,
-        key: Array<string>,
-        ...id: Array<string>
-    ): Promise<unknown>;
-
-    /**
-     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     */
-    xreadgroup(
-        group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
-        streams: string,
+        noack: "NOACK",
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<unknown>;
@@ -8890,8 +8934,7 @@ export interface Client {
     xreadgroup(
         group_group_consumer: [string, [string, string]],
         block_milliseconds: [string, number],
-        noack: string,
-        streams: string,
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<unknown>;
@@ -8905,7 +8948,8 @@ export interface Client {
     xreadgroup(
         group_group_consumer: [string, [string, string]],
         block_milliseconds: [string, number],
-        streams: string,
+        noack: "NOACK",
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<unknown>;
@@ -8918,8 +8962,8 @@ export interface Client {
      */
     xreadgroup(
         group_group_consumer: [string, [string, string]],
-        noack: string,
-        streams: string,
+        count_count: [string, number],
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<unknown>;
@@ -8932,7 +8976,40 @@ export interface Client {
      */
     xreadgroup(
         group_group_consumer: [string, [string, string]],
-        streams: string,
+        count_count: [string, number],
+        noack: "NOACK",
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Promise<unknown>;
+
+    /**
+     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     */
+    xreadgroup(
+        group_group_consumer: [string, [string, string]],
+        count_count: [string, number],
+        block_milliseconds: [string, number],
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Promise<unknown>;
+
+    /**
+     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     */
+    xreadgroup(
+        group_group_consumer: [string, [string, string]],
+        count_count: [string, number],
+        block_milliseconds: [string, number],
+        noack: "NOACK",
+        streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
     ): Promise<unknown>;
@@ -8956,10 +9033,51 @@ export interface Client {
         group: string,
         consumer: string,
         min_idle_time: string,
+        ...id: Array<string>
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
-        retrycount_count: [string, number],
+        justid: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        force: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
         force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
@@ -8976,44 +9094,6 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
-        retrycount_count: [string, number],
-        force: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
-        retrycount_count: [string, number],
-        justid: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
         retrycount_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -9029,8 +9109,39 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
+        justid: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        retrycount_count: [string, number],
+        force: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        retrycount_count: [string, number],
         force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
@@ -9047,41 +9158,6 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
-        force: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        idle_ms: [string, number],
-        time_ms_unix_time: [string, number],
-        justid: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        idle_ms: [string, number],
         time_ms_unix_time: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -9097,8 +9173,39 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        retrycount_count: [string, number],
+        time_ms_unix_time: [string, number],
+        justid: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        time_ms_unix_time: [string, number],
+        force: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        time_ms_unix_time: [string, number],
         force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
@@ -9115,41 +9222,7 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        retrycount_count: [string, number],
-        force: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        idle_ms: [string, number],
-        retrycount_count: [string, number],
-        justid: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
         retrycount_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -9165,8 +9238,8 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
-        force: unknown,
+        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
         justid: unknown
     ): Promise<Array<unknown>>;
 
@@ -9182,7 +9255,8 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
         force: unknown
     ): Promise<Array<unknown>>;
 
@@ -9198,7 +9272,9 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
+        force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
 
@@ -9229,8 +9305,39 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time: [string, number],
-        retrycount_count: [string, number],
+        idle_ms: [string, number],
+        justid: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        idle_ms: [string, number],
+        force: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        idle_ms: [string, number],
         force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
@@ -9247,41 +9354,7 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time: [string, number],
-        retrycount_count: [string, number],
-        force: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        time_ms_unix_time: [string, number],
-        retrycount_count: [string, number],
-        justid: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        time_ms_unix_time: [string, number],
+        idle_ms: [string, number],
         retrycount_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -9297,7 +9370,42 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time: [string, number],
+        idle_ms: [string, number],
+        retrycount_count: [string, number],
+        justid: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        idle_ms: [string, number],
+        retrycount_count: [string, number],
+        force: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        idle_ms: [string, number],
+        retrycount_count: [string, number],
         force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
@@ -9314,38 +9422,7 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time: [string, number],
-        force: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        time_ms_unix_time: [string, number],
-        justid: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
+        idle_ms: [string, number],
         time_ms_unix_time: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -9361,7 +9438,42 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        retrycount_count: [string, number],
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        justid: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        force: unknown
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
+     * - _since_: 5.0.0
+     */
+    xclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        id: Array<string>,
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
         force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
@@ -9378,38 +9490,8 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        retrycount_count: [string, number],
-        force: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
-        retrycount_count: [string, number],
-        justid: unknown
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        id: Array<string>,
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
         retrycount_count: [string, number]
     ): Promise<Array<unknown>>;
 
@@ -9425,7 +9507,9 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        force: unknown,
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
         justid: unknown
     ): Promise<Array<unknown>>;
 
@@ -9441,6 +9525,9 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
         force: unknown
     ): Promise<Array<unknown>>;
 
@@ -9456,43 +9543,20 @@ export interface Client {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
+        idle_ms: [string, number],
+        time_ms_unix_time: [string, number],
+        retrycount_count: [string, number],
+        force: unknown,
         justid: unknown
     ): Promise<Array<unknown>>;
 
     /**
-     * Changes (or acquires) ownership of a message in a consumer group, as if the message was delivered to the specified consumer.
-     * - _group_: stream
-     * - _complexity_: O(log N) with N being the number of messages in the PEL of the consumer group.
-     * - _since_: 5.0.0
-     */
-    xclaim(
-        key: string,
-        group: string,
-        consumer: string,
-        min_idle_time: string,
-        ...id: Array<string>
-    ): Promise<Array<unknown>>;
-
-    /**
      * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
      * - _group_: stream
      * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
      * - _since_: 5.0.0
      */
-    xpending(
-        key: string,
-        group: string,
-        start_end_count: [string, string, number],
-        consumer: string
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
-     * - _since_: 5.0.0
-     */
-    xpending(key: string, group: string, start_end_count: [string, string, number]): Promise<Array<unknown>>;
+    xpending(key: string, group: string): Promise<Array<unknown>>;
 
     /**
      * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
@@ -9508,7 +9572,20 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
      * - _since_: 5.0.0
      */
-    xpending(key: string, group: string): Promise<Array<unknown>>;
+    xpending(key: string, group: string, start_end_count: [string, string, number]): Promise<Array<unknown>>;
+
+    /**
+     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
+     * - _since_: 5.0.0
+     */
+    xpending(
+        key: string,
+        group: string,
+        start_end_count: [string, string, number],
+        consumer: string
+    ): Promise<Array<unknown>>;
 
     /**
      * Return a human readable latency analysis report.
@@ -9548,7 +9625,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyReset(event: string): Promise<unknown>;
+    latencyReset(): Promise<unknown>;
 
     /**
      * Reset latency data for one or more events.
@@ -9556,7 +9633,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyReset(): Promise<unknown>;
+    latencyReset(event: string): Promise<unknown>;
 
     /**
      * Show helpful text about the different subcommands.

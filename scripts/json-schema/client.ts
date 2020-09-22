@@ -1,6 +1,6 @@
-import {schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand} from ".";
-import {writeFile} from "../util";
-import {camelCase, snakeCase} from "lodash";
+import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
+import { writeFile } from "../util";
+import { camelCase, snakeCase } from "lodash";
 import * as jsonSchema from "json-schema";
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
@@ -70,7 +70,7 @@ export const overloads = (args: JsonSchemaCommandArgument[]): JsonSchemaCommandA
     return withFirstArg;
 };
 
-export const formatOverloads = (command: string, {arguments: originalArgs, ...spec}: JsonSchemaCommand) =>
+export const formatOverloads = (command: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) =>
     overloads(originalArgs).map(newArgs => {
         return `
             /**
@@ -81,8 +81,8 @@ export const formatOverloads = (command: string, {arguments: originalArgs, ...sp
              */
             ${camelCase(command)}(${newArgs.map(codeArgument)}):
                 Promise<${schemaToTypeScript(spec.return)}>
-        `
-    })
+        `;
+    });
 
 export const getTypeScriptInterface = (schema: typeof actualSchema) => {
     const properties = Object.entries(schema)
@@ -92,12 +92,12 @@ export const getTypeScriptInterface = (schema: typeof actualSchema) => {
     return `export interface Client {
         ${properties}
     }`;
-}
+};
 
 export const main = () => {
     writeFile(process.cwd() + "/x.ts", getTypeScriptInterface(actualSchema));
-}
+};
 
 if (require.main === module) {
-    main()
+    main();
 }

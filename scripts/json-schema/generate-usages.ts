@@ -1,7 +1,10 @@
-import { schema } from ".";
+import { schema, JsonSchemaCommandArgument } from ".";
 import * as glob from "glob";
 import * as path from "path";
 import * as fs from "fs";
+import { overloads as getOverloads } from "./client";
+import { inspect } from "util";
+import * as lo from "lodash";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -40,10 +43,194 @@ const tokenizeCliExample = (ex: ExtractedCliExample) => {
     return {
         ...ex,
         commands: ex.lines.map(x => {
-            if (x.includes('"')) throw Error(`CLI example tokenizer is too stupid to deal with quotes/escapes`)
-            return {argv: x.split(' ')}
+            if (x.includes('"')) throw Error(`CLI example tokenizer is too stupid to deal with quotes/escapes`);
+            return { argv: x.split(" ") };
         }),
     };
 };
 
-const usages = Object.keys(schema).map(command => {});
+type TokenizedCliExample = ReturnType<typeof tokenizeCliExample>;
+
+const print = (val: unknown) =>
+    inspect(val, { breakLength: 1000, depth: 1000 })
+        .replace(/, toString: \[Function\]/g, "")
+        .replace(/\r?\n[ \t]*/g, " ");
+
+export const toArgs = (tokens: string[]) => {
+    const [command, ...args] = tokens;
+    const jsonSchema = schema[command.toUpperCase()];
+    if (!jsonSchema) {
+        return { command, args };
+    }
+    const overloads = getOverloads(jsonSchema.arguments);
+    const results = overloads
+        .map(ov => {
+            ov.forEach(a => {
+                a.toString = () => print(a);
+            });
+            return ov;
+        })
+        .map((o, i) => decodeTokensMain(args, o, [`decoding ${command} overload ${i} (${o.map(a => a.name)}): ${o}`]));
+    const success = results.find(r => r.decoded);
+    return {
+        args,
+        s: success?.decoded || results,
+    };
+};
+
+export const decodeTokensMain = (
+    tokens: string[],
+    targetArgs: Pick<JsonSchemaCommandArgument, "schema" | "name">[],
+    context: string[]
+) => {
+    const core = decodeTokensCore(tokens, targetArgs, context);
+    if (core.error === undefined && core.leftovers.length > 0) {
+        return { error: true as true, context: core.context };
+    }
+    return core;
+};
+
+const decodeTokensCore = (
+    tokens: string[],
+    targetArgs: Pick<JsonSchemaCommandArgument, "schema" | "name">[],
+    context: string[]
+):
+    | { context: string[]; error?: undefined; decoded: any[]; leftovers: string[] }
+    | { context: string[]; error: true; decoded?: undefined } => {
+    if (tokens.length === 0 && targetArgs.length === 0) {
+        return { context, decoded: [], leftovers: [] };
+    }
+    if (tokens.length === 0) {
+        return {
+            error: true,
+            context: [...context, `Target args remain but no tokens left! Target args ${print(targetArgs)}`],
+        };
+    }
+    if (targetArgs.length === 0) {
+        return {
+            decoded: [],
+            leftovers: tokens,
+            context: [...context, `Tokens remain but no target args left! Tokens: ${tokens}`],
+        };
+    }
+    const [headToken, ...tailTokens] = tokens;
+    const [headArg, ...tailArgs] = targetArgs;
+
+    const fail = (msg: string) => ({
+        error: true as true,
+        tokens,
+        context: [...context, msg],
+    });
+
+    if (headArg.schema.type === "string" && headArg.schema.const) {
+        if (headToken !== headArg.schema.const) {
+            return fail(`Expected ${headArg.schema.const}, got ${headToken}`);
+        }
+    }
+
+    if (headArg.schema.type === "string" && headArg.schema.enum) {
+        if (!headArg.schema.enum.includes(headToken)) {
+            return fail(`Expected one of ${headArg.schema.enum}, got ${headToken}`);
+        }
+    }
+
+    if (headArg.schema.type === "string") {
+        const remainder = decodeTokensCore(tailTokens, tailArgs, [
+            ...context,
+            `${headToken} successfully decoded as ${headArg.name}. Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
+        ]);
+        return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
+    }
+
+    if (headArg.schema.type === "integer") {
+        const headDecoded = parseInt(headToken, 10);
+        if (headDecoded.toString() !== headToken) {
+            return {
+                error: true,
+                context: [...context, `${headToken} isn't an integer. Decoded as something different: ${headDecoded}`],
+            };
+        }
+        const remainder = decodeTokensCore(tailTokens, tailArgs, [
+            ...context,
+            `${headToken} successfully decoded as ${headArg.name}. Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
+        ]);
+        return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
+    }
+
+    if (headArg.schema.type === "number") {
+        const headDecoded = parseFloat(headToken);
+        if (headDecoded.toString() !== headToken) {
+            return fail(`${headToken} parsed into a bad number ${headDecoded}`);
+        }
+        const remainder = decodeTokensCore(tailTokens, tailArgs, [
+            ...context,
+            `${headToken} successfully decoded as ${headArg.name}. Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
+        ]);
+        return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
+    }
+
+    const asSchema = (def: typeof headArg.schema.items) =>
+        Array.isArray(def) || typeof def === "undefined" || typeof def === "boolean" ? {} : def;
+
+    if (headArg.schema.type === "array" && Array.isArray(headArg.schema.items)) {
+        // it's a tuple
+        const nextN = tokens.slice(0, headArg.schema.items.length);
+        const decodedTuple = decodeTokensCore(
+            nextN,
+            headArg.schema.items.map((item, i) => ({
+                name: headArg.name + "_" + i,
+                schema: item as Exclude<typeof item, boolean>,
+            })),
+            [...context, `Decoding tuple items`]
+        );
+        if (decodedTuple.error) {
+            return decodedTuple;
+        }
+        const remainder = decodeTokensCore(tokens.slice(headArg.schema.items.length), tailArgs, [
+            ...context,
+            `Successfully decoded ${print(decodedTuple.decoded)} as ${print(headArg)}!`,
+        ]);
+        return remainder.decoded ? { ...remainder, decoded: [decodedTuple.decoded, ...remainder.decoded] } : remainder;
+    }
+
+    if (headArg.schema.type === "array") {
+        if (tailArgs.length > 0) {
+            return fail(`Not smart enough to deal with arrays in the beginning or middle of arg lists`);
+        }
+        let n: ReturnType<typeof decodeTokensCore> = {
+            leftovers: tokens,
+            context,
+            decoded: [[]],
+        };
+        do {
+            if (n.error) {
+                return n;
+            }
+            if (n.leftovers.length === 0) {
+                return n;
+            }
+            const n2 = decodeTokensCore(
+                n.leftovers,
+                [{ name: headArg.name, schema: asSchema(headArg.schema.items) }],
+                [...context, `Decoding array item`]
+            );
+            // console.log(JSON.stringify({ n, n2 }, null, 2));
+            n = n2.error ? n2 : { ...n2, decoded: [n.decoded[0].concat(n2.decoded)] };
+        } while (!n.error && n.leftovers.length > 0);
+
+        return n;
+    }
+
+    return fail(`Not smart enought to deal with ${print(headArg)} yet`);
+};
+
+// const eall = () => {
+//     const all = extractAllCliExamples();
+//     all.map(a => tokenizeCliExample(a)).flatMap(a =>
+//         a.commands.map(c => {
+//             c.argv;
+//         })
+//     );
+// };
+
+// const usages = Object.keys(schema).map(command => {});

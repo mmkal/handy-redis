@@ -5,6 +5,7 @@ import * as fs from "fs";
 import { overloads as getOverloads } from "./client";
 import { inspect } from "util";
 import { writeFile } from "../util";
+import { parseArgsStringToArgv } from "string-argv";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -39,16 +40,10 @@ const extractAllCliExamples = () => {
 
 type ExtractedCliExample = ReturnType<typeof extractAllCliExamples>[number];
 
-const tokenizeCliExample = (ex: ExtractedCliExample) => {
-    return {
-        ...ex,
-        commands: ex.lines.map(x => {
-            // if (x.includes('"'))
-            //     throw Error(`CLI example tokenizer is too stupid to deal with quotes/escapes. Line ${x}`);
-            return { original: x, argv: x.split(" ") };
-        }),
-    };
-};
+const tokenizeCliExample = (ex: ExtractedCliExample) => ({
+    ...ex,
+    commands: ex.lines.map(original => ({ original, argv: parseArgsStringToArgv(original) })),
+});
 
 const print = (val: unknown) =>
     inspect(val, { breakLength: 1000, depth: 1000 })

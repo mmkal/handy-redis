@@ -31,15 +31,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/append.md 0
     // APPEND mykey "Hello"
-    await client.append("mykey", '"Hello"');
+    await client.append("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/append.md 0
     // APPEND mykey " World"
-    // Error decoding:
-    // "decoding APPEND overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining [",World"], target args remaining count: 1'
-    // '" successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: World"'
+    await client.append("mykey", " World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/append.md 0
     // GET mykey
@@ -47,11 +43,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/append.md 1
     // APPEND ts "0043"
-    await client.append("ts", '"0043"');
+    await client.append("ts", "0043");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/append.md 1
     // APPEND ts "0035"
-    await client.append("ts", '"0035"');
+    await client.append("ts", "0035");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/append.md 1
     // GETRANGE ts 0 3
@@ -63,7 +59,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitcount.md 0
     // SET mykey "foobar"
-    await client.set("mykey", '"foobar"');
+    await client.set("mykey", "foobar");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitcount.md 0
     // BITCOUNT mykey
@@ -79,11 +75,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitop.md 0
     // SET key1 "foobar"
-    await client.set("key1", '"foobar"');
+    await client.set("key1", "foobar");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitop.md 0
     // SET key2 "abcdef"
-    await client.set("key2", '"abcdef"');
+    await client.set("key2", "abcdef");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitop.md 0
     // BITOP AND dest key1 key2
@@ -95,7 +91,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitpos.md 0
     // SET mykey "\xff\xf0\x00"
-    await client.set("mykey", '"\\xff\\xf0\\x00"');
+    await client.set("mykey", "\\xff\\xf0\\x00");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitpos.md 0
     // BITPOS mykey 0
@@ -103,7 +99,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitpos.md 0
     // SET mykey "\x00\xff\xf0"
-    await client.set("mykey", '"\\x00\\xff\\xf0"');
+    await client.set("mykey", "\\x00\\xff\\xf0");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitpos.md 0
     // BITPOS mykey 1 0
@@ -115,7 +111,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitpos.md 0
     // set mykey "\x00\x00\x00"
-    await client.set("mykey", '"\\x00\\x00\\x00"');
+    await client.set("mykey", "\\x00\\x00\\x00");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/bitpos.md 0
     // BITPOS mykey 1
@@ -142,7 +138,7 @@ export const f = async (client: Client) => {
     // COMMAND GETKEYS EVAL "not consulted" 3 key1 key2 key3 arg1 arg2 arg3 argN
     // Error decoding:
     // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: GETKEYS,EVAL,"not,consulted",3,key1,key2,key3,arg1,arg2,arg3,argN'
+    // 'Tokens remain but no target args left! Tokens: GETKEYS,EVAL,not consulted,3,key1,key2,key3,arg1,arg2,arg3,argN'
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-getkeys.md 0
     // COMMAND GETKEYS SORT mylist ALPHA STORE outlist
@@ -168,7 +164,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/decr.md 0
     // SET mykey "10"
-    await client.set("mykey", '"10"');
+    await client.set("mykey", "10");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/decr.md 0
     // DECR mykey
@@ -176,7 +172,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/decr.md 0
     // SET mykey "234293482390480948029348230948"
-    await client.set("mykey", '"234293482390480948029348230948"');
+    await client.set("mykey", "234293482390480948029348230948");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/decr.md 0
     // DECR mykey
@@ -184,7 +180,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/decrby.md 0
     // SET mykey "10"
-    await client.set("mykey", '"10"');
+    await client.set("mykey", "10");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/decrby.md 0
     // DECRBY mykey 3
@@ -192,11 +188,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/del.md 0
     // SET key1 "Hello"
-    await client.set("key1", '"Hello"');
+    await client.set("key1", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/del.md 0
     // SET key2 "World"
-    await client.set("key2", '"World"');
+    await client.set("key2", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/del.md 0
     // DEL key1 key2 key3
@@ -212,14 +208,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/echo.md 0
     // ECHO "Hello World!"
-    // Error decoding:
-    // "decoding ECHO overload 0 (message): { name: 'message', schema: { type: 'string' } }"
-    // '"Hello successfully decoded as message (string). Tokens remaining [World!"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: World!"'
+    await client.echo("Hello World!");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/exists.md 0
     // SET key1 "Hello"
-    await client.set("key1", '"Hello"');
+    await client.set("key1", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/exists.md 0
     // EXISTS key1
@@ -231,7 +224,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/exists.md 0
     // SET key2 "World"
-    await client.set("key2", '"World"');
+    await client.set("key2", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/exists.md 0
     // EXISTS key1 key2 nosuchkey
@@ -239,7 +232,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expire.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expire.md 0
     // EXPIRE mykey 10
@@ -251,25 +244,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expire.md 0
     // SET mykey "Hello World"
-    // Error decoding:
-    // "decoding SET overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 1'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: World"'
-    // "decoding SET overload 1 (key,value,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 2'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 1'
-    // 'Expected one of NX,XX, got World"'
-    // "decoding SET overload 2 (key,value,expiration): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 2'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got World"'
-    // "decoding SET overload 3 (key,value,expiration,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 3'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got World"'
+    await client.set("mykey", "Hello World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expire.md 0
     // TTL mykey
@@ -277,7 +252,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
     // EXISTS mykey
@@ -296,7 +271,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geoadd.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geoadd.md 0
     // GEODIST Sicily Palermo Catania
@@ -312,11 +287,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodecode.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodecode.md 0
     // ZSCORE Sicily "Palermo"
-    await client.zscore("Sicily", '"Palermo"');
+    await client.zscore("Sicily", "Palermo");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodecode.md 0
     // GEODECODE 3479099956230698
@@ -325,7 +300,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodist.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodist.md 0
     // GEODIST Sicily Palermo Catania
@@ -345,11 +320,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geoencode.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geoencode.md 0
     // ZSCORE Sicily "Palermo"
-    await client.zscore("Sicily", '"Palermo"');
+    await client.zscore("Sicily", "Palermo");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geoencode.md 0
     // GEOENCODE 13.361389 38.115556 100 km
@@ -358,7 +333,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geohash.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geohash.md 0
     // GEOHASH Sicily Palermo Catania
@@ -366,7 +341,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geopos.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geopos.md 0
     // GEOPOS Sicily Palermo Catania NonExisting
@@ -374,7 +349,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadius.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadius.md 0
     // GEORADIUS Sicily 15 37 200 km WITHDIST
@@ -1340,11 +1315,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadiusbymember.md 0
     // GEOADD Sicily 13.583333 37.316667 "Agrigento"
-    await client.geoadd("Sicily", [13.583333, 37.316667, '"Agrigento"']);
+    await client.geoadd("Sicily", [13.583333, 37.316667, "Agrigento"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadiusbymember.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
-    await client.geoadd("Sicily", [13.361389, 38.115556, '"Palermo"'], [15.087269, 37.502669, '"Catania"']);
+    await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadiusbymember.md 0
     // GEORADIUSBYMEMBER Sicily Agrigento 100 km
@@ -1356,7 +1331,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/get.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/get.md 0
     // GET mykey
@@ -1380,25 +1355,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getrange.md 0
     // SET mykey "This is a string"
-    // Error decoding:
-    // "decoding SET overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["This,is,a,string"], target args remaining count: 1'
-    // '"This successfully decoded as value (string). Tokens remaining [is,a,string"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: is,a,string"'
-    // "decoding SET overload 1 (key,value,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["This,is,a,string"], target args remaining count: 2'
-    // '"This successfully decoded as value (string). Tokens remaining [is,a,string"], target args remaining count: 1'
-    // 'Expected one of NX,XX, got is'
-    // "decoding SET overload 2 (key,value,expiration): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["This,is,a,string"], target args remaining count: 2'
-    // '"This successfully decoded as value (string). Tokens remaining [is,a,string"], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got is'
-    // "decoding SET overload 3 (key,value,expiration,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["This,is,a,string"], target args remaining count: 3'
-    // '"This successfully decoded as value (string). Tokens remaining [is,a,string"], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got is'
+    await client.set("mykey", "This is a string");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getrange.md 0
     // GETRANGE mykey 0 3
@@ -1422,7 +1379,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getset.md 0
     // GETSET mycounter "0"
-    await client.getset("mycounter", '"0"');
+    await client.getset("mycounter", "0");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getset.md 0
     // GET mycounter
@@ -1430,11 +1387,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getset.md 1
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getset.md 1
     // GETSET mykey "World"
-    await client.getset("mykey", '"World"');
+    await client.getset("mykey", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/getset.md 1
     // GET mykey
@@ -1442,7 +1399,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hdel.md 0
     // HSET myhash field1 "foo"
-    await client.hset("myhash", ["field1", '"foo"']);
+    await client.hset("myhash", ["field1", "foo"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hdel.md 0
     // HDEL myhash field1
@@ -1454,7 +1411,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hexists.md 0
     // HSET myhash field1 "foo"
-    await client.hset("myhash", ["field1", '"foo"']);
+    await client.hset("myhash", ["field1", "foo"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hexists.md 0
     // HEXISTS myhash field1
@@ -1466,7 +1423,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hget.md 0
     // HSET myhash field1 "foo"
-    await client.hset("myhash", ["field1", '"foo"']);
+    await client.hset("myhash", ["field1", "foo"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hget.md 0
     // HGET myhash field1
@@ -1478,11 +1435,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hgetall.md 0
     // HSET myhash field1 "Hello"
-    await client.hset("myhash", ["field1", '"Hello"']);
+    await client.hset("myhash", ["field1", "Hello"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hgetall.md 0
     // HSET myhash field2 "World"
-    await client.hset("myhash", ["field2", '"World"']);
+    await client.hset("myhash", ["field2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hgetall.md 0
     // HGETALL myhash
@@ -1530,11 +1487,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hkeys.md 0
     // HSET myhash field1 "Hello"
-    await client.hset("myhash", ["field1", '"Hello"']);
+    await client.hset("myhash", ["field1", "Hello"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hkeys.md 0
     // HSET myhash field2 "World"
-    await client.hset("myhash", ["field2", '"World"']);
+    await client.hset("myhash", ["field2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hkeys.md 0
     // HKEYS myhash
@@ -1542,11 +1499,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hlen.md 0
     // HSET myhash field1 "Hello"
-    await client.hset("myhash", ["field1", '"Hello"']);
+    await client.hset("myhash", ["field1", "Hello"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hlen.md 0
     // HSET myhash field2 "World"
-    await client.hset("myhash", ["field2", '"World"']);
+    await client.hset("myhash", ["field2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hlen.md 0
     // HLEN myhash
@@ -1554,11 +1511,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hmget.md 0
     // HSET myhash field1 "Hello"
-    await client.hset("myhash", ["field1", '"Hello"']);
+    await client.hset("myhash", ["field1", "Hello"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hmget.md 0
     // HSET myhash field2 "World"
-    await client.hset("myhash", ["field2", '"World"']);
+    await client.hset("myhash", ["field2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hmget.md 0
     // HMGET myhash field1 field2 nofield
@@ -1566,7 +1523,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hmset.md 0
     // HMSET myhash field1 "Hello" field2 "World"
-    await client.hmset("myhash", ["field1", '"Hello"'], ["field2", '"World"']);
+    await client.hmset("myhash", ["field1", "Hello"], ["field2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hmset.md 0
     // HGET myhash field1
@@ -1578,7 +1535,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hset.md 0
     // HSET myhash field1 "Hello"
-    await client.hset("myhash", ["field1", '"Hello"']);
+    await client.hset("myhash", ["field1", "Hello"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hset.md 0
     // HGET myhash field1
@@ -1586,11 +1543,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hsetnx.md 0
     // HSETNX myhash field "Hello"
-    await client.hsetnx("myhash", "field", '"Hello"');
+    await client.hsetnx("myhash", "field", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hsetnx.md 0
     // HSETNX myhash field "World"
-    await client.hsetnx("myhash", "field", '"World"');
+    await client.hsetnx("myhash", "field", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hsetnx.md 0
     // HGET myhash field
@@ -1614,11 +1571,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hvals.md 0
     // HSET myhash field1 "Hello"
-    await client.hset("myhash", ["field1", '"Hello"']);
+    await client.hset("myhash", ["field1", "Hello"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hvals.md 0
     // HSET myhash field2 "World"
-    await client.hset("myhash", ["field2", '"World"']);
+    await client.hset("myhash", ["field2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hvals.md 0
     // HVALS myhash
@@ -1626,7 +1583,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/incr.md 0
     // SET mykey "10"
-    await client.set("mykey", '"10"');
+    await client.set("mykey", "10");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/incr.md 0
     // INCR mykey
@@ -1638,7 +1595,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/incrby.md 0
     // SET mykey "10"
-    await client.set("mykey", '"10"');
+    await client.set("mykey", "10");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/incrby.md 0
     // INCRBY mykey 5
@@ -1689,11 +1646,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lindex.md 0
     // LPUSH mylist "World"
-    await client.lpush("mylist", '"World"');
+    await client.lpush("mylist", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lindex.md 0
     // LPUSH mylist "Hello"
-    await client.lpush("mylist", '"Hello"');
+    await client.lpush("mylist", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lindex.md 0
     // LINDEX mylist 0
@@ -1709,15 +1666,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/linsert.md 0
     // RPUSH mylist "Hello"
-    await client.rpush("mylist", '"Hello"');
+    await client.rpush("mylist", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/linsert.md 0
     // RPUSH mylist "World"
-    await client.rpush("mylist", '"World"');
+    await client.rpush("mylist", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/linsert.md 0
     // LINSERT mylist BEFORE "World" "There"
-    await client.linsert("mylist", "BEFORE", '"World"', '"There"');
+    await client.linsert("mylist", "BEFORE", "World", "There");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/linsert.md 0
     // LRANGE mylist 0 -1
@@ -1725,11 +1682,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/llen.md 0
     // LPUSH mylist "World"
-    await client.lpush("mylist", '"World"');
+    await client.lpush("mylist", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/llen.md 0
     // LPUSH mylist "Hello"
-    await client.lpush("mylist", '"Hello"');
+    await client.lpush("mylist", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/llen.md 0
     // LLEN mylist
@@ -1737,15 +1694,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpop.md 0
     // RPUSH mylist "one"
-    await client.rpush("mylist", '"one"');
+    await client.rpush("mylist", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpop.md 0
     // RPUSH mylist "two"
-    await client.rpush("mylist", '"two"');
+    await client.rpush("mylist", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpop.md 0
     // RPUSH mylist "three"
-    await client.rpush("mylist", '"three"');
+    await client.rpush("mylist", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpop.md 0
     // LPOP mylist
@@ -1757,11 +1714,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpush.md 0
     // LPUSH mylist "world"
-    await client.lpush("mylist", '"world"');
+    await client.lpush("mylist", "world");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpush.md 0
     // LPUSH mylist "hello"
-    await client.lpush("mylist", '"hello"');
+    await client.lpush("mylist", "hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpush.md 0
     // LRANGE mylist 0 -1
@@ -1769,15 +1726,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpushx.md 0
     // LPUSH mylist "World"
-    await client.lpush("mylist", '"World"');
+    await client.lpush("mylist", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpushx.md 0
     // LPUSHX mylist "Hello"
-    await client.lpushx("mylist", '"Hello"');
+    await client.lpushx("mylist", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpushx.md 0
     // LPUSHX myotherlist "Hello"
-    await client.lpushx("myotherlist", '"Hello"');
+    await client.lpushx("myotherlist", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lpushx.md 0
     // LRANGE mylist 0 -1
@@ -1789,15 +1746,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrange.md 0
     // RPUSH mylist "one"
-    await client.rpush("mylist", '"one"');
+    await client.rpush("mylist", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrange.md 0
     // RPUSH mylist "two"
-    await client.rpush("mylist", '"two"');
+    await client.rpush("mylist", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrange.md 0
     // RPUSH mylist "three"
-    await client.rpush("mylist", '"three"');
+    await client.rpush("mylist", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrange.md 0
     // LRANGE mylist 0 0
@@ -1817,23 +1774,23 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrem.md 0
     // RPUSH mylist "hello"
-    await client.rpush("mylist", '"hello"');
+    await client.rpush("mylist", "hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrem.md 0
     // RPUSH mylist "hello"
-    await client.rpush("mylist", '"hello"');
+    await client.rpush("mylist", "hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrem.md 0
     // RPUSH mylist "foo"
-    await client.rpush("mylist", '"foo"');
+    await client.rpush("mylist", "foo");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrem.md 0
     // RPUSH mylist "hello"
-    await client.rpush("mylist", '"hello"');
+    await client.rpush("mylist", "hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrem.md 0
     // LREM mylist -2 "hello"
-    await client.lrem("mylist", -2, '"hello"');
+    await client.lrem("mylist", -2, "hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lrem.md 0
     // LRANGE mylist 0 -1
@@ -1841,23 +1798,23 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lset.md 0
     // RPUSH mylist "one"
-    await client.rpush("mylist", '"one"');
+    await client.rpush("mylist", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lset.md 0
     // RPUSH mylist "two"
-    await client.rpush("mylist", '"two"');
+    await client.rpush("mylist", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lset.md 0
     // RPUSH mylist "three"
-    await client.rpush("mylist", '"three"');
+    await client.rpush("mylist", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lset.md 0
     // LSET mylist 0 "four"
-    await client.lset("mylist", 0, '"four"');
+    await client.lset("mylist", 0, "four");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lset.md 0
     // LSET mylist -2 "five"
-    await client.lset("mylist", -2, '"five"');
+    await client.lset("mylist", -2, "five");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/lset.md 0
     // LRANGE mylist 0 -1
@@ -1865,15 +1822,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ltrim.md 0
     // RPUSH mylist "one"
-    await client.rpush("mylist", '"one"');
+    await client.rpush("mylist", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ltrim.md 0
     // RPUSH mylist "two"
-    await client.rpush("mylist", '"two"');
+    await client.rpush("mylist", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ltrim.md 0
     // RPUSH mylist "three"
-    await client.rpush("mylist", '"three"');
+    await client.rpush("mylist", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ltrim.md 0
     // LTRIM mylist 1 -1
@@ -1885,11 +1842,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/mget.md 0
     // SET key1 "Hello"
-    await client.set("key1", '"Hello"');
+    await client.set("key1", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/mget.md 0
     // SET key2 "World"
-    await client.set("key2", '"World"');
+    await client.set("key2", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/mget.md 0
     // MGET key1 key2 nonexisting
@@ -1897,7 +1854,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/mset.md 0
     // MSET key1 "Hello" key2 "World"
-    await client.mset(["key1", '"Hello"'], ["key2", '"World"']);
+    await client.mset(["key1", "Hello"], ["key2", "World"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/mset.md 0
     // GET key1
@@ -1909,11 +1866,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/msetnx.md 0
     // MSETNX key1 "Hello" key2 "there"
-    await client.msetnx(["key1", '"Hello"'], ["key2", '"there"']);
+    await client.msetnx(["key1", "Hello"], ["key2", "there"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/msetnx.md 0
     // MSETNX key2 "new" key3 "world"
-    await client.msetnx(["key2", '"new"'], ["key3", '"world"']);
+    await client.msetnx(["key2", "new"], ["key3", "world"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/msetnx.md 0
     // MGET key1 key2 key3
@@ -1921,7 +1878,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/persist.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/persist.md 0
     // EXPIRE mykey 10
@@ -1941,7 +1898,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpire.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpire.md 0
     // PEXPIRE mykey 1500
@@ -1957,7 +1914,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
     // PEXPIREAT mykey 1555555555005
@@ -2028,16 +1985,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ping.md 0
     // PING "hello world"
-    // Error decoding:
-    // 'decoding PING overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: "hello,world"'
-    // "decoding PING overload 1 (message): { name: 'message', optional: true, schema: { type: 'string' } }"
-    // '"hello successfully decoded as message (string). Tokens remaining [world"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: world"'
+    await client.ping("hello world");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/psetex.md 0
     // PSETEX mykey 1000 "Hello"
-    await client.psetex("mykey", 1000, '"Hello"');
+    await client.psetex("mykey", 1000, "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/psetex.md 0
     // PTTL mykey
@@ -2049,7 +2001,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pttl.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pttl.md 0
     // EXPIRE mykey 1
@@ -2061,7 +2013,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rename.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rename.md 0
     // RENAME mykey myotherkey
@@ -2073,11 +2025,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/renamenx.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/renamenx.md 0
     // SET myotherkey "World"
-    await client.set("myotherkey", '"World"');
+    await client.set("myotherkey", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/renamenx.md 0
     // RENAMENX mykey myotherkey
@@ -2093,15 +2045,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpop.md 0
     // RPUSH mylist "one"
-    await client.rpush("mylist", '"one"');
+    await client.rpush("mylist", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpop.md 0
     // RPUSH mylist "two"
-    await client.rpush("mylist", '"two"');
+    await client.rpush("mylist", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpop.md 0
     // RPUSH mylist "three"
-    await client.rpush("mylist", '"three"');
+    await client.rpush("mylist", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpop.md 0
     // RPOP mylist
@@ -2113,15 +2065,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpoplpush.md 0
     // RPUSH mylist "one"
-    await client.rpush("mylist", '"one"');
+    await client.rpush("mylist", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpoplpush.md 0
     // RPUSH mylist "two"
-    await client.rpush("mylist", '"two"');
+    await client.rpush("mylist", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpoplpush.md 0
     // RPUSH mylist "three"
-    await client.rpush("mylist", '"three"');
+    await client.rpush("mylist", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpoplpush.md 0
     // RPOPLPUSH mylist myotherlist
@@ -2137,11 +2089,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpush.md 0
     // RPUSH mylist "hello"
-    await client.rpush("mylist", '"hello"');
+    await client.rpush("mylist", "hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpush.md 0
     // RPUSH mylist "world"
-    await client.rpush("mylist", '"world"');
+    await client.rpush("mylist", "world");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpush.md 0
     // LRANGE mylist 0 -1
@@ -2149,15 +2101,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpushx.md 0
     // RPUSH mylist "Hello"
-    await client.rpush("mylist", '"Hello"');
+    await client.rpush("mylist", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpushx.md 0
     // RPUSHX mylist "World"
-    await client.rpushx("mylist", '"World"');
+    await client.rpushx("mylist", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpushx.md 0
     // RPUSHX myotherlist "World"
-    await client.rpushx("myotherlist", '"World"');
+    await client.rpushx("myotherlist", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/rpushx.md 0
     // LRANGE mylist 0 -1
@@ -2169,15 +2121,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sadd.md 0
     // SADD myset "Hello"
-    await client.sadd("myset", '"Hello"');
+    await client.sadd("myset", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sadd.md 0
     // SADD myset "World"
-    await client.sadd("myset", '"World"');
+    await client.sadd("myset", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sadd.md 0
     // SADD myset "World"
-    await client.sadd("myset", '"World"');
+    await client.sadd("myset", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sadd.md 0
     // SMEMBERS myset
@@ -2185,11 +2137,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/scard.md 0
     // SADD myset "Hello"
-    await client.sadd("myset", '"Hello"');
+    await client.sadd("myset", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/scard.md 0
     // SADD myset "World"
-    await client.sadd("myset", '"World"');
+    await client.sadd("myset", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/scard.md 0
     // SCARD myset
@@ -2197,27 +2149,27 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SADD key1 "a"
-    await client.sadd("key1", '"a"');
+    await client.sadd("key1", "a");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SADD key1 "b"
-    await client.sadd("key1", '"b"');
+    await client.sadd("key1", "b");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SADD key1 "c"
-    await client.sadd("key1", '"c"');
+    await client.sadd("key1", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SADD key2 "c"
-    await client.sadd("key2", '"c"');
+    await client.sadd("key2", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SADD key2 "d"
-    await client.sadd("key2", '"d"');
+    await client.sadd("key2", "d");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SADD key2 "e"
-    await client.sadd("key2", '"e"');
+    await client.sadd("key2", "e");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiff.md 0
     // SDIFF key1 key2
@@ -2225,27 +2177,27 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SADD key1 "a"
-    await client.sadd("key1", '"a"');
+    await client.sadd("key1", "a");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SADD key1 "b"
-    await client.sadd("key1", '"b"');
+    await client.sadd("key1", "b");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SADD key1 "c"
-    await client.sadd("key1", '"c"');
+    await client.sadd("key1", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SADD key2 "c"
-    await client.sadd("key2", '"c"');
+    await client.sadd("key2", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SADD key2 "d"
-    await client.sadd("key2", '"d"');
+    await client.sadd("key2", "d");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SADD key2 "e"
-    await client.sadd("key2", '"e"');
+    await client.sadd("key2", "e");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sdiffstore.md 0
     // SDIFFSTORE key key1 key2
@@ -2257,7 +2209,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/set.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/set.md 0
     // GET mykey
@@ -2265,25 +2217,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/set.md 0
     // SET anotherkey "will expire in a minute" EX 60
-    // Error decoding:
-    // "decoding SET overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }"
-    // 'anotherkey successfully decoded as key (string). Tokens remaining ["will,expire,in,a,minute",EX,60], target args remaining count: 1'
-    // '"will successfully decoded as value (string). Tokens remaining [expire,in,a,minute",EX,60], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: expire,in,a,minute",EX,60'
-    // "decoding SET overload 1 (key,value,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'anotherkey successfully decoded as key (string). Tokens remaining ["will,expire,in,a,minute",EX,60], target args remaining count: 2'
-    // '"will successfully decoded as value (string). Tokens remaining [expire,in,a,minute",EX,60], target args remaining count: 1'
-    // 'Expected one of NX,XX, got expire'
-    // "decoding SET overload 2 (key,value,expiration): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } }"
-    // 'anotherkey successfully decoded as key (string). Tokens remaining ["will,expire,in,a,minute",EX,60], target args remaining count: 2'
-    // '"will successfully decoded as value (string). Tokens remaining [expire,in,a,minute",EX,60], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got expire'
-    // "decoding SET overload 3 (key,value,expiration,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'anotherkey successfully decoded as key (string). Tokens remaining ["will,expire,in,a,minute",EX,60], target args remaining count: 3'
-    // '"will successfully decoded as value (string). Tokens remaining [expire,in,a,minute",EX,60], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got expire'
+    await client.set("anotherkey", "will expire in a minute", ["EX", 60]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setbit.md 0
     // SETBIT mykey 7 1
@@ -2299,7 +2233,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setex.md 0
     // SETEX mykey 10 "Hello"
-    await client.setex("mykey", 10, '"Hello"');
+    await client.setex("mykey", 10, "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setex.md 0
     // TTL mykey
@@ -2311,11 +2245,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setnx.md 0
     // SETNX mykey "Hello"
-    await client.setnx("mykey", '"Hello"');
+    await client.setnx("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setnx.md 0
     // SETNX mykey "World"
-    await client.setnx("mykey", '"World"');
+    await client.setnx("mykey", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setnx.md 0
     // GET mykey
@@ -2323,29 +2257,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setrange.md 0
     // SET key1 "Hello World"
-    // Error decoding:
-    // "decoding SET overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }"
-    // 'key1 successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 1'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: World"'
-    // "decoding SET overload 1 (key,value,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'key1 successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 2'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 1'
-    // 'Expected one of NX,XX, got World"'
-    // "decoding SET overload 2 (key,value,expiration): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } }"
-    // 'key1 successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 2'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got World"'
-    // "decoding SET overload 3 (key,value,expiration,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'key1 successfully decoded as key (string). Tokens remaining ["Hello,World"], target args remaining count: 3'
-    // '"Hello successfully decoded as value (string). Tokens remaining [World"], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got World"'
+    await client.set("key1", "Hello World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setrange.md 0
     // SETRANGE key1 6 "Redis"
-    await client.setrange("key1", 6, '"Redis"');
+    await client.setrange("key1", 6, "Redis");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setrange.md 0
     // GET key1
@@ -2353,7 +2269,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setrange.md 1
     // SETRANGE key2 6 "Redis"
-    await client.setrange("key2", 6, '"Redis"');
+    await client.setrange("key2", 6, "Redis");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/setrange.md 1
     // GET key2
@@ -2361,27 +2277,27 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SADD key1 "a"
-    await client.sadd("key1", '"a"');
+    await client.sadd("key1", "a");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SADD key1 "b"
-    await client.sadd("key1", '"b"');
+    await client.sadd("key1", "b");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SADD key1 "c"
-    await client.sadd("key1", '"c"');
+    await client.sadd("key1", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SADD key2 "c"
-    await client.sadd("key2", '"c"');
+    await client.sadd("key2", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SADD key2 "d"
-    await client.sadd("key2", '"d"');
+    await client.sadd("key2", "d");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SADD key2 "e"
-    await client.sadd("key2", '"e"');
+    await client.sadd("key2", "e");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinter.md 0
     // SINTER key1 key2
@@ -2389,27 +2305,27 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SADD key1 "a"
-    await client.sadd("key1", '"a"');
+    await client.sadd("key1", "a");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SADD key1 "b"
-    await client.sadd("key1", '"b"');
+    await client.sadd("key1", "b");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SADD key1 "c"
-    await client.sadd("key1", '"c"');
+    await client.sadd("key1", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SADD key2 "c"
-    await client.sadd("key2", '"c"');
+    await client.sadd("key2", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SADD key2 "d"
-    await client.sadd("key2", '"d"');
+    await client.sadd("key2", "d");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SADD key2 "e"
-    await client.sadd("key2", '"e"');
+    await client.sadd("key2", "e");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sinterstore.md 0
     // SINTERSTORE key key1 key2
@@ -2421,23 +2337,23 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sismember.md 0
     // SADD myset "one"
-    await client.sadd("myset", '"one"');
+    await client.sadd("myset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sismember.md 0
     // SISMEMBER myset "one"
-    await client.sismember("myset", '"one"');
+    await client.sismember("myset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sismember.md 0
     // SISMEMBER myset "two"
-    await client.sismember("myset", '"two"');
+    await client.sismember("myset", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smembers.md 0
     // SADD myset "Hello"
-    await client.sadd("myset", '"Hello"');
+    await client.sadd("myset", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smembers.md 0
     // SADD myset "World"
-    await client.sadd("myset", '"World"');
+    await client.sadd("myset", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smembers.md 0
     // SMEMBERS myset
@@ -2445,19 +2361,19 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smove.md 0
     // SADD myset "one"
-    await client.sadd("myset", '"one"');
+    await client.sadd("myset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smove.md 0
     // SADD myset "two"
-    await client.sadd("myset", '"two"');
+    await client.sadd("myset", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smove.md 0
     // SADD myotherset "three"
-    await client.sadd("myotherset", '"three"');
+    await client.sadd("myotherset", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smove.md 0
     // SMOVE myset myotherset "two"
-    await client.smove("myset", "myotherset", '"two"');
+    await client.smove("myset", "myotherset", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/smove.md 0
     // SMEMBERS myset
@@ -2469,15 +2385,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SADD myset "one"
-    await client.sadd("myset", '"one"');
+    await client.sadd("myset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SADD myset "two"
-    await client.sadd("myset", '"two"');
+    await client.sadd("myset", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SADD myset "three"
-    await client.sadd("myset", '"three"');
+    await client.sadd("myset", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SPOP myset
@@ -2489,11 +2405,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SADD myset "four"
-    await client.sadd("myset", '"four"');
+    await client.sadd("myset", "four");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SADD myset "five"
-    await client.sadd("myset", '"five"');
+    await client.sadd("myset", "five");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/spop.md 0
     // SPOP myset 3
@@ -2521,23 +2437,23 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/srem.md 0
     // SADD myset "one"
-    await client.sadd("myset", '"one"');
+    await client.sadd("myset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/srem.md 0
     // SADD myset "two"
-    await client.sadd("myset", '"two"');
+    await client.sadd("myset", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/srem.md 0
     // SADD myset "three"
-    await client.sadd("myset", '"three"');
+    await client.sadd("myset", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/srem.md 0
     // SREM myset "one"
-    await client.srem("myset", '"one"');
+    await client.srem("myset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/srem.md 0
     // SREM myset "four"
-    await client.srem("myset", '"four"');
+    await client.srem("myset", "four");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/srem.md 0
     // SMEMBERS myset
@@ -2545,25 +2461,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/strlen.md 0
     // SET mykey "Hello world"
-    // Error decoding:
-    // "decoding SET overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,world"], target args remaining count: 1'
-    // '"Hello successfully decoded as value (string). Tokens remaining [world"], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: world"'
-    // "decoding SET overload 1 (key,value,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,world"], target args remaining count: 2'
-    // '"Hello successfully decoded as value (string). Tokens remaining [world"], target args remaining count: 1'
-    // 'Expected one of NX,XX, got world"'
-    // "decoding SET overload 2 (key,value,expiration): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,world"], target args remaining count: 2'
-    // '"Hello successfully decoded as value (string). Tokens remaining [world"], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got world"'
-    // "decoding SET overload 3 (key,value,expiration,condition): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } },{ name: 'expiration', optional: true, schema: { type: 'array', items: [ { type: 'string', enum: [ 'EX', 'PX' ] }, { type: 'number' } ] } },{ name: 'condition', optional: true, schema: { type: 'string', enum: [ 'NX', 'XX' ] } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining ["Hello,world"], target args remaining count: 3'
-    // '"Hello successfully decoded as value (string). Tokens remaining [world"], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected one of EX,PX, got world"'
+    await client.set("mykey", "Hello world");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/strlen.md 0
     // STRLEN mykey
@@ -2575,27 +2473,27 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SADD key1 "a"
-    await client.sadd("key1", '"a"');
+    await client.sadd("key1", "a");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SADD key1 "b"
-    await client.sadd("key1", '"b"');
+    await client.sadd("key1", "b");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SADD key1 "c"
-    await client.sadd("key1", '"c"');
+    await client.sadd("key1", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SADD key2 "c"
-    await client.sadd("key2", '"c"');
+    await client.sadd("key2", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SADD key2 "d"
-    await client.sadd("key2", '"d"');
+    await client.sadd("key2", "d");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SADD key2 "e"
-    await client.sadd("key2", '"e"');
+    await client.sadd("key2", "e");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunion.md 0
     // SUNION key1 key2
@@ -2603,27 +2501,27 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SADD key1 "a"
-    await client.sadd("key1", '"a"');
+    await client.sadd("key1", "a");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SADD key1 "b"
-    await client.sadd("key1", '"b"');
+    await client.sadd("key1", "b");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SADD key1 "c"
-    await client.sadd("key1", '"c"');
+    await client.sadd("key1", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SADD key2 "c"
-    await client.sadd("key2", '"c"');
+    await client.sadd("key2", "c");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SADD key2 "d"
-    await client.sadd("key2", '"d"');
+    await client.sadd("key2", "d");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SADD key2 "e"
-    await client.sadd("key2", '"e"');
+    await client.sadd("key2", "e");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/sunionstore.md 0
     // SUNIONSTORE key key1 key2
@@ -2643,11 +2541,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/touch.md 0
     // SET key1 "Hello"
-    await client.set("key1", '"Hello"');
+    await client.set("key1", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/touch.md 0
     // SET key2 "World"
-    await client.set("key2", '"World"');
+    await client.set("key2", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/touch.md 0
     // TOUCH key1 key2
@@ -2655,7 +2553,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ttl.md 0
     // SET mykey "Hello"
-    await client.set("mykey", '"Hello"');
+    await client.set("mykey", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/ttl.md 0
     // EXPIRE mykey 10
@@ -2667,15 +2565,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/type.md 0
     // SET key1 "value"
-    await client.set("key1", '"value"');
+    await client.set("key1", "value");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/type.md 0
     // LPUSH key2 "value"
-    await client.lpush("key2", '"value"');
+    await client.lpush("key2", "value");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/type.md 0
     // SADD key3 "value"
-    await client.sadd("key3", '"value"');
+    await client.sadd("key3", "value");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/type.md 0
     // TYPE key1
@@ -2691,11 +2589,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/unlink.md 0
     // SET key1 "Hello"
-    await client.set("key1", '"Hello"');
+    await client.set("key1", "Hello");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/unlink.md 0
     // SET key2 "World"
-    await client.set("key2", '"World"');
+    await client.set("key2", "World");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/unlink.md 0
     // UNLINK key1 key2 key3
@@ -2807,15 +2705,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zadd.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zadd.md 0
     // ZADD myzset 1 "uno"
-    await client.zadd("myzset", [1, '"uno"']);
+    await client.zadd("myzset", [1, "uno"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zadd.md 0
     // ZADD myzset 2 "two" 3 "three"
-    await client.zadd("myzset", [2, '"two"'], [3, '"three"']);
+    await client.zadd("myzset", [2, "two"], [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zadd.md 0
     // ZRANGE myzset 0 -1 WITHSCORES
@@ -2823,11 +2721,11 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcard.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcard.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcard.md 0
     // ZCARD myzset
@@ -2835,15 +2733,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcount.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcount.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcount.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcount.md 0
     // ZCOUNT myzset -inf +inf
@@ -2861,15 +2759,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zincrby.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zincrby.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zincrby.md 0
     // ZINCRBY myzset 2 "one"
-    await client.zincrby("myzset", 2, '"one"');
+    await client.zincrby("myzset", 2, "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zincrby.md 0
     // ZRANGE myzset 0 -1 WITHSCORES
@@ -2877,23 +2775,23 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zinterstore.md 0
     // ZADD zset1 1 "one"
-    await client.zadd("zset1", [1, '"one"']);
+    await client.zadd("zset1", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zinterstore.md 0
     // ZADD zset1 2 "two"
-    await client.zadd("zset1", [2, '"two"']);
+    await client.zadd("zset1", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zinterstore.md 0
     // ZADD zset2 1 "one"
-    await client.zadd("zset2", [1, '"one"']);
+    await client.zadd("zset2", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zinterstore.md 0
     // ZADD zset2 2 "two"
-    await client.zadd("zset2", [2, '"two"']);
+    await client.zadd("zset2", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zinterstore.md 0
     // ZADD zset2 3 "three"
-    await client.zadd("zset2", [3, '"three"']);
+    await client.zadd("zset2", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zinterstore.md 0
     // ZINTERSTORE out 2 zset1 zset2 WEIGHTS 2 3
@@ -2921,15 +2819,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmax.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmax.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmax.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmax.md 0
     // ZPOPMAX myzset
@@ -2937,15 +2835,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmin.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmin.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmin.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zpopmin.md 0
     // ZPOPMIN myzset
@@ -2953,15 +2851,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrange.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrange.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrange.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrange.md 0
     // ZRANGE myzset 0 -1
@@ -2997,15 +2895,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZRANGEBYSCORE myzset -inf +inf
@@ -3061,39 +2959,39 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrank.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrank.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrank.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrank.md 0
     // ZRANK myzset "three"
-    await client.zrank("myzset", '"three"');
+    await client.zrank("myzset", "three");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrank.md 0
     // ZRANK myzset "four"
-    await client.zrank("myzset", '"four"');
+    await client.zrank("myzset", "four");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrem.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrem.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrem.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrem.md 0
     // ZREM myzset "two"
-    await client.zrem("myzset", '"two"');
+    await client.zrem("myzset", "two");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrem.md 0
     // ZRANGE myzset 0 -1 WITHSCORES
@@ -3121,15 +3019,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyrank.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyrank.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyrank.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyrank.md 0
     // ZREMRANGEBYRANK myzset 0 1
@@ -3141,15 +3039,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyscore.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyscore.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyscore.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyscore.md 0
     // ZREMRANGEBYSCORE myzset -inf (2
@@ -3164,15 +3062,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrange.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrange.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrange.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrange.md 0
     // ZREVRANGE myzset 0 -1
@@ -3204,15 +3102,15 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZREVRANGEBYSCORE myzset +inf -inf
@@ -3272,51 +3170,51 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrank.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrank.md 0
     // ZADD myzset 2 "two"
-    await client.zadd("myzset", [2, '"two"']);
+    await client.zadd("myzset", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrank.md 0
     // ZADD myzset 3 "three"
-    await client.zadd("myzset", [3, '"three"']);
+    await client.zadd("myzset", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrank.md 0
     // ZREVRANK myzset "one"
-    await client.zrevrank("myzset", '"one"');
+    await client.zrevrank("myzset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrank.md 0
     // ZREVRANK myzset "four"
-    await client.zrevrank("myzset", '"four"');
+    await client.zrevrank("myzset", "four");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zscore.md 0
     // ZADD myzset 1 "one"
-    await client.zadd("myzset", [1, '"one"']);
+    await client.zadd("myzset", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zscore.md 0
     // ZSCORE myzset "one"
-    await client.zscore("myzset", '"one"');
+    await client.zscore("myzset", "one");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zunionstore.md 0
     // ZADD zset1 1 "one"
-    await client.zadd("zset1", [1, '"one"']);
+    await client.zadd("zset1", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zunionstore.md 0
     // ZADD zset1 2 "two"
-    await client.zadd("zset1", [2, '"two"']);
+    await client.zadd("zset1", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zunionstore.md 0
     // ZADD zset2 1 "one"
-    await client.zadd("zset2", [1, '"one"']);
+    await client.zadd("zset2", [1, "one"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zunionstore.md 0
     // ZADD zset2 2 "two"
-    await client.zadd("zset2", [2, '"two"']);
+    await client.zadd("zset2", [2, "two"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zunionstore.md 0
     // ZADD zset2 3 "three"
-    await client.zadd("zset2", [3, '"three"']);
+    await client.zadd("zset2", [3, "three"]);
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zunionstore.md 0
     // ZUNIONSTORE out 2 zset1 zset2 WEIGHTS 2 3

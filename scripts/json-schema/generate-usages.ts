@@ -241,7 +241,7 @@ const decodeTokensCore = (
     return fail(`Not smart enough to deal with ${print(headArg)} yet`);
 };
 
-const eall = () => {
+const typescriptUsage = () => {
     const all = extractAllCliExamples();
     const mapped = all
         .map(a => tokenizeCliExample(a))
@@ -292,7 +292,7 @@ export const stringifyWithVarArgs = (input: unknown) =>
     });
 
 if (require.main === module) {
-    eall();
+    typescriptUsage();
 }
 
 // const usages = Object.keys(schema).map(command => {});

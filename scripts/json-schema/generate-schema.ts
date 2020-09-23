@@ -142,7 +142,7 @@ const main = () => {
         {}
     );
 
-    const fixed = fixup(jsonified);
+    const fixed = fixupSchema(jsonified);
 
     writeFile(path.join(__dirname, "schema.json"), JSON.stringify(fixed, null, 2));
 };

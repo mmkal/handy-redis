@@ -81,9 +81,10 @@ export const decodeTokens = (
     return core;
 };
 
+/** For formatting js argument lists, we need to know the difference between tuples and varargs, since they look the same in json. These markers keep track */
 const ArrayMarkers = {
     type: Symbol("ArrayType"),
-    list: Symbol("ArrayType:list"),
+    varargs: Symbol("ArrayType:list"),
     tuple: Symbol("ArrayType:tuple"),
 };
 
@@ -225,7 +226,7 @@ const decodeTokensCore = (
                       ...next,
                       decoded: [
                           Object.assign(acc.decoded[0].concat(next.decoded), {
-                              [ArrayMarkers.type]: ArrayMarkers.list,
+                              [ArrayMarkers.type]: ArrayMarkers.varargs,
                           }),
                       ],
                   };
@@ -274,16 +275,13 @@ const eall = () => {
  * - array parameters at the end of argument lists are converted to js rest args (e.g. `...args: Foobar[]`)
  * - the usage-generator marks args with
  */
-export const stringifyWithVarArgs = (val: unknown) =>
-    JSON.stringify(val, (key, value) => {
-        if (
-            Array.isArray(value) &&
-            Array.isArray(value[value.length - 1]) &&
-            value[value.length - 1][ArrayMarkers.type] === ArrayMarkers.list
-        ) {
-            return value.slice(0, -1).concat(value[value.length - 1]);
+export const stringifyWithVarArgs = (input: unknown) =>
+    JSON.stringify(input, (key, val) => {
+        const maybeLast = Array.isArray(val) ? val[val.length - 1] : undefined;
+        if (Array.isArray(maybeLast) && (maybeLast as any)[ArrayMarkers.type] === ArrayMarkers.varargs) {
+            return val.slice(0, -1).concat(val[val.length - 1]);
         }
-        return value;
+        return val;
     });
 
 if (require.main === module) {

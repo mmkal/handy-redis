@@ -31,7 +31,10 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     }
     if (schema.type === "array") {
         if (Array.isArray(schema.items)) {
-            return `[${schema.items.map(schemaToTypeScript).join(", ")}]`;
+            return `[${schema.items
+                .map(schemaToTypeScript)
+                .map(t => `(${t})`)
+                .join(", ")}]`;
         }
         const itemType = typeof schema.items === "object" ? schemaToTypeScript(schema.items) : unknownType;
         return `Array<${itemType}>`;

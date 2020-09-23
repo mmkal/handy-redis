@@ -121,10 +121,10 @@ const decodeTokensCore = (
         context: [...context, msg],
     });
 
-    const next = (decodedValue: unknown) => {
+    const next = (decodedValue: unknown, message = `Decoded value ${decodedValue}.`) => {
         const remainder = decodeTokensCore(tailTokens, tailArgs, [
             ...context,
-            `${headToken} successfully decoded as ${headArg.name} (string). Decoded value ${decodedValue}. Tokens remaining [${tailTokens}], target args remainin count: ${tailArgs.length}`,
+            `${headToken} successfully decoded as ${headArg.name} (string). ${message} Tokens remaining [${tailTokens}], target args remainin count: ${tailArgs.length}`,
         ]);
         return remainder.decoded ? { ...remainder, decoded: [decodedValue, ...remainder.decoded] } : remainder;
     };
@@ -232,9 +232,9 @@ const decodeTokensCore = (
         return acc;
     }
 
-    // if (typeof headArg.schema.type === "undefined") {
-    //     return;
-    // }
+    if (typeof headArg.schema.type === "undefined") {
+        return next(headToken, `Decoded value ${headToken} as-is. No json-schema type detected - anything goes!!`);
+    }
 
     return fail(`Not smart enough to deal with ${print(headArg)} yet`);
 };

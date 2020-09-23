@@ -267,11 +267,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
     // EXPIREAT mykey 1293840000
-    // Error decoding:
-    // decoding EXPIREAT overload 0 (key,timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'timestamp', schema: {} }
-    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [1293840000], target args remainin count: 1
-    // Not smart enough to deal with { name: 'timestamp', schema: {} } yet
-    // ---
+    await client.expireat("mykey", "1293840000");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
     // EXISTS mykey
@@ -980,11 +976,7 @@ export const f = async (client: Client) => {
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
     // PEXPIREAT mykey 1555555555005
-    // Error decoding:
-    // decoding PEXPIREAT overload 0 (key,milliseconds-timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'milliseconds-timestamp', schema: {} }
-    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [1555555555005], target args remainin count: 1
-    // Not smart enough to deal with { name: 'milliseconds-timestamp', schema: {} } yet
-    // ---
+    await client.pexpireat("mykey", "1555555555005");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
     // TTL mykey

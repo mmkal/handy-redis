@@ -55,7 +55,6 @@ export const toArgs = (tokens: string[]) => {
     const jsonSchema = schema[command.toUpperCase()];
     if (!jsonSchema) {
         return { command, decoded: undefined, contexts: [[`${command} not found`]] };
-        // throw Error(`${command} not found`);
     }
     const overloads = getOverloads(jsonSchema.arguments);
     const results = overloads
@@ -65,12 +64,12 @@ export const toArgs = (tokens: string[]) => {
             });
             return ov;
         })
-        .map((o, i) => decodeTokensMain(args, o, [`decoding ${command} overload ${i} (${o.map(a => a.name)}): ${o}`]));
+        .map((o, i) => decodeTokens(args, o, [`decoding ${command} overload ${i} (${o.map(a => a.name)}): ${o}`]));
     const success = results.find(r => r.decoded);
     return { command, decoded: success?.decoded, contexts: results.map(r => r.context) };
 };
 
-export const decodeTokensMain = (
+export const decodeTokens = (
     tokens: string[],
     targetArgs: Pick<JsonSchemaCommandArgument, "schema" | "name">[],
     context: string[]

@@ -106,6 +106,8 @@ const decodeTokensCore = (
         };
     }
     if (targetArgs.length === 0) {
+        // we successfully decoded all the tokens. There are are target args remaining. Depending on context this may or may not be
+        // a failure. Return the leftovers so the caller can decide whether to fail or try to use up leftovers (say, for varargs).
         return {
             decoded: [],
             leftovers: tokens,

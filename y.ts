@@ -120,43 +120,50 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/client-id.md 0
     // CLIENT ID
     // Error decoding:
-    // 'CLIENT not found'
+    // CLIENT not found
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-count.md 0
     // COMMAND COUNT
     // Error decoding:
-    // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: COUNT'
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: COUNT
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-getkeys.md 0
     // COMMAND GETKEYS MSET a b c d e f
     // Error decoding:
-    // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: GETKEYS,MSET,a,b,c,d,e,f'
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: GETKEYS,MSET,a,b,c,d,e,f
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-getkeys.md 0
     // COMMAND GETKEYS EVAL "not consulted" 3 key1 key2 key3 arg1 arg2 arg3 argN
     // Error decoding:
-    // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: GETKEYS,EVAL,not consulted,3,key1,key2,key3,arg1,arg2,arg3,argN'
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: GETKEYS,EVAL,not consulted,3,key1,key2,key3,arg1,arg2,arg3,argN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-getkeys.md 0
     // COMMAND GETKEYS SORT mylist ALPHA STORE outlist
     // Error decoding:
-    // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: GETKEYS,SORT,mylist,ALPHA,STORE,outlist'
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: GETKEYS,SORT,mylist,ALPHA,STORE,outlist
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-info.md 0
     // COMMAND INFO get set eval
     // Error decoding:
-    // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: INFO,get,set,eval'
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: INFO,get,set,eval
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command-info.md 0
     // COMMAND INFO foo evalsha config bar
     // Error decoding:
-    // 'decoding COMMAND overload 0 (): '
-    // 'Tokens remain but no target args left! Tokens: INFO,foo,evalsha,config,bar'
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: INFO,foo,evalsha,config,bar
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/command.md 0
     // COMMAND
@@ -261,9 +268,10 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
     // EXPIREAT mykey 1293840000
     // Error decoding:
-    // "decoding EXPIREAT overload 0 (key,timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'timestamp', schema: {} }"
-    // 'mykey successfully decoded as key (string). Tokens remaining [1293840000], target args remaining count: 1'
-    // "Not smart enought to deal with { name: 'timestamp', schema: {} } yet"
+    // decoding EXPIREAT overload 0 (key,timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'timestamp', schema: {} }
+    // mykey successfully decoded as key (string). Tokens remaining [1293840000], target args remaining count: 1
+    // Not smart enought to deal with { name: 'timestamp', schema: {} } yet
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
     // EXISTS mykey
@@ -296,7 +304,8 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodecode.md 0
     // GEODECODE 3479099956230698
     // Error decoding:
-    // 'GEODECODE not found'
+    // GEODECODE not found
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geodist.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
@@ -329,7 +338,8 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geoencode.md 0
     // GEOENCODE 13.361389 38.115556 100 km
     // Error decoding:
-    // 'GEOENCODE not found'
+    // GEOENCODE not found
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/geohash.md 0
     // GEOADD Sicily 13.361389 38.115556 "Palermo" 15.087269 37.502669 "Catania"
@@ -360,958 +370,8 @@ export const f = async (client: Client) => {
     await client.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadius.md 0
-    // GEORADIUS Sicily 15 37 200 km WITHDIST WITHCOORD
-    // Error decoding:
-    // "decoding GEORADIUS overload 0 (key,longitude,latitude,radius,unit): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: WITHDIST,WITHCOORD'
-    // "decoding GEORADIUS overload 1 (key,longitude,latitude,radius,unit,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected STOREDIST, got WITHDIST'
-    // "decoding GEORADIUS overload 2 (key,longitude,latitude,radius,unit,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected STORE, got WITHDIST'
-    // "decoding GEORADIUS overload 3 (key,longitude,latitude,radius,unit,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected STORE, got WITHDIST'
-    // "decoding GEORADIUS overload 4 (key,longitude,latitude,radius,unit,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'Expected one of ASC,DESC, got WITHDIST'
-    // "decoding GEORADIUS overload 5 (key,longitude,latitude,radius,unit,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of ASC,DESC, got WITHDIST'
-    // "decoding GEORADIUS overload 6 (key,longitude,latitude,radius,unit,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of ASC,DESC, got WITHDIST'
-    // "decoding GEORADIUS overload 7 (key,longitude,latitude,radius,unit,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of ASC,DESC, got WITHDIST'
-    // "decoding GEORADIUS overload 8 (key,longitude,latitude,radius,unit,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 9 (key,longitude,latitude,radius,unit,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 10 (key,longitude,latitude,radius,unit,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 11 (key,longitude,latitude,radius,unit,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 12 (key,longitude,latitude,radius,unit,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 13 (key,longitude,latitude,radius,unit,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 14 (key,longitude,latitude,radius,unit,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 15 (key,longitude,latitude,radius,unit,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHDIST'
-    // "decoding GEORADIUS overload 16 (key,longitude,latitude,radius,unit,withhash): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 17 (key,longitude,latitude,radius,unit,withhash,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 18 (key,longitude,latitude,radius,unit,withhash,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 19 (key,longitude,latitude,radius,unit,withhash,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 20 (key,longitude,latitude,radius,unit,withhash,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 21 (key,longitude,latitude,radius,unit,withhash,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 22 (key,longitude,latitude,radius,unit,withhash,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 23 (key,longitude,latitude,radius,unit,withhash,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 24 (key,longitude,latitude,radius,unit,withhash,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 25 (key,longitude,latitude,radius,unit,withhash,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 26 (key,longitude,latitude,radius,unit,withhash,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 27 (key,longitude,latitude,radius,unit,withhash,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 28 (key,longitude,latitude,radius,unit,withhash,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 29 (key,longitude,latitude,radius,unit,withhash,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 30 (key,longitude,latitude,radius,unit,withhash,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 31 (key,longitude,latitude,radius,unit,withhash,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHHASH, got WITHDIST'
-    // "decoding GEORADIUS overload 32 (key,longitude,latitude,radius,unit,withdist): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 0'
-    // 'Tokens remain but no target args left! Tokens: WITHCOORD'
-    // "decoding GEORADIUS overload 33 (key,longitude,latitude,radius,unit,withdist,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected STOREDIST, got WITHCOORD'
-    // "decoding GEORADIUS overload 34 (key,longitude,latitude,radius,unit,withdist,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected STORE, got WITHCOORD'
-    // "decoding GEORADIUS overload 35 (key,longitude,latitude,radius,unit,withdist,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected STORE, got WITHCOORD'
-    // "decoding GEORADIUS overload 36 (key,longitude,latitude,radius,unit,withdist,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 1'
-    // 'Expected one of ASC,DESC, got WITHCOORD'
-    // "decoding GEORADIUS overload 37 (key,longitude,latitude,radius,unit,withdist,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Expected one of ASC,DESC, got WITHCOORD'
-    // "decoding GEORADIUS overload 38 (key,longitude,latitude,radius,unit,withdist,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Expected one of ASC,DESC, got WITHCOORD'
-    // "decoding GEORADIUS overload 39 (key,longitude,latitude,radius,unit,withdist,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of ASC,DESC, got WITHCOORD'
-    // "decoding GEORADIUS overload 40 (key,longitude,latitude,radius,unit,withdist,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 1'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 41 (key,longitude,latitude,radius,unit,withdist,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 42 (key,longitude,latitude,radius,unit,withdist,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 43 (key,longitude,latitude,radius,unit,withdist,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 44 (key,longitude,latitude,radius,unit,withdist,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 45 (key,longitude,latitude,radius,unit,withdist,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 46 (key,longitude,latitude,radius,unit,withdist,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 47 (key,longitude,latitude,radius,unit,withdist,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 4'
-    // 'Decoding tuple items'
-    // 'Expected COUNT, got WITHCOORD'
-    // "decoding GEORADIUS overload 48 (key,longitude,latitude,radius,unit,withdist,withhash): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 1'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 49 (key,longitude,latitude,radius,unit,withdist,withhash,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 50 (key,longitude,latitude,radius,unit,withdist,withhash,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 51 (key,longitude,latitude,radius,unit,withdist,withhash,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 52 (key,longitude,latitude,radius,unit,withdist,withhash,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 53 (key,longitude,latitude,radius,unit,withdist,withhash,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 54 (key,longitude,latitude,radius,unit,withdist,withhash,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 55 (key,longitude,latitude,radius,unit,withdist,withhash,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 56 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 57 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 58 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 59 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 60 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 61 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 62 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 63 (key,longitude,latitude,radius,unit,withdist,withhash,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'WITHDIST successfully decoded as withdist (string). Tokens remaining [WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHHASH, got WITHCOORD'
-    // "decoding GEORADIUS overload 64 (key,longitude,latitude,radius,unit,withcoord): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 1'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 65 (key,longitude,latitude,radius,unit,withcoord,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 66 (key,longitude,latitude,radius,unit,withcoord,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 67 (key,longitude,latitude,radius,unit,withcoord,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 68 (key,longitude,latitude,radius,unit,withcoord,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 69 (key,longitude,latitude,radius,unit,withcoord,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 70 (key,longitude,latitude,radius,unit,withcoord,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 71 (key,longitude,latitude,radius,unit,withcoord,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 72 (key,longitude,latitude,radius,unit,withcoord,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 73 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 74 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 75 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 76 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 77 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 78 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 79 (key,longitude,latitude,radius,unit,withcoord,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 80 (key,longitude,latitude,radius,unit,withcoord,withhash): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 81 (key,longitude,latitude,radius,unit,withcoord,withhash,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 82 (key,longitude,latitude,radius,unit,withcoord,withhash,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 83 (key,longitude,latitude,radius,unit,withcoord,withhash,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 84 (key,longitude,latitude,radius,unit,withcoord,withhash,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 85 (key,longitude,latitude,radius,unit,withcoord,withhash,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 86 (key,longitude,latitude,radius,unit,withcoord,withhash,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 87 (key,longitude,latitude,radius,unit,withcoord,withhash,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 88 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 89 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 90 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 91 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 92 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 93 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 94 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 95 (key,longitude,latitude,radius,unit,withcoord,withhash,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 96 (key,longitude,latitude,radius,unit,withcoord,withdist): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 2'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 97 (key,longitude,latitude,radius,unit,withcoord,withdist,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 98 (key,longitude,latitude,radius,unit,withcoord,withdist,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 99 (key,longitude,latitude,radius,unit,withcoord,withdist,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 100 (key,longitude,latitude,radius,unit,withcoord,withdist,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 101 (key,longitude,latitude,radius,unit,withcoord,withdist,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 102 (key,longitude,latitude,radius,unit,withcoord,withdist,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 103 (key,longitude,latitude,radius,unit,withcoord,withdist,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 104 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 105 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 106 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 107 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 108 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 109 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 110 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 111 (key,longitude,latitude,radius,unit,withcoord,withdist,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 112 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 3'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 113 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 114 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 115 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 116 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 117 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 118 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 119 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 120 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 4'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 121 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 122 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 123 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 124 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,order): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 5'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 125 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,order,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 126 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,order,STORE_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 6'
-    // 'Expected one of WITHCOORD, got WITHDIST'
-    // "decoding GEORADIUS overload 127 (key,longitude,latitude,radius,unit,withcoord,withdist,withhash,COUNT_count,order,STORE_key,STOREDIST_key): { name: 'key', schema: { type: 'string' } },{ name: 'longitude', schema: { type: 'number' } },{ name: 'latitude', schema: { type: 'number' } },{ name: 'radius', schema: { type: 'number' } },{ name: 'unit', schema: { type: 'string', enum: [ 'm', 'km', 'ft', 'mi' ] } },{ name: 'withcoord', optional: true, schema: { type: 'string', enum: [ 'WITHCOORD' ] } },{ name: 'withdist', optional: true, schema: { type: 'string', enum: [ 'WITHDIST' ] } },{ name: 'withhash', optional: true, schema: { type: 'string', enum: [ 'WITHHASH' ] } },{ name: 'COUNT_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'COUNT' }, { type: 'integer' } ] } },{ name: 'order', optional: true, schema: { type: 'string', enum: [ 'ASC', 'DESC' ] } },{ name: 'STORE_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STORE' }, { type: 'string' } ] } },{ name: 'STOREDIST_key', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'STOREDIST' }, { type: 'string' } ] } }"
-    // 'Sicily successfully decoded as key (string). Tokens remaining [15,37,200,km,WITHDIST,WITHCOORD], target args remaining count: 11'
-    // '15 successfully decoded as longitude (number). Tokens remaining [37,200,km,WITHDIST,WITHCOORD], target args remaining count: 10'
-    // '37 successfully decoded as latitude (number). Tokens remaining [200,km,WITHDIST,WITHCOORD], target args remaining count: 9'
-    // '200 successfully decoded as radius (number). Tokens remaining [km,WITHDIST,WITHCOORD], target args remaining count: 8'
-    // 'km successfully decoded as unit (string). Tokens remaining [WITHDIST,WITHCOORD], target args remaining count: 7'
-    // 'Expected one of WITHCOORD, got WITHDIST'
+    // GEORADIUS Sicily 15 37 200 km WITHCOORD WITHDIST
+    await client.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD", "WITHDIST");
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/georadiusbymember.md 0
     // GEOADD Sicily 13.583333 37.316667 "Agrigento"
@@ -1480,10 +540,11 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hincrbyfloat.md 0
     // HINCRBYFLOAT mykey field 2.0e2
     // Error decoding:
-    // "decoding HINCRBYFLOAT overload 0 (key,field,increment): { name: 'key', schema: { type: 'string' } },{ name: 'field', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining [field,2.0e2], target args remaining count: 2'
-    // 'field successfully decoded as field (string). Tokens remaining [2.0e2], target args remaining count: 1'
-    // '2.0e2 parsed into a bad number 200'
+    // decoding HINCRBYFLOAT overload 0 (key,field,increment): { name: 'key', schema: { type: 'string' } },{ name: 'field', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }
+    // mykey successfully decoded as key (string). Tokens remaining [field,2.0e2], target args remaining count: 2
+    // field successfully decoded as field (string). Tokens remaining [2.0e2], target args remaining count: 1
+    // 2.0e2 parsed into a bad number 200
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/hkeys.md 0
     // HSET myhash field1 "Hello"
@@ -1620,9 +681,10 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/incrbyfloat.md 0
     // INCRBYFLOAT mykey 2.0e2
     // Error decoding:
-    // "decoding INCRBYFLOAT overload 0 (key,increment): { name: 'key', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }"
-    // 'mykey successfully decoded as key (string). Tokens remaining [2.0e2], target args remaining count: 1'
-    // '2.0e2 parsed into a bad number 200'
+    // decoding INCRBYFLOAT overload 0 (key,increment): { name: 'key', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }
+    // mykey successfully decoded as key (string). Tokens remaining [2.0e2], target args remaining count: 1
+    // 2.0e2 parsed into a bad number 200
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/info.md 0
     // INFO
@@ -1919,9 +981,10 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
     // PEXPIREAT mykey 1555555555005
     // Error decoding:
-    // "decoding PEXPIREAT overload 0 (key,milliseconds-timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'milliseconds-timestamp', schema: {} }"
-    // 'mykey successfully decoded as key (string). Tokens remaining [1555555555005], target args remaining count: 1'
-    // "Not smart enought to deal with { name: 'milliseconds-timestamp', schema: {} } yet"
+    // decoding PEXPIREAT overload 0 (key,milliseconds-timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'milliseconds-timestamp', schema: {} }
+    // mykey successfully decoded as key (string). Tokens remaining [1555555555005], target args remaining count: 1
+    // Not smart enought to deal with { name: 'milliseconds-timestamp', schema: {} } yet
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
     // TTL mykey
@@ -2746,16 +1809,18 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcount.md 0
     // ZCOUNT myzset -inf +inf
     // Error decoding:
-    // "decoding ZCOUNT overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 2'
-    // '-inf parsed into a bad number NaN'
+    // decoding ZCOUNT overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 2
+    // -inf parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zcount.md 0
     // ZCOUNT myzset (1 3
     // Error decoding:
-    // "decoding ZCOUNT overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,3], target args remaining count: 2'
-    // '(1 parsed into a bad number NaN'
+    // decoding ZCOUNT overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,3], target args remaining count: 2
+    // (1 parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zincrby.md 0
     // ZADD myzset 1 "one"
@@ -2908,18 +1973,22 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZRANGEBYSCORE myzset -inf +inf
     // Error decoding:
-    // "decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 2'
-    // '-inf parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 3'
-    // '-inf parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 3'
-    // '-inf parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 4'
-    // '-inf parsed into a bad number NaN'
+    // decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 2
+    // -inf parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 3
+    // -inf parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
+    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 3
+    // -inf parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 4
+    // -inf parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZRANGEBYSCORE myzset 1 2
@@ -2928,34 +1997,42 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZRANGEBYSCORE myzset (1 2
     // Error decoding:
-    // "decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 2'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 3'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 3'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 4'
-    // '(1 parsed into a bad number NaN'
+    // decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 2
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 3
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 3
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 4
+    // (1 parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrangebyscore.md 0
     // ZRANGEBYSCORE myzset (1 (2
     // Error decoding:
-    // "decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 2'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 3'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 3'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 4'
-    // '(1 parsed into a bad number NaN'
+    // decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 2
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 3
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 3
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 4
+    // (1 parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrank.md 0
     // ZADD myzset 1 "one"
@@ -3052,9 +2129,10 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyscore.md 0
     // ZREMRANGEBYSCORE myzset -inf (2
     // Error decoding:
-    // "decoding ZREMRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [-inf,(2], target args remaining count: 2'
-    // '-inf parsed into a bad number NaN'
+    // decoding ZREMRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [-inf,(2], target args remaining count: 2
+    // -inf parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zremrangebyscore.md 0
     // ZRANGE myzset 0 -1 WITHSCORES
@@ -3115,18 +2193,22 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZREVRANGEBYSCORE myzset +inf -inf
     // Error decoding:
-    // "decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 2'
-    // '+inf parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 3'
-    // '+inf parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 3'
-    // '+inf parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 4'
-    // '+inf parsed into a bad number NaN'
+    // decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 2
+    // +inf parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 3
+    // +inf parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
+    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 3
+    // +inf parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 4
+    // +inf parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZREVRANGEBYSCORE myzset 2 1
@@ -3135,38 +2217,46 @@ export const f = async (client: Client) => {
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZREVRANGEBYSCORE myzset 2 (1
     // Error decoding:
-    // "decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 2'
-    // '2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 1'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 3'
-    // '2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 2'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 3'
-    // '2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 2'
-    // '(1 parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 4'
-    // '2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 3'
-    // '(1 parsed into a bad number NaN'
+    // decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 2
+    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 1
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 3
+    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 2
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
+    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 3
+    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 2
+    // (1 parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 4
+    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 3
+    // (1 parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrangebyscore.md 0
     // ZREVRANGEBYSCORE myzset (2 (1
     // Error decoding:
-    // "decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 2'
-    // '(2 parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 3'
-    // '(2 parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 3'
-    // '(2 parsed into a bad number NaN'
-    // "decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] } }"
-    // 'myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 4'
-    // '(2 parsed into a bad number NaN'
+    // decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }
+    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 2
+    // (2 parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 3
+    // (2 parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
+    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 3
+    // (2 parsed into a bad number NaN
+    // ---
+    // decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
+    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 4
+    // (2 parsed into a bad number NaN
+    // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/zrevrank.md 0
     // ZADD myzset 1 "one"

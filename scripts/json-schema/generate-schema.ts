@@ -3,8 +3,8 @@ import * as cmnds from "../redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "../command/types";
-import { fixup } from "./fixup";
-import {JsonSchemaCommand} from ".";
+import { fixupSchema } from "./fixup";
+import { JsonSchemaCommand } from ".";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     if (arg.multiple || arg.variadic) {
@@ -123,7 +123,10 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
 const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
     arguments: (command?.arguments || []).map(arg => ({
-        name: [arg.command, arg.name].flat().filter((val, i, arr) => val && val !== arr[i - 1]).join("_"),
+        name: [arg.command, arg.name]
+            .flat()
+            .filter((val, i, arr) => val && val !== arr[i - 1])
+            .join("_"),
         optional: arg.optional,
         schema: argToSchema(arg),
     })),
@@ -139,7 +142,7 @@ const main = () => {
         {}
     );
 
-    const fixed = fixup(jsonified)
+    const fixed = fixup(jsonified);
 
     writeFile(path.join(__dirname, "schema.json"), JSON.stringify(fixed, null, 2));
 };

@@ -6,6 +6,7 @@ import { overloads as getOverloads } from "./client";
 import { inspect } from "util";
 import { writeFile } from "../util";
 import { parseArgsStringToArgv } from "string-argv";
+import { fixupExample } from "./fixup";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -42,7 +43,7 @@ type ExtractedCliExample = ReturnType<typeof extractAllCliExamples>[number];
 
 const tokenizeCliExample = (ex: ExtractedCliExample) => ({
     ...ex,
-    commands: ex.lines.map(original => ({ original, argv: parseArgsStringToArgv(original) })),
+    commands: ex.lines.map(fixupExample).map(original => ({ original, argv: parseArgsStringToArgv(original) })),
 });
 
 const print = (val: unknown) =>
@@ -255,7 +256,11 @@ const eall = () => {
         ...mapped.flatMap(m => {
             const usageOrFailureComments = m.decoded
                 ? [`await client.${m.command.toLowerCase()}(${stringifyWithVarArgs(m.decoded).slice(1, -1)})`]
-                : ["// Error decoding:", ...m.contexts.flat().map(c => `// ${print(c)}`)];
+                : [
+                      "// Error decoding:",
+                      "",
+                      ...m.contexts.flatMap(context => context.concat(["---"]).map(line => `// ${line}`)),
+                  ];
             const lines = [
                 `// ${m.file} ${m.index}`, // br
                 `// ${m.line}`,

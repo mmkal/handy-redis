@@ -50,8 +50,6 @@ const tokenizeCliExample = (ex: ExtractedCliExample) => {
     };
 };
 
-type TokenizedCliExample = ReturnType<typeof tokenizeCliExample>;
-
 const print = (val: unknown) =>
     inspect(val, { breakLength: 1000, depth: 1000 })
         .replace(/, toString: \[Function\]/g, "")
@@ -61,7 +59,7 @@ export const toArgs = (tokens: string[]) => {
     const [command, ...args] = tokens;
     const jsonSchema = schema[command.toUpperCase()];
     if (!jsonSchema) {
-        return { command, contexts: [`${command} not found`] };
+        return { command, decoded: undefined, contexts: [[`${command} not found`]] };
         // throw Error(`${command} not found`);
     }
     const overloads = getOverloads(jsonSchema.arguments);
@@ -74,7 +72,7 @@ export const toArgs = (tokens: string[]) => {
         })
         .map((o, i) => decodeTokensMain(args, o, [`decoding ${command} overload ${i} (${o.map(a => a.name)}): ${o}`]));
     const success = results.find(r => r.decoded);
-    return { command, ...success, contexts: results.map(r => r.context) };
+    return { command, decoded: success?.decoded, contexts: results.map(r => r.context) };
 };
 
 export const decodeTokensMain = (
@@ -87,6 +85,12 @@ export const decodeTokensMain = (
         return { error: true as true, context: core.context };
     }
     return core;
+};
+
+const ArrayMarkers = {
+    type: Symbol("ArrayType"),
+    list: Symbol("ArrayType:list"),
+    tuple: Symbol("ArrayType:tuple"),
 };
 
 const decodeTokensCore = (
@@ -189,7 +193,15 @@ const decodeTokensCore = (
             ...context,
             `Successfully decoded ${print(decodedTuple.decoded)} as ${print(headArg)}!`,
         ]);
-        return remainder.decoded ? { ...remainder, decoded: [decodedTuple.decoded, ...remainder.decoded] } : remainder;
+        return remainder.decoded
+            ? {
+                  ...remainder,
+                  decoded: [
+                      Object.assign(decodedTuple.decoded, { [ArrayMarkers.type]: ArrayMarkers.tuple }),
+                      ...remainder.decoded,
+                  ],
+              }
+            : remainder;
     }
 
     if (headArg.schema.type === "array") {
@@ -213,7 +225,16 @@ const decodeTokensCore = (
                 [{ name: headArg.name, schema: asSchema(headArg.schema.items) }],
                 [...context, `Decoding array item`]
             );
-            acc = next.error ? next : { ...next, decoded: [acc.decoded[0].concat(next.decoded)] };
+            acc = next.error
+                ? next
+                : {
+                      ...next,
+                      decoded: [
+                          Object.assign(acc.decoded[0].concat(next.decoded), {
+                              [ArrayMarkers.type]: ArrayMarkers.list,
+                          }),
+                      ],
+                  };
         } while (!acc.error && acc.leftovers.length > 0);
 
         return acc;
@@ -236,22 +257,40 @@ const eall = () => {
     const ts = [
         `import {Client} from './x'`,
         `export const f = async (client: Client) => {`, //
-        ...mapped.map(m =>
-            [
-                `// ${m.file} ${m.index}`,
+        ...mapped.flatMap(m => {
+            const usageOrFailureComments = m.decoded
+                ? [`await client.${m.command.toLowerCase()}(${stringifyWithVarArgs(m.decoded).slice(1, -1)})`]
+                : ["// Error decoding:", ...m.contexts.flat().map(c => `// ${print(c)}`)];
+            const lines = [
+                `// ${m.file} ${m.index}`, // br
                 `// ${m.line}`,
-                "decoded" in m
-                    ? `await client.${m.command.toLowerCase()}(${JSON.stringify(m.decoded).slice(1, -1)})`
-                    : `// ${m.errors}`,
-            ]
-                .filter(Boolean)
-                .join("\n")
-        ),
+                ...usageOrFailureComments,
+            ];
+            return lines.filter(Boolean).join("\n");
+        }),
         `}`,
     ].join("\n\n");
 
     writeFile("y.ts", ts);
 };
+
+/**
+ * custom json stringifier that flattens out arrays "at the end" of arrays.
+ * Relies on some assumptions true to this library:
+ * - array parameters at the end of argument lists are converted to js rest args (e.g. `...args: Foobar[]`)
+ * - the usage-generator marks args with
+ */
+export const stringifyWithVarArgs = (val: unknown) =>
+    JSON.stringify(val, (key, value) => {
+        if (
+            Array.isArray(value) &&
+            Array.isArray(value[value.length - 1]) &&
+            value[value.length - 1][ArrayMarkers.type] === ArrayMarkers.list
+        ) {
+            return value.slice(0, -1).concat(value[value.length - 1]);
+        }
+        return value;
+    });
 
 if (require.main === module) {
     eall();

@@ -1,12 +1,18 @@
-import { toArgs as toArgs_ } from "../generate-usages";
+import { toArgs as toArgs_, stringifyWithVarArgs } from "../generate-usages";
 
 const toArgs = (cmd: string, { debug = false } = {}) => {
     const r = toArgs_(cmd.split(" "));
-    return "decoded" in r && !debug ? r.decoded : { command: r.command, context: r.contexts[0] };
+    return r.decoded && !debug ? r.decoded : { command: r.command, context: r.contexts[0] };
 };
 
 describe("toArgs", () => {
     let i = 0;
+
+    test("varargs at the end of argument lists are flattened by stringifyWithVarArgs", () => {
+        const result = toArgs_("BITOP AND dest key1 key2".split(" "));
+        expect(JSON.stringify(result.decoded!)).toEqual(JSON.stringify(["AND", "dest", ["key1", "key2"]]));
+        expect(stringifyWithVarArgs(result.decoded!)).toEqual(JSON.stringify(["AND", "dest", "key1", "key2"]));
+    });
 
     test(`snapshot${++i}`, () => {
         expect(toArgs("set foo bar")).toMatchInlineSnapshot(`

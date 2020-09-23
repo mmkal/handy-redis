@@ -4,7 +4,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { overloads as getOverloads } from "./client";
 import { inspect } from "util";
-import * as lo from "lodash";
+import { writeFile } from "../util";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -26,7 +26,7 @@ const extractCliExamples = (markdown: string) => {
     });
 };
 
-const findMarkdownFiles = () => glob.sync("**/*.md", { cwd: path.join(__dirname, "..") });
+const findMarkdownFiles = () => glob.sync("**/*.md", { absolute: true, cwd: path.join(__dirname, "..") });
 
 const extractAllCliExamples = () => {
     const markdownFiles = findMarkdownFiles();
@@ -43,8 +43,9 @@ const tokenizeCliExample = (ex: ExtractedCliExample) => {
     return {
         ...ex,
         commands: ex.lines.map(x => {
-            if (x.includes('"')) throw Error(`CLI example tokenizer is too stupid to deal with quotes/escapes`);
-            return { argv: x.split(" ") };
+            // if (x.includes('"'))
+            //     throw Error(`CLI example tokenizer is too stupid to deal with quotes/escapes. Line ${x}`);
+            return { original: x, argv: x.split(" ") };
         }),
     };
 };
@@ -60,7 +61,8 @@ export const toArgs = (tokens: string[]) => {
     const [command, ...args] = tokens;
     const jsonSchema = schema[command.toUpperCase()];
     if (!jsonSchema) {
-        return { command, args };
+        return { command, contexts: [`${command} not found`] };
+        // throw Error(`${command} not found`);
     }
     const overloads = getOverloads(jsonSchema.arguments);
     const results = overloads
@@ -72,10 +74,7 @@ export const toArgs = (tokens: string[]) => {
         })
         .map((o, i) => decodeTokensMain(args, o, [`decoding ${command} overload ${i} (${o.map(a => a.name)}): ${o}`]));
     const success = results.find(r => r.decoded);
-    return {
-        args,
-        s: success?.decoded || results,
-    };
+    return { command, ...success, contexts: results.map(r => r.context) };
 };
 
 export const decodeTokensMain = (
@@ -137,7 +136,7 @@ const decodeTokensCore = (
     if (headArg.schema.type === "string") {
         const remainder = decodeTokensCore(tailTokens, tailArgs, [
             ...context,
-            `${headToken} successfully decoded as ${headArg.name}. Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
+            `${headToken} successfully decoded as ${headArg.name} (string). Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
         ]);
         return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
     }
@@ -152,9 +151,9 @@ const decodeTokensCore = (
         }
         const remainder = decodeTokensCore(tailTokens, tailArgs, [
             ...context,
-            `${headToken} successfully decoded as ${headArg.name}. Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
+            `${headToken} successfully decoded as ${headArg.name} (integer). Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
         ]);
-        return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
+        return remainder.decoded ? { ...remainder, decoded: [headDecoded, ...remainder.decoded] } : remainder;
     }
 
     if (headArg.schema.type === "number") {
@@ -164,9 +163,9 @@ const decodeTokensCore = (
         }
         const remainder = decodeTokensCore(tailTokens, tailArgs, [
             ...context,
-            `${headToken} successfully decoded as ${headArg.name}. Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
+            `${headToken} successfully decoded as ${headArg.name} (number). Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
         ]);
-        return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
+        return remainder.decoded ? { ...remainder, decoded: [headDecoded, ...remainder.decoded] } : remainder;
     }
 
     const asSchema = (def: typeof headArg.schema.items) =>
@@ -197,40 +196,65 @@ const decodeTokensCore = (
         if (tailArgs.length > 0) {
             return fail(`Not smart enough to deal with arrays in the beginning or middle of arg lists`);
         }
-        let n: ReturnType<typeof decodeTokensCore> = {
+        let acc: ReturnType<typeof decodeTokensCore> = {
             leftovers: tokens,
             context,
             decoded: [[]],
         };
         do {
-            if (n.error) {
-                return n;
+            if (acc.error) {
+                return acc;
             }
-            if (n.leftovers.length === 0) {
-                return n;
+            if (acc.leftovers.length === 0) {
+                return acc;
             }
-            const n2 = decodeTokensCore(
-                n.leftovers,
+            const next = decodeTokensCore(
+                acc.leftovers,
                 [{ name: headArg.name, schema: asSchema(headArg.schema.items) }],
                 [...context, `Decoding array item`]
             );
-            // console.log(JSON.stringify({ n, n2 }, null, 2));
-            n = n2.error ? n2 : { ...n2, decoded: [n.decoded[0].concat(n2.decoded)] };
-        } while (!n.error && n.leftovers.length > 0);
+            acc = next.error ? next : { ...next, decoded: [acc.decoded[0].concat(next.decoded)] };
+        } while (!acc.error && acc.leftovers.length > 0);
 
-        return n;
+        return acc;
     }
 
     return fail(`Not smart enought to deal with ${print(headArg)} yet`);
 };
 
-// const eall = () => {
-//     const all = extractAllCliExamples();
-//     all.map(a => tokenizeCliExample(a)).flatMap(a =>
-//         a.commands.map(c => {
-//             c.argv;
-//         })
-//     );
-// };
+const eall = () => {
+    const all = extractAllCliExamples();
+    const mapped = all
+        .map(a => tokenizeCliExample(a))
+        .flatMap(a =>
+            a.commands.map(c => {
+                const jsonArgs = toArgs(c.argv);
+                return { file: a.file, index: a.index, line: c.original, ...jsonArgs };
+            })
+        );
+
+    const ts = [
+        `import {Client} from './x'`,
+        `export const f = async (client: Client) => {`, //
+        ...mapped.map(m =>
+            [
+                `// ${m.file} ${m.index}`,
+                `// ${m.line}`,
+                "decoded" in m
+                    ? `await client.${m.command.toLowerCase()}(${JSON.stringify(m.decoded).slice(1, -1)})`
+                    : `// ${m.errors}`,
+            ]
+                .filter(Boolean)
+                .join("\n")
+        ),
+        `}`,
+    ].join("\n\n");
+
+    writeFile("y.ts", ts);
+};
+
+if (require.main === module) {
+    eall();
+}
 
 // const usages = Object.keys(schema).map(command => {});

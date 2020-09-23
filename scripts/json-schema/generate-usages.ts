@@ -121,6 +121,14 @@ const decodeTokensCore = (
         context: [...context, msg],
     });
 
+    const next = (decodedValue: unknown) => {
+        const remainder = decodeTokensCore(tailTokens, tailArgs, [
+            ...context,
+            `${headToken} successfully decoded as ${headArg.name} (string). Decoded value ${decodedValue}. Tokens remaining [${tailTokens}], target args remainin count: ${tailArgs.length}`,
+        ]);
+        return remainder.decoded ? { ...remainder, decoded: [decodedValue, ...remainder.decoded] } : remainder;
+    };
+
     if (headArg.schema.type === "string" && headArg.schema.const) {
         if (headToken !== headArg.schema.const) {
             return fail(`Expected ${headArg.schema.const}, got ${headToken}`);
@@ -134,11 +142,7 @@ const decodeTokensCore = (
     }
 
     if (headArg.schema.type === "string") {
-        const remainder = decodeTokensCore(tailTokens, tailArgs, [
-            ...context,
-            `${headToken} successfully decoded as ${headArg.name} (string). Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
-        ]);
-        return remainder.decoded ? { ...remainder, decoded: [headToken, ...remainder.decoded] } : remainder;
+        return next(headToken);
     }
 
     if (headArg.schema.type === "integer") {
@@ -149,11 +153,7 @@ const decodeTokensCore = (
                 context: [...context, `${headToken} isn't an integer. Decoded as something different: ${headDecoded}`],
             };
         }
-        const remainder = decodeTokensCore(tailTokens, tailArgs, [
-            ...context,
-            `${headToken} successfully decoded as ${headArg.name} (integer). Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
-        ]);
-        return remainder.decoded ? { ...remainder, decoded: [headDecoded, ...remainder.decoded] } : remainder;
+        return next(headDecoded);
     }
 
     if (headArg.schema.type === "number") {
@@ -161,11 +161,7 @@ const decodeTokensCore = (
         if (headDecoded.toString() !== headToken) {
             return fail(`${headToken} parsed into a bad number ${headDecoded}`);
         }
-        const remainder = decodeTokensCore(tailTokens, tailArgs, [
-            ...context,
-            `${headToken} successfully decoded as ${headArg.name} (number). Tokens remaining [${tailTokens}], target args remaining count: ${tailArgs.length}`,
-        ]);
-        return remainder.decoded ? { ...remainder, decoded: [headDecoded, ...remainder.decoded] } : remainder;
+        return next(headDecoded);
     }
 
     const asSchema = (def: typeof headArg.schema.items) =>
@@ -236,7 +232,11 @@ const decodeTokensCore = (
         return acc;
     }
 
-    return fail(`Not smart enought to deal with ${print(headArg)} yet`);
+    // if (typeof headArg.schema.type === "undefined") {
+    //     return;
+    // }
+
+    return fail(`Not smart enough to deal with ${print(headArg)} yet`);
 };
 
 const eall = () => {

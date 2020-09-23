@@ -269,8 +269,8 @@ export const f = async (client: Client) => {
     // EXPIREAT mykey 1293840000
     // Error decoding:
     // decoding EXPIREAT overload 0 (key,timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'timestamp', schema: {} }
-    // mykey successfully decoded as key (string). Tokens remaining [1293840000], target args remaining count: 1
-    // Not smart enought to deal with { name: 'timestamp', schema: {} } yet
+    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [1293840000], target args remainin count: 1
+    // Not smart enough to deal with { name: 'timestamp', schema: {} } yet
     // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/expireat.md 0
@@ -541,8 +541,8 @@ export const f = async (client: Client) => {
     // HINCRBYFLOAT mykey field 2.0e2
     // Error decoding:
     // decoding HINCRBYFLOAT overload 0 (key,field,increment): { name: 'key', schema: { type: 'string' } },{ name: 'field', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }
-    // mykey successfully decoded as key (string). Tokens remaining [field,2.0e2], target args remaining count: 2
-    // field successfully decoded as field (string). Tokens remaining [2.0e2], target args remaining count: 1
+    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [field,2.0e2], target args remainin count: 2
+    // field successfully decoded as field (string). Decoded value field. Tokens remaining [2.0e2], target args remainin count: 1
     // 2.0e2 parsed into a bad number 200
     // ---
 
@@ -682,7 +682,7 @@ export const f = async (client: Client) => {
     // INCRBYFLOAT mykey 2.0e2
     // Error decoding:
     // decoding INCRBYFLOAT overload 0 (key,increment): { name: 'key', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }
-    // mykey successfully decoded as key (string). Tokens remaining [2.0e2], target args remaining count: 1
+    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [2.0e2], target args remainin count: 1
     // 2.0e2 parsed into a bad number 200
     // ---
 
@@ -982,8 +982,8 @@ export const f = async (client: Client) => {
     // PEXPIREAT mykey 1555555555005
     // Error decoding:
     // decoding PEXPIREAT overload 0 (key,milliseconds-timestamp): { name: 'key', schema: { type: 'string' } },{ name: 'milliseconds-timestamp', schema: {} }
-    // mykey successfully decoded as key (string). Tokens remaining [1555555555005], target args remaining count: 1
-    // Not smart enought to deal with { name: 'milliseconds-timestamp', schema: {} } yet
+    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [1555555555005], target args remainin count: 1
+    // Not smart enough to deal with { name: 'milliseconds-timestamp', schema: {} } yet
     // ---
 
     // C:/Users/mkale/src/handy-redis/scripts/redis-doc/commands/pexpireat.md 0
@@ -1810,7 +1810,7 @@ export const f = async (client: Client) => {
     // ZCOUNT myzset -inf +inf
     // Error decoding:
     // decoding ZCOUNT overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,+inf], target args remainin count: 2
     // -inf parsed into a bad number NaN
     // ---
 
@@ -1818,7 +1818,7 @@ export const f = async (client: Client) => {
     // ZCOUNT myzset (1 3
     // Error decoding:
     // decoding ZCOUNT overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,3], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,3], target args remainin count: 2
     // (1 parsed into a bad number NaN
     // ---
 
@@ -1974,19 +1974,19 @@ export const f = async (client: Client) => {
     // ZRANGEBYSCORE myzset -inf +inf
     // Error decoding:
     // decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,+inf], target args remainin count: 2
     // -inf parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,+inf], target args remainin count: 3
     // -inf parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
-    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,+inf], target args remainin count: 3
     // -inf parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [-inf,+inf], target args remaining count: 4
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,+inf], target args remainin count: 4
     // -inf parsed into a bad number NaN
     // ---
 
@@ -1998,19 +1998,19 @@ export const f = async (client: Client) => {
     // ZRANGEBYSCORE myzset (1 2
     // Error decoding:
     // decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,2], target args remainin count: 2
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,2], target args remainin count: 3
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,2], target args remainin count: 3
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,2], target args remaining count: 4
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,2], target args remainin count: 4
     // (1 parsed into a bad number NaN
     // ---
 
@@ -2018,19 +2018,19 @@ export const f = async (client: Client) => {
     // ZRANGEBYSCORE myzset (1 (2
     // Error decoding:
     // decoding ZRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,(2], target args remainin count: 2
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 1 (key,min,max,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,(2], target args remainin count: 3
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 2 (key,min,max,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,(2], target args remainin count: 3
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZRANGEBYSCORE overload 3 (key,min,max,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [(1,(2], target args remaining count: 4
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(1,(2], target args remainin count: 4
     // (1 parsed into a bad number NaN
     // ---
 
@@ -2130,7 +2130,7 @@ export const f = async (client: Client) => {
     // ZREMRANGEBYSCORE myzset -inf (2
     // Error decoding:
     // decoding ZREMRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [-inf,(2], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,(2], target args remainin count: 2
     // -inf parsed into a bad number NaN
     // ---
 
@@ -2194,19 +2194,19 @@ export const f = async (client: Client) => {
     // ZREVRANGEBYSCORE myzset +inf -inf
     // Error decoding:
     // decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [+inf,-inf], target args remainin count: 2
     // +inf parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [+inf,-inf], target args remainin count: 3
     // +inf parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
-    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [+inf,-inf], target args remainin count: 3
     // +inf parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [+inf,-inf], target args remaining count: 4
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [+inf,-inf], target args remainin count: 4
     // +inf parsed into a bad number NaN
     // ---
 
@@ -2218,23 +2218,23 @@ export const f = async (client: Client) => {
     // ZREVRANGEBYSCORE myzset 2 (1
     // Error decoding:
     // decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 2
-    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 1
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [2,(1], target args remainin count: 2
+    // 2 successfully decoded as max (string). Decoded value 2. Tokens remaining [(1], target args remainin count: 1
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 3
-    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [2,(1], target args remainin count: 3
+    // 2 successfully decoded as max (string). Decoded value 2. Tokens remaining [(1], target args remainin count: 2
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
-    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 3
-    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [2,(1], target args remainin count: 3
+    // 2 successfully decoded as max (string). Decoded value 2. Tokens remaining [(1], target args remainin count: 2
     // (1 parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [2,(1], target args remaining count: 4
-    // 2 successfully decoded as max (number). Tokens remaining [(1], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [2,(1], target args remainin count: 4
+    // 2 successfully decoded as max (string). Decoded value 2. Tokens remaining [(1], target args remainin count: 3
     // (1 parsed into a bad number NaN
     // ---
 
@@ -2242,19 +2242,19 @@ export const f = async (client: Client) => {
     // ZREVRANGEBYSCORE myzset (2 (1
     // Error decoding:
     // decoding ZREVRANGEBYSCORE overload 0 (key,max,min): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 2
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(2,(1], target args remainin count: 2
     // (2 parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 1 (key,max,min,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(2,(1], target args remainin count: 3
     // (2 parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 2 (key,max,min,withscores): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } }
-    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 3
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(2,(1], target args remainin count: 3
     // (2 parsed into a bad number NaN
     // ---
     // decoding ZREVRANGEBYSCORE overload 3 (key,max,min,withscores,LIMIT_offset_count): { name: 'key', schema: { type: 'string' } },{ name: 'max', schema: { type: 'number' } },{ name: 'min', schema: { type: 'number' } },{ name: 'withscores', optional: true, schema: { type: 'string', enum: [ 'WITHSCORES' ] } },{ name: 'LIMIT_offset_count', optional: true, schema: { type: 'array', items: [ { type: 'string', const: 'LIMIT' }, { type: 'array', items: [ { title: 'offset', type: 'integer' }, { title: 'count', type: 'integer' } ] } ] }, toString: [Function] }
-    // myzset successfully decoded as key (string). Tokens remaining [(2,(1], target args remaining count: 4
+    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [(2,(1], target args remainin count: 4
     // (2 parsed into a bad number NaN
     // ---
 

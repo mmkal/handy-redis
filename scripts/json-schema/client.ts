@@ -71,6 +71,7 @@ export const overloads = (args: JsonSchemaCommandArgument[]): JsonSchemaCommandA
 };
 
 export const formatOverloads = (command: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) =>
+    // todo: make all-optionals-at-the end look like `(a: string, b?: string, c?: string) => ...` rather than `(a: string) => ...`, `(a: string, b: string) => ...` and `(a: string, b: string, c: string) => ...`
     overloads(originalArgs).map(newArgs => {
         return `
             /**

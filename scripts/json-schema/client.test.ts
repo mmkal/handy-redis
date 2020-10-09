@@ -9,7 +9,7 @@ test("overloads", () => {
             { name: "requiredC", optional: false, schema: {} },
             { name: "optionalD", optional: true, schema: {} },
             { name: "requiredE", optional: false, schema: {} },
-        ]).map((args) => args.map((a) => a.name).join(","))
+        ]).map(args => args.map(a => a.name).join(","))
     ).toMatchInlineSnapshot(`
         Array [
           "requiredB,requiredC,requiredE",

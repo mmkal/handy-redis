@@ -30,7 +30,7 @@ test("formatOverloads", () => {
                          * - _complexity_: undefined
                          * - _since_: 2.8.13
                          */
-                        latencyReset(event?: string):
+                        latency(latency_subcommand: \\"RESET\\", event?: string):
                             Promise<unknown>
                     ",
         ]

@@ -263,8 +263,8 @@ const tests = () => {
         .mapValues((examples, name) => {
             const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
             const testFns = blocks.map(([blockNumber, block]) => {
-                const setup = `const outputs: Record<string, unknown> = {}`;
-                const middle = block.flatMap((m, i) => {
+                const setup = `const outputs = getOutputsDict(__filename)`;
+                const test = block.flatMap((m, i) => {
                     const argList = m.decoded && stringifyWithVarArgs(m.decoded).slice(1, -1);
                     const usageOrFailureComments = m.decoded
                         ? [`outputs.r${i} = await client.${m.command.toLowerCase()}(${argList})`]
@@ -274,25 +274,33 @@ const tests = () => {
                           ];
                     return usageOrFailureComments;
                 });
+                const assertion = `expect(outputs).toMatchInlineSnapshot()`;
                 return [
                     `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
                     setup,
                     ``,
-                    ...middle,
+                    ...test,
                     ``,
-                    `expect(outputs).toMatchInlineSnapshot()`,
+                    assertion,
                     `})`,
                 ].join("\n");
             });
             const header = [
                 `import {Client} from '../../x'`,
-                `const client: Client = {} as any`, //
+                `import {getOutputsDict} from '../_manual-overrides2'`,
+                "",
+                `const client: Client = {} as any`,
+                "",
                 `beforeAll(async () => {
                     await client.ping()
                 })`,
-            ];
+                "",
+                `beforeEach(async () => {
+                    await client.flushall()
+                })`,
+            ].join("\n");
 
-            const ts = [...header, ...testFns].join("\n\n");
+            const ts = [header, ...testFns].join("\n\n");
 
             writeFile(`test/gen/${path.basename(name, ".md").replace(/\W/g, "_")}.test.ts`, ts);
         })
@@ -315,7 +323,6 @@ export const stringifyWithVarArgs = (input: unknown) =>
     });
 
 if (require.main === module) {
-    if (!Math.random()) console.log({ typescriptUsage });
     tests();
 }
 

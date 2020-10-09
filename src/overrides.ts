@@ -1,15 +1,44 @@
 import { Multi, RedisClient } from "redis";
 
-export const useUnderlyingImpl = new Set(["multi", "end"] as const);
-type UnderlyingImplMethods = typeof useUnderlyingImpl extends Set<infer X> ? X : never;
+declare module "redis" {
+    interface Multi {
+        /** @deprecated */
+        exec(cb?: Callback<any[]>): boolean;
+        /** @deprecated */
+        EXEC(cb?: Callback<any[]>): boolean;
+        execAsync: () => Promise<any[]>;
+        exec_atomicAsync: () => Promise<any[]>;
+    }
+}
 
-export const additionalFunctions = {
-    /** promisified multi execution */
-    execMulti: <T = {}>(multi: Multi) =>
-        new Promise<T[]>((resolve, reject) => multi.exec((err, data) => (err ? reject(err) : resolve(data)))),
+export type AdditionalFunctions = {
+    multi: () => Multi;
+    batch: () => Multi;
+    end: RedisClient["end"];
 };
 
-export type AdditionalFunctions = typeof additionalFunctions &
-    {
-        [K in UnderlyingImplMethods]: RedisClient[K];
-    };
+const promisifyMulti = (redisMulti: Multi): Multi => {
+    const origExec = redisMulti.exec.bind(redisMulti);
+    const origExecAtomic = redisMulti.exec_atomic.bind(redisMulti);
+
+    return Object.assign(redisMulti, {
+        exec: undefined,
+        EXEC: undefined,
+        exec_atomic: undefined,
+        EXEC_ATOMIC: undefined,
+        execAsync: () =>
+            new Promise<any[]>((resolve, reject) =>
+                origExec((err: any, reply: any) => (err ? reject(err) : resolve(reply)))
+            ),
+        exec_atomicAsync: () =>
+            new Promise<any[]>((resolve, reject) =>
+                origExecAtomic((err: any, reply: any) => (err ? reject(err) : resolve(reply)))
+            ),
+    });
+};
+
+export const getMixins = (client: RedisClient): AdditionalFunctions => ({
+    multi: () => promisifyMulti(client.multi()),
+    batch: () => promisifyMulti(client.batch()),
+    end: (...args) => client.end(...args),
+});

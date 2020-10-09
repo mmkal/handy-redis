@@ -1,9 +1,11 @@
 import { ClientOpts, createClient, RedisClient } from "redis";
-import { IHandyRedis } from "./generated/interface";
+import { Client } from "./generated/interface";
 import { flattenDeep } from "./flatten";
-import { useUnderlyingImpl, additionalFunctions } from "./overrides";
+import { AdditionalFunctions, getMixins } from "./overrides";
 
-export { IHandyRedis } from "./generated/interface";
+export interface IHandyRedis extends Omit<Client, keyof AdditionalFunctions>, AdditionalFunctions {
+    redis: RedisClient;
+}
 
 export interface ICreateHandyClient {
     (port_arg: number, host_arg?: string, options?: ClientOpts): IHandyRedis;
@@ -18,12 +20,13 @@ export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
             ? clientArgs[0]
             : createClient.apply(null, clientArgs);
 
-    const handyClient = { redis: nodeRedis } as IHandyRedis;
+    const mixins = getMixins(nodeRedis);
+    const handyClient = ({ redis: nodeRedis, ...mixins } as unknown) as IHandyRedis;
 
     Object.keys(nodeRedis.__proto__).forEach((key: keyof IHandyRedis) => {
         const func = nodeRedis[key];
-        if (useUnderlyingImpl.has(key as any)) {
-            handyClient[key] = func.bind(nodeRedis);
+        if (key in mixins) {
+            // handyClient[key] = (mixins as any)[key];
         } else {
             const wrapped = (...args: any[]) =>
                 new Promise((resolve, reject) => {
@@ -36,7 +39,7 @@ export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
             handyClient[key] = wrapped as any;
         }
     });
-    Object.assign(handyClient, additionalFunctions);
+    Object.assign(handyClient);
 
     return handyClient;
 };

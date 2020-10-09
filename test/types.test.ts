@@ -15,13 +15,15 @@ test("client has promisified redis methods", () => {
 
     expectTypeOf(createHandyClient).returns.toHaveProperty("geohash").returns.resolves.items.toBeString();
 
-    expectTypeOf(createHandyClient)
-        .returns.toHaveProperty("zrevrange")
-        .parameters.toEqualTypeOf<[string, number, number]>();
+    expectTypeOf(createHandyClient).returns.toHaveProperty("zrevrange").toBeCallableWith("key", 1, 2);
 
     expectTypeOf(createHandyClient).returns.toHaveProperty("zrevrange").returns.resolves.items.toBeString();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("quit").returns.resolves.toBeAny();
+    expectTypeOf(createHandyClient).returns.toHaveProperty("quit").returns.resolves.toBeString();
 
     expectTypeOf(createHandyClient).returns.toHaveProperty("end").returns.toEqualTypeOf<void>();
+
+    const client = createHandyClient();
+
+    client.multi().set("foo", "bar").get("foo").keys("f*").exec();
 });

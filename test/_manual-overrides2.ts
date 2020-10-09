@@ -14,18 +14,13 @@ const addOverride = (testRegex: string, modifyOutputs: OutputModifier) => {
     outputOverrides[testRegex] = modifyOutputs;
 };
 
-export const getOutputsDict = (testFileName: string) => {
-    const override = find(outputOverrides, (value, key) => new RegExp(key).test(testFileName)) || identity;
-    const output: Record<string, unknown> = {
-        [inspect.custom]: () => inspect(mapValues(output, override)),
-    };
-    return output;
-};
-
-type Simplifiable = (...args: any[]) => string | number | boolean | null | undefined;
+type Simplifiable = (input: unknown) => unknown;
 const getSimplifiers = <T extends Record<string, Simplifiable>>(record: T) => mapValues(record, simplify);
 
-const simplify = (func: Simplifiable) => (...args: any[]) => `${func.name} => ${func(...args)}`;
+const simplify = (func: Simplifiable) => (input: unknown) => {
+    const result = func(input);
+    return result === input ? result : `${func.name} => ${result}`;
+};
 
 const simplifiers = getSimplifiers({
     isFinite,
@@ -36,7 +31,7 @@ const simplifiers = getSimplifiers({
         return str.substring(0, 2) + "*".repeat(Math.max(0, str.length - 2));
     },
     arrayLength: (arr: unknown[]) => arr.length,
-    noNumberValues: o => (/^\d+$/.test(`${o}`) ? "[a number]" : o),
+    someNumberValue: o => (/^\d+$/.test(`${o}`) ? "[a number]" : o),
     sortArrays: o => (Array.isArray(o) ? inspect(o.sort()) : o),
     ignoreDecimals: o => JSON.parse(JSON.stringify(o).replace(/(\d+)\.(\d+)/g, number => number.split(".")[0] + ".??")),
     ignoreStreamIds: ((streamIds: string[]) => (o: any) =>
@@ -52,13 +47,13 @@ addOverride("/lastsave.ts", simplifiers.isFinite);
 addOverride("/time.ts", simplifiers.isFinite);
 addOverride("/srandmember.ts", o => (Array.isArray(o) ? simplifiers.arrayLength(o) : simplifiers.typeOf(o)));
 addOverride("/spop.ts", o => (Array.isArray(o) ? simplifiers.arrayLength(o) : simplifiers.typeOf(o)));
-addOverride("/psetex.ts", simplifiers.noNumberValues);
+addOverride("/psetex.test.ts", simplifiers.someNumberValue);
 addOverride("/command.ts", simplifiers.typeOf);
 addOverride("/dump.ts", simplifiers.typeOf);
-addOverride("/command-count.ts", simplifiers.noNumberValues);
-addOverride("/pttl.ts", simplifiers.noNumberValues);
+addOverride("/command-count.ts", simplifiers.someNumberValue);
+addOverride("/pttl.ts", simplifiers.someNumberValue);
 addOverride("/pexpireat.ts", simplifiers.typeOf);
-addOverride("/pexpire.ts", simplifiers.noNumberValues);
+addOverride("/pexpire.ts", simplifiers.someNumberValue);
 addOverride("/info.ts", simplifiers.typeOf);
 addOverride(
     "/(sunionstore|sadd|smembers|sunion|smove|srem|spop|sinterstore|sdiffstore|sdiff).ts",
@@ -67,3 +62,8 @@ addOverride(
 addOverride("/keys.ts", simplifiers.sortArrays);
 addOverride("/geo(\\w+).ts", simplifiers.ignoreDecimals);
 addOverride("/(xadd|xack|xlen|xrange|xrevrange|xtrim).ts", simplifiers.ignoreStreamIds);
+
+export const override = (outputs: Record<string, unknown>, testFileName: string) => {
+    const override = find(outputOverrides, (value, key) => new RegExp(key).test(testFileName.replace(/\\/g, "/")));
+    return mapValues(outputs, override || identity);
+};

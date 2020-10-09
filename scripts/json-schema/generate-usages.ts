@@ -263,7 +263,7 @@ const writeTests = () => {
         .forIn((examples, name) => {
             const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
             const testFns = blocks.map(([blockNumber, block]) => {
-                const setup = `const outputs = getOutputsDict(__filename)`;
+                const setup = `const outputs: Record<string, unknown> = {}`;
                 const test = block.flatMap((m, i) => {
                     const argList = m.decoded && stringifyWithVarArgs(m.decoded).slice(1, -1);
                     const usageOrFailureComments = m.decoded
@@ -274,7 +274,7 @@ const writeTests = () => {
                           ];
                     return usageOrFailureComments;
                 });
-                const assertion = `expect(outputs).toMatchInlineSnapshot()`;
+                const assertion = `expect(override(outputs, __filename)).toMatchInlineSnapshot()`;
                 return [
                     `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
                     setup,
@@ -292,15 +292,15 @@ const writeTests = () => {
                     .replace(/^scripts\//, "")
                     .replace(/\.md$/, "")}.test.ts`
             );
-            const clientPath = path.join(process.cwd(), "x.ts");
+            const clientPath = path.join(process.cwd(), "src");
             const overridesPath = path.join(process.cwd(), "test/_manual-overrides2");
             const relativePath = (to: string) =>
                 unixify(path.relative(path.dirname(destPath), to)).replace(/\.ts$/, "");
             const header = [
-                `import {Client} from '${relativePath(clientPath)}'`,
-                `import {getOutputsDict} from '${relativePath(overridesPath)}'`,
+                `import {createHandyClient} from '${relativePath(clientPath)}'`,
+                `import {override} from '${relativePath(overridesPath)}'`,
                 "",
-                `const client: Client = {} as any`,
+                `const client = createHandyClient()`,
                 "",
                 `beforeAll(async () => {
                     await client.ping()

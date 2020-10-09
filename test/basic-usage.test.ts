@@ -1,5 +1,5 @@
 import { createHandyClient } from "../src";
-import { createClient, Multi } from "redis";
+import { createClient } from "redis";
 import * as redisMock from "redis-mock";
 
 const client = createHandyClient();
@@ -27,7 +27,7 @@ it("can use set and keys", async () => {
 
 it("can use hset with multiple fields", async () => {
     await client.hset("myhash", ["field1", "Hello"], ["field2", "Goodbye"]);
-    await client.hset("myhash", "field3", "foo");
+    await client.hset("myhash", ["field3", "foo"]);
 
     expect(await client.hgetall("myhash")).toMatchObject({
         field1: "Hello",

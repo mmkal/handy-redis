@@ -6,7 +6,7 @@ import { overloads as getOverloads } from "./generate-client";
 import { inspect } from "util";
 import { writeFile } from "./util";
 import { parseArgsStringToArgv } from "string-argv";
-import { fixupExample } from "./fixup";
+import { fixupExample, fixupGeneratedCode } from "./fixup";
 import * as lo from "lodash";
 
 const extractCliExamples = (markdown: string) => {
@@ -264,16 +264,18 @@ const writeTests = () => {
             const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
             const testFns = blocks.map(([blockNumber, block]) => {
                 const setup = `const outputs: Record<string, unknown> = {}`;
-                const test = block.flatMap((m, i) => {
-                    const argList = m.decoded && stringifyWithVarArgs(m.decoded).slice(1, -1);
-                    const usageOrFailureComments = m.decoded
-                        ? [`outputs.r${i} = await client.${m.command.toLowerCase()}(${argList})`]
-                        : [
-                              `// Error decoding command \`${m.line}\`:\n`,
-                              ...m.contexts.flatMap(context => context.concat(["---"]).map(line => `// ${line}`)),
-                          ];
-                    return usageOrFailureComments;
-                });
+                const test = block
+                    .flatMap((m, i) => {
+                        const argList = m.decoded && stringifyWithVarArgs(m.decoded).slice(1, -1);
+                        const usageOrFailureComments = m.decoded
+                            ? [`outputs.r${i} = await client.${m.command.toLowerCase()}(${argList})`]
+                            : [
+                                  `// Error decoding command \`${m.line}\`:\n`,
+                                  ...m.contexts.flatMap(context => context.concat(["---"]).map(line => `// ${line}`)),
+                              ];
+                        return usageOrFailureComments;
+                    })
+                    .map(fixupGeneratedCode);
                 const assertion = `expect(override(outputs, __filename)).toMatchInlineSnapshot()`;
                 return [
                     `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,

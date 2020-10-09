@@ -17,6 +17,14 @@ export const fixupExample = (example: string) => {
     return array[0];
 };
 
+export const fixupGeneratedCode = (code: string) => {
+    const array = [code] // use array as a stupid monad-like data structure
+        .map(fixKeyWeightsOverlyComplexParsingIssue)
+        .map(s => s);
+
+    return array[0];
+};
+
 /** https://github.com/redis/redis-doc/pull/1232 */
 function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
     const badSetArg = schema.SET.arguments.find(
@@ -31,4 +39,11 @@ function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
 function fixGeoradiusExample(example: string) {
     const withArgsFlipped = "GEORADIUS Sicily 15 37 200 km WITHDIST WITHCOORD";
     return example === withArgsFlipped ? example.replace("WITHDIST WITHCOORD", "WITHCOORD WITHDIST") : example;
+}
+
+function fixKeyWeightsOverlyComplexParsingIssue(code: string) {
+    return code.match(/(zunionstore|zinterstore).*WEIGHTS/)
+        ? `// @ts-expect-error (not smart enough to deal with numkeys)
+        ${code}`
+        : code;
 }

@@ -206,7 +206,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 5.0.0
      */
-    clientId(): Promise<unknown>;
+    client(client_subcommand: "ID"): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -214,7 +214,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(skipme_yes_no?: [string, string]): Promise<unknown>;
+    client(client_subcommand: "KILL", skipme_yes_no?: [string, string]): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -222,7 +222,11 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(addr_ip_port?: [string, string], skipme_yes_no?: [string, string]): Promise<unknown>;
+    client(
+        client_subcommand: "KILL",
+        addr_ip_port?: [string, string],
+        skipme_yes_no?: [string, string]
+    ): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -230,7 +234,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: [string, string]
     ): Promise<unknown>;
@@ -241,7 +246,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: [string, string],
         skipme_yes_no?: [string, string]
@@ -253,7 +259,11 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(id_client_id?: [string, number], skipme_yes_no?: [string, string]): Promise<unknown>;
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: [string, number],
+        skipme_yes_no?: [string, string]
+    ): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -261,7 +271,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         id_client_id?: [string, number],
         addr_ip_port?: [string, string],
         skipme_yes_no?: [string, string]
@@ -273,7 +284,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         id_client_id?: [string, number],
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: [string, string]
@@ -285,7 +297,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         id_client_id?: [string, number],
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: [string, string],
@@ -298,7 +311,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(ip_port?: string, skipme_yes_no?: [string, string]): Promise<unknown>;
+    client(client_subcommand: "KILL", ip_port?: string, skipme_yes_no?: [string, string]): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -306,7 +319,12 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(ip_port?: string, addr_ip_port?: [string, string], skipme_yes_no?: [string, string]): Promise<unknown>;
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        addr_ip_port?: [string, string],
+        skipme_yes_no?: [string, string]
+    ): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -314,7 +332,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         ip_port?: string,
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: [string, string]
@@ -326,7 +345,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         ip_port?: string,
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: [string, string],
@@ -339,7 +359,12 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(ip_port?: string, id_client_id?: [string, number], skipme_yes_no?: [string, string]): Promise<unknown>;
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: [string, number],
+        skipme_yes_no?: [string, string]
+    ): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -347,7 +372,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: [string, number],
         addr_ip_port?: [string, string],
@@ -360,7 +386,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: [string, number],
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
@@ -373,7 +400,8 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientKill(
+    client(
+        client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: [string, number],
         type?: [string, "normal" | "master" | "slave" | "pubsub"],
@@ -387,7 +415,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
-    clientList(type?: [string, "normal" | "master" | "replica" | "pubsub"]): Promise<unknown>;
+    client(client_subcommand: "LIST", type?: [string, "normal" | "master" | "replica" | "pubsub"]): Promise<unknown>;
 
     /**
      * Get the current connection name
@@ -395,7 +423,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.6.9
      */
-    clientGetname(): Promise<unknown>;
+    client(client_subcommand: "GETNAME"): Promise<unknown>;
 
     /**
      * Stop processing commands from clients for some time
@@ -403,7 +431,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.9.50
      */
-    clientPause(timeout: number): Promise<unknown>;
+    client(client_subcommand: "PAUSE", timeout: number): Promise<unknown>;
 
     /**
      * Instruct the server whether to reply to commands
@@ -411,7 +439,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.2
      */
-    clientReply(reply_mode: "ON" | "OFF" | "SKIP"): Promise<unknown>;
+    client(client_subcommand: "REPLY", reply_mode: "ON" | "OFF" | "SKIP"): Promise<unknown>;
 
     /**
      * Set the current connection name
@@ -419,7 +447,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.6.9
      */
-    clientSetname(connection_name: string): Promise<unknown>;
+    client(client_subcommand: "SETNAME", connection_name: string): Promise<unknown>;
 
     /**
      * Unblock a client blocked in a blocking command from a different connection
@@ -427,7 +455,7 @@ export interface Client {
      * - _complexity_: O(log N) where N is the number of client connections
      * - _since_: 5.0.0
      */
-    clientUnblock(client_id: number, unblock_type?: "TIMEOUT" | "ERROR"): Promise<unknown>;
+    client(client_subcommand: "UNBLOCK", client_id: number, unblock_type?: "TIMEOUT" | "ERROR"): Promise<unknown>;
 
     /**
      * Assign new hash slots to receiving node
@@ -435,7 +463,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of hash slot arguments
      * - _since_: 3.0.0
      */
-    clusterAddslots(...slot: Array<number>): Promise<unknown>;
+    cluster(cluster_subcommand: "ADDSLOTS", ...slot: Array<number>): Promise<unknown>;
 
     /**
      * Advance the cluster config epoch
@@ -443,7 +471,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterBumpepoch(): Promise<unknown>;
+    cluster(cluster_subcommand: "BUMPEPOCH"): Promise<unknown>;
 
     /**
      * Return the number of failure reports active for a given node
@@ -451,7 +479,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of failure reports
      * - _since_: 3.0.0
      */
-    clusterCountFailureReports(node_id: string): Promise<unknown>;
+    cluster(cluster_subcommand: "COUNT-FAILURE-REPORTS", node_id: string): Promise<unknown>;
 
     /**
      * Return the number of local keys in the specified hash slot
@@ -459,7 +487,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterCountkeysinslot(slot: number): Promise<unknown>;
+    cluster(cluster_subcommand: "COUNTKEYSINSLOT", slot: number): Promise<unknown>;
 
     /**
      * Set hash slots as unbound in receiving node
@@ -467,7 +495,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of hash slot arguments
      * - _since_: 3.0.0
      */
-    clusterDelslots(...slot: Array<number>): Promise<unknown>;
+    cluster(cluster_subcommand: "DELSLOTS", ...slot: Array<number>): Promise<unknown>;
 
     /**
      * Forces a replica to perform a manual failover of its master.
@@ -475,7 +503,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterFailover(options?: "FORCE" | "TAKEOVER"): Promise<unknown>;
+    cluster(cluster_subcommand: "FAILOVER", options?: "FORCE" | "TAKEOVER"): Promise<unknown>;
 
     /**
      * Delete a node's own slots information
@@ -483,7 +511,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterFlushslots(): Promise<unknown>;
+    cluster(cluster_subcommand: "FLUSHSLOTS"): Promise<unknown>;
 
     /**
      * Remove a node from the nodes table
@@ -491,7 +519,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterForget(node_id: string): Promise<unknown>;
+    cluster(cluster_subcommand: "FORGET", node_id: string): Promise<unknown>;
 
     /**
      * Return local key names in the specified hash slot
@@ -499,7 +527,7 @@ export interface Client {
      * - _complexity_: O(log(N)) where N is the number of requested keys
      * - _since_: 3.0.0
      */
-    clusterGetkeysinslot(slot: number, count: number): Promise<unknown>;
+    cluster(cluster_subcommand: "GETKEYSINSLOT", slot: number, count: number): Promise<unknown>;
 
     /**
      * Provides info about Redis Cluster node state
@@ -507,7 +535,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterInfo(): Promise<unknown>;
+    cluster(cluster_subcommand: "INFO"): Promise<unknown>;
 
     /**
      * Returns the hash slot of the specified key
@@ -515,7 +543,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of bytes in the key
      * - _since_: 3.0.0
      */
-    clusterKeyslot(key: string): Promise<unknown>;
+    cluster(cluster_subcommand: "KEYSLOT", key: string): Promise<unknown>;
 
     /**
      * Force a node cluster to handshake with another node
@@ -523,7 +551,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterMeet(ip: string, port: number): Promise<unknown>;
+    cluster(cluster_subcommand: "MEET", ip: string, port: number): Promise<unknown>;
 
     /**
      * Return the node id
@@ -531,7 +559,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterMyid(): Promise<unknown>;
+    cluster(cluster_subcommand: "MYID"): Promise<unknown>;
 
     /**
      * Get Cluster config for the node
@@ -539,7 +567,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of Cluster nodes
      * - _since_: 3.0.0
      */
-    clusterNodes(): Promise<unknown>;
+    cluster(cluster_subcommand: "NODES"): Promise<unknown>;
 
     /**
      * Reconfigure a node as a replica of the specified master node
@@ -547,7 +575,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterReplicate(node_id: string): Promise<unknown>;
+    cluster(cluster_subcommand: "REPLICATE", node_id: string): Promise<unknown>;
 
     /**
      * Reset a Redis Cluster node
@@ -555,7 +583,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of known nodes. The command may execute a FLUSHALL as a side effect.
      * - _since_: 3.0.0
      */
-    clusterReset(reset_type?: "HARD" | "SOFT"): Promise<unknown>;
+    cluster(cluster_subcommand: "RESET", reset_type?: "HARD" | "SOFT"): Promise<unknown>;
 
     /**
      * Forces the node to save cluster state on disk
@@ -563,7 +591,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterSaveconfig(): Promise<unknown>;
+    cluster(cluster_subcommand: "SAVECONFIG"): Promise<unknown>;
 
     /**
      * Set the configuration epoch in a new node
@@ -571,7 +599,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterSetConfigEpoch(config_epoch: number): Promise<unknown>;
+    cluster(cluster_subcommand: "SET-CONFIG-EPOCH", config_epoch: number): Promise<unknown>;
 
     /**
      * Bind a hash slot to a specific node
@@ -579,7 +607,8 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterSetslot(
+    cluster(
+        cluster_subcommand: "SETSLOT",
         slot: number,
         subcommand: "IMPORTING" | "MIGRATING" | "STABLE" | "NODE",
         node_id?: string
@@ -591,7 +620,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.0.0
      */
-    clusterSlaves(node_id: string): Promise<unknown>;
+    cluster(cluster_subcommand: "SLAVES", node_id: string): Promise<unknown>;
 
     /**
      * List replica nodes of the specified master node
@@ -599,7 +628,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 5.0.0
      */
-    clusterReplicas(node_id: string): Promise<unknown>;
+    cluster(cluster_subcommand: "REPLICAS", node_id: string): Promise<unknown>;
 
     /**
      * Get array of Cluster slot to node mappings
@@ -607,7 +636,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the total number of Cluster nodes
      * - _since_: 3.0.0
      */
-    clusterSlots(): Promise<unknown>;
+    cluster(cluster_subcommand: "SLOTS"): Promise<unknown>;
 
     /**
      * Get array of Redis command details
@@ -623,7 +652,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.8.13
      */
-    commandCount(): Promise<unknown>;
+    command(command_subcommand: "COUNT"): Promise<unknown>;
 
     /**
      * Extract keys given a full Redis command
@@ -631,7 +660,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of arguments to the command
      * - _since_: 2.8.13
      */
-    commandGetkeys(): Promise<unknown>;
+    command(command_subcommand: "GETKEYS"): Promise<unknown>;
 
     /**
      * Get array of specific Redis command details
@@ -639,7 +668,7 @@ export interface Client {
      * - _complexity_: O(N) when N is number of commands to look up
      * - _since_: 2.8.13
      */
-    commandInfo(...command_name: Array<string>): Promise<unknown>;
+    command(command_subcommand: "INFO", ...command_name: Array<string>): Promise<unknown>;
 
     /**
      * Get the value of a configuration parameter
@@ -647,7 +676,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.0.0
      */
-    configGet(parameter: string): Promise<unknown>;
+    config(config_subcommand: "GET", parameter: string): Promise<unknown>;
 
     /**
      * Rewrite the configuration file with the in memory configuration
@@ -655,7 +684,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.0
      */
-    configRewrite(): Promise<unknown>;
+    config(config_subcommand: "REWRITE"): Promise<unknown>;
 
     /**
      * Set a configuration parameter to the given value
@@ -663,7 +692,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.0.0
      */
-    configSet(parameter: string, value: string): Promise<unknown>;
+    config(config_subcommand: "SET", parameter: string, value: string): Promise<unknown>;
 
     /**
      * Reset the stats returned by INFO
@@ -671,7 +700,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.0.0
      */
-    configResetstat(): Promise<unknown>;
+    config(config_subcommand: "RESETSTAT"): Promise<unknown>;
 
     /**
      * Return the number of keys in the selected database
@@ -687,7 +716,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    debugObject(key: string): Promise<unknown>;
+    debug(debug_subcommand: "OBJECT", key: string): Promise<unknown>;
 
     /**
      * Make the server crash
@@ -695,7 +724,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    debugSegfault(): Promise<unknown>;
+    debug(debug_subcommand: "SEGFAULT"): Promise<unknown>;
 
     /**
      * Decrement the integer value of a key by one
@@ -3367,7 +3396,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 4.0.0
      */
-    memoryDoctor(): Promise<unknown>;
+    memory(memory_subcommand: "DOCTOR"): Promise<unknown>;
 
     /**
      * Show helpful text about the different subcommands
@@ -3375,7 +3404,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 4.0.0
      */
-    memoryHelp(): Promise<unknown>;
+    memory(memory_subcommand: "HELP"): Promise<unknown>;
 
     /**
      * Show allocator internal stats
@@ -3383,7 +3412,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 4.0.0
      */
-    memoryMallocStats(): Promise<unknown>;
+    memory(memory_subcommand: "MALLOC-STATS"): Promise<unknown>;
 
     /**
      * Ask the allocator to release memory
@@ -3391,7 +3420,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 4.0.0
      */
-    memoryPurge(): Promise<unknown>;
+    memory(memory_subcommand: "PURGE"): Promise<unknown>;
 
     /**
      * Show memory usage details
@@ -3399,7 +3428,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 4.0.0
      */
-    memoryStats(): Promise<unknown>;
+    memory(memory_subcommand: "STATS"): Promise<unknown>;
 
     /**
      * Estimate the memory usage of a key
@@ -3407,7 +3436,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of samples.
      * - _since_: 4.0.0
      */
-    memoryUsage(key: string, samples_count?: [string, number]): Promise<unknown>;
+    memory(memory_subcommand: "USAGE", key: string, samples_count?: [string, number]): Promise<unknown>;
 
     /**
      * Get the values of all the given keys
@@ -3555,7 +3584,7 @@ export interface Client {
      * - _complexity_: O(N) where N is the number of loaded modules.
      * - _since_: 4.0.0
      */
-    moduleList(): Promise<unknown>;
+    module(module_subcommand: "LIST"): Promise<unknown>;
 
     /**
      * Load a module
@@ -3563,7 +3592,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 4.0.0
      */
-    moduleLoad(path: string, ...arg: Array<string>): Promise<unknown>;
+    module(module_subcommand: "LOAD", path: string, ...arg: Array<string>): Promise<unknown>;
 
     /**
      * Unload a module
@@ -3571,7 +3600,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 4.0.0
      */
-    moduleUnload(name: string): Promise<unknown>;
+    module(module_subcommand: "UNLOAD", name: string): Promise<unknown>;
 
     /**
      * Listen for all requests received by the server in real time
@@ -3954,7 +3983,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 3.2.0
      */
-    scriptDebug(mode: "YES" | "SYNC" | "NO"): Promise<unknown>;
+    script(script_subcommand: "DEBUG", mode: "YES" | "SYNC" | "NO"): Promise<unknown>;
 
     /**
      * Check existence of scripts in the script cache.
@@ -3962,7 +3991,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of scripts to check (so checking a single script is an O(1) operation).
      * - _since_: 2.6.0
      */
-    scriptExists(...sha_1: Array<string>): Promise<unknown>;
+    script(script_subcommand: "EXISTS", ...sha_1: Array<string>): Promise<unknown>;
 
     /**
      * Remove all the scripts from the script cache.
@@ -3970,7 +3999,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of scripts in cache
      * - _since_: 2.6.0
      */
-    scriptFlush(): Promise<unknown>;
+    script(script_subcommand: "FLUSH"): Promise<unknown>;
 
     /**
      * Kill the script currently in execution.
@@ -3978,7 +4007,7 @@ export interface Client {
      * - _complexity_: O(1)
      * - _since_: 2.6.0
      */
-    scriptKill(): Promise<unknown>;
+    script(script_subcommand: "KILL"): Promise<unknown>;
 
     /**
      * Load the specified Lua script into the script cache.
@@ -3986,7 +4015,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the length in bytes of the script body.
      * - _since_: 2.6.0
      */
-    scriptLoad(script: string): Promise<unknown>;
+    script(script_subcommand: "LOAD", script: string): Promise<unknown>;
 
     /**
      * Subtract multiple sets
@@ -5847,7 +5876,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyDoctor(): Promise<unknown>;
+    latency(latency_subcommand: "DOCTOR"): Promise<unknown>;
 
     /**
      * Return a latency graph for the event.
@@ -5855,7 +5884,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyGraph(event: string): Promise<unknown>;
+    latency(latency_subcommand: "GRAPH", event: string): Promise<unknown>;
 
     /**
      * Return timestamp-latency samples for the event.
@@ -5863,7 +5892,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyHistory(event: string): Promise<unknown>;
+    latency(latency_subcommand: "HISTORY", event: string): Promise<unknown>;
 
     /**
      * Return the latest latency samples for all events.
@@ -5871,7 +5900,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyLatest(): Promise<unknown>;
+    latency(latency_subcommand: "LATEST"): Promise<unknown>;
 
     /**
      * Reset latency data for one or more events.
@@ -5879,7 +5908,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyReset(event?: string): Promise<unknown>;
+    latency(latency_subcommand: "RESET", event?: string): Promise<unknown>;
 
     /**
      * Show helpful text about the different subcommands.
@@ -5887,5 +5916,5 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latencyHelp(): Promise<unknown>;
+    latency(latency_subcommand: "HELP"): Promise<unknown>;
 }

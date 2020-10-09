@@ -77,9 +77,20 @@ export const overloads = (args: JsonSchemaCommandArgument[]): JsonSchemaCommandA
     return withFirstArg;
 };
 
-export const formatOverloads = (command: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) => {
+export const formatOverloads = (fullCommand: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) => {
+    const [command, ...subCommands] = fullCommand.split(" ");
+
+    const withSubcommands = [
+        ...subCommands.map<typeof originalArgs[0]>((sub, i) => ({
+            name: snakeCase(`${command}_subcommand${i > 0 ? i + 1 : ""}`),
+            schema: { type: "string", enum: [sub] },
+        })),
+        ...originalArgs,
+    ];
+
     return lo
-        .chain(overloads(originalArgs))
+        .chain(overloads(withSubcommands))
+        .map(args => args)
         .map(args => {
             return {
                 covers: args

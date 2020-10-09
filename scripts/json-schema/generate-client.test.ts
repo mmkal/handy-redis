@@ -1,4 +1,4 @@
-import { overloads, formatOverloads } from "./client";
+import { overloads, formatOverloads } from "./generate-client";
 import { schema } from ".";
 
 test("overloads", () => {

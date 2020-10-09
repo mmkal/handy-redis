@@ -2,7 +2,7 @@ import { schema, JsonSchemaCommandArgument } from ".";
 import * as glob from "glob";
 import * as path from "path";
 import * as fs from "fs";
-import { overloads as getOverloads } from "./client";
+import { overloads as getOverloads } from "./generate-client";
 import { inspect } from "util";
 import { writeFile } from "./util";
 import { parseArgsStringToArgv } from "string-argv";
@@ -287,7 +287,7 @@ const writeTests = () => {
             });
             const destPath = path.join(
                 process.cwd(),
-                `test/gen/${name.replace(/^scripts\//, "").replace(/\.md$/, "")}.test.ts`
+                `test/generated/${name.replace(/^scripts\//, "").replace(/\.md$/, "")}.test.ts`
             );
             const clientPath = path.join(process.cwd(), "x.ts");
             const overridesPath = path.join(process.cwd(), "test/_manual-overrides2");

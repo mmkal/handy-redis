@@ -66,7 +66,7 @@ export const writeFile = (filename: string, contents: string) => {
     }
     try {
         contents = prettier.format(contents, {
-            ...require("../.prettierrc"),
+            ...require("../../.prettierrc"),
             filepath: filename,
         });
     } catch (e) {

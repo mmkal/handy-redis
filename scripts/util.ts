@@ -64,13 +64,15 @@ export const writeFile = (filename: string, contents: string) => {
     if (!contents.endsWith("\n")) {
         contents += EOL;
     }
-    const pretty =
-        // contents ||
-        prettier.format(contents, {
+    try {
+        contents = prettier.format(contents, {
             ...require("../.prettierrc"),
             filepath: filename,
         });
-    writeFileSync(filename, pretty, "utf8");
+    } catch (e) {
+        console.warn(`prettier failed: ${e}`.slice(0, 100));
+    }
+    writeFileSync(filename, contents, "utf8");
 };
 
 export const readdirWithPaths = (dir: string) => {

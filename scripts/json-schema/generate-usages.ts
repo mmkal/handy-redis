@@ -7,6 +7,7 @@ import { inspect } from "util";
 import { writeFile } from "../util";
 import { parseArgsStringToArgv } from "string-argv";
 import { fixupExample } from "./fixup";
+import * as lo from "lodash";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -241,39 +242,61 @@ const decodeTokensCore = (
     return fail(`Not smart enough to deal with ${print(headArg)} yet`);
 };
 
-const typescriptUsage = () => {
-    const all = extractAllCliExamples();
-    const mapped = all
-        .map(a => tokenizeCliExample(a))
+const unixify = (p: string) => p.replace(/\\/g, "/");
+
+const tests = () => {
+    lo.chain(extractAllCliExamples())
+        .map(tokenizeCliExample)
         .flatMap(a =>
             a.commands.map(c => {
                 const jsonArgs = toArgs(c.argv);
-                return { file: a.file, index: a.index, line: c.original, ...jsonArgs };
+                return {
+                    file: a.file,
+                    relativeFile: unixify(a.file).replace(unixify(process.cwd()) + "/", ""),
+                    index: a.index,
+                    line: c.original,
+                    ...jsonArgs,
+                };
             })
-        );
-
-    const ts = [
-        `import {Client} from './x'`,
-        `export const f = async (client: Client) => {`, //
-        ...mapped.flatMap(m => {
-            const usageOrFailureComments = m.decoded
-                ? [`await client.${m.command.toLowerCase()}(${stringifyWithVarArgs(m.decoded).slice(1, -1)})`]
-                : [
-                      "// Error decoding:",
-                      "",
-                      ...m.contexts.flatMap(context => context.concat(["---"]).map(line => `// ${line}`)),
-                  ];
-            const lines = [
-                `// ${m.file} ${m.index}`, // br
-                `// ${m.line}`,
-                ...usageOrFailureComments,
+        )
+        .groupBy(m => m.relativeFile)
+        .mapValues((examples, name) => {
+            const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
+            const testFns = blocks.map(([blockNumber, block]) => {
+                const setup = `const outputs: Record<string, unknown> = {}`;
+                const middle = block.flatMap((m, i) => {
+                    const argList = m.decoded && stringifyWithVarArgs(m.decoded).slice(1, -1);
+                    const usageOrFailureComments = m.decoded
+                        ? [`outputs.r${i} = await client.${m.command.toLowerCase()}(${argList})`]
+                        : [
+                              `// Error decoding command \`${m.line}\`:\n`,
+                              ...m.contexts.flatMap(context => context.concat(["---"]).map(line => `// ${line}`)),
+                          ];
+                    return usageOrFailureComments;
+                });
+                return [
+                    `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
+                    setup,
+                    ``,
+                    ...middle,
+                    ``,
+                    `expect(outputs).toMatchInlineSnapshot()`,
+                    `})`,
+                ].join("\n");
+            });
+            const header = [
+                `import {Client} from '../../x'`,
+                `const client: Client = {} as any`, //
+                `beforeAll(async () => {
+                    await client.ping()
+                })`,
             ];
-            return lines.filter(Boolean).join("\n");
-        }),
-        `}`,
-    ].join("\n\n");
 
-    writeFile("y.ts", ts);
+            const ts = [...header, ...testFns].join("\n\n");
+
+            writeFile(`test/gen/${path.basename(name, ".md").replace(/\W/g, "_")}.test.ts`, ts);
+        })
+        .value();
 };
 
 /**
@@ -292,7 +315,8 @@ export const stringifyWithVarArgs = (input: unknown) =>
     });
 
 if (require.main === module) {
-    typescriptUsage();
+    if (!Math.random()) console.log({ typescriptUsage });
+    tests();
 }
 
 // const usages = Object.keys(schema).map(command => {});

@@ -311,7 +311,7 @@ const tests = () => {
  * custom json stringifier that flattens out arrays "at the end" of arrays.
  * Relies on some assumptions true to this library:
  * - array parameters at the end of argument lists are converted to js rest args (e.g. `...args: Foobar[]`)
- * - the usage-generator marks args with
+ * - the usage-generator marks args with ArrayMarkers.type = ArrayMarkers.varargs | ArrayMarkers.tuple
  */
 export const stringifyWithVarArgs = (input: unknown) =>
     JSON.stringify(input, (key, val) => {

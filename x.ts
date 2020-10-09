@@ -946,7 +946,7 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -962,7 +962,7 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -979,7 +979,7 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -996,75 +996,7 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1083,7 +1015,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1100,7 +1031,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1118,7 +1048,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1136,7 +1065,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1154,7 +1082,8 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1170,7 +1099,8 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1187,7 +1117,8 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1204,79 +1135,8 @@ export interface Client {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1295,7 +1155,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1312,7 +1171,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1330,7 +1188,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1348,7 +1205,78 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1368,7 +1296,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1386,7 +1313,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1405,7 +1331,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1424,7 +1349,82 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1511,7 +1511,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1528,7 +1528,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1546,7 +1546,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1564,7 +1564,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1656,7 +1656,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1674,7 +1674,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1693,7 +1693,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1712,155 +1712,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1880,7 +1732,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1898,7 +1749,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1917,7 +1767,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1936,7 +1785,82 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -1957,7 +1881,6 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
 
@@ -1976,7 +1899,6 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -1996,7 +1918,6 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<Array<unknown>>;
@@ -2016,7 +1937,86 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2093,7 +2093,7 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2108,7 +2108,7 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2124,7 +2124,7 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2140,71 +2140,7 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2222,7 +2158,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2238,7 +2173,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2255,7 +2189,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2272,7 +2205,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2289,7 +2221,8 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2304,7 +2237,8 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2320,7 +2254,8 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2336,75 +2271,8 @@ export interface Client {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2422,7 +2290,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2438,7 +2305,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2455,7 +2321,6 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2472,7 +2337,74 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2491,7 +2423,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2508,7 +2439,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2526,7 +2456,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2544,7 +2473,78 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2626,7 +2626,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2642,7 +2642,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2659,7 +2659,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2676,7 +2676,7 @@ export interface Client {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2763,7 +2763,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2780,7 +2780,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2798,7 +2798,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -2816,147 +2816,7 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        store_key?: [string, string],
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [string, string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count_count?: [string, number],
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -2975,7 +2835,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -2992,7 +2851,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -3010,7 +2868,6 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -3028,7 +2885,78 @@ export interface Client {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -3048,7 +2976,6 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         storedist_key?: [string, string]
     ): Promise<unknown>;
 
@@ -3066,7 +2993,6 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         store_key?: [string, string],
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -3085,7 +3011,6 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
         order?: "ASC" | "DESC",
         storedist_key?: [string, string]
     ): Promise<unknown>;
@@ -3104,7 +3029,82 @@ export interface Client {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count_count?: [string, number],
+        order?: "ASC" | "DESC",
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        store_key?: [string, string],
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
+        order?: "ASC" | "DESC",
+        storedist_key?: [string, string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [string, number],
         order?: "ASC" | "DESC",
         store_key?: [string, string],
         storedist_key?: [string, string]
@@ -3292,7 +3292,7 @@ export interface Client {
      * - _complexity_: undefined
      * - _since_: 5.0.0
      */
-    lolwut(version_version?: [string, number]): Promise<string>;
+    lolwut(version?: [string, number]): Promise<string>;
 
     /**
      * Find all keys matching the given pattern
@@ -3458,7 +3458,7 @@ export interface Client {
         key: "key" | '""',
         destination_db: number,
         timeout: number,
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -3474,7 +3474,7 @@ export interface Client {
         destination_db: number,
         timeout: number,
         auth_password?: [string, string],
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -3490,7 +3490,7 @@ export interface Client {
         destination_db: number,
         timeout: number,
         replace?: "REPLACE",
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -3507,7 +3507,7 @@ export interface Client {
         timeout: number,
         replace?: "REPLACE",
         auth_password?: [string, string],
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -3523,7 +3523,7 @@ export interface Client {
         destination_db: number,
         timeout: number,
         copy?: "COPY",
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -3540,24 +3540,7 @@ export interface Client {
         timeout: number,
         copy?: "COPY",
         auth_password?: [string, string],
-        ...keys_key: Array<[string, string]>
-    ): Promise<string>;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: "key" | '""',
-        destination_db: number,
-        timeout: number,
-        copy?: "COPY",
-        replace?: "REPLACE",
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -3574,8 +3557,25 @@ export interface Client {
         timeout: number,
         copy?: "COPY",
         replace?: "REPLACE",
+        keys?: ["KEYS", Array<string>]
+    ): Promise<string>;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy?: "COPY",
+        replace?: "REPLACE",
         auth_password?: [string, string],
-        ...keys_key: Array<[string, string]>
+        keys?: ["KEYS", Array<string>]
     ): Promise<string>;
 
     /**
@@ -4862,7 +4862,7 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        aggregate_aggregate?: [string, "SUM" | "MIN" | "MAX"]
+        aggregate?: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
@@ -4875,8 +4875,8 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        weights_weight?: Array<[string, number]>,
-        aggregate_aggregate?: [string, "SUM" | "MIN" | "MAX"]
+        weights?: ["WEIGHTS", Array<number>],
+        aggregate?: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
@@ -5065,7 +5065,7 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        aggregate_aggregate?: [string, "SUM" | "MIN" | "MAX"]
+        aggregate?: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
@@ -5078,8 +5078,8 @@ export interface Client {
         destination: string,
         numkeys: number,
         key: Array<string>,
-        weights_weight?: Array<[string, number]>,
-        aggregate_aggregate?: [string, "SUM" | "MIN" | "MAX"]
+        weights?: ["WEIGHTS", Array<number>],
+        aggregate?: [string, "SUM" | "MIN" | "MAX"]
     ): Promise<number>;
 
     /**
@@ -5088,7 +5088,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
      * - _since_: 2.8.0
      */
-    scan(cursor: number, type_type?: [string, string]): Promise<unknown>;
+    scan(cursor: number, type?: [string, string]): Promise<unknown>;
 
     /**
      * Incrementally iterate the keys space
@@ -5096,7 +5096,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
      * - _since_: 2.8.0
      */
-    scan(cursor: number, count_count?: [string, number], type_type?: [string, string]): Promise<unknown>;
+    scan(cursor: number, count?: [string, number], type?: [string, string]): Promise<unknown>;
 
     /**
      * Incrementally iterate the keys space
@@ -5104,7 +5104,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection.
      * - _since_: 2.8.0
      */
-    scan(cursor: number, match_pattern?: [string, string], type_type?: [string, string]): Promise<unknown>;
+    scan(cursor: number, match_pattern?: [string, string], type?: [string, string]): Promise<unknown>;
 
     /**
      * Incrementally iterate the keys space
@@ -5115,8 +5115,8 @@ export interface Client {
     scan(
         cursor: number,
         match_pattern?: [string, string],
-        count_count?: [string, number],
-        type_type?: [string, string]
+        count?: [string, number],
+        type?: [string, string]
     ): Promise<unknown>;
 
     /**
@@ -5125,7 +5125,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    sscan(key: string, cursor: number, count_count?: [string, number]): Promise<unknown>;
+    sscan(key: string, cursor: number, count?: [string, number]): Promise<unknown>;
 
     /**
      * Incrementally iterate Set elements
@@ -5133,12 +5133,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    sscan(
-        key: string,
-        cursor: number,
-        match_pattern?: [string, string],
-        count_count?: [string, number]
-    ): Promise<unknown>;
+    sscan(key: string, cursor: number, match_pattern?: [string, string], count?: [string, number]): Promise<unknown>;
 
     /**
      * Incrementally iterate hash fields and associated values
@@ -5146,7 +5141,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    hscan(key: string, cursor: number, count_count?: [string, number]): Promise<unknown>;
+    hscan(key: string, cursor: number, count?: [string, number]): Promise<unknown>;
 
     /**
      * Incrementally iterate hash fields and associated values
@@ -5154,12 +5149,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    hscan(
-        key: string,
-        cursor: number,
-        match_pattern?: [string, string],
-        count_count?: [string, number]
-    ): Promise<unknown>;
+    hscan(key: string, cursor: number, match_pattern?: [string, string], count?: [string, number]): Promise<unknown>;
 
     /**
      * Incrementally iterate sorted sets elements and associated scores
@@ -5167,7 +5157,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    zscan(key: string, cursor: number, count_count?: [string, number]): Promise<unknown>;
+    zscan(key: string, cursor: number, count?: [string, number]): Promise<unknown>;
 
     /**
      * Incrementally iterate sorted sets elements and associated scores
@@ -5175,12 +5165,7 @@ export interface Client {
      * - _complexity_: O(1) for every call. O(N) for a complete iteration, including enough command calls for the cursor to return back to 0. N is the number of elements inside the collection..
      * - _since_: 2.8.0
      */
-    zscan(
-        key: string,
-        cursor: number,
-        match_pattern?: [string, string],
-        count_count?: [string, number]
-    ): Promise<unknown>;
+    zscan(key: string, cursor: number, match_pattern?: [string, string], count?: [string, number]): Promise<unknown>;
 
     /**
      * Get information on streams and consumer groups
@@ -5297,7 +5282,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of elements being returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).
      * - _since_: 5.0.0
      */
-    xrange(key: string, start: string, end: string, count_count?: [string, number]): Promise<Array<unknown>>;
+    xrange(key: string, start: string, end: string, count?: [string, number]): Promise<Array<unknown>>;
 
     /**
      * Return a range of elements in a stream, with IDs matching the specified IDs interval, in reverse order (from greater to smaller IDs) compared to XRANGE
@@ -5305,7 +5290,7 @@ export interface Client {
      * - _complexity_: O(N) with N being the number of elements returned. If N is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1).
      * - _since_: 5.0.0
      */
-    xrevrange(key: string, end: string, start: string, count_count?: [string, number]): Promise<Array<unknown>>;
+    xrevrange(key: string, end: string, start: string, count?: [string, number]): Promise<Array<unknown>>;
 
     /**
      * Return the number of entires in a stream
@@ -5343,7 +5328,7 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xread(
-        count_count: [string, number],
+        count: [string, number],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -5356,7 +5341,7 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xread(
-        count_count: [string, number],
+        count: [string, number],
         block_milliseconds: [string, number],
         streams: "STREAMS",
         key: Array<string>,
@@ -5460,7 +5445,7 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
+        group_consumer: [string, [string, string]],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -5473,7 +5458,7 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
+        group_consumer: [string, [string, string]],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
@@ -5487,7 +5472,7 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
+        group_consumer: [string, [string, string]],
         block_milliseconds: [string, number],
         streams: "STREAMS",
         key: Array<string>,
@@ -5501,7 +5486,7 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
+        group_consumer: [string, [string, string]],
         block_milliseconds: [string, number],
         noack: "NOACK",
         streams: "STREAMS",
@@ -5516,8 +5501,8 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
+        group_consumer: [string, [string, string]],
+        count: [string, number],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -5530,8 +5515,8 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
+        group_consumer: [string, [string, string]],
+        count: [string, number],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
@@ -5545,8 +5530,8 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
+        group_consumer: [string, [string, string]],
+        count: [string, number],
         block_milliseconds: [string, number],
         streams: "STREAMS",
         key: Array<string>,
@@ -5560,8 +5545,8 @@ export interface Client {
      * - _since_: 5.0.0
      */
     xreadgroup(
-        group_group_consumer: [string, [string, string]],
-        count_count: [string, number],
+        group_consumer: [string, [string, string]],
+        count: [string, number],
         block_milliseconds: [string, number],
         noack: "NOACK",
         streams: "STREAMS",

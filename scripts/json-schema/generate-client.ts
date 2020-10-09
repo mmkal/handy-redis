@@ -139,6 +139,7 @@ export const getTypeScriptInterface = (schema: typeof actualSchema) => {
 };
 
 export const main = () => {
+    writeFile(process.cwd() + "/x.ts", getTypeScriptInterface(actualSchema));
     writeFile(process.cwd() + "/src/generated/interface.ts", getTypeScriptInterface(actualSchema));
 };
 

@@ -7,6 +7,15 @@ import { fixupSchema } from "./fixup";
 import { JsonSchemaCommand } from ".";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
+    if (arg.variadic && arg.command) {
+        return {
+            type: "array",
+            items: [
+                { type: "string", enum: [arg.command] },
+                { type: "array", items: argToSchema({ ...arg, multiple: false, variadic: false, command: undefined }) },
+            ],
+        };
+    }
     if (arg.multiple || arg.variadic) {
         return {
             type: "array",
@@ -125,7 +134,13 @@ const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSche
     arguments: (command?.arguments || []).map(arg => ({
         name: [arg.command, arg.name]
             .flat()
-            .filter((val, i, arr) => val && val !== arr[i - 1])
+            .filter(
+                (val, i, arr) =>
+                    val &&
+                    val !== arr[i - 1] &&
+                    val.toUpperCase() !== arr[i - 1] &&
+                    val.toUpperCase() + "S" !== arr[i - 1]
+            )
             .join("_"),
         optional: arg.optional,
         schema: argToSchema(arg),

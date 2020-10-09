@@ -1576,7 +1576,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -1692,7 +1692,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -2297,7 +2297,7 @@
         "summary": "Display some computer art and the Redis version",
         "arguments": [
             {
-                "name": "VERSION_version",
+                "name": "VERSION",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -2774,22 +2774,22 @@
                 }
             },
             {
-                "name": "KEYS_key",
+                "name": "KEYS",
                 "optional": true,
                 "schema": {
                     "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": [
-                            {
-                                "type": "string",
-                                "const": "KEYS"
-                            },
-                            {
+                    "items": [
+                        {
+                            "type": "string",
+                            "enum": ["KEYS"]
+                        },
+                        {
+                            "type": "array",
+                            "items": {
                                 "type": "string"
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             }
         ],
@@ -4741,26 +4741,26 @@
                 }
             },
             {
-                "name": "WEIGHTS_weight",
+                "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
                     "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": [
-                            {
-                                "type": "string",
-                                "const": "WEIGHTS"
-                            },
-                            {
+                    "items": [
+                        {
+                            "type": "string",
+                            "enum": ["WEIGHTS"]
+                        },
+                        {
+                            "type": "array",
+                            "items": {
                                 "type": "integer"
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             },
             {
-                "name": "AGGREGATE_aggregate",
+                "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5392,26 +5392,26 @@
                 }
             },
             {
-                "name": "WEIGHTS_weight",
+                "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
                     "type": "array",
-                    "items": {
-                        "type": "array",
-                        "items": [
-                            {
-                                "type": "string",
-                                "const": "WEIGHTS"
-                            },
-                            {
+                    "items": [
+                        {
+                            "type": "string",
+                            "enum": ["WEIGHTS"]
+                        },
+                        {
+                            "type": "array",
+                            "items": {
                                 "type": "integer"
                             }
-                        ]
-                    }
+                        }
+                    ]
                 }
             },
             {
-                "name": "AGGREGATE_aggregate",
+                "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5461,7 +5461,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5477,7 +5477,7 @@
                 }
             },
             {
-                "name": "TYPE_type",
+                "name": "TYPE",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5530,7 +5530,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5583,7 +5583,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5636,7 +5636,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5860,7 +5860,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5905,7 +5905,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -5949,7 +5949,7 @@
         "complexity": "For each stream mentioned: O(N) with N being the number of elements being returned, it means that XREAD-ing with a fixed COUNT is O(1). Note that when the BLOCK option is used, XADD will pay O(M) time in order to serve the M clients blocked on the stream getting new data.",
         "arguments": [
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -6142,7 +6142,7 @@
         "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
         "arguments": [
             {
-                "name": "GROUP_group_consumer",
+                "name": "GROUP_consumer",
                 "schema": {
                     "type": "array",
                     "items": [
@@ -6167,7 +6167,7 @@
                 }
             },
             {
-                "name": "COUNT_count",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
                     "type": "array",

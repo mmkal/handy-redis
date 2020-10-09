@@ -287,7 +287,10 @@ const writeTests = () => {
             });
             const destPath = path.join(
                 process.cwd(),
-                `test/generated/${name.replace(/^scripts\//, "").replace(/\.md$/, "")}.test.ts`
+                `test/generated/${name
+                    .replace("redis-doc/", "")
+                    .replace(/^scripts\//, "")
+                    .replace(/\.md$/, "")}.test.ts`
             );
             const clientPath = path.join(process.cwd(), "x.ts");
             const overridesPath = path.join(process.cwd(), "test/_manual-overrides2");

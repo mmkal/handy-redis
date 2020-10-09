@@ -1,4 +1,4 @@
-import { quote } from "../util";
+import { quote } from "../json-schema/util";
 
 it("quotes empty string", () => expect(quote("")).toEqual(`""`));
 

@@ -1,7 +1,7 @@
 import { Command, BasicCommandInfo, Argument, TypeScriptArg, CommandCollection } from "./types";
 import { getOverloads } from "../overloads";
 import { readFileSync } from "fs";
-import { redisDoc, simplifyName, makeArrayType, getDocs } from "../util";
+import { redisDoc, simplifyName, makeArrayType, getDocs } from "../json-schema/util";
 import * as _ from "lodash";
 import { createClient } from "redis";
 import { flattenDeep } from "../../src/flatten";

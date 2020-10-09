@@ -1,5 +1,5 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
-import { writeFile } from "../util";
+import { writeFile } from "./util";
 import { camelCase, snakeCase } from "lodash";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
@@ -139,7 +139,7 @@ export const getTypeScriptInterface = (schema: typeof actualSchema) => {
 };
 
 export const main = () => {
-    writeFile(process.cwd() + "/x.ts", getTypeScriptInterface(actualSchema));
+    writeFile(process.cwd() + "/src/generated/interface.ts", getTypeScriptInterface(actualSchema));
 };
 
 if (require.main === module) {

@@ -1,4 +1,4 @@
-import { writeFile } from "../util";
+import { writeFile } from "./util";
 import * as cmnds from "../redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";

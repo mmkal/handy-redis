@@ -4,7 +4,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { overloads as getOverloads } from "./client";
 import { inspect } from "util";
-import { writeFile } from "../util";
+import { writeFile } from "./util";
 import { parseArgsStringToArgv } from "string-argv";
 import { fixupExample } from "./fixup";
 import * as lo from "lodash";

@@ -244,7 +244,7 @@ const decodeTokensCore = (
 
 const unixify = (p: string) => p.replace(/\\/g, "/");
 
-const tests = () => {
+const writeTests = () => {
     lo.chain(extractAllCliExamples())
         .map(tokenizeCliExample)
         .flatMap(a =>
@@ -260,7 +260,7 @@ const tests = () => {
             })
         )
         .groupBy(m => m.relativeFile)
-        .mapValues((examples, name) => {
+        .forIn((examples, name) => {
             const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
             const testFns = blocks.map(([blockNumber, block]) => {
                 const setup = `const outputs = getOutputsDict(__filename)`;
@@ -285,9 +285,17 @@ const tests = () => {
                     `})`,
                 ].join("\n");
             });
+            const destPath = path.join(
+                process.cwd(),
+                `test/gen/${name.replace(/^scripts\//, "").replace(/\.md$/, "")}.test.ts`
+            );
+            const clientPath = path.join(process.cwd(), "x.ts");
+            const overridesPath = path.join(process.cwd(), "test/_manual-overrides2");
+            const relativePath = (to: string) =>
+                unixify(path.relative(path.dirname(destPath), to)).replace(/\.ts$/, "");
             const header = [
-                `import {Client} from '../../x'`,
-                `import {getOutputsDict} from '../_manual-overrides2'`,
+                `import {Client} from '${relativePath(clientPath)}'`,
+                `import {getOutputsDict} from '${relativePath(overridesPath)}'`,
                 "",
                 `const client: Client = {} as any`,
                 "",
@@ -302,7 +310,7 @@ const tests = () => {
 
             const ts = [header, ...testFns].join("\n\n");
 
-            writeFile(`test/gen/${path.basename(name, ".md").replace(/\W/g, "_")}.test.ts`, ts);
+            writeFile(destPath, ts);
         })
         .value();
 };
@@ -323,7 +331,5 @@ export const stringifyWithVarArgs = (input: unknown) =>
     });
 
 if (require.main === module) {
-    tests();
+    writeTests();
 }
-
-// const usages = Object.keys(schema).map(command => {});

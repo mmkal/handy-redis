@@ -1,6 +1,7 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
 import { writeFile } from "../util";
 import { camelCase, snakeCase } from "lodash";
+import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
@@ -12,8 +13,11 @@ const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg
     if (type.startsWith("Array<") && i === arr.length - 1) {
         name = "..." + name;
     }
-    return [name, ": ", type].join("");
+    const optionalMarker = arr.slice(i).every(a => a.optional) ? "?" : "";
+    return [name, optionalMarker, ": ", type].join("");
 };
+
+const formatCodeArguments = (list: JsonSchemaCommandArgument[]) => list.map(codeArgument).join(", ");
 
 const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     const unknownType = "unknown";
@@ -73,20 +77,45 @@ export const overloads = (args: JsonSchemaCommandArgument[]): JsonSchemaCommandA
     return withFirstArg;
 };
 
-export const formatOverloads = (command: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) =>
-    // todo: make all-optionals-at-the end look like `(a: string, b?: string, c?: string) => ...` rather than `(a: string) => ...`, `(a: string, b: string) => ...` and `(a: string, b: string, c: string) => ...`
-    overloads(originalArgs).map(newArgs => {
-        return `
-            /**
-             * ${spec.summary}
-             * - _group_: ${spec.group}
-             * - _complexity_: ${spec.complexity}
-             * - _since_: ${spec.since}
-             */
-            ${camelCase(command)}(${newArgs.map(codeArgument)}):
-                Promise<${schemaToTypeScript(spec.return)}>
-        `;
-    });
+export const formatOverloads = (command: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) => {
+    return lo
+        .chain(overloads(originalArgs))
+        .map(args => {
+            return {
+                covers: args
+                    .map((_, i, arr) => {
+                        const after = arr.slice(i);
+                        if (after.every(a => a.optional)) {
+                            return formatCodeArguments(arr.slice(0, i));
+                        }
+                        return undefined;
+                    })
+                    .filter(val => typeof val !== "undefined"),
+                formatted: formatCodeArguments(args),
+            };
+        })
+        .filter(({ formatted }, _, arr) => {
+            const betterAlternativeExists = lo.some(arr, other => {
+                const isCoveredByOther = other.covers.includes(formatted);
+                const isShorterThanOther = formatted.length < other.formatted.length;
+                return isCoveredByOther && isShorterThanOther;
+            });
+            return !betterAlternativeExists;
+        })
+        .map(val => {
+            return `
+                /**
+                 * ${spec.summary}
+                 * - _group_: ${spec.group}
+                 * - _complexity_: ${spec.complexity}
+                 * - _since_: ${spec.since}
+                 */
+                ${camelCase(command)}(${val.formatted}):
+                    Promise<${schemaToTypeScript(spec.return)}>
+            `;
+        })
+        .value();
+};
 
 export const getTypeScriptInterface = (schema: typeof actualSchema) => {
     const properties = Object.entries(schema)

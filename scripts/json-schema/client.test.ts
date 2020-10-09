@@ -21,48 +21,42 @@ test("overloads", () => {
 });
 
 test("formatOverloads", () => {
+    expect(formatOverloads("LATENCY RESET", schema["LATENCY RESET"])).toMatchInlineSnapshot(`
+        Array [
+          "
+                        /**
+                         * Reset latency data for one or more events.
+                         * - _group_: server
+                         * - _complexity_: undefined
+                         * - _since_: 2.8.13
+                         */
+                        latencyReset(event?: string):
+                            Promise<unknown>
+                    ",
+        ]
+    `);
     expect(formatOverloads("SET", schema.SET)).toMatchInlineSnapshot(`
         Array [
           "
-                    /**
-                     * Set the string value of a key
-                     * - _group_: string
-                     * - _complexity_: O(1)
-                     * - _since_: 1.0.0
-                     */
-                    set(key: string,value: string):
-                        Promise<(string) | (null)>
-                ",
+                        /**
+                         * Set the string value of a key
+                         * - _group_: string
+                         * - _complexity_: O(1)
+                         * - _since_: 1.0.0
+                         */
+                        set(key: string, value: string, condition?: \\"NX\\"|\\"XX\\"):
+                            Promise<(string) | (null)>
+                    ",
           "
-                    /**
-                     * Set the string value of a key
-                     * - _group_: string
-                     * - _complexity_: O(1)
-                     * - _since_: 1.0.0
-                     */
-                    set(key: string,value: string,condition: \\"NX\\"|\\"XX\\"):
-                        Promise<(string) | (null)>
-                ",
-          "
-                    /**
-                     * Set the string value of a key
-                     * - _group_: string
-                     * - _complexity_: O(1)
-                     * - _since_: 1.0.0
-                     */
-                    set(key: string,value: string,expiration: [\\"EX\\"|\\"PX\\", number]):
-                        Promise<(string) | (null)>
-                ",
-          "
-                    /**
-                     * Set the string value of a key
-                     * - _group_: string
-                     * - _complexity_: O(1)
-                     * - _since_: 1.0.0
-                     */
-                    set(key: string,value: string,expiration: [\\"EX\\"|\\"PX\\", number],condition: \\"NX\\"|\\"XX\\"):
-                        Promise<(string) | (null)>
-                ",
+                        /**
+                         * Set the string value of a key
+                         * - _group_: string
+                         * - _complexity_: O(1)
+                         * - _since_: 1.0.0
+                         */
+                        set(key: string, value: string, expiration?: [(\\"EX\\"|\\"PX\\"), (number)], condition?: \\"NX\\"|\\"XX\\"):
+                            Promise<(string) | (null)>
+                    ",
         ]
     `);
 });

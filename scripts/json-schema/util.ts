@@ -70,7 +70,7 @@ export const writeFile = (filename: string, contents: string) => {
             filepath: filename,
         });
     } catch (e) {
-        console.warn(`prettier failed: ${e}`.slice(0, 100));
+        console.warn(`prettier failed for ${filename}: ${e}`.slice(0, 200));
     }
     writeFileSync(filename, contents, "utf8");
 };

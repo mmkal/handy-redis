@@ -261,8 +261,36 @@ const writeTests = () => {
         )
         .groupBy(m => m.relativeFile)
         .forIn((examples, name) => {
+            const destPath = path.join(
+                process.cwd(),
+                `test/generated/${name
+                    .replace("redis-doc/", "")
+                    .replace(/^scripts\//, "")
+                    .replace(/\.md$/, "")}.test.ts`
+            );
+
+            const existingContent = fs.existsSync(destPath) ? fs.readFileSync(destPath).toString() : "";
+            const existingSnapshots = existingContent
+                .split(".toMatchInlineSnapshot")
+                .slice(1)
+                .map(section => {
+                    if (section.startsWith("()")) {
+                        return "";
+                    }
+                    const backtick = "`";
+                    const firstBacktick = section.indexOf(backtick);
+                    let secondBacktick = section.indexOf(backtick, firstBacktick + 1);
+                    while (section[secondBacktick - 1] === "\\") {
+                        secondBacktick = section.indexOf(backtick, secondBacktick + 1);
+                    }
+                    if (firstBacktick === secondBacktick) {
+                        return "";
+                    }
+                    return section.slice(firstBacktick, secondBacktick + 1);
+                });
+
             const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
-            const testFns = blocks.map(([blockNumber, block]) => {
+            const testFns = blocks.map(([blockNumber, block], i) => {
                 const setup = `const outputs: Record<string, unknown> = {}`;
                 const test = block
                     .flatMap((m, i) => {
@@ -275,8 +303,9 @@ const writeTests = () => {
                               ];
                         return usageOrFailureComments;
                     })
-                    .map(fixupGeneratedCode);
-                const assertion = `expect(override(outputs, __filename)).toMatchInlineSnapshot()`;
+                    .map(fixupGeneratedCode(name));
+                const existingSnapshot = existingSnapshots[i] || "";
+                const assertion = `expect(override(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
                 return [
                     `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
                     setup,
@@ -287,13 +316,6 @@ const writeTests = () => {
                     `})`,
                 ].join("\n");
             });
-            const destPath = path.join(
-                process.cwd(),
-                `test/generated/${name
-                    .replace("redis-doc/", "")
-                    .replace(/^scripts\//, "")
-                    .replace(/\.md$/, "")}.test.ts`
-            );
             const clientPath = path.join(process.cwd(), "src");
             const overridesPath = path.join(process.cwd(), "test/_manual-overrides2");
             const relativePath = (to: string) =>

@@ -17,9 +17,10 @@ export const fixupExample = (example: string) => {
     return array[0];
 };
 
-export const fixupGeneratedCode = (code: string) => {
+export const fixupGeneratedCode = (filename: string) => (code: string) => {
     const array = [code] // use array as a stupid monad-like data structure
         .map(fixKeyWeightsOverlyComplexParsingIssue)
+        .map(catchDecrOutOfRange(filename))
         .map(s => s);
 
     return array[0];
@@ -46,4 +47,12 @@ function fixKeyWeightsOverlyComplexParsingIssue(code: string) {
         ? `// @ts-expect-error (not smart enough to deal with numkeys)
         ${code}`
         : code;
+}
+
+function catchDecrOutOfRange(filename: string) {
+    if (filename.endsWith("decr.md")) {
+        const catchable = `outputs.r3 = await client.decr("mykey")`;
+        return (code: string) => code.replace(catchable, catchable + `.catch(e => e)`);
+    }
+    return (code: string) => code;
 }

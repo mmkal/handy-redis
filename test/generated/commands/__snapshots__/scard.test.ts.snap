@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/scard.md example 1 1`] = `
-Array [
-  "await client.sadd('myset', 'Hello')  => 1",
-  "await client.sadd('myset', 'World')  => 1",
-  "await client.scard('myset')          => 2",
-]
-`;

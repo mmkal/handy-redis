@@ -1,36 +1,30 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/sadd.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/sadd.md");
-    let snapshot: any;
-    const commands = [
-        `await client.sadd("myset", "Hello")`,
-        `await client.sadd("myset", "World")`,
-        `await client.sadd("myset", "World")`,
-        `await client.smembers("myset")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.sadd("myset", "Hello"));
-        output.push(await client.sadd("myset", "World"));
-        output.push(await client.sadd("myset", "World"));
-        output.push(await client.smembers("myset"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 36)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/sadd.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.sadd("myset", "Hello");
+    outputs.r1 = await client.sadd("myset", "World");
+    outputs.r2 = await client.sadd("myset", "World");
+    outputs.r3 = await client.smembers("myset");
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 1,
+          "r2": 0,
+          "r3": "sortArrays => [ 'Hello', 'World' ]",
+        }
+    `);
 });

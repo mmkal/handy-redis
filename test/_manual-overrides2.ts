@@ -43,25 +43,25 @@ const simplifiers = getSimplifiers({
         ))([]),
 });
 
-addOverride("/lastsave.ts", simplifiers.isFinite);
-addOverride("/time.ts", simplifiers.isFinite);
-addOverride("/srandmember.ts", o => (Array.isArray(o) ? simplifiers.arrayLength(o) : simplifiers.typeOf(o)));
-addOverride("/spop.ts", o => (Array.isArray(o) ? simplifiers.arrayLength(o) : simplifiers.typeOf(o)));
+addOverride("/lastsave.test.ts", simplifiers.isFinite);
+addOverride("/time.test.ts", simplifiers.isFinite);
+addOverride("/srandmember.test.ts", o => (Array.isArray(o) ? simplifiers.arrayLength(o) : simplifiers.typeOf(o)));
+addOverride("/spop.test.ts", o => (Array.isArray(o) ? simplifiers.arrayLength(o) : simplifiers.typeOf(o)));
 addOverride("/psetex.test.ts", simplifiers.someNumberValue);
-addOverride("/command.ts", simplifiers.typeOf);
-addOverride("/dump.ts", simplifiers.typeOf);
-addOverride("/command-count.ts", simplifiers.someNumberValue);
-addOverride("/pttl.ts", simplifiers.someNumberValue);
-addOverride("/pexpireat.ts", simplifiers.typeOf);
-addOverride("/pexpire.ts", simplifiers.someNumberValue);
-addOverride("/info.ts", simplifiers.typeOf);
+addOverride("/command.test.ts", simplifiers.typeOf);
+addOverride("/dump.test.ts", simplifiers.typeOf);
+addOverride("/command-count.test.ts", simplifiers.someNumberValue);
+addOverride("/pttl.test.ts", simplifiers.someNumberValue);
+addOverride("/pexpireat.test.ts", simplifiers.typeOf);
+addOverride("/pexpire.test.ts", simplifiers.someNumberValue);
+addOverride("/info.test.ts", simplifiers.typeOf);
 addOverride(
-    "/(sunionstore|sadd|smembers|sunion|smove|srem|spop|sinterstore|sdiffstore|sdiff).ts",
+    "/(sunionstore|sadd|smembers|sunion|smove|srem|spop|sinterstore|sdiffstore|sdiff).test.ts",
     simplifiers.sortArrays
 );
-addOverride("/keys.ts", simplifiers.sortArrays);
-addOverride("/geo(\\w+).ts", simplifiers.ignoreDecimals);
-addOverride("/(xadd|xack|xlen|xrange|xrevrange|xtrim).ts", simplifiers.ignoreStreamIds);
+addOverride("/keys.test.ts", simplifiers.sortArrays);
+addOverride("/geo(\\w+).test.ts", simplifiers.ignoreDecimals);
+addOverride("/(xadd|xack|xlen|xrange|xrevrange|xtrim).test.ts", simplifiers.ignoreStreamIds);
 
 export const override = (outputs: Record<string, unknown>, testFileName: string) => {
     const override = find(outputOverrides, (value, key) => new RegExp(key).test(testFileName.replace(/\\/g, "/")));

@@ -1,38 +1,56 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/georadius.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/georadius.md");
-    let snapshot: any;
-    const commands = [
-        `await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"])`,
-        `await client.georadius("Sicily", 15, 37, 200, "km", "WITHDIST")`,
-        `await client.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD")`,
-        `await client.georadius("Sicily", 15, 37, 200, "km", "WITHDIST")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(
-            await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"])
-        );
-        output.push(await client.georadius("Sicily", 15, 37, 200, "km", "WITHDIST"));
-        output.push(await client.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD"));
-        output.push(await client.georadius("Sicily", 15, 37, 200, "km", "WITHDIST"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 100)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/georadius.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.geoadd(
+        "Sicily",
+        [13.361389, 38.115556, "Palermo"],
+        [15.087269, 37.502669, "Catania"]
+    );
+    outputs.r1 = await client.georadius(
+        "Sicily",
+        15,
+        37,
+        200,
+        "km",
+        "WITHDIST"
+    );
+    outputs.r2 = await client.georadius(
+        "Sicily",
+        15,
+        37,
+        200,
+        "km",
+        "WITHCOORD"
+    );
+    outputs.r3 = await client.georadius(
+        "Sicily",
+        15,
+        37,
+        200,
+        "km",
+        "WITHCOORD",
+        "WITHDIST"
+    );
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 2,
+          "r1": "ignoreDecimals => Palermo,190.??,Catania,56.??",
+          "r2": "ignoreDecimals => Palermo,13.??,38.??,Catania,15.??,37.??",
+          "r3": "ignoreDecimals => Palermo,190.??,13.??,38.??,Catania,56.??,15.??,37.??",
+        }
+    `);
 });

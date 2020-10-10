@@ -1,36 +1,30 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/getbit.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/getbit.md");
-    let snapshot: any;
-    const commands = [
-        `await client.setbit("mykey", 7, 1)`,
-        `await client.getbit("mykey", 0)`,
-        `await client.getbit("mykey", 7)`,
-        `await client.getbit("mykey", 100)`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.setbit("mykey", 7, 1));
-        output.push(await client.getbit("mykey", 0));
-        output.push(await client.getbit("mykey", 7));
-        output.push(await client.getbit("mykey", 100));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 35)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/getbit.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.setbit("mykey", 7, 1);
+    outputs.r1 = await client.getbit("mykey", 0);
+    outputs.r2 = await client.getbit("mykey", 7);
+    outputs.r3 = await client.getbit("mykey", 100);
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 0,
+          "r1": 0,
+          "r2": 1,
+          "r3": 0,
+        }
+    `);
 });

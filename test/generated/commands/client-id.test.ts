@@ -1,32 +1,23 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/client-id.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/client-id.md");
-    let snapshot: any;
-    const commands = [
-        "// not implemented by node redis: await client.client(`Couldn't format arguments: Couldn't find command \"client\"`)",
-    ];
-    const output: any[] = [];
-    try {
-        output.push(
-            "// not implemented by node redis: await client.client(`Couldn't format arguments: Couldn't find command \"client\"`)"
-        );
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 115)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/client-id.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    // Error decoding command `CLIENT ID`:
+
+    // CLIENT not found
+    // ---
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

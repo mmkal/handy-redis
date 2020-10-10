@@ -11,18 +11,16 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/role.md example 1", async () => {
+test("scripts/more-cli-examples/readme.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.role();
+    outputs.r0 = await client.set("mykey", "foo");
+    outputs.r1 = await client.get("mykey");
 
     expect(override(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
-          "r0": Array [
-            "master",
-            0,
-            Array [],
-          ],
+          "r0": "OK",
+          "r1": "foo",
         }
     `);
 });

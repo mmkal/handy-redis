@@ -1,36 +1,34 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/keys.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/keys.md");
-    let snapshot: any;
-    const commands = [
-        `await client.mset(["firstname", "Jack"], ["lastname", "Stuntman"], ["age", "35"])`,
-        `await client.keys("*name*")`,
-        `await client.keys("a??")`,
-        `await client.keys("*")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.mset(["firstname", "Jack"], ["lastname", "Stuntman"], ["age", "35"]));
-        output.push(await client.keys("*name*"));
-        output.push(await client.keys("a??"));
-        output.push(await client.keys("*"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 82)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/keys.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.mset(
+        ["firstname", "Jack"],
+        ["lastname", "Stuntman"],
+        ["age", "35"]
+    );
+    outputs.r1 = await client.keys("*name*");
+    outputs.r2 = await client.keys("a??");
+    outputs.r3 = await client.keys("*");
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "OK",
+          "r1": "sortArrays => [ 'firstname', 'lastname' ]",
+          "r2": "sortArrays => [ 'age' ]",
+          "r3": "sortArrays => [ 'age', 'firstname', 'lastname' ]",
+        }
+    `);
 });

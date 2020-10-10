@@ -1,38 +1,32 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/persist.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/persist.md");
-    let snapshot: any;
-    const commands = [
-        `await client.set("mykey", "Hello")`,
-        `await client.expire("mykey", 10)`,
-        `await client.ttl("mykey")`,
-        `await client.persist("mykey")`,
-        `await client.ttl("mykey")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.set("mykey", "Hello"));
-        output.push(await client.expire("mykey", 10));
-        output.push(await client.ttl("mykey"));
-        output.push(await client.persist("mykey"));
-        output.push(await client.ttl("mykey"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 35)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/persist.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.set("mykey", "Hello");
+    outputs.r1 = await client.expire("mykey", 10);
+    outputs.r2 = await client.ttl("mykey");
+    outputs.r3 = await client.persist("mykey");
+    outputs.r4 = await client.ttl("mykey");
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "OK",
+          "r1": 1,
+          "r2": 10,
+          "r3": 1,
+          "r4": -1,
+        }
+    `);
 });

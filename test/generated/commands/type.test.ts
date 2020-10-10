@@ -1,40 +1,34 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/type.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/type.md");
-    let snapshot: any;
-    const commands = [
-        `await client.set("key1", "value")`,
-        `await client.lpush("key2", "value")`,
-        `await client.sadd("key3", "value")`,
-        `await client.type("key1")`,
-        `await client.type("key2")`,
-        `await client.type("key3")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.set("key1", "value"));
-        output.push(await client.lpush("key2", "value"));
-        output.push(await client.sadd("key3", "value"));
-        output.push(await client.type("key1"));
-        output.push(await client.type("key2"));
-        output.push(await client.type("key3"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 36)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/type.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.set("key1", "value");
+    outputs.r1 = await client.lpush("key2", "value");
+    outputs.r2 = await client.sadd("key3", "value");
+    outputs.r3 = await client.type("key1");
+    outputs.r4 = await client.type("key2");
+    outputs.r5 = await client.type("key3");
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "OK",
+          "r1": 1,
+          "r2": 1,
+          "r3": "string",
+          "r4": "list",
+          "r5": "set",
+        }
+    `);
 });

@@ -1,40 +1,34 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/pfcount.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/pfcount.md");
-    let snapshot: any;
-    const commands = [
-        `await client.pfadd("hll", "foo", "bar", "zap")`,
-        `await client.pfadd("hll", "zap", "zap", "zap")`,
-        `await client.pfadd("hll", "foo", "bar")`,
-        `await client.pfcount("hll")`,
-        `await client.pfadd("some-other-hll", "1", "2", "3")`,
-        `await client.pfcount("hll", "some-other-hll")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.pfadd("hll", "foo", "bar", "zap"));
-        output.push(await client.pfadd("hll", "zap", "zap", "zap"));
-        output.push(await client.pfadd("hll", "foo", "bar"));
-        output.push(await client.pfcount("hll"));
-        output.push(await client.pfadd("some-other-hll", "1", "2", "3"));
-        output.push(await client.pfcount("hll", "some-other-hll"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 52)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/pfcount.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.pfadd("hll", "foo", "bar", "zap");
+    outputs.r1 = await client.pfadd("hll", "zap", "zap", "zap");
+    outputs.r2 = await client.pfadd("hll", "foo", "bar");
+    outputs.r3 = await client.pfcount("hll");
+    outputs.r4 = await client.pfadd("some-other-hll", "1", "2", "3");
+    outputs.r5 = await client.pfcount("hll", "some-other-hll");
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 0,
+          "r2": 0,
+          "r3": 3,
+          "r4": 1,
+          "r5": 6,
+        }
+    `);
 });

@@ -1,42 +1,61 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { override } from "../../_manual-overrides2";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/xrevrange.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/xrevrange.md");
-    let snapshot: any;
-    const commands = [
-        `await client.xadd("writers", "*", ["name", "Virginia"], ["surname", "Woolf"])`,
-        `await client.xadd("writers", "*", ["name", "Jane"], ["surname", "Austen"])`,
-        `await client.xadd("writers", "*", ["name", "Toni"], ["surname", "Morris"])`,
-        `await client.xadd("writers", "*", ["name", "Agatha"], ["surname", "Christie"])`,
-        `await client.xadd("writers", "*", ["name", "Ngozi"], ["surname", "Adichie"])`,
-        `await client.xlen("writers")`,
-        `await client.xrevrange("writers", "+", "-", ["COUNT", 1])`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.xadd("writers", "*", ["name", "Virginia"], ["surname", "Woolf"]));
-        output.push(await client.xadd("writers", "*", ["name", "Jane"], ["surname", "Austen"]));
-        output.push(await client.xadd("writers", "*", ["name", "Toni"], ["surname", "Morris"]));
-        output.push(await client.xadd("writers", "*", ["name", "Agatha"], ["surname", "Christie"]));
-        output.push(await client.xadd("writers", "*", ["name", "Ngozi"], ["surname", "Adichie"]));
-        output.push(await client.xlen("writers"));
-        output.push(await client.xrevrange("writers", "+", "-", ["COUNT", 1]));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 79)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("scripts/redis-doc/commands/xrevrange.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.xadd(
+        "writers",
+        "*",
+        ["name", "Virginia"],
+        ["surname", "Woolf"]
+    );
+    outputs.r1 = await client.xadd(
+        "writers",
+        "*",
+        ["name", "Jane"],
+        ["surname", "Austen"]
+    );
+    outputs.r2 = await client.xadd(
+        "writers",
+        "*",
+        ["name", "Toni"],
+        ["surname", "Morris"]
+    );
+    outputs.r3 = await client.xadd(
+        "writers",
+        "*",
+        ["name", "Agatha"],
+        ["surname", "Christie"]
+    );
+    outputs.r4 = await client.xadd(
+        "writers",
+        "*",
+        ["name", "Ngozi"],
+        ["surname", "Adichie"]
+    );
+    outputs.r5 = await client.xlen("writers");
+    outputs.r6 = await client.xrevrange("writers", "+", "-", ["COUNT", 1]);
+
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": " => <<stream_0>>",
+          "r1": " => <<stream_1>>",
+          "r2": " => <<stream_2>>",
+          "r3": " => <<stream_3>>",
+          "r4": " => <<stream_4>>",
+          "r5": 5,
+          "r6": " => <<stream_4>>,name,Ngozi,surname,Adichie",
+        }
+    `);
 });

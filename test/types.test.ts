@@ -25,7 +25,7 @@ test("client has promisified redis methods", () => {
 
     expectTypeOf(createHandyClient).returns.toHaveProperty("end").returns.toEqualTypeOf<void>();
 
-    const client = createHandyClient();
+    // const client = createHandyClient();
 
-    client.multi().set("foo", "bar").get("foo").keys("f*").exec();
+    // client.multi().set("foo", "bar").get("foo").keys("f*").exec();
 });

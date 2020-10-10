@@ -14,16 +14,7 @@ beforeEach(async () => {
 test("scripts/redis-doc/commands/zrangebylex.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.zadd(
-        "myzset",
-        [0, "a"],
-        [0, "b"],
-        [0, "c"],
-        [0, "d"],
-        [0, "e"],
-        [0, "f"],
-        [0, "g"]
-    );
+    outputs.r0 = await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"], [0, "f"], [0, "g"]);
     outputs.r1 = await client.zrangebylex("myzset", "-", "[c");
     outputs.r2 = await client.zrangebylex("myzset", "-", "(c");
     outputs.r3 = await client.zrangebylex("myzset", "[aaa", "(g");

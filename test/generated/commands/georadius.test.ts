@@ -14,36 +14,10 @@ beforeEach(async () => {
 test("scripts/redis-doc/commands/georadius.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.geoadd(
-        "Sicily",
-        [13.361389, 38.115556, "Palermo"],
-        [15.087269, 37.502669, "Catania"]
-    );
-    outputs.r1 = await client.georadius(
-        "Sicily",
-        15,
-        37,
-        200,
-        "km",
-        "WITHDIST"
-    );
-    outputs.r2 = await client.georadius(
-        "Sicily",
-        15,
-        37,
-        200,
-        "km",
-        "WITHCOORD"
-    );
-    outputs.r3 = await client.georadius(
-        "Sicily",
-        15,
-        37,
-        200,
-        "km",
-        "WITHCOORD",
-        "WITHDIST"
-    );
+    outputs.r0 = await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
+    outputs.r1 = await client.georadius("Sicily", 15, 37, 200, "km", "WITHDIST");
+    outputs.r2 = await client.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD");
+    outputs.r3 = await client.georadius("Sicily", 15, 37, 200, "km", "WITHCOORD", "WITHDIST");
 
     expect(override(outputs, __filename)).toMatchInlineSnapshot(`
         Object {

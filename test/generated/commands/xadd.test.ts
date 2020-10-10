@@ -14,19 +14,8 @@ beforeEach(async () => {
 test("scripts/redis-doc/commands/xadd.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.xadd(
-        "mystream",
-        "*",
-        ["name", "Sara"],
-        ["surname", "OConnor"]
-    );
-    outputs.r1 = await client.xadd(
-        "mystream",
-        "*",
-        ["field1", "value1"],
-        ["field2", "value2"],
-        ["field3", "value3"]
-    );
+    outputs.r0 = await client.xadd("mystream", "*", ["name", "Sara"], ["surname", "OConnor"]);
+    outputs.r1 = await client.xadd("mystream", "*", ["field1", "value1"], ["field2", "value2"], ["field3", "value3"]);
     outputs.r2 = await client.xlen("mystream");
     outputs.r3 = await client.xrange("mystream", "-", "+");
 

@@ -14,14 +14,7 @@ beforeEach(async () => {
 test("scripts/redis-doc/commands/zlexcount.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.zadd(
-        "myzset",
-        [0, "a"],
-        [0, "b"],
-        [0, "c"],
-        [0, "d"],
-        [0, "e"]
-    );
+    outputs.r0 = await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"]);
     outputs.r1 = await client.zadd("myzset", [0, "f"], [0, "g"]);
     outputs.r2 = await client.zlexcount("myzset", "-", "+");
     outputs.r3 = await client.zlexcount("myzset", "[b", "[f");

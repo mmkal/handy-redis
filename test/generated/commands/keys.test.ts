@@ -14,11 +14,7 @@ beforeEach(async () => {
 test("scripts/redis-doc/commands/keys.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.mset(
-        ["firstname", "Jack"],
-        ["lastname", "Stuntman"],
-        ["age", "35"]
-    );
+    outputs.r0 = await client.mset(["firstname", "Jack"], ["lastname", "Stuntman"], ["age", "35"]);
     outputs.r1 = await client.keys("*name*");
     outputs.r2 = await client.keys("a??");
     outputs.r3 = await client.keys("*");

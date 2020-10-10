@@ -14,11 +14,7 @@ beforeEach(async () => {
 test("scripts/redis-doc/commands/hmset.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.hmset(
-        "myhash",
-        ["field1", "Hello"],
-        ["field2", "World"]
-    );
+    outputs.r0 = await client.hmset("myhash", ["field1", "Hello"], ["field2", "World"]);
     outputs.r1 = await client.hget("myhash", "field1");
     outputs.r2 = await client.hget("myhash", "field2");
 

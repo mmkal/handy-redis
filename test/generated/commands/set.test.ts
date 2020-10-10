@@ -16,10 +16,7 @@ test("scripts/redis-doc/commands/set.md example 1", async () => {
 
     outputs.r0 = await client.set("mykey", "Hello");
     outputs.r1 = await client.get("mykey");
-    outputs.r2 = await client.set("anotherkey", "will expire in a minute", [
-        "EX",
-        60,
-    ]);
+    outputs.r2 = await client.set("anotherkey", "will expire in a minute", ["EX", 60]);
 
     expect(override(outputs, __filename)).toMatchInlineSnapshot(`
         Object {

@@ -15,6 +15,7 @@ export const fixupSchema = (schema: Record<string, JsonSchemaCommand>) => {
 export const fixupExample = (example: string) => {
     const array = [example] // use array as a stupid monad-like data structure
         .map(fixGeoradiusExample)
+        .map(fixLposExample)
         .map(s => s);
 
     return array[0];
@@ -63,11 +64,19 @@ function fixGeoradiusExample(example: string) {
     return example === withArgsFlipped ? example.replace("WITHDIST WITHCOORD", "WITHCOORD WITHDIST") : example;
 }
 
+function fixLposExample(example: string) {
+    const withArgsFlipped = `LPOS mylist 3 COUNT 0 RANK 2`;
+    return example === withArgsFlipped ? example.replace("COUNT 0 RANK 2", "RANK 2 COUNT 0") : example;
+}
+
 function fixKeyWeightsOverlyComplexParsingIssue(code: string) {
-    return code.match(/(zunionstore|zinterstore).*WEIGHTS/)
-        ? `// @ts-expect-error (not smart enough to deal with numkeys)
-        ${code}`
-        : code;
+    if (code.match(/(zunionstore|zinterstore).*WEIGHTS/)) {
+        return `// @ts-expect-error (not smart enough to deal with numkeys)\n${code}`;
+    }
+    if (code.match(/(zunion|zinter).*"zset1","zset2"/)) {
+        return code.replace(`"zset1","zset2"`, `["zset1", "zset2"]`);
+    }
+    return code;
 }
 
 function catchDecrOutOfRange(filename: string) {

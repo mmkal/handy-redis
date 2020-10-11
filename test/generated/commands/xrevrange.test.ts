@@ -16,7 +16,7 @@ test("scripts/redis-doc/commands/xrevrange.md example 1", async () => {
 
     outputs.r0 = await client.xadd("writers", "*", ["name", "Virginia"], ["surname", "Woolf"]);
     outputs.r1 = await client.xadd("writers", "*", ["name", "Jane"], ["surname", "Austen"]);
-    outputs.r2 = await client.xadd("writers", "*", ["name", "Toni"], ["surname", "Morris"]);
+    outputs.r2 = await client.xadd("writers", "*", ["name", "Toni"], ["surname", "Morrison"]);
     outputs.r3 = await client.xadd("writers", "*", ["name", "Agatha"], ["surname", "Christie"]);
     outputs.r4 = await client.xadd("writers", "*", ["name", "Ngozi"], ["surname", "Adichie"]);
     outputs.r5 = await client.xlen("writers");

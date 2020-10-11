@@ -265,7 +265,7 @@ const writeTests = () => {
                 process.cwd(),
                 `test/generated/${name
                     .replace("redis-doc/", "")
-                    .replace(/^scripts\//, "")
+                    .replace(/^docs\//, "")
                     .replace(/\.md$/, "")}.test.ts`
             );
 
@@ -307,7 +307,9 @@ const writeTests = () => {
                 const existingSnapshot = existingSnapshots[i] || "";
                 const assertion = `expect(override(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
                 return [
-                    `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
+                    `test(${JSON.stringify(
+                        `${name.replace("docs", "scripts")} example ${blockNumber}`
+                    )}, async () => {`,
                     setup,
                     ``,
                     ...test,

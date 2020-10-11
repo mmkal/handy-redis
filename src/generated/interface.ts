@@ -1,5 +1,101 @@
 export interface Commands {
     /**
+     * Reload the ACLs from the configured ACL file
+     * - _group_: server
+     * - _complexity_: O(N). Where N is the number of configured users.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "LOAD"): Promise<unknown>;
+
+    /**
+     * Save the current ACL rules in the configured ACL file
+     * - _group_: server
+     * - _complexity_: O(N). Where N is the number of configured users.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "SAVE"): Promise<unknown>;
+
+    /**
+     * List the current ACL rules in ACL config file format
+     * - _group_: server
+     * - _complexity_: O(N). Where N is the number of configured users.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "LIST"): Promise<unknown>;
+
+    /**
+     * List the username of all the configured ACL rules
+     * - _group_: server
+     * - _complexity_: O(N). Where N is the number of configured users.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "USERS"): Promise<unknown>;
+
+    /**
+     * Get the rules for a specific ACL user
+     * - _group_: server
+     * - _complexity_: O(N). Where N is the number of password, command and pattern rules that the user has.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "GETUSER", username: string): Promise<unknown>;
+
+    /**
+     * Modify or create the rules for a specific ACL user
+     * - _group_: server
+     * - _complexity_: O(N). Where N is the number of rules provided.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "SETUSER", username: string, ...rule: Array<string>): Promise<unknown>;
+
+    /**
+     * Remove the specified ACL users and the associated rules
+     * - _group_: server
+     * - _complexity_: O(1) amortized time considering the typical user.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "DELUSER", ...username: Array<string>): Promise<unknown>;
+
+    /**
+     * List the ACL categories or the commands inside a category
+     * - _group_: server
+     * - _complexity_: O(1) since the categories and commands are a fixed set.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "CAT", categoryname?: string): Promise<unknown>;
+
+    /**
+     * Generate a pseudorandom secure password to use for ACL users
+     * - _group_: server
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "GENPASS", bits?: number): Promise<unknown>;
+
+    /**
+     * Return the name of the user associated to the current connection
+     * - _group_: server
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "WHOAMI"): Promise<unknown>;
+
+    /**
+     * List latest events denied because of ACLs in place
+     * - _group_: server
+     * - _complexity_: O(N) with N being the number of entries shown.
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "LOG", count_or_reset?: string): Promise<unknown>;
+
+    /**
+     * Show helpful text about the different subcommands
+     * - _group_: server
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    acl(acl_subcommand: "HELP"): Promise<unknown>;
+
+    /**
      * Append a value to a key
      * - _group_: string
      * - _complexity_: O(1). The amortized time complexity is O(1) assuming the appended value is small and the already present value is of any size, since the dynamic string library used by Redis will double the free space available on every reallocation.
@@ -16,6 +112,14 @@ export interface Commands {
     auth(password: string): Promise<"OK">;
 
     /**
+     * Authenticate to the server
+     * - _group_: connection
+     * - _complexity_: undefined
+     * - _since_: 1.0.0
+     */
+    auth(username: string, password: string): Promise<"OK">;
+
+    /**
      * Asynchronously rewrite the append-only file
      * - _group_: server
      * - _complexity_: undefined
@@ -29,7 +133,7 @@ export interface Commands {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    bgsave(): Promise<"OK">;
+    bgsave(schedule?: "SCHEDULE"): Promise<"OK">;
 
     /**
      * Count set bits in a string
@@ -185,6 +289,20 @@ export interface Commands {
     brpoplpush(source: string, destination: string, timeout: number): Promise<string | null>;
 
     /**
+     * Pop an element from a list, push it to another list and return it; or block until one is available
+     * - _group_: list
+     * - _complexity_: O(1)
+     * - _since_: 6.2.0
+     */
+    blmove(
+        source: string,
+        destination: string,
+        wherefrom: "LEFT" | "RIGHT",
+        whereto: "LEFT" | "RIGHT",
+        timeout: number
+    ): Promise<string | null>;
+
+    /**
      * Remove and return the member with the lowest score from one or more sorted sets, or block until one is available
      * - _group_: sorted_set
      * - _complexity_: O(log(N)) with N being the number of elements in the sorted set.
@@ -201,8 +319,16 @@ export interface Commands {
     bzpopmax(key: Array<string>, timeout: number): Promise<Array<unknown> | null>;
 
     /**
+     * Instruct the server about tracking or not keys in the next request
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(client_subcommand: "CACHING", mode: "YES" | "NO"): Promise<unknown>;
+
+    /**
      * Returns the client ID for the current connection
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(1)
      * - _since_: 5.0.0
      */
@@ -210,7 +336,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -218,7 +344,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -230,7 +356,32 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -242,7 +393,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -255,7 +406,34 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -267,7 +445,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -280,7 +458,34 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -293,7 +498,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -307,7 +512,36 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -315,7 +549,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -328,7 +562,34 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -341,7 +602,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -355,7 +616,36 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -368,7 +658,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -382,7 +672,36 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -396,7 +715,7 @@ export interface Commands {
 
     /**
      * Kill the connection of a client
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -405,13 +724,44 @@ export interface Commands {
         ip_port?: string,
         id_client_id?: ["ID", number],
         type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
 
     /**
      * Get the list of client connections
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
      * - _since_: 2.4.0
      */
@@ -419,15 +769,23 @@ export interface Commands {
 
     /**
      * Get the current connection name
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(1)
      * - _since_: 2.6.9
      */
     client(client_subcommand: "GETNAME"): Promise<unknown>;
 
     /**
+     * Get tracking notifications redirection client ID if any
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(client_subcommand: "GETREDIR"): Promise<unknown>;
+
+    /**
      * Stop processing commands from clients for some time
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(1)
      * - _since_: 2.9.50
      */
@@ -435,23 +793,468 @@ export interface Commands {
 
     /**
      * Instruct the server whether to reply to commands
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(1)
-     * - _since_: 3.2
+     * - _since_: 3.2.0
      */
     client(client_subcommand: "REPLY", reply_mode: "ON" | "OFF" | "SKIP"): Promise<unknown>;
 
     /**
      * Set the current connection name
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(1)
      * - _since_: 2.6.9
      */
     client(client_subcommand: "SETNAME", connection_name: string): Promise<unknown>;
 
     /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(client_subcommand: "TRACKING", status: "ON" | "OFF", noloop?: "NOLOOP"): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(client_subcommand: "TRACKING", status: "ON" | "OFF", optout?: "OPTOUT", noloop?: "NOLOOP"): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(client_subcommand: "TRACKING", status: "ON" | "OFF", optin?: "OPTIN", noloop?: "NOLOOP"): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(client_subcommand: "TRACKING", status: "ON" | "OFF", bcast?: "BCAST", noloop?: "NOLOOP"): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect_client_id?: ["REDIRECT", number],
+        prefix?: Array<["PREFIX", string]>,
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
      * Unblock a client blocked in a blocking command from a different connection
-     * - _group_: server
+     * - _group_: connection
      * - _complexity_: O(log N) where N is the number of client connections
      * - _since_: 5.0.0
      */
@@ -761,7 +1564,7 @@ export interface Commands {
     /**
      * Return a serialized version of the value stored at the specified key.
      * - _group_: generic
-     * - _complexity_: O(1) to access the key and additional O(N*M) to serialized it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).
+     * - _complexity_: O(1) to access the key and additional O(N*M) to serialize it, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1).
      * - _since_: 2.6.0
      */
     dump(key: string): Promise<string>;
@@ -3151,6 +3954,26 @@ export interface Commands {
     hdel(key: string, ...field: Array<string>): Promise<number>;
 
     /**
+     * switch Redis protocol
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    hello(protover: number, setname_clientname?: ["SETNAME", string]): Promise<Array<unknown>>;
+
+    /**
+     * switch Redis protocol
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     */
+    hello(
+        protover: number,
+        auth_username_password?: ["AUTH", [string, string]],
+        setname_clientname?: ["SETNAME", string]
+    ): Promise<Array<unknown>>;
+
+    /**
      * Determine if a hash field exists
      * - _group_: hash
      * - _complexity_: O(1)
@@ -3343,6 +4166,49 @@ export interface Commands {
     lpop(key: string): Promise<string | null>;
 
     /**
+     * Return the index of matching elements on a list
+     * - _group_: list
+     * - _complexity_: O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.
+     * - _since_: 6.0.6
+     */
+    lpos(key: string, element: string, maxlen_len?: ["MAXLEN", number]): Promise<unknown>;
+
+    /**
+     * Return the index of matching elements on a list
+     * - _group_: list
+     * - _complexity_: O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.
+     * - _since_: 6.0.6
+     */
+    lpos(
+        key: string,
+        element: string,
+        count_num_matches?: ["COUNT", number],
+        maxlen_len?: ["MAXLEN", number]
+    ): Promise<unknown>;
+
+    /**
+     * Return the index of matching elements on a list
+     * - _group_: list
+     * - _complexity_: O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.
+     * - _since_: 6.0.6
+     */
+    lpos(key: string, element: string, rank?: ["RANK", number], maxlen_len?: ["MAXLEN", number]): Promise<unknown>;
+
+    /**
+     * Return the index of matching elements on a list
+     * - _group_: list
+     * - _complexity_: O(N) where N is the number of elements in the list, for the average case. When searching for elements near the head or the tail of the list, or when the MAXLEN option is provided, the command may run in constant time.
+     * - _since_: 6.0.6
+     */
+    lpos(
+        key: string,
+        element: string,
+        rank?: ["RANK", number],
+        count_num_matches?: ["COUNT", number],
+        maxlen_len?: ["MAXLEN", number]
+    ): Promise<unknown>;
+
+    /**
      * Prepend one or multiple elements to a list
      * - _group_: list
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
@@ -3473,7 +4339,40 @@ export interface Commands {
         key: "key" | '""',
         destination_db: number,
         timeout: number,
+        auth_2_username_password?: ["AUTH2", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
         auth_password?: ["AUTH", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        auth_password?: ["AUTH", string],
+        auth_2_username_password?: ["AUTH2", string],
         keys?: ["KEYS", Array<string>]
     ): Promise<"OK">;
 
@@ -3506,7 +4405,42 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         replace?: "REPLACE",
+        auth_2_username_password?: ["AUTH2", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        replace?: "REPLACE",
         auth_password?: ["AUTH", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        replace?: "REPLACE",
+        auth_password?: ["AUTH", string],
+        auth_2_username_password?: ["AUTH2", string],
         keys?: ["KEYS", Array<string>]
     ): Promise<"OK">;
 
@@ -3539,7 +4473,42 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         copy?: "COPY",
+        auth_2_username_password?: ["AUTH2", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy?: "COPY",
         auth_password?: ["AUTH", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy?: "COPY",
+        auth_password?: ["AUTH", string],
+        auth_2_username_password?: ["AUTH2", string],
         keys?: ["KEYS", Array<string>]
     ): Promise<"OK">;
 
@@ -3574,7 +4543,44 @@ export interface Commands {
         timeout: number,
         copy?: "COPY",
         replace?: "REPLACE",
+        auth_2_username_password?: ["AUTH2", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy?: "COPY",
+        replace?: "REPLACE",
         auth_password?: ["AUTH", string],
+        keys?: ["KEYS", Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy?: "COPY",
+        replace?: "REPLACE",
+        auth_password?: ["AUTH", string],
+        auth_2_username_password?: ["AUTH2", string],
         keys?: ["KEYS", Array<string>]
     ): Promise<"OK">;
 
@@ -3938,6 +4944,14 @@ export interface Commands {
     rpoplpush(source: string, destination: string): Promise<string>;
 
     /**
+     * Pop an element from a list, push it to another list and return it
+     * - _group_: list
+     * - _complexity_: O(1)
+     * - _since_: 6.2.0
+     */
+    lmove(source: string, destination: string, wherefrom: "LEFT" | "RIGHT", whereto: "LEFT" | "RIGHT"): Promise<string>;
+
+    /**
      * Append one or multiple elements to a list
      * - _group_: list
      * - _complexity_: O(1) for each element added, so O(N) to add N elements when the command is called with multiple arguments.
@@ -4047,7 +5061,7 @@ export interface Commands {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, condition?: "NX" | "XX"): Promise<"OK" | null>;
+    set(key: string, value: string, get?: "GET"): Promise<"OK" | string | null>;
 
     /**
      * Set the string value of a key
@@ -4055,7 +5069,29 @@ export interface Commands {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, expiration?: ["EX" | "PX", number], condition?: "NX" | "XX"): Promise<"OK" | null>;
+    set(key: string, value: string, condition?: "NX" | "XX", get?: "GET"): Promise<"OK" | string | null>;
+
+    /**
+     * Set the string value of a key
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 1.0.0
+     */
+    set(key: string, value: string, expiration?: ["EX" | "PX", number], get?: "GET"): Promise<"OK" | string | null>;
+
+    /**
+     * Set the string value of a key
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 1.0.0
+     */
+    set(
+        key: string,
+        value: string,
+        expiration?: ["EX" | "PX", number],
+        condition?: "NX" | "XX",
+        get?: "GET"
+    ): Promise<"OK" | string | null>;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key
@@ -4120,6 +5156,14 @@ export interface Commands {
      * - _since_: 1.0.0
      */
     sismember(key: string, member: string): Promise<number>;
+
+    /**
+     * Returns the membership associated with the given elements for a set
+     * - _group_: set
+     * - _complexity_: O(N) where N is the number of elements being checked for membership
+     * - _since_: 6.2.0
+     */
+    smismember(key: string, ...member: Array<string>): Promise<Array<unknown>>;
 
     /**
      * Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.
@@ -4607,6 +5651,14 @@ export interface Commands {
     srem(key: string, ...member: Array<string>): Promise<number>;
 
     /**
+     * Run algorithms (currently LCS) against strings
+     * - _group_: string
+     * - _complexity_: For LCS O(strlen(s1)*strlen(s2))
+     * - _since_: 6.0.0
+     */
+    stralgo(algorithm: "LCS", ...algo_specific_argument: Array<string>): Promise<unknown>;
+
+    /**
      * Get the length of the value stored in a key
      * - _group_: string
      * - _complexity_: O(1)
@@ -4640,7 +5692,7 @@ export interface Commands {
 
     /**
      * Swaps two Redis databases
-     * - _group_: connection
+     * - _group_: server
      * - _complexity_: undefined
      * - _since_: 4.0.0
      */
@@ -4779,6 +5831,58 @@ export interface Commands {
      */
     zadd(
         key: string,
+        comparison: "GT" | "LT",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        comparison: "GT" | "LT",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        comparison: "GT" | "LT",
+        change: "CH",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        comparison: "GT" | "LT",
+        change: "CH",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
         condition: "NX" | "XX",
         ...score_member: Array<[number, string]>
     ): Promise<number | string | null>;
@@ -4818,6 +5922,62 @@ export interface Commands {
     zadd(
         key: string,
         condition: "NX" | "XX",
+        change: "CH",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        comparison: "GT" | "LT",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        comparison: "GT" | "LT",
+        increment: "INCR",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        comparison: "GT" | "LT",
+        change: "CH",
+        ...score_member: Array<[number, string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        comparison: "GT" | "LT",
         change: "CH",
         increment: "INCR",
         ...score_member: Array<[number, string]>
@@ -4846,6 +6006,54 @@ export interface Commands {
      * - _since_: 1.2.0
      */
     zincrby(key: string, increment: number, member: string): Promise<string>;
+
+    /**
+     * Intersect multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zinter(numkeys: number, key: Array<string>, withscores?: "WITHSCORES"): Promise<Array<unknown>>;
+
+    /**
+     * Intersect multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zinter(
+        numkeys: number,
+        key: Array<string>,
+        aggregate?: ["AGGREGATE", "SUM" | "MIN" | "MAX"],
+        withscores?: "WITHSCORES"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Intersect multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zinter(
+        numkeys: number,
+        key: Array<string>,
+        weights?: ["WEIGHTS", Array<number>],
+        withscores?: "WITHSCORES"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Intersect multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zinter(
+        numkeys: number,
+        key: Array<string>,
+        weights?: ["WEIGHTS", Array<number>],
+        aggregate?: ["AGGREGATE", "SUM" | "MIN" | "MAX"],
+        withscores?: "WITHSCORES"
+    ): Promise<Array<unknown>>;
 
     /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key
@@ -5049,6 +6257,62 @@ export interface Commands {
      * - _since_: 1.2.0
      */
     zscore(key: string, member: string): Promise<string>;
+
+    /**
+     * Add multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zunion(numkeys: number, key: Array<string>, withscores?: "WITHSCORES"): Promise<Array<unknown>>;
+
+    /**
+     * Add multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zunion(
+        numkeys: number,
+        key: Array<string>,
+        aggregate?: ["AGGREGATE", "SUM" | "MIN" | "MAX"],
+        withscores?: "WITHSCORES"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Add multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zunion(
+        numkeys: number,
+        key: Array<string>,
+        weights?: ["WEIGHTS", Array<number>],
+        withscores?: "WITHSCORES"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Add multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(N)+O(M*log(M)) with N being the sum of the sizes of the input sorted sets, and M being the number of elements in the resulting sorted set.
+     * - _since_: 6.2.0
+     */
+    zunion(
+        numkeys: number,
+        key: Array<string>,
+        weights?: ["WEIGHTS", Array<number>],
+        aggregate?: ["AGGREGATE", "SUM" | "MIN" | "MAX"],
+        withscores?: "WITHSCORES"
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Get the score associated with the given members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(N) where N is the number of members being requested.
+     * - _since_: 6.2.0
+     */
+    zmscore(key: string, ...member: Array<string>): Promise<Array<unknown> | null>;
 
     /**
      * Add multiple sorted sets and store the resulting sorted set in a new key
@@ -5358,7 +6622,30 @@ export interface Commands {
      * - _since_: 5.0.0
      */
     xgroup(
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
         destroy_key_groupname?: ["DESTROY", [string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        destroy_key_groupname?: ["DESTROY", [string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -5381,7 +6668,32 @@ export interface Commands {
      */
     xgroup(
         setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
         destroy_key_groupname?: ["DESTROY", [string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        destroy_key_groupname?: ["DESTROY", [string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -5404,7 +6716,32 @@ export interface Commands {
      */
     xgroup(
         create_key_groupname_id_or?: ["CREATE", [string, string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
         destroy_key_groupname?: ["DESTROY", [string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
+        destroy_key_groupname?: ["DESTROY", [string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -5429,7 +6766,34 @@ export interface Commands {
     xgroup(
         create_key_groupname_id_or?: ["CREATE", [string, string, string]],
         setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
+        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
         destroy_key_groupname?: ["DESTROY", [string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     */
+    xgroup(
+        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
+        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        destroy_key_groupname?: ["DESTROY", [string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -5888,7 +7252,7 @@ export interface Commands {
      * - _complexity_: undefined
      * - _since_: 2.8.13
      */
-    latency(latency_subcommand: "RESET", event?: string): Promise<unknown>;
+    latency(latency_subcommand: "RESET", ...event: Array<string>): Promise<unknown>;
 
     /**
      * Show helpful text about the different subcommands.

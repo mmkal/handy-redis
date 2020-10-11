@@ -1,9 +1,16 @@
 import { ClientOpts, createClient, RedisClient } from "redis";
-import { Client } from "./generated/interface";
+import { Commands } from "./generated/interface";
 import { flattenDeep } from "./flatten";
-import { AdditionalFunctions, getMixins } from "./overrides";
+import { multiMixins } from "./multi";
 
-export interface IHandyRedis extends Omit<Client, keyof AdditionalFunctions>, AdditionalFunctions {
+const getMixins = (redis: RedisClient) => {
+    const end: RedisClient["end"] = (...args) => redis.end(...args);
+    return { ...multiMixins(redis), end };
+};
+
+export type Mixins = ReturnType<typeof getMixins>;
+
+export interface IHandyRedis extends Omit<Commands, keyof Mixins>, Mixins {
     redis: RedisClient;
 }
 
@@ -21,6 +28,7 @@ export const createHandyClient: ICreateHandyClient = (...clientArgs: any[]) => {
             : createClient.apply(null, clientArgs);
 
     const mixins = getMixins(nodeRedis);
+
     const handyClient = ({ redis: nodeRedis, ...mixins } as unknown) as IHandyRedis;
 
     Object.keys(nodeRedis.__proto__).forEach((key: keyof IHandyRedis) => {

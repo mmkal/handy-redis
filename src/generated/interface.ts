@@ -1,4 +1,4 @@
-export interface Client {
+export interface Commands {
     /**
      * Append a value to a key
      * - _group_: string

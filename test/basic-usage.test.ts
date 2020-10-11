@@ -11,8 +11,9 @@ it("creates client", async () => {
 
 it("creates client from node_redis", async () => {
     const nodeRedisClient = createClient();
-    const client = createHandyClient(nodeRedisClient);
-    expect(await client.ping()).toBeTruthy();
+    const hrClient = createHandyClient(nodeRedisClient);
+    expect(await hrClient.ping()).toBeTruthy();
+    hrClient.end(true);
 });
 
 it("can use set and keys", async () => {
@@ -47,7 +48,7 @@ it("can use setbit with string or number", async () => {
 it("can use multi", async () => {
     const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
 
-    const result = await multi.execAsync();
+    const result = await multi.exec();
 
     expect(result).toEqual(["OK", ["z:foo"], "987"]);
 });
@@ -55,18 +56,26 @@ it("can use multi", async () => {
 it("can use batch", async () => {
     const batch = client.batch().set("z:foo", "987").keys("z:*").get("z:foo");
 
-    const result = await batch.execAsync();
+    const result = await batch.exec();
 
     expect(result).toEqual(["OK", ["z:foo"], "987"]);
 });
 
-it.skip("multi rejects correctly", async () => {
-    await expect(
-        client
-            .multi()
-            .set("foo", "bar", "EX", "NOTANUMBER" as any)
-            .execAsync()
-    ).rejects.toThrowErrorMatchingInlineSnapshot();
+it("multi puts errors in returned array", async () => {
+    await client.set("foo", "one");
+
+    const multiResult = await client
+        .multi()
+        .set("foo", "two", ["EX", "NOTANUMBER" as any])
+        .get("foo")
+        .exec();
+
+    expect(multiResult).toMatchInlineSnapshot(`
+        Array [
+          [ReplyError: ERR value is not an integer or out of range],
+          "one",
+        ]
+    `);
 });
 
 it("set with expiry", async () => {

@@ -133,13 +133,12 @@ export const getTypeScriptInterface = (schema: typeof actualSchema) => {
         .flatMap(([command, spec]) => formatOverloads(command, spec))
         .join("\n");
 
-    return `export interface Client {
+    return `export interface Commands {
         ${properties}
     }`;
 };
 
 export const main = () => {
-    writeFile(process.cwd() + "/x.ts", getTypeScriptInterface(actualSchema));
     writeFile(process.cwd() + "/src/generated/interface.ts", getTypeScriptInterface(actualSchema));
 };
 

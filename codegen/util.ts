@@ -7,7 +7,7 @@ export const writeFile = (filepath: string, contents: string) => {
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
     try {
         contents = prettier.format(contents, {
-            ...require("../../.prettierrc"),
+            ...require("../.prettierrc"),
             filepath,
         });
     } catch (e) {

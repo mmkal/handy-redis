@@ -29,7 +29,7 @@ const extractCliExamples = (markdown: string) => {
     });
 };
 
-const findMarkdownFiles = () => glob.sync("**/*.md", { absolute: true, cwd: path.join(__dirname, "..") });
+const findMarkdownFiles = () => glob.sync("**/*.md", { absolute: true, cwd: path.join(__dirname, "..", "docs") });
 
 const extractAllCliExamples = () => {
     const markdownFiles = findMarkdownFiles();

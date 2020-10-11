@@ -1,5 +1,5 @@
 import { writeFile } from "./util";
-import * as cmnds from "../redis-doc/commands.json";
+import * as cmnds from "../docs/redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "./command";
@@ -87,7 +87,7 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
 };
 
 const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
-    const docFile = path.join(__dirname, `../redis-doc/commands/${command.toLowerCase()}.md`);
+    const docFile = path.join(__dirname, `../docs/redis-doc/commands/${command.toLowerCase()}.md`);
     const fs = require("fs");
     if (!fs.existsSync(docFile)) {
         return {};

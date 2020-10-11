@@ -32,7 +32,7 @@ export const fixupGeneratedCode = (filename: string) => (code: string) => {
 /** https://github.com/redis/redis-doc/pull/1232 */
 function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
     const badSetArg = schema.SET.arguments.find(
-        a => a.name === "expiration" && a.schema.enum?.join(",") === "EX seconds,PX milliseconds"
+        a => a.name === "expiration" && a.schema.enum?.join(",") === "EX seconds,PX milliseconds,KEEPTTL"
     )!;
     badSetArg.schema = {
         type: "array",

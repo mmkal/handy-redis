@@ -40,28 +40,6 @@
     "test": "jest --runInBand --forceExit --detectOpenHandles",
     "tsn": "ts-node --transpile-only"
   },
-  "prettier": {
-    "tabWidth": 4
-  },
-  "jest": {
-    "globals": {
-      "ts-jest": {
-        "diagnostics": false
-      }
-    },
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json"
-    ],
-    "testRegex": ".*.test.ts$",
-    "testURL": "http://localhost",
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    }
-  },
   "dependencies": {},
   "devDependencies": {
     "@types/cross-spawn": "^6.0.0",

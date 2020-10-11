@@ -21,10 +21,11 @@ export const fixupExample = (example: string) => {
     return array[0];
 };
 
-export const fixupGeneratedCode = (filename: string) => (code: string) => {
-    const array = [code] // use array as a stupid monad-like data structure
+export const fixupGeneratedCode = (filename: string) => (code: string): string => {
+    const array: string[] = [code] // use array as a stupid monad-like data structure
         .map(fixKeyWeightsOverlyComplexParsingIssue)
         .map(catchDecrOutOfRange(filename))
+        .map(unsupportedNodeRedis(filename))
         .map(s => s);
 
     return array[0];
@@ -69,9 +70,18 @@ function fixLposExample(example: string) {
     return example === withArgsFlipped ? example.replace("COUNT 0 RANK 2", "RANK 2 COUNT 0") : example;
 }
 
+function unsupportedNodeRedis(filename: string) {
+    const unsupported = ["lmove", "lpos", "smismember", "zinter", "zmscore", "zunion"];
+    const match = unsupported.find(u => filename.endsWith(`${u}.md`));
+    if (match) {
+        return (code: string) => `// ${match} not supported by node_redis! ${code}`;
+    }
+    return (code: string) => code;
+}
+
 function fixKeyWeightsOverlyComplexParsingIssue(code: string) {
     if (code.match(/(zunionstore|zinterstore).*WEIGHTS/)) {
-        return `// @ts-expect-error (not smart enough to deal with numkeys)\n${code}`;
+        return [`// @ts-expect-error (not smart enough to deal with numkeys)`, code].join("\n");
     }
     if (code.match(/(zunion|zinter).*"zset1","zset2"/)) {
         return code.replace(`"zset1","zset2"`, `["zset1", "zset2"]`);

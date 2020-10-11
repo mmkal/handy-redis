@@ -332,13 +332,13 @@ const writeTests = () => {
             const header = [
                 `import {createHandyClient} from '${relativePath(clientPath)}'`,
                 `import {fuzzify} from '${relativePath(overridesPath)}'`,
-                "",
+                ``,
                 `const client = createHandyClient()`,
-                "",
+                ``,
                 `beforeAll(async () => {
                     await client.ping()
                 })`,
-                "",
+                ``,
                 `beforeEach(async () => {
                     await client.flushall()
                 })`,

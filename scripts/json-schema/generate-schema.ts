@@ -97,35 +97,43 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
         return {};
     }
     const returnDoc = doc.split("@return")[1].split("@example")[0];
-    const mapping: Record<string, jsonSchema.JSONSchema7TypeName> = {
-        "@integer-reply": "integer",
-        "@simple-string-reply: `OK`": `string`,
+    type TypeNameOrType = jsonSchema.JSONSchema7TypeName | jsonSchema.JSONSchema7;
+    const mapping: Record<string, TypeNameOrType> = {
         "@string-reply": "string",
+        "@integer-reply": "integer",
+
+        "@simple-string-reply: type of": {
+            type: "string",
+            enum: [`none`, `string`, `list`, `set`, `zset`, `hash`, `stream`],
+        },
+        "@simple-string-reply: A simple string reply indicating that the rewriting started": "string",
+        "@simple-string-reply": { type: "string", const: "OK" },
+
         "@bulk-string-reply: `nil`": "null",
         "@bulk-string-reply": "string",
-        "@simple-string-reply": "string",
         "@array-reply": "array",
         "@nil-reply": "null",
         "@null-reply": "null",
-        NULL: "null",
+        "NULL": "null",
         "`nil`": "null",
     };
-    /** @type {import('json-schema').JSONSchema7TypeName[]} */
-    const typeMatches = Object.keys(mapping).reduce(
-        (obj, key) => ({
-            returnDoc: obj.returnDoc.split(key).join(""),
-            matches: obj.returnDoc.includes(key) ? obj.matches.concat([mapping[key]]) : obj.matches,
-        }),
-        { returnDoc, matches: [] as jsonSchema.JSONSchema7TypeName[] }
-    ).matches;
-    if (typeMatches.length === 0) {
-        return {};
-    }
-    if (typeMatches.length === 1) {
-        return { type: typeMatches[0] };
+    const typeMatches = Object.keys(mapping)
+        .reduce(
+            (obj, key) => {
+                return {
+                    returnDoc: obj.returnDoc.split(key).join(""),
+                    matches: obj.returnDoc.includes(key) ? obj.matches.concat([mapping[key]]) : obj.matches,
+                };
+            },
+            { returnDoc, matches: [] as TypeNameOrType[] }
+        )
+        .matches.map<jsonSchema.JSONSchema7>(t => (typeof t === "string" ? { type: t } : t));
+
+    if (typeMatches.length <= 1) {
+        return typeMatches[0] || {};
     }
     return {
-        anyOf: typeMatches.map(type => ({ type })),
+        anyOf: typeMatches,
     };
 };
 

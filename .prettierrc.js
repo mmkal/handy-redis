@@ -7,5 +7,6 @@ module.exports = {
   trailingComma: 'es5',
   bracketSpacing: true,
   endOfLine: 'auto',
-  printWidth: 120
+  printWidth: 120,
+  quoteProps: 'consistent',
 }

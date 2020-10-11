@@ -4697,7 +4697,7 @@ export interface Commands {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    type(key: string): Promise<string>;
+    type(key: string): Promise<"none" | "string" | "list" | "set" | "zset" | "hash" | "stream">;
 
     /**
      * Stop listening for messages posted to the given channels

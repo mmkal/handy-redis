@@ -35,7 +35,8 @@
         "since": "1.0.0",
         "group": "connection",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "BGREWRITEAOF": {
@@ -53,7 +54,8 @@
         "group": "server",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "BITCOUNT": {
@@ -1143,7 +1145,8 @@
         "group": "transactions",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "DUMP": {
@@ -1352,7 +1355,8 @@
         "since": "1.0.0",
         "group": "server",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "FLUSHDB": {
@@ -1370,7 +1374,8 @@
         "since": "1.0.0",
         "group": "server",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "GEOADD": {
@@ -2105,7 +2110,8 @@
         "since": "2.0.0",
         "group": "hash",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "HSET": {
@@ -2588,7 +2594,8 @@
         "since": "1.0.0",
         "group": "list",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "LTRIM": {
@@ -2617,7 +2624,8 @@
         "since": "1.0.0",
         "group": "list",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "MEMORY DOCTOR": {
@@ -2796,7 +2804,8 @@
         "since": "2.6.0",
         "group": "generic",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "MODULE LIST": {
@@ -2904,7 +2913,8 @@
         "since": "1.0.1",
         "group": "string",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "MSETNX": {
@@ -2943,7 +2953,8 @@
         "group": "transactions",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "OBJECT": {
@@ -3101,7 +3112,8 @@
         "since": "2.8.9",
         "group": "hyperloglog",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "PING": {
@@ -3118,7 +3130,8 @@
         "since": "1.0.0",
         "group": "connection",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "PSETEX": {
@@ -3264,7 +3277,8 @@
         "group": "connection",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "RANDOMKEY": {
@@ -3291,7 +3305,8 @@
         "group": "cluster",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "READWRITE": {
@@ -3301,7 +3316,8 @@
         "group": "cluster",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "RENAME": {
@@ -3324,7 +3340,8 @@
         "since": "1.0.0",
         "group": "generic",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "RENAMENX": {
@@ -3424,7 +3441,8 @@
         "since": "2.6.0",
         "group": "generic",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "ROLE": {
@@ -3567,7 +3585,8 @@
         "group": "server",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "SCARD": {
@@ -3711,7 +3730,8 @@
         "since": "1.0.0",
         "group": "connection",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "SET": {
@@ -3760,7 +3780,8 @@
         "return": {
             "anyOf": [
                 {
-                    "type": "string"
+                    "type": "string",
+                    "const": "OK"
                 },
                 {
                     "type": "null"
@@ -3823,7 +3844,8 @@
         "since": "2.0.0",
         "group": "string",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "SETNX": {
@@ -3893,7 +3915,8 @@
         "since": "1.0.0",
         "group": "server",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "SINTER": {
@@ -3984,7 +4007,8 @@
         "since": "1.0.0",
         "group": "server",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "REPLICAOF": {
@@ -4006,7 +4030,8 @@
         "since": "5.0.0",
         "group": "server",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "SLOWLOG": {
@@ -4384,7 +4409,8 @@
         "since": "4.0.0",
         "group": "connection",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "SYNC": {
@@ -4475,7 +4501,8 @@
         "since": "1.0.0",
         "group": "generic",
         "return": {
-            "type": "string"
+            "type": "string",
+            "enum": ["none", "string", "list", "set", "zset", "hash", "stream"]
         }
     },
     "UNSUBSCRIBE": {
@@ -4524,7 +4551,8 @@
         "group": "transactions",
         "arguments": [],
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "WAIT": {
@@ -4567,7 +4595,8 @@
         "since": "2.2.0",
         "group": "transactions",
         "return": {
-            "type": "string"
+            "type": "string",
+            "const": "OK"
         }
     },
     "ZADD": {

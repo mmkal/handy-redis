@@ -19,5 +19,12 @@ test("scripts/redis-doc/commands/decr.md example 1", async () => {
     outputs.r2 = await client.set("mykey", "234293482390480948029348230948");
     outputs.r3 = await client.decr("mykey").catch(e => e);
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot();
+    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "OK",
+          "r1": 9,
+          "r2": "OK",
+          "r3": [ReplyError: ERR value is not an integer or out of range],
+        }
+    `);
 });

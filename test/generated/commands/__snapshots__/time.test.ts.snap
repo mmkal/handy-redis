@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/time.md example 1 1`] = `
-Array [
-  "await client.time()  => 'isFinite => false'",
-  "await client.time()  => 'isFinite => false'",
-]
-`;

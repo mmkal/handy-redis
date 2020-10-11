@@ -1,10 +1,11 @@
 {
   "name": "handy-redis",
   "version": "0.0.0-development",
-  "description": "A wrapper around node_redis with Promise and TypeScript support.",
+  "description": "A redis client with first-class Promise and TypeScript support, and extensive documentation.",
   "keywords": [
     "redis",
-    "typescript"
+    "typescript",
+    "promise"
   ],
   "homepage": "https://github.com/mmkal/handy-redis#readme",
   "bugs": {

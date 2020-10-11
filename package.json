@@ -2,74 +2,84 @@
   "name": "handy-redis",
   "version": "0.0.0-development",
   "description": "A wrapper around node_redis with Promise and TypeScript support.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
+  "keywords": [
+    "redis",
+    "typescript"
   ],
-  "engines": {
-    "node": ">= 8.0.0"
-  },
-  "scripts": {
-    "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
-    "redis:up": "docker-compose up",
-    "redis:down": "docker-compose down",
-    "redis-cli": "docker-compose exec redis redis-cli",
-    "clean": "del-cli 'dist' 'src/generated' 'test/generated/**/*.ts'",
-    "compile": "tsc -p .",
-    "prebuild": "ts-node scripts/json-schema/generate-schema && ts-node scripts/json-schema/generate-client && ts-node scripts/json-schema/generate-usages",
-    "build": "tsc -p .",
-    "test": "jest --runInBand --forceExit --detectOpenHandles",
-    "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
-    "check-clean": "check-clean",
-    "ci": "run-s clean build test lint check-clean",
-    "prerelease": "tsc -p src",
-    "release": "semantic-release",
-    "coverage": "yarn test --coverage",
-    "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
-    "tsn": "ts-node --transpile-only"
+  "homepage": "https://github.com/mmkal/handy-redis#readme",
+  "bugs": {
+    "url": "https://github.com/mmkal/handy-redis/issues"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mmkal/handy-redis.git"
   },
-  "keywords": [
-    "redis",
-    "typescript"
-  ],
-  "author": "mmkal",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mmkal/handy-redis/issues"
+  "author": "mmkal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
+    "prebuild": "ts-node scripts/json-schema/generate-schema && ts-node scripts/json-schema/generate-client && ts-node scripts/json-schema/generate-usages",
+    "build": "tsc -p .",
+    "check-clean": "check-clean",
+    "ci": "run-s clean build test lint check-clean",
+    "clean": "del-cli 'dist' 'src/generated' 'test/generated/**/*.ts'",
+    "compile": "tsc -p .",
+    "coverage": "yarn test --coverage",
+    "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
+    "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
+    "redis-cli": "docker-compose exec redis redis-cli",
+    "redis:down": "docker-compose down",
+    "redis:up": "docker-compose up",
+    "prerelease": "tsc -p src",
+    "release": "semantic-release",
+    "test": "jest --runInBand --forceExit --detectOpenHandles",
+    "tsn": "ts-node --transpile-only"
   },
-  "homepage": "https://github.com/mmkal/handy-redis#readme",
+  "prettier": {
+    "tabWidth": 4
+  },
   "jest": {
     "globals": {
       "ts-jest": {
         "diagnostics": false
       }
     },
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testRegex": ".*.test.ts$",
-    "testURL": "http://localhost",
     "moduleFileExtensions": [
       "ts",
       "tsx",
       "js",
       "jsx",
       "json"
-    ]
+    ],
+    "testRegex": ".*.test.ts$",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    }
   },
-  "prettier": {
-    "tabWidth": 4
-  },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.0",
     "@types/eslint": "^7.2.0",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.120",
+    "@types/node": "^12.12.37",
     "@types/redis": "^2.8.14",
+    "@types/redis-mock": "^0.17.0",
+    "@types/shelljs": "^0.8.5",
+    "@types/yamljs": "^0.2.30",
     "@typescript-eslint/eslint-plugin": "^3.2.0",
     "@typescript-eslint/parser": "^3.2.0",
+    "check-clean": "^0.1.0",
+    "coveralls": "^3.1.0",
+    "cross-spawn": "^7.0.1",
+    "del-cli": "^3.0.0",
+    "dotenv-extended": "^2.3.0",
     "eslint": "^7.2.0",
     "eslint-config-xo": "^0.31.0",
     "eslint-config-xo-typescript": "^0.31.0",
@@ -78,26 +88,13 @@
     "eslint-plugin-jest": "^23.13.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-unicorn": "^20.1.0",
-    "redis": "^3.0.2"
-  },
-  "devDependencies": {
-    "@types/cross-spawn": "^6.0.0",
-    "@types/jest": "^24.0.18",
-    "@types/lodash": "^4.14.120",
-    "@types/node": "^12.12.37",
-    "@types/redis-mock": "^0.17.0",
-    "@types/shelljs": "^0.8.5",
-    "@types/yamljs": "^0.2.30",
-    "check-clean": "^0.1.0",
-    "coveralls": "^3.1.0",
-    "cross-spawn": "^7.0.1",
-    "del-cli": "^3.0.0",
-    "dotenv-extended": "^2.3.0",
     "expect-type": "^0.7.4",
+    "ioredis": "^4.17.3",
     "jest": "^26.0.1",
     "lodash": "^4.17.14",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
+    "redis": "^3.0.2",
     "redis-commands": "^1.5.0",
     "redis-mock": "^0.49.0",
     "semantic-release": "^15.13.16",
@@ -108,5 +105,8 @@
     "ts-node": "^8.3.0",
     "typescript": "^4.0.3",
     "yamljs": "^0.3.0"
+  },
+  "engines": {
+    "node": ">= 8.0.0"
   }
 }

@@ -1,4 +1,4 @@
-import { toArgs as toArgs_, stringifyWithVarArgs } from "../generate-usages";
+import { toArgs as toArgs_, stringifyWithVarArgs } from "../generate-tests";
 
 const toArgs = (cmd: string, { debug = false } = {}) => {
     const r = toArgs_(cmd.split(" "));

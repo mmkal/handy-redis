@@ -1,5 +1,5 @@
-import { overloads, formatOverloads } from "./generate-client";
-import { schema } from ".";
+import { overloads, formatOverloads } from "../generate-client";
+import { schema } from "..";
 
 test("overloads", () => {
     expect(

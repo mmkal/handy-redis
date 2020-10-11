@@ -269,7 +269,16 @@ const writeTests = () => {
                     .replace(/\.md$/, "")}.test.ts`
             );
 
-            const existingContent = fs.existsSync(destPath) ? fs.readFileSync(destPath).toString() : "";
+            const existingContentPaths = [
+                destPath,
+                unixify(destPath).replace("test/generated", "temp/backup-test-generated"),
+            ];
+            const existingContent =
+                existingContentPaths
+                    .filter(fs.existsSync)
+                    .slice(0, 1)
+                    .map(p => fs.readFileSync(p).toString())[0] || "";
+
             const existingSnapshots = existingContent
                 .split(".toMatchInlineSnapshot")
                 .slice(1)

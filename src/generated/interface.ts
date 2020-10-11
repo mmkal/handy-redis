@@ -21,7 +21,7 @@ export interface Commands {
      * - _complexity_: undefined
      * - _since_: 1.0.0
      */
-    bgrewriteaof(): Promise<"OK">;
+    bgrewriteaof(): Promise<string>;
 
     /**
      * Asynchronously save the dataset to disk
@@ -852,7 +852,7 @@ export interface Commands {
      * - _complexity_: O(log(N)) for each member requested, where N is the number of elements in the sorted set.
      * - _since_: 3.2.0
      */
-    geohash(key: string, ...member: Array<string>): Promise<Array<unknown>>;
+    geohash(key: string, ...member: Array<string>): Promise<Array<string>>;
 
     /**
      * Returns longitude and latitude of members of a geospatial index
@@ -5005,7 +5005,7 @@ export interface Commands {
      * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
      * - _since_: 1.2.0
      */
-    zrevrange(key: string, start: number, stop: number, withscores?: "WITHSCORES"): Promise<Array<unknown>>;
+    zrevrange(key: string, start: number, stop: number, withscores?: "WITHSCORES"): Promise<Array<string>>;
 
     /**
      * Return a range of members in a sorted set, by score, with scores ordered from high to low

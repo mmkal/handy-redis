@@ -16,13 +16,11 @@ test("client has promisified redis methods", () => {
 
     expectTypeOf(client.geohash).parameters.toEqualTypeOf<[string, ...string[]]>();
 
-    // todo: add override to make this string again
-    expectTypeOf(client.geohash).returns.resolves.items.toBeUnknown();
+    expectTypeOf(client.geohash).returns.resolves.items.toBeString();
 
     expectTypeOf(client.zrevrange).toBeCallableWith("key", 1, 2);
 
-    // todo: add override to make this string again
-    expectTypeOf(client.zrevrange).returns.resolves.items.toBeUnknown();
+    expectTypeOf(client.zrevrange).returns.resolves.items.toBeString();
 
     expectTypeOf(client.quit).returns.resolves.toBeString();
 

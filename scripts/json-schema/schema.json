@@ -1441,7 +1441,10 @@
         "since": "3.2.0",
         "group": "geo",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "GEOPOS": {
@@ -5276,7 +5279,10 @@
         "since": "1.2.0",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZREVRANGEBYSCORE": {

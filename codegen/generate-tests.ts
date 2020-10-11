@@ -315,34 +315,34 @@ const writeTests = () => {
                     .map(fixupGeneratedCode(name));
                 const existingSnapshot = existingSnapshots[i] || "";
                 const assertion = `expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
-                return [
-                    `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
-                    setup,
-                    ``,
-                    ...test,
-                    ``,
-                    assertion,
-                    `})`,
-                ].join("\n");
+                return `
+                    test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {
+                        ${setup}
+
+                        ${test.join("\n")}
+
+                        ${assertion}
+                    })
+                `;
             });
             const clientPath = path.join(process.cwd(), "src");
             const overridesPath = path.join(process.cwd(), "test/fuzzify");
             const relativePath = (to: string) =>
                 unixify(path.relative(path.dirname(destPath), to)).replace(/\.ts$/, "");
-            const header = [
-                `import {createHandyClient} from '${relativePath(clientPath)}'`,
-                `import {fuzzify} from '${relativePath(overridesPath)}'`,
-                ``,
-                `const client = createHandyClient()`,
-                ``,
-                `beforeAll(async () => {
+            const header = `
+                import {createHandyClient} from '${relativePath(clientPath)}'
+                import {fuzzify} from '${relativePath(overridesPath)}'
+
+                const client = createHandyClient()
+                
+                beforeAll(async () => {
                     await client.ping()
-                })`,
-                ``,
-                `beforeEach(async () => {
+                })
+                
+                beforeEach(async () => {
                     await client.flushall()
-                })`,
-            ].join("\n");
+                })
+            `;
 
             const ts = [header, ...testFns].join("\n\n");
 

@@ -39,7 +39,7 @@ test("multi puts errors in returned array", async () => {
 
     expectTypeOf(multiResult).toMatchTypeOf<{ length: 3 }>();
 
-    expectTypeOf(multiResult[0]).toEqualTypeOf<string | null | ReplyError>();
+    expectTypeOf(multiResult[0]).toEqualTypeOf<"OK" | null | ReplyError>();
     expectTypeOf(multiResult[1]).toEqualTypeOf<unknown[] | ReplyError>();
     expectTypeOf(multiResult[2]).toEqualTypeOf<string | null | ReplyError>();
 });

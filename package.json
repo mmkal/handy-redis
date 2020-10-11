@@ -25,7 +25,7 @@
   "scripts": {
     "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
     "prebuild": "ts-node scripts/json-schema/generate-schema && ts-node scripts/json-schema/generate-client && ts-node scripts/json-schema/generate-usages",
-    "build": "tsc -p .",
+    "build": "yarn compile",
     "check-clean": "check-clean",
     "ci": "run-s clean build test lint check-clean",
     "clean": "del-cli 'dist' 'src/generated' 'test/generated/**/*.ts'",

@@ -2,7 +2,7 @@ import { writeFile } from "./util";
 import * as cmnds from "../redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
-import * as commandTypes from "../command";
+import * as commandTypes from "./command";
 import { fixupSchema } from "./fixup";
 import { JsonSchemaCommand } from ".";
 

@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 import { stringify as yamlify } from "yamljs";
-import { Command } from "../command";
+import { Command } from "./command";
 import { EOL } from "os";
 import { writeFileSync, existsSync, readdirSync } from "fs";
 import { dirname } from "path";

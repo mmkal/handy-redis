@@ -305,11 +305,9 @@ const writeTests = () => {
                     })
                     .map(fixupGeneratedCode(name));
                 const existingSnapshot = existingSnapshots[i] || "";
-                const assertion = `expect(override(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
+                const assertion = `expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
                 return [
-                    `test(${JSON.stringify(
-                        `${name.replace("docs", "scripts")} example ${blockNumber}`
-                    )}, async () => {`,
+                    `test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {`,
                     setup,
                     ``,
                     ...test,
@@ -319,12 +317,12 @@ const writeTests = () => {
                 ].join("\n");
             });
             const clientPath = path.join(process.cwd(), "src");
-            const overridesPath = path.join(process.cwd(), "test/_manual-overrides2");
+            const overridesPath = path.join(process.cwd(), "test/fuzzify");
             const relativePath = (to: string) =>
                 unixify(path.relative(path.dirname(destPath), to)).replace(/\.ts$/, "");
             const header = [
                 `import {createHandyClient} from '${relativePath(clientPath)}'`,
-                `import {override} from '${relativePath(overridesPath)}'`,
+                `import {fuzzify} from '${relativePath(overridesPath)}'`,
                 "",
                 `const client = createHandyClient()`,
                 "",

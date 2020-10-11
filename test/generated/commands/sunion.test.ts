@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/sunion.md example 1", async () => {
+test("docs/redis-doc/commands/sunion.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.sadd("key1", "a");
@@ -22,7 +22,7 @@ test("scripts/redis-doc/commands/sunion.md example 1", async () => {
     outputs.r5 = await client.sadd("key2", "e");
     outputs.r6 = await client.sunion("key1", "key2");
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": 1,
           "r1": 1,

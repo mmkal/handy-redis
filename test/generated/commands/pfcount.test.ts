@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/pfcount.md example 1", async () => {
+test("docs/redis-doc/commands/pfcount.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.pfadd("hll", "foo", "bar", "zap");
@@ -21,7 +21,7 @@ test("scripts/redis-doc/commands/pfcount.md example 1", async () => {
     outputs.r4 = await client.pfadd("some-other-hll", "1", "2", "3");
     outputs.r5 = await client.pfcount("hll", "some-other-hll");
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": 1,
           "r1": 0,

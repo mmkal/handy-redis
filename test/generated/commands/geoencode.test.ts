@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/geoencode.md example 1", async () => {
+test("docs/redis-doc/commands/geoencode.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
@@ -21,7 +21,7 @@ test("scripts/redis-doc/commands/geoencode.md example 1", async () => {
     // GEOENCODE not found
     // ---
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": 2,
           "r1": "3479099956230698",

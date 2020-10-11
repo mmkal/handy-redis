@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/command-getkeys.md example 1", async () => {
+test("docs/redis-doc/commands/command-getkeys.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     // Error decoding command `COMMAND GETKEYS MSET a b c d e f`:
@@ -30,5 +30,5 @@ test("scripts/redis-doc/commands/command-getkeys.md example 1", async () => {
     // Tokens remain but no target args left! Tokens: GETKEYS,SORT,mylist,ALPHA,STORE,outlist
     // ---
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

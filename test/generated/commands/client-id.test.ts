@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/client-id.md example 1", async () => {
+test("docs/redis-doc/commands/client-id.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     // Error decoding command `CLIENT ID`:
@@ -19,5 +19,5 @@ test("scripts/redis-doc/commands/client-id.md example 1", async () => {
     // CLIENT not found
     // ---
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

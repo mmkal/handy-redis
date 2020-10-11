@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/lmove.md example 1", async () => {
+test("docs/redis-doc/commands/lmove.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.rpush("mylist", "one");
@@ -22,5 +22,5 @@ test("scripts/redis-doc/commands/lmove.md example 1", async () => {
     outputs.r5 = await client.lrange("mylist", 0, -1);
     outputs.r6 = await client.lrange("myotherlist", 0, -1);
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot();
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot();
 });

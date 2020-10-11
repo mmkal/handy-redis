@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,12 +11,12 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/more-cli-examples/setwithexpiry.md example 1", async () => {
+test("docs/more-cli-examples/setwithexpiry.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.set("foo", "bar", ["EX", 60]);
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": "OK",
         }

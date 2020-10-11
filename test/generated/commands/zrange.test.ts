@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/zrange.md example 1", async () => {
+test("docs/redis-doc/commands/zrange.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.zadd("myzset", [1, "one"]);
@@ -21,7 +21,7 @@ test("scripts/redis-doc/commands/zrange.md example 1", async () => {
     outputs.r4 = await client.zrange("myzset", 2, 3);
     outputs.r5 = await client.zrange("myzset", -2, -1);
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": 1,
           "r1": 1,
@@ -42,12 +42,12 @@ test("scripts/redis-doc/commands/zrange.md example 1", async () => {
     `);
 });
 
-test("scripts/redis-doc/commands/zrange.md example 2", async () => {
+test("docs/redis-doc/commands/zrange.md example 2", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.zrange("myzset", 0, 1, "WITHSCORES");
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": Array [],
         }

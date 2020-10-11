@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/hincrby.md example 1", async () => {
+test("docs/redis-doc/commands/hincrby.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.hset("myhash", ["field", "5"]);
@@ -19,7 +19,7 @@ test("scripts/redis-doc/commands/hincrby.md example 1", async () => {
     outputs.r2 = await client.hincrby("myhash", "field", -1);
     outputs.r3 = await client.hincrby("myhash", "field", -10);
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": 1,
           "r1": 6,

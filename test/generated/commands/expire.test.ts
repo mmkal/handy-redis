@@ -1,5 +1,5 @@
 import { createHandyClient } from "../../../src";
-import { override } from "../../_manual-overrides2";
+import { fuzzify } from "../../fuzzify";
 
 const client = createHandyClient();
 
@@ -11,7 +11,7 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("scripts/redis-doc/commands/expire.md example 1", async () => {
+test("docs/redis-doc/commands/expire.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
     outputs.r0 = await client.set("mykey", "Hello");
@@ -20,7 +20,7 @@ test("scripts/redis-doc/commands/expire.md example 1", async () => {
     outputs.r3 = await client.set("mykey", "Hello World");
     outputs.r4 = await client.ttl("mykey");
 
-    expect(override(outputs, __filename)).toMatchInlineSnapshot(`
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": "OK",
           "r1": 1,

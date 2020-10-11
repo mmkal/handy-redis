@@ -21,7 +21,7 @@ test("'batch' from node_redis also supported", async () => {
 });
 
 test("multi puts errors in returned array", async () => {
-    await client.set("foo", "one");
+    await client.set("z:foo", "one");
 
     const multiResult = await client
         .multi()
@@ -33,6 +33,9 @@ test("multi puts errors in returned array", async () => {
     expect(multiResult).toMatchInlineSnapshot(`
         Array [
           [ReplyError: ERR value is not an integer or out of range],
+          Array [
+            "z:foo",
+          ],
           "one",
         ]
     `);

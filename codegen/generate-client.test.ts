@@ -30,7 +30,7 @@ test("formatOverloads", () => {
                          * - _complexity_: undefined
                          * - _since_: 2.8.13
                          */
-                        latency(latency_subcommand: \\"RESET\\", event?: string):
+                        latency(latency_subcommand: \\"RESET\\", ...event?: Array<string>):
                             Promise<unknown>
                     ",
         ]
@@ -44,8 +44,8 @@ test("formatOverloads", () => {
                          * - _complexity_: O(1)
                          * - _since_: 1.0.0
                          */
-                        set(key: string, value: string, condition?: \\"NX\\"|\\"XX\\"):
-                            Promise<(string) | (null)>
+                        set(key: string, value: string, get?: \\"GET\\"):
+                            Promise<(\\"OK\\") | (string) | (null)>
                     ",
           "
                         /**
@@ -54,8 +54,28 @@ test("formatOverloads", () => {
                          * - _complexity_: O(1)
                          * - _since_: 1.0.0
                          */
-                        set(key: string, value: string, expiration?: [(\\"EX\\"|\\"PX\\"), (number)], condition?: \\"NX\\"|\\"XX\\"):
-                            Promise<(string) | (null)>
+                        set(key: string, value: string, condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
+                            Promise<(\\"OK\\") | (string) | (null)>
+                    ",
+          "
+                        /**
+                         * Set the string value of a key
+                         * - _group_: string
+                         * - _complexity_: O(1)
+                         * - _since_: 1.0.0
+                         */
+                        set(key: string, value: string, expiration?: [(\\"EX\\"|\\"PX\\"), (number)], get?: \\"GET\\"):
+                            Promise<(\\"OK\\") | (string) | (null)>
+                    ",
+          "
+                        /**
+                         * Set the string value of a key
+                         * - _group_: string
+                         * - _complexity_: O(1)
+                         * - _since_: 1.0.0
+                         */
+                        set(key: string, value: string, expiration?: [(\\"EX\\"|\\"PX\\"), (number)], condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
+                            Promise<(\\"OK\\") | (string) | (null)>
                     ",
         ]
     `);

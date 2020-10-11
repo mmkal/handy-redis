@@ -6,5 +6,3 @@ You can use markdown to make a cli block like this:
 set mykey foo
 get mykey
 ```
-
-If no such blocks are found, the whole file will be considered as a cli block.

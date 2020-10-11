@@ -30,6 +30,9 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     if (Array.isArray(schema.enum) && schema.enum.every(e => typeof e === "string")) {
         return schema.enum.map(e => JSON.stringify(e)).join("|");
     }
+    if (schema.const) {
+        return JSON.stringify(schema.const);
+    }
     if (schema.type === "string") {
         return "string";
     }

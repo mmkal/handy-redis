@@ -45,39 +45,6 @@ it("can use setbit with string or number", async () => {
     expect(await client.getbit("mykey", 7)).toEqual(0);
 });
 
-it("can use multi", async () => {
-    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
-
-    const result = await multi.exec();
-
-    expect(result).toEqual(["OK", ["z:foo"], "987"]);
-});
-
-it("can use batch", async () => {
-    const batch = client.batch().set("z:foo", "987").keys("z:*").get("z:foo");
-
-    const result = await batch.exec();
-
-    expect(result).toEqual(["OK", ["z:foo"], "987"]);
-});
-
-it("multi puts errors in returned array", async () => {
-    await client.set("foo", "one");
-
-    const multiResult = await client
-        .multi()
-        .set("foo", "two", ["EX", "NOTANUMBER" as any])
-        .get("foo")
-        .exec();
-
-    expect(multiResult).toMatchInlineSnapshot(`
-        Array [
-          [ReplyError: ERR value is not an integer or out of range],
-          "one",
-        ]
-    `);
-});
-
 it("set with expiry", async () => {
     await client.set("a:foo", "123", ["EX", 60]);
     const ttl = await client.ttl("a:foo");

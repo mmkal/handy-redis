@@ -51,11 +51,11 @@ Note: the [redis](https://npmjs.com/package/redis) package is listed as a peer d
 
 ### Examples
 
-See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/generated/commands/__snapshots__) for tons of usage examples.
+See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/generated/commands) for tons of usage examples.
 
 ### Multi
 
-Most members of node_redis's `multi` type don't need to be promisified, because they execute synchronously. Only `exec` is async. For a promisified version of that, use `execMulti`:
+Most members of node_redis's `multi` type don't need to be promisified, because they execute synchronously. Only `exec` is async. Usage example:
 
 ```JavaScript
 import { createHandyClient } from 'handy-redis';
@@ -63,15 +63,13 @@ import { createHandyClient } from 'handy-redis';
 (async function() {
     const client = createHandyClient();
 
-    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
-
-    const result = await client.execMulti(multi);
+    const result = await client.multi().set("z:foo", "987").keys("z:*").get("z:foo").exec();
 
     console.log(result); // ["OK", ["z:foo"], "987"]
 })();
 ```
 
-`execMulti` is generic, so in TypeScript you can use something like `const strings = await client.execMulti<string>(multi)` if you know all results will be strings. Otherwise the type will default to `{}`.
+The resolved value returned by `exec` is a tuple type, which keeps track of the commands that have been queued. In the above example, the type will be `[string, string[], string]`.
 
 ## Development
 

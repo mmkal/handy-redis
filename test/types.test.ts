@@ -12,7 +12,7 @@ test("client has promisified redis methods", () => {
     const client = {} as IHandyRedis;
     expectTypeOf(client.get).returns.resolves.toEqualTypeOf<string | null>();
 
-    expectTypeOf(client.set).returns.resolves.toEqualTypeOf<"OK" | null>();
+    expectTypeOf(client.set).returns.resolves.toEqualTypeOf<string | null>();
 
     expectTypeOf(client.geohash).parameters.toEqualTypeOf<[string, ...string[]]>();
 

@@ -9,14 +9,15 @@ import { inspect } from "util";
 type OutputModifier = (originalOutput: unknown) => unknown;
 
 type Fuzzable = (input: unknown) => unknown;
-const getFuzzers = <T extends Record<string, Fuzzable>>(record: T) => mapValues(record, fuzzifyOutput);
 
 const fuzzifyOutput = (func: Fuzzable) => (input: unknown) => {
     const result = func(input);
     return result === input ? result : `${func.name} => ${result}`;
 };
 
-const fuzzers = getFuzzers({
+const getFuzzers = <T extends Record<string, Fuzzable>>(record: T) => mapValues(record, fuzzifyOutput);
+
+export const fuzzers = getFuzzers({
     isFinite,
     typeOf: thing => (Array.isArray(thing) ? "array" : typeof thing),
     sorted: (arr: unknown[]) => inspect(arr.sort()),

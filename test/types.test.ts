@@ -14,6 +14,8 @@ test("client has promisified redis methods", () => {
 
     expectTypeOf(client.set).returns.resolves.toEqualTypeOf<string | null>();
 
+    expectTypeOf(client.setex).returns.resolves.toEqualTypeOf<"OK">();
+
     expectTypeOf(client.geohash).parameters.toEqualTypeOf<[string, ...string[]]>();
 
     expectTypeOf(client.geohash).returns.resolves.items.toBeString();

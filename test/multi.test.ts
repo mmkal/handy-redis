@@ -21,11 +21,11 @@ test("'batch' from node_redis also supported", async () => {
 });
 
 test("multi puts errors in returned array", async () => {
-    await client.set("z:foo", "one");
+    await client.set("z:foo", "abc");
 
     const multiResult = await client
         .multi()
-        .set("z:foo", "two", ["EX", "NOTANUMBER" as any])
+        .setex("z:foo", "NOTANUMBER" as any, "xyz")
         .keys("z:*")
         .get("z:foo")
         .exec();
@@ -36,13 +36,13 @@ test("multi puts errors in returned array", async () => {
           Array [
             "z:foo",
           ],
-          "one",
+          "abc",
         ]
     `);
 
     expectTypeOf(multiResult).toMatchTypeOf<{ length: 3 }>();
 
-    expectTypeOf(multiResult[0]).toEqualTypeOf<"OK" | null | ReplyError>();
+    expectTypeOf(multiResult[0]).toEqualTypeOf<"OK" | ReplyError>();
     expectTypeOf(multiResult[1]).toEqualTypeOf<unknown[] | ReplyError>();
     expectTypeOf(multiResult[2]).toEqualTypeOf<string | null | ReplyError>();
 });

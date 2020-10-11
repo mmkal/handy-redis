@@ -1,31 +1,30 @@
 import { expectTypeOf } from "expect-type";
-import { createHandyClient } from "../src";
+import { createHandyClient, IHandyRedis } from "../src";
 import { RedisClient } from "redis";
 
 test("create client with existing client", () => {
     expectTypeOf(createHandyClient).toBeCallableWith({} as RedisClient);
+
+    expectTypeOf(createHandyClient).returns.toEqualTypeOf<IHandyRedis>();
 });
 
 test("client has promisified redis methods", () => {
-    expectTypeOf(createHandyClient).returns.toHaveProperty("get").returns.resolves.toEqualTypeOf<string | null>();
+    const client = {} as IHandyRedis;
+    expectTypeOf(client.get).returns.resolves.toEqualTypeOf<string | null>();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("set").returns.resolves.toEqualTypeOf<string | null>();
+    expectTypeOf(client.set).returns.resolves.toEqualTypeOf<"OK" | null>();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("geohash").parameters.toEqualTypeOf<[string, ...string[]]>();
-
-    // todo: add override to make this string again
-    expectTypeOf(createHandyClient).returns.toHaveProperty("geohash").returns.resolves.items.toBeUnknown();
-
-    expectTypeOf(createHandyClient).returns.toHaveProperty("zrevrange").toBeCallableWith("key", 1, 2);
+    expectTypeOf(client.geohash).parameters.toEqualTypeOf<[string, ...string[]]>();
 
     // todo: add override to make this string again
-    expectTypeOf(createHandyClient).returns.toHaveProperty("zrevrange").returns.resolves.items.toBeUnknown();
+    expectTypeOf(client.geohash).returns.resolves.items.toBeUnknown();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("quit").returns.resolves.toBeString();
+    expectTypeOf(client.zrevrange).toBeCallableWith("key", 1, 2);
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("end").returns.toEqualTypeOf<void>();
+    // todo: add override to make this string again
+    expectTypeOf(client.zrevrange).returns.resolves.items.toBeUnknown();
 
-    // const client = createHandyClient();
+    expectTypeOf(client.quit).returns.resolves.toBeString();
 
-    // client.multi().set("foo", "bar").get("foo").keys("f*").exec();
+    expectTypeOf(client.end).returns.toEqualTypeOf<void>();
 });

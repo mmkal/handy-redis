@@ -51,7 +51,7 @@ Note: the [redis](https://npmjs.com/package/redis) package is listed as a peer d
 
 ### Examples
 
-See the [snapshot tests](https://github.com/mmkal/handy-redis/blob/master/test/generated/commands) for tons of usage examples.
+See the [snapshot tests](./test/generated/commands) for tons of usage examples.
 
 ### Multi
 

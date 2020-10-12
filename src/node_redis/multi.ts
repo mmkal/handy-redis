@@ -1,6 +1,6 @@
 import { Multi, RedisClient, ReplyError } from "redis";
-import { flattenDeep } from "./flatten";
-import { Commands } from "./generated/interface";
+import { flattenDeep } from "../flatten";
+import { Commands } from "../generated/interface";
 
 // Variadic tuple prefixes only work in ts>4. To support lower typescript versions, check if the feature works
 // this means we need ts-ignore, not ts-expect-error because it's _not_ an error in ts>4

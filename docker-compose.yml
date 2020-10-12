@@ -1,5 +1,5 @@
 redis:
-  image: redis:6.0.4
+  image: redis:6.0.8
   container_name: handy_redis
   ports:
     - "6379:6379"

@@ -47,3 +47,5 @@ handy-redis-0.0.0-development.tgz
 
 # local environment variable overrides
 .env
+
+temp

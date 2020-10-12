@@ -37,8 +37,20 @@ function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
         a => a.name === "expiration" && a.schema.enum?.join(",") === "EX seconds,PX milliseconds,KEEPTTL"
     )!;
     badSetArg.schema = {
-        type: "array",
-        items: [{ type: "string", enum: ["EX", "PX"] }, { type: "number" }],
+        anyOf: [
+            {
+                type: "array",
+                items: [
+                    // format: `["EX", 123]` or `["PX", 123]`
+                    { type: "string", enum: ["EX", "PX"] },
+                    { type: "number" },
+                ],
+            },
+            {
+                type: "string",
+                const: "KEEPTTL",
+            },
+        ],
     };
 }
 

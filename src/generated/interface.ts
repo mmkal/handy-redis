@@ -5077,7 +5077,12 @@ export interface Commands {
      * - _complexity_: O(1)
      * - _since_: 1.0.0
      */
-    set(key: string, value: string, expiration?: ["EX" | "PX", number], get?: "GET"): Promise<"OK" | string | null>;
+    set(
+        key: string,
+        value: string,
+        expiration?: ["EX" | "PX", number] | "KEEPTTL",
+        get?: "GET"
+    ): Promise<"OK" | string | null>;
 
     /**
      * Set the string value of a key
@@ -5088,7 +5093,7 @@ export interface Commands {
     set(
         key: string,
         value: string,
-        expiration?: ["EX" | "PX", number],
+        expiration?: ["EX" | "PX", number] | "KEEPTTL",
         condition?: "NX" | "XX",
         get?: "GET"
     ): Promise<"OK" | string | null>;

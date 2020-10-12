@@ -235,6 +235,20 @@ const decodeTokensCore = (
         return acc;
     }
 
+    if (Array.isArray(headArg.schema.anyOf)) {
+        const candidate = headArg.schema.anyOf
+            .map((subschema, i) => {
+                return decodeTokensCore(
+                    tokens,
+                    [{ name: headArg.name + "_variant" + i, schema: asSchema(subschema) }, ...targetArgs.slice(1)],
+                    context
+                );
+            })
+            .find(r => r.decoded);
+
+        return candidate || fail(`No variants matched!`);
+    }
+
     if (typeof headArg.schema.type === "undefined") {
         return next(headToken, `Decoded value ${headToken} as-is. No json-schema type detected - anything goes!!`);
     }

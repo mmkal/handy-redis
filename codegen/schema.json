@@ -4281,14 +4281,22 @@
                 "name": "expiration",
                 "optional": true,
                 "schema": {
-                    "type": "array",
-                    "items": [
+                    "anyOf": [
                         {
-                            "type": "string",
-                            "enum": ["EX", "PX"]
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "enum": ["EX", "PX"]
+                                },
+                                {
+                                    "type": "number"
+                                }
+                            ]
                         },
                         {
-                            "type": "number"
+                            "type": "string",
+                            "const": "KEEPTTL"
                         }
                     ]
                 }

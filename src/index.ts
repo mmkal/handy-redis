@@ -1,1 +1,1 @@
-export { addNodeRedisCommand, createHandyClient } from "./node_redis";
+export { addNodeRedisCommand, createHandyClient, IHandyRedis, ICreateHandyClient } from "./node_redis";

@@ -20,7 +20,10 @@ test("docs/redis-doc/commands/geohash.md example 1", async () => {
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
           "r0": 2,
-          "r1": "ignoreDecimals => sqc8b49rny0,sqdtr74hyu0",
+          "r1": Array [
+            "sqc8b49rny0",
+            "sqdtr74hyu0",
+          ],
         }
     `);
 });

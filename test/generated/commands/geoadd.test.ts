@@ -23,8 +23,13 @@ test("docs/redis-doc/commands/geoadd.md example 1", async () => {
         Object {
           "r0": 2,
           "r1": "ignoreDecimals => 166274.??",
-          "r2": "ignoreDecimals => Catania",
-          "r3": "ignoreDecimals => Palermo,Catania",
+          "r2": Array [
+            "Catania",
+          ],
+          "r3": Array [
+            "Palermo",
+            "Catania",
+          ],
         }
     `);
 });

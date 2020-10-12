@@ -18,7 +18,7 @@ test("docs/more-cli-examples/lastsave.md example 1", async () => {
 
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
-          "r0": "isFinite => true",
+          "r0": "ignoreNumbers => ???",
         }
     `);
 });

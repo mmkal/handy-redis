@@ -22,7 +22,10 @@ test("docs/redis-doc/commands/georadiusbymember.md example 1", async () => {
         Object {
           "r0": 1,
           "r1": 2,
-          "r2": "ignoreDecimals => Agrigento,Palermo",
+          "r2": Array [
+            "Agrigento",
+            "Palermo",
+          ],
         }
     `);
 });

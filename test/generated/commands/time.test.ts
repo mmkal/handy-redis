@@ -19,8 +19,8 @@ test("docs/redis-doc/commands/time.md example 1", async () => {
 
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
-          "r0": "isFinite => false",
-          "r1": "isFinite => false",
+          "r0": "ignoreNumbers => ???,???",
+          "r1": "ignoreNumbers => ???,???",
         }
     `);
 });

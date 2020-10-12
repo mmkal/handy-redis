@@ -1,5 +1,5 @@
-import { identity, find, isFinite, mapValues } from "lodash";
-import { inspect } from "util";
+import * as lodash from "lodash";
+import * as util from "util";
 
 // some of the auto-generated snapshot tests produce non-deterministic data
 // e.g. memory usage information, random keys, or unsorted set operations.
@@ -12,23 +12,30 @@ type Fuzzable = (input: unknown) => unknown;
 
 const fuzzifyOutput = (func: Fuzzable) => (input: unknown) => {
     const result = func(input);
-    return JSON.stringify(result) === JSON.stringify(input) ? result : `${func.name}: ${result}`;
+    return JSON.stringify(result) === JSON.stringify(input) ? result : `${func.name} => ${result}`;
 };
 
-const getFuzzers = <T extends Record<string, Fuzzable>>(record: T) => mapValues(record, fuzzifyOutput);
+const getFuzzers = <T extends Record<string, Fuzzable>>(record: T) => lodash.mapValues(record, fuzzifyOutput);
 
 export const fuzzers = getFuzzers({
-    isFinite: thing => (isFinite(thing) ? "yes" : thing),
     typeOf: thing => (Array.isArray(thing) ? "array" : typeof thing),
-    sorted: (arr: unknown[]) => inspect(arr.sort()),
+    sorted: (arr: unknown[]) => util.inspect(arr.sort()),
     firstTwoCharacters: thing => {
         const str = `${thing}`;
         return str.substring(0, 2) + "*".repeat(Math.max(0, str.length - 2));
     },
     arrayLength: (arr: unknown[]) => arr.length,
     someNumberValue: o => (/^\d+$/.test(`${o}`) ? "[a number]" : o),
-    sortArrays: o => (Array.isArray(o) ? inspect(o.sort()) : o),
-    ignoreDecimals: o => JSON.parse(JSON.stringify(o).replace(/(\d+)\.(\d+)/g, number => number.split(".")[0] + ".??")),
+    sortArrays: o => (Array.isArray(o) ? util.inspect(o.sort()) : o),
+    ignoreNumbers: o =>
+        typeof o === "number" ? "???" : JSON.parse(JSON.stringify(o).replace(/(\d+)(\.(\d+))?/g, () => "???")),
+    ignoreDecimals: o =>
+        JSON.parse(
+            JSON.stringify(typeof o === "number" ? o.toString() : o).replace(
+                /(\d+)\.(\d+)/g,
+                number => number.split(".")[0] + ".??"
+            )
+        ),
     ignoreStreamIds: ((streamIds: string[]) => (o: any) =>
         JSON.parse(
             JSON.stringify(o).replace(/(\d+)-(\d+)/g, val => {
@@ -39,8 +46,8 @@ export const fuzzers = getFuzzers({
 });
 
 const outputOverrides: { [testRegex: string]: OutputModifier } = {
-    "/lastsave.test.ts": fuzzers.isFinite,
-    "/time.test.ts": fuzzers.isFinite,
+    "/lastsave.test.ts": fuzzers.ignoreNumbers,
+    "/time.test.ts": fuzzers.ignoreNumbers,
     "/srandmember.test.ts": o => (Array.isArray(o) ? fuzzers.arrayLength(o) : fuzzers.typeOf(o)),
     "/spop.test.ts": o => (Array.isArray(o) ? fuzzers.arrayLength(o) : fuzzers.typeOf(o)),
     "/psetex.test.ts": fuzzers.someNumberValue,
@@ -58,6 +65,8 @@ const outputOverrides: { [testRegex: string]: OutputModifier } = {
 };
 
 export const fuzzify = (outputs: Record<string, unknown>, testFileName: string) => {
-    const overrideFn = find(outputOverrides, (value, key) => new RegExp(key).test(testFileName.replace(/\\/g, "/")));
-    return mapValues(outputs, overrideFn || identity);
+    const overrideFn = lodash.find(outputOverrides, (value, key) =>
+        new RegExp(key).test(testFileName.replace(/\\/g, "/"))
+    );
+    return lodash.mapValues(outputs, overrideFn || lodash.identity);
 };

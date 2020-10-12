@@ -6,7 +6,8 @@ import { overloads as getOverloads } from "./generate-client";
 import { inspect } from "util";
 import { writeFile } from "./util";
 import { parseArgsStringToArgv } from "string-argv";
-import { fixupExample, fixupGeneratedCode } from "./fixup";
+import { fixupGeneratedTests } from "./patches/tests";
+import { fixMarkdownExampleLine } from "./patches/markdown";
 import * as lo from "lodash";
 
 const extractCliExamples = (markdown: string) => {
@@ -44,7 +45,9 @@ type ExtractedCliExample = ReturnType<typeof extractAllCliExamples>[number];
 
 const tokenizeCliExample = (ex: ExtractedCliExample) => ({
     ...ex,
-    commands: ex.lines.map(fixupExample).map(original => ({ original, argv: parseArgsStringToArgv(original) })),
+    commands: ex.lines
+        .map(fixMarkdownExampleLine)
+        .map(original => ({ original, argv: parseArgsStringToArgv(original) })),
 });
 
 const print = (val: unknown) =>
@@ -326,7 +329,7 @@ const writeTests = () => {
                               ];
                         return usageOrFailureComments;
                     })
-                    .map(fixupGeneratedCode(name));
+                    .map(fixupGeneratedTests(name));
                 const existingSnapshot = existingSnapshots[i] || "";
                 const assertion = `expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
                 return `

@@ -3,7 +3,7 @@ import * as cmnds from "../docs/redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
 import * as commandTypes from "./command";
-import { fixupSchema } from "./fixup";
+import { fixupSchema } from "./patches/schema";
 import { JsonSchemaCommand } from ".";
 
 const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {

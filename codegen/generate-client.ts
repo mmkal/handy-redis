@@ -3,7 +3,7 @@ import { writeFile } from "./util";
 import { camelCase, kebabCase, snakeCase } from "lodash";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
-import { fixupClientTypescript } from "./fixup";
+import { fixupClientTypescript } from "./patches/client";
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
     let name = snakeCase(arg.name);

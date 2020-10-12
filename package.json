@@ -24,13 +24,14 @@
   ],
   "scripts": {
     "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
-    "prebuild": "ts-node codegen/generate-schema && ts-node codegen/generate-client && ts-node codegen/generate-tests",
-    "build": "yarn compile",
+    "prebuild": "yarn codegen",
+    "build": "yarn typecheck && yarn compile",
     "check-clean": "check-clean",
     "ci": "run-s clean build test lint check-clean",
     "preclean": "del-cli temp/backup-test-generated && mkdir -p temp && cp -r test/generated temp/backup-test-generated",
-    "clean": "del-cli 'dist' 'src/generated' 'test/generated/**/*.ts'",
-    "compile": "tsc -p .",
+    "clean": "del-cli 'dist' 'src/generated' 'test/generated'",
+    "codegen": "ts-node codegen/generate-schema && ts-node codegen/generate-client && ts-node codegen/generate-tests",
+    "compile": "tsc -p src",
     "coverage": "yarn test --coverage",
     "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
@@ -40,7 +41,8 @@
     "prerelease": "tsc -p src",
     "release": "semantic-release",
     "test": "jest --runInBand --forceExit --detectOpenHandles",
-    "tsn": "ts-node --transpile-only"
+    "tsn": "ts-node --transpile-only",
+    "typecheck": "tsc -p ."
   },
   "dependencies": {
     "@types/redis": "^2.8.27"

@@ -29,13 +29,7 @@ export const fuzzers = getFuzzers({
     sortArrays: o => (Array.isArray(o) ? util.inspect(o.sort()) : o),
     ignoreNumbers: o =>
         typeof o === "number" ? "???" : JSON.parse(JSON.stringify(o).replace(/(\d+)(\.(\d+))?/g, () => "???")),
-    ignoreDecimals: o =>
-        JSON.parse(
-            JSON.stringify(typeof o === "number" ? o.toString() : o).replace(
-                /(\d+)\.(\d+)/g,
-                number => number.split(".")[0] + ".??"
-            )
-        ),
+    ignoreDecimals: o => JSON.parse(JSON.stringify(o).replace(/(\d+)\.(\d+)/g, number => number.split(".")[0] + ".??")),
     ignoreStreamIds: ((streamIds: string[]) => (o: any) =>
         JSON.parse(
             JSON.stringify(o).replace(/(\d+)-(\d+)/g, val => {

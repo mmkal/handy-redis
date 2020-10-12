@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}

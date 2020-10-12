@@ -1,6 +1,6 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
 import { writeFile } from "./util";
-import { camelCase, snakeCase } from "lodash";
+import { camelCase, kebabCase, snakeCase } from "lodash";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 
@@ -123,6 +123,8 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
                  * - _group_: ${spec.group}
                  * - _complexity_: ${spec.complexity}
                  * - _since_: ${spec.since}
+                 * 
+                 * [Full docs](https://redis.io/commands/${kebabCase(fullCommand)})
                  */
                 ${camelCase(command)}(${val.formatted}):
                     Promise<${schemaToTypeScript(spec.return)}>

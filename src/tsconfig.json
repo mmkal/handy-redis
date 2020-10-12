@@ -3,6 +3,7 @@
     "compilerOptions": {
         "sourceMap": false,
         "declaration": true,
+        "noEmit": false,
         "outDir": "../dist"
     }
 }

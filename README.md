@@ -57,6 +57,8 @@ addNodeRedisCommand('lpos')
 const client = createHandyClient(...)
 ```
 
+If there's a command without a type, a new version of this library will need to be released - [raise an issue](https://github.com/mmkal/handy-redis/issues) if you come across one.
+
 ### Examples
 
 See the [snapshot tests](./test/generated/commands) for tons of usage examples.
@@ -78,6 +80,8 @@ import { createHandyClient } from 'handy-redis';
 ```
 
 The resolved value returned by `exec` is a tuple type, which keeps track of the commands that have been queued. In the above example, the type will be `[string, string[], string]`.
+
+Note: `multi` results are strongly-typed only when using typescript 4.0 and above - for lower typescript versions they will gracefully fall back to a union type (for the example above, it'll be `Array<string | string[]>`).
 
 ## Development
 

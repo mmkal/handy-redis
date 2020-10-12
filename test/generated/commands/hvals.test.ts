@@ -1,34 +1,31 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/hvals.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/hvals.md");
-    let snapshot: any;
-    const commands = [
-        `await client.hset("myhash", ["field1", "Hello"])`,
-        `await client.hset("myhash", ["field2", "World"])`,
-        `await client.hvals("myhash")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.hset("myhash", ["field1", "Hello"]));
-        output.push(await client.hset("myhash", ["field2", "World"]));
-        output.push(await client.hvals("myhash"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/hvals.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.hset("myhash", ["field1", "Hello"]);
+    outputs.r1 = await client.hset("myhash", ["field2", "World"]);
+    outputs.r2 = await client.hvals("myhash");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 1,
+          "r2": Array [
+            "Hello",
+            "World",
+          ],
+        }
+    `);
 });

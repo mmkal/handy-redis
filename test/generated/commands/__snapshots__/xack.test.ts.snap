@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/xack.md example 1 1`] = `
-Array [
-  "await client.xack('mystream', 'mygroup', '1526569495631-0')  => 0",
-]
-`;

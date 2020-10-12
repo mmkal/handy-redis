@@ -1,48 +1,34 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/command-getkeys.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/command-getkeys.md");
-    let snapshot: any;
-    const commands = [
-        `await client.command("GETKEYS", "MSET", "a", "b", "c", "d", "e", "f")`,
-        `await client.command("GETKEYS", "EVAL", "not consulted", "3", "key1", "key2", "key3", "arg1", "arg2", "arg3", "argN")`,
-        `await client.command("GETKEYS", "SORT", "mylist", "ALPHA", "STORE", "outlist")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.command("GETKEYS", "MSET", "a", "b", "c", "d", "e", "f"));
-        output.push(
-            await client.command(
-                "GETKEYS",
-                "EVAL",
-                "not consulted",
-                "3",
-                "key1",
-                "key2",
-                "key3",
-                "arg1",
-                "arg2",
-                "arg3",
-                "argN"
-            )
-        );
-        output.push(await client.command("GETKEYS", "SORT", "mylist", "ALPHA", "STORE", "outlist"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 118)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/command-getkeys.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    // Error decoding command `COMMAND GETKEYS MSET a b c d e f`:
+
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: GETKEYS,MSET,a,b,c,d,e,f
+    // ---
+    // Error decoding command `COMMAND GETKEYS EVAL "not consulted" 3 key1 key2 key3 arg1 arg2 arg3 argN`:
+
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: GETKEYS,EVAL,not consulted,3,key1,key2,key3,arg1,arg2,arg3,argN
+    // ---
+    // Error decoding command `COMMAND GETKEYS SORT mylist ALPHA STORE outlist`:
+
+    // decoding COMMAND overload 0 ():
+    // Tokens remain but no target args left! Tokens: GETKEYS,SORT,mylist,ALPHA,STORE,outlist
+    // ---
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/sismember.md example 1 1`] = `
-Array [
-  "await client.sadd('myset', 'one')       => 1",
-  "await client.sismember('myset', 'one')  => 1",
-  "await client.sismember('myset', 'two')  => 0",
-]
-`;

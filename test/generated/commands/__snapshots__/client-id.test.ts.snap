@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/client-id.md example 1 1`] = `
-Array [
-  "// not implemented by node redis: await client.client(\`Couldn\\"t format arguments: Couldn\\"t find command 'client'\`)  => '// not implemented by node redis: await client.client(\`Couldn\\"t format arguments: Couldn\\"t find command \\\\'client\\\\'\`)'",
-]
-`;

@@ -1,38 +1,37 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/hincrbyfloat.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/hincrbyfloat.md");
-    let snapshot: any;
-    const commands = [
-        `await client.hset("mykey", ["field", "10.50"])`,
-        `await client.hincrbyfloat("mykey", "field", 0.1)`,
-        `await client.hincrbyfloat("mykey", "field", -5)`,
-        `await client.hset("mykey", ["field", "5.0e3"])`,
-        `await client.hincrbyfloat("mykey", "field", 200)`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.hset("mykey", ["field", "10.50"]));
-        output.push(await client.hincrbyfloat("mykey", "field", 0.1));
-        output.push(await client.hincrbyfloat("mykey", "field", -5));
-        output.push(await client.hset("mykey", ["field", "5.0e3"]));
-        output.push(await client.hincrbyfloat("mykey", "field", 200));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/hincrbyfloat.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.hset("mykey", ["field", "10.50"]);
+    outputs.r1 = await client.hincrbyfloat("mykey", "field", 0.1);
+    outputs.r2 = await client.hincrbyfloat("mykey", "field", -5);
+    outputs.r3 = await client.hset("mykey", ["field", "5.0e3"]);
+    // Error decoding command `HINCRBYFLOAT mykey field 2.0e2`:
+
+    // decoding HINCRBYFLOAT overload 0 (key,field,increment): { name: 'key', schema: { type: 'string' } },{ name: 'field', schema: { type: 'string' } },{ name: 'increment', schema: { type: 'number' } }
+    // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [field,2.0e2], target args remainin count: 2
+    // field successfully decoded as field (string). Decoded value field. Tokens remaining [2.0e2], target args remainin count: 1
+    // 2.0e2 parsed into a bad number 200
+    // ---
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": "10.6",
+          "r2": "5.6",
+          "r3": 0,
+        }
+    `);
 });

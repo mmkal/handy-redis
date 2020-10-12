@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/hkeys.md example 1 1`] = `
-Array [
-  "await client.hset('myhash', ['field1', 'Hello'])  => 1",
-  "await client.hset('myhash', ['field2', 'World'])  => 1",
-  "await client.hkeys('myhash')                      => ['field1','field2']",
-]
-`;

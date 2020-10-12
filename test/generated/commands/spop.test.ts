@@ -1,46 +1,40 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/spop.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/spop.md");
-    let snapshot: any;
-    const commands = [
-        `await client.sadd("myset", "one")`,
-        `await client.sadd("myset", "two")`,
-        `await client.sadd("myset", "three")`,
-        `await client.spop("myset")`,
-        `await client.smembers("myset")`,
-        `await client.sadd("myset", "four")`,
-        `await client.sadd("myset", "five")`,
-        `await client.spop("myset", 3)`,
-        `await client.smembers("myset")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.sadd("myset", "one"));
-        output.push(await client.sadd("myset", "two"));
-        output.push(await client.sadd("myset", "three"));
-        output.push(await client.spop("myset"));
-        output.push(await client.smembers("myset"));
-        output.push(await client.sadd("myset", "four"));
-        output.push(await client.sadd("myset", "five"));
-        output.push(await client.spop("myset", 3));
-        output.push(await client.smembers("myset"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 36)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/spop.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.sadd("myset", "one");
+    outputs.r1 = await client.sadd("myset", "two");
+    outputs.r2 = await client.sadd("myset", "three");
+    outputs.r3 = await client.spop("myset");
+    outputs.r4 = await client.smembers("myset");
+    outputs.r5 = await client.sadd("myset", "four");
+    outputs.r6 = await client.sadd("myset", "five");
+    outputs.r7 = await client.spop("myset", 3);
+    outputs.r8 = await client.smembers("myset");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "typeOf => number",
+          "r1": "typeOf => number",
+          "r2": "typeOf => number",
+          "r3": "typeOf => string",
+          "r4": "arrayLength => 2",
+          "r5": "typeOf => number",
+          "r6": "typeOf => number",
+          "r7": "arrayLength => 3",
+          "r8": "arrayLength => 1",
+        }
+    `);
 });

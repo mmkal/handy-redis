@@ -1,36 +1,33 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/zpopmin.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/zpopmin.md");
-    let snapshot: any;
-    const commands = [
-        `await client.zadd("myzset", [1, "one"])`,
-        `await client.zadd("myzset", [2, "two"])`,
-        `await client.zadd("myzset", [3, "three"])`,
-        `await client.zpopmin("myzset")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.zadd("myzset", [1, "one"]));
-        output.push(await client.zadd("myzset", [2, "two"]));
-        output.push(await client.zadd("myzset", [3, "three"]));
-        output.push(await client.zpopmin("myzset"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 42)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/zpopmin.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.zadd("myzset", [1, "one"]);
+    outputs.r1 = await client.zadd("myzset", [2, "two"]);
+    outputs.r2 = await client.zadd("myzset", [3, "three"]);
+    outputs.r3 = await client.zpopmin("myzset");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 1,
+          "r2": 1,
+          "r3": Array [
+            "one",
+            "1",
+          ],
+        }
+    `);
 });

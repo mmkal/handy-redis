@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/rpush.md example 1 1`] = `
-Array [
-  "await client.rpush('mylist', 'hello')  => 1",
-  "await client.rpush('mylist', 'world')  => 2",
-  "await client.lrange('mylist', 0, -1)   => ['hello','world']",
-]
-`;

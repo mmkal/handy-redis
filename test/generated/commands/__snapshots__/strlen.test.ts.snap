@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/strlen.md example 1 1`] = `
-Array [
-  "await client.set('mykey', 'Hello world')  => 'OK'",
-  "await client.strlen('mykey')              => 11",
-  "await client.strlen('nonexisting')        => 0",
-]
-`;

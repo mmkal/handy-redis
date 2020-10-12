@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/more-cli-examples/lastsave.md example 1 1`] = `
-Array [
-  "await client.lastsave()  => 'isFinite => true'",
-]
-`;

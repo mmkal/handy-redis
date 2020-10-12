@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/smembers.md example 1 1`] = `
-Array [
-  "await client.sadd('myset', 'Hello')  => 1",
-  "await client.sadd('myset', 'World')  => 1",
-  "await client.smembers('myset')       => 'sorted => [ \\"Hello\\", \\"World\\" ]'",
-]
-`;

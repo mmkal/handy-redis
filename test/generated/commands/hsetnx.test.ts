@@ -1,34 +1,28 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/hsetnx.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/hsetnx.md");
-    let snapshot: any;
-    const commands = [
-        `await client.hsetnx("myhash", "field", "Hello")`,
-        `await client.hsetnx("myhash", "field", "World")`,
-        `await client.hget("myhash", "field")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.hsetnx("myhash", "field", "Hello"));
-        output.push(await client.hsetnx("myhash", "field", "World"));
-        output.push(await client.hget("myhash", "field"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 48)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/hsetnx.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.hsetnx("myhash", "field", "Hello");
+    outputs.r1 = await client.hsetnx("myhash", "field", "World");
+    outputs.r2 = await client.hget("myhash", "field");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 0,
+          "r2": "Hello",
+        }
+    `);
 });

@@ -1,36 +1,30 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/xlen.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/xlen.md");
-    let snapshot: any;
-    const commands = [
-        `await client.xadd("mystream", "*", ["item", "1"])`,
-        `await client.xadd("mystream", "*", ["item", "2"])`,
-        `await client.xadd("mystream", "*", ["item", "3"])`,
-        `await client.xlen("mystream")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.xadd("mystream", "*", ["item", "1"]));
-        output.push(await client.xadd("mystream", "*", ["item", "2"]));
-        output.push(await client.xadd("mystream", "*", ["item", "3"]));
-        output.push(await client.xlen("mystream"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 50)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/xlen.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.xadd("mystream", "*", ["item", "1"]);
+    outputs.r1 = await client.xadd("mystream", "*", ["item", "2"]);
+    outputs.r2 = await client.xadd("mystream", "*", ["item", "3"]);
+    outputs.r3 = await client.xlen("mystream");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": " => <<stream_0>>",
+          "r1": " => <<stream_1>>",
+          "r2": " => <<stream_2>>",
+          "r3": 3,
+        }
+    `);
 });

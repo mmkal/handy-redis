@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/rename.md example 1 1`] = `
-Array [
-  "await client.set('mykey', 'Hello')          => 'OK'",
-  "await client.rename('mykey', 'myotherkey')  => 'OK'",
-  "await client.get('myotherkey')              => 'Hello'",
-]
-`;

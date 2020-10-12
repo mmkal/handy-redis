@@ -1,27 +1,30 @@
 import { expectTypeOf } from "expect-type";
-import { createHandyClient } from "../src";
+import { createHandyClient, IHandyRedis } from "../src";
 import { RedisClient } from "redis";
 
 test("create client with existing client", () => {
     expectTypeOf(createHandyClient).toBeCallableWith({} as RedisClient);
+
+    expectTypeOf(createHandyClient).returns.toEqualTypeOf<IHandyRedis>();
 });
 
 test("client has promisified redis methods", () => {
-    expectTypeOf(createHandyClient).returns.toHaveProperty("get").returns.resolves.toEqualTypeOf<string | null>();
+    const client = {} as IHandyRedis;
+    expectTypeOf(client.get).returns.resolves.toEqualTypeOf<string | null>();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("set").returns.resolves.toEqualTypeOf<string | null>();
+    expectTypeOf(client.set).returns.resolves.toEqualTypeOf<string | null>();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("geohash").parameters.toEqualTypeOf<[string, ...string[]]>();
+    expectTypeOf(client.setex).returns.resolves.toEqualTypeOf<"OK">();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("geohash").returns.resolves.items.toBeString();
+    expectTypeOf(client.geohash).parameters.toEqualTypeOf<[string, ...string[]]>();
 
-    expectTypeOf(createHandyClient)
-        .returns.toHaveProperty("zrevrange")
-        .parameters.toEqualTypeOf<[string, number, number]>();
+    expectTypeOf(client.geohash).returns.resolves.items.toBeString();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("zrevrange").returns.resolves.items.toBeString();
+    expectTypeOf(client.zrevrange).toBeCallableWith("key", 1, 2);
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("quit").returns.resolves.toBeAny();
+    expectTypeOf(client.zrevrange).returns.resolves.items.toBeString();
 
-    expectTypeOf(createHandyClient).returns.toHaveProperty("end").returns.toEqualTypeOf<void>();
+    expectTypeOf(client.quit).returns.resolves.toBeString();
+
+    expectTypeOf(client.end).returns.toEqualTypeOf<void>();
 });

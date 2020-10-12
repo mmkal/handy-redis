@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/set.md example 1 1`] = `
-Array [
-  "await client.set('mykey', 'Hello')                                     => 'OK'",
-  "await client.get('mykey')                                              => 'Hello'",
-  "await client.set('anotherkey', 'will expire in a minute', ['EX', 60])  => 'OK'",
-]
-`;

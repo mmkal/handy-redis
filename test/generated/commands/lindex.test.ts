@@ -1,38 +1,32 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/lindex.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/lindex.md");
-    let snapshot: any;
-    const commands = [
-        `await client.lpush("mylist", "World")`,
-        `await client.lpush("mylist", "Hello")`,
-        `await client.lindex("mylist", 0)`,
-        `await client.lindex("mylist", -1)`,
-        `await client.lindex("mylist", 3)`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.lpush("mylist", "World"));
-        output.push(await client.lpush("mylist", "Hello"));
-        output.push(await client.lindex("mylist", 0));
-        output.push(await client.lindex("mylist", -1));
-        output.push(await client.lindex("mylist", 3));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 38)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/lindex.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.lpush("mylist", "World");
+    outputs.r1 = await client.lpush("mylist", "Hello");
+    outputs.r2 = await client.lindex("mylist", 0);
+    outputs.r3 = await client.lindex("mylist", -1);
+    outputs.r4 = await client.lindex("mylist", 3);
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 2,
+          "r2": "Hello",
+          "r3": "World",
+          "r4": null,
+        }
+    `);
 });

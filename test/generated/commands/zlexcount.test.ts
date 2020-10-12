@@ -1,36 +1,30 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createNodeRedisClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createNodeRedisClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/zlexcount.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/zlexcount.md");
-    let snapshot: any;
-    const commands = [
-        `await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"])`,
-        `await client.zadd("myzset", [0, "f"], [0, "g"])`,
-        `await client.zlexcount("myzset", "-", "+")`,
-        `await client.zlexcount("myzset", "[b", "[f")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"]));
-        output.push(await client.zadd("myzset", [0, "f"], [0, "g"]));
-        output.push(await client.zlexcount("myzset", "-", "+"));
-        output.push(await client.zlexcount("myzset", "[b", "[f"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 78)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/zlexcount.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.zadd("myzset", [0, "a"], [0, "b"], [0, "c"], [0, "d"], [0, "e"]);
+    outputs.r1 = await client.zadd("myzset", [0, "f"], [0, "g"]);
+    outputs.r2 = await client.zlexcount("myzset", "-", "+");
+    outputs.r3 = await client.zlexcount("myzset", "[b", "[f");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 5,
+          "r1": 2,
+          "r2": 7,
+          "r3": 5,
+        }
+    `);
 });

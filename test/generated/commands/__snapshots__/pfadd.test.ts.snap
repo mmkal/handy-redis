@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/pfadd.md example 1 1`] = `
-Array [
-  "await client.pfadd('hll', 'a', 'b', 'c', 'd', 'e', 'f', 'g')  => 1",
-  "await client.pfcount('hll')                                   => 7",
-]
-`;

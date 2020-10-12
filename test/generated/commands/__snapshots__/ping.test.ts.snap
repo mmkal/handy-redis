@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/ping.md example 1 1`] = `
-Array [
-  "await client.ping()               => 'PONG'",
-  "await client.ping('hello world')  => 'hello world'",
-]
-`;

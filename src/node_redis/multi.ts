@@ -1,6 +1,7 @@
 import { Multi, RedisClient, ReplyError } from "redis";
 import { flattenDeep } from "../flatten";
 import { Commands } from "../generated/interface";
+import { promisify } from "util";
 
 // Variadic tuple prefixes only work in ts>4. To support lower typescript versions, check if the feature works
 // this means we need ts-ignore, not ts-expect-error because it's _not_ an error in ts>4
@@ -21,16 +22,12 @@ const WrappedMultiImpl = class _WrappedMulti {
         return new WrappedMultiImpl(multi) as any;
     }
 
-    exec() {
-        return new Promise((resolve, reject) => {
-            return this.multi.exec((err: any, reply: any) => (err ? reject(err) : resolve(reply)));
-        });
+    get exec() {
+        return promisify(this.multi.exec.bind(this.multi));
     }
 
-    exec_atomic() {
-        return new Promise((resolve, reject) => {
-            return this.multi.exec_atomic((err: any, reply: any) => (err ? reject(err) : resolve(reply)));
-        });
+    get exec_atomic() {
+        return promisify(this.multi.exec_atomic.bind(this.multi));
     }
 };
 

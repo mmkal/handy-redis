@@ -20,6 +20,14 @@ test("'batch' from node_redis also supported", async () => {
     expect(result).toEqual(["OK", ["z:foo"], "987"]);
 });
 
+test("'exec_atomic' from node_redis also supported", async () => {
+    const batch = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
+
+    const result = await batch.exec_atomic();
+
+    expect(result).toEqual(["OK", ["z:foo"], "987"]);
+});
+
 test("multi puts errors in returned array", async () => {
     await client.set("z:foo", "abc");
 

@@ -1,8 +1,8 @@
-import { createHandyClient, addNodeRedisCommand } from "../src";
+import { createNodeRedisClient, addNodeRedisCommand } from "../src";
 
 addNodeRedisCommand("acl");
 
-const client = createHandyClient();
+const client = createNodeRedisClient();
 
 test("subcommands", async () => {
     expect(await client.command("COUNT")).toBeGreaterThan(1);

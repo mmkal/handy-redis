@@ -1,4 +1,4 @@
-name: Build
+name: CI
 on:
   push: {}
   pull_request: {}
@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       redis:
-        image: redis:6.0.4
+        image: redis:6.0.8
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
@@ -31,7 +31,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn
-      - name: codegen/build/test/lint
-        run: yarn ci
+      - run: yarn ci
+        if: matrix.node-version == '12.x'
+      - run: yarn test
+        if: matrix.node-version == '10.x'
       - uses: codecov/codecov-action@v1
         if: matrix.node-version == '12.x'

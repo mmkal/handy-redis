@@ -1,7 +1,7 @@
-import { addNodeRedisCommand, createHandyClient } from "../src";
+import { addNodeRedisCommand, createNodeRedisClient } from "../src";
 
 test("add command works", async () => {
-    const oldClient = createHandyClient();
+    const oldClient = createNodeRedisClient();
 
     await oldClient.rpush("mylist", "a", "b", "c", "1", "2", "3", "c", "c");
 
@@ -9,7 +9,7 @@ test("add command works", async () => {
 
     addNodeRedisCommand("lpos");
 
-    const newClient = createHandyClient();
+    const newClient = createNodeRedisClient();
 
     expect(await newClient.lpos("mylist", "c")).toEqual(2);
 

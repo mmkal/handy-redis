@@ -1,9 +1,12 @@
 export const flattenDeep = (array: any[]): any[] => {
     const flat = [] as any[];
     for (const item of array) {
-        const values = Array.isArray(item) ? flattenDeep(item) : [item];
-        for (const val of values) {
-            flat.push(val);
+        if (Array.isArray(item)) {
+            for (const val of flattenDeep(item)) {
+                flat.push(val);
+            }
+        } else {
+            flat.push(item);
         }
     }
     return flat;

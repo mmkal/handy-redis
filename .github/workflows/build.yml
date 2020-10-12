@@ -1,0 +1,35 @@
+name: Build
+on:
+  push: {}
+  pull_request: {}
+
+jobs:
+  build:
+    if: github.event_name == 'push' || github.event.pull_request.base.repo.url != github.event.pull_request.head.repo.url
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:6.0.4
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+
+    strategy:
+      matrix:
+        node-version: [12.x, 10.x]
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn
+      - name: codegen/build/test/lint
+        run: yarn ci
+      - uses: codecov/codecov-action@v1
+        if: matrix.node-version == '12.x'

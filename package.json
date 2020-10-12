@@ -22,7 +22,7 @@
     "test": "jest --runInBand --forceExit --detectOpenHandles",
     "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
     "check-clean": "check-clean",
-    "ci": "run-s clean build test lint check-clean",
+    "ci": "run-s clean build coverage lint check-clean",
     "prerelease": "tsc -p src",
     "release": "semantic-release",
     "coverage": "yarn test --coverage",

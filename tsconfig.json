@@ -1,7 +1,11 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        // "target": "es6",
+        "target": "es2019",
+        "lib": [
+          "es2019"
+        ],
         "alwaysStrict": true,
         "sourceMap": true,
         "forceConsistentCasingInFileNames": true,
@@ -11,11 +15,13 @@
         "noUnusedLocals": true,
         "noUnusedParameters": false,
         "noFallthroughCasesInSwitch": true,
+        "resolveJsonModule": true,
         "strictNullChecks": true,
         "noEmit": true
     },
     "exclude": [
         "node_modules",
-        "dist"
+        "dist",
+        "temp"
     ]
 }

@@ -1,36 +1,30 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/pexpire.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/pexpire.md");
-    let snapshot: any;
-    const commands = [
-        `await client.set("mykey", "Hello")`,
-        `await client.pexpire("mykey", 1500)`,
-        `await client.ttl("mykey")`,
-        `await client.pttl("mykey")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.set("mykey", "Hello"));
-        output.push(await client.pexpire("mykey", 1500));
-        output.push(await client.ttl("mykey"));
-        output.push(await client.pttl("mykey"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 36)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/pexpire.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.set("mykey", "Hello");
+    outputs.r1 = await client.pexpire("mykey", 1500);
+    outputs.r2 = await client.ttl("mykey");
+    outputs.r3 = await client.pttl("mykey");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "OK",
+          "r1": "someNumberValue => [a number]",
+          "r2": "someNumberValue => [a number]",
+          "r3": "someNumberValue => [a number]",
+        }
+    `);
 });

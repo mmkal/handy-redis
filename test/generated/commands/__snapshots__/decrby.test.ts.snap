@@ -1,8 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/decrby.md example 1 1`] = `
-Array [
-  "await client.set('mykey', '10')  => 'OK'",
-  "await client.decrby('mykey', 3)  => 7",
-]
-`;

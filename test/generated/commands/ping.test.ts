@@ -1,29 +1,26 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/ping.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/ping.md");
-    let snapshot: any;
-    const commands = ["await client.ping()", `await client.ping("hello world")`];
-    const output: any[] = [];
-    try {
-        output.push(await client.ping());
-        output.push(await client.ping("hello world"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 33)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/ping.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.ping();
+    outputs.r1 = await client.ping("hello world");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": "PONG",
+          "r1": "hello world",
+        }
+    `);
 });

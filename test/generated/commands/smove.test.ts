@@ -1,40 +1,34 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/smove.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/smove.md");
-    let snapshot: any;
-    const commands = [
-        `await client.sadd("myset", "one")`,
-        `await client.sadd("myset", "two")`,
-        `await client.sadd("myotherset", "three")`,
-        `await client.smove("myset", "myotherset", "two")`,
-        `await client.smembers("myset")`,
-        `await client.smembers("myotherset")`,
-    ];
-    const output: any[] = [];
-    try {
-        output.push(await client.sadd("myset", "one"));
-        output.push(await client.sadd("myset", "two"));
-        output.push(await client.sadd("myotherset", "three"));
-        output.push(await client.smove("myset", "myotherset", "two"));
-        output.push(await client.smembers("myset"));
-        output.push(await client.smembers("myotherset"));
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 49)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/smove.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.sadd("myset", "one");
+    outputs.r1 = await client.sadd("myset", "two");
+    outputs.r2 = await client.sadd("myotherset", "three");
+    outputs.r3 = await client.smove("myset", "myotherset", "two");
+    outputs.r4 = await client.smembers("myset");
+    outputs.r5 = await client.smembers("myotherset");
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 1,
+          "r1": 1,
+          "r2": 1,
+          "r3": 1,
+          "r4": "sortArrays => [ 'one' ]",
+          "r5": "sortArrays => [ 'three', 'two' ]",
+        }
+    `);
 });

@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/info.md example 1 1`] = `
-Array [
-  "await client.info()  => 'typeOf => string'",
-]
-`;

@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/get.md example 1 1`] = `
-Array [
-  "await client.get('nonexisting')     => null",
-  "await client.set('mykey', 'Hello')  => 'OK'",
-  "await client.get('mykey')           => 'Hello'",
-]
-`;

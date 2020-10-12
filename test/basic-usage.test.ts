@@ -1,22 +1,22 @@
 import { createHandyClient } from "../src";
-import { createClient, Multi } from "redis";
+import { createClient } from "redis";
 import * as redisMock from "redis-mock";
 
+const client = createHandyClient();
+
 it("creates client", async () => {
-    const client = createHandyClient();
     expect(client).toBeTruthy();
     expect(await client.ping()).toBeTruthy();
 });
 
 it("creates client from node_redis", async () => {
     const nodeRedisClient = createClient();
-    const client = createHandyClient(nodeRedisClient);
-    expect(await client.ping()).toBeTruthy();
+    const hrClient = createHandyClient(nodeRedisClient);
+    expect(await hrClient.ping()).toBeTruthy();
+    hrClient.end(true);
 });
 
 it("can use set and keys", async () => {
-    const client = createHandyClient();
-
     await client.set("x:foo", "123");
     await client.set("x:bar", "456");
     await client.set("y:baz", "789");
@@ -27,10 +27,8 @@ it("can use set and keys", async () => {
 });
 
 it("can use hset with multiple fields", async () => {
-    const client = createHandyClient();
-
     await client.hset("myhash", ["field1", "Hello"], ["field2", "Goodbye"]);
-    await client.hset("myhash", "field3", "foo");
+    await client.hset("myhash", ["field3", "foo"]);
 
     expect(await client.hgetall("myhash")).toMatchObject({
         field1: "Hello",
@@ -40,37 +38,14 @@ it("can use hset with multiple fields", async () => {
 });
 
 it("can use setbit with string or number", async () => {
-    const client = createHandyClient();
-
     await client.setbit("mykey", 7, 1);
     expect(await client.getbit("mykey", 7)).toEqual(1);
 
-    await client.setbit("mykey", 7, "0");
+    await client.setbit("mykey", 7, 0);
     expect(await client.getbit("mykey", 7)).toEqual(0);
 });
 
-it("can use multi", async () => {
-    const client = createHandyClient();
-
-    const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");
-
-    const result = await client.execMulti(multi);
-
-    expect(result).toEqual(["OK", ["z:foo"], "987"]);
-});
-
-it("multi rejects correctly", async () => {
-    const client = createHandyClient();
-
-    const fakeMulti: Multi = {
-        exec: (callback: Function) => callback(new Error("foo")),
-    } as any;
-
-    await expect(client.execMulti(fakeMulti)).rejects.toEqual(new Error("foo"));
-});
-
 it("set with expiry", async () => {
-    const client = createHandyClient();
     await client.set("a:foo", "123", ["EX", 60]);
     const ttl = await client.ttl("a:foo");
     expect(ttl).toBeLessThanOrEqual(60);
@@ -85,7 +60,6 @@ it("works with redis-mock", async () => {
 });
 
 it("has quit and end methods", async () => {
-    const client = createHandyClient();
     expect(typeof client.quit).toBe("function");
     expect(typeof client.end).toBe("function");
 });

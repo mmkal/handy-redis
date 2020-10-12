@@ -1,38 +1,30 @@
-import { zip, padEnd } from "lodash";
-import { IHandyRedis, createHandyClient } from "../../../src";
-import { getOverride } from "../../_manual-overrides";
-let client: IHandyRedis;
+import { createHandyClient } from "../../../src";
+import { fuzzify } from "../../fuzzify";
+
+const client = createHandyClient();
+
 beforeAll(async () => {
-    client = createHandyClient();
-    await client.ping("ping");
+    await client.ping();
 });
+
 beforeEach(async () => {
     await client.flushall();
 });
 
-it("scripts/redis-doc/commands/geoencode.md example 1", async () => {
-    const overrider = getOverride("scripts/redis-doc/commands/geoencode.md");
-    let snapshot: any;
-    const commands = [
-        `await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"])`,
-        `await client.zscore("Sicily", "Palermo")`,
-        "// not implemented by node redis: await client.geoencode(`Couldn't format arguments: Couldn't find command \"geoencode\"`)",
-    ];
-    const output: any[] = [];
-    try {
-        output.push(
-            await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"])
-        );
-        output.push(await client.zscore("Sicily", "Palermo"));
-        output.push(
-            "// not implemented by node redis: await client.geoencode(`Couldn't format arguments: Couldn't find command \"geoencode\"`)"
-        );
-        const overridenOutput = overrider(output);
-        snapshot = zip(commands, overridenOutput)
-            .map(pair => `${padEnd(pair[0], 121)} => ${JSON.stringify(pair[1])}`)
-            .map(expression => expression.replace(/['"]/g, q => (q === `'` ? `"` : `'`)));
-    } catch (err) {
-        snapshot = { _commands: commands, _output: output, err };
-    }
-    expect(snapshot).toMatchSnapshot();
+test("docs/redis-doc/commands/geoencode.md example 1", async () => {
+    const outputs: Record<string, unknown> = {};
+
+    outputs.r0 = await client.geoadd("Sicily", [13.361389, 38.115556, "Palermo"], [15.087269, 37.502669, "Catania"]);
+    outputs.r1 = await client.zscore("Sicily", "Palermo");
+    // Error decoding command `GEOENCODE 13.361389 38.115556 100 km`:
+
+    // GEOENCODE not found
+    // ---
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
+        Object {
+          "r0": 2,
+          "r1": "3479099956230698",
+        }
+    `);
 });

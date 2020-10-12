@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/pttl.md example 1 1`] = `
-Array [
-  "await client.set('mykey', 'Hello')  => 'OK'",
-  "await client.expire('mykey', 1)     => '[a number]'",
-  "await client.pttl('mykey')          => '[a number]'",
-]
-`;

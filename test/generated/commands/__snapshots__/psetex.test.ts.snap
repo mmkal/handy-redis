@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`scripts/redis-doc/commands/psetex.md example 1 1`] = `
-Array [
-  "await client.psetex('mykey', 1000, 'Hello')  => 'OK'",
-  "await client.pttl('mykey')                   => '[a number]'",
-  "await client.get('mykey')                    => 'Hello'",
-]
-`;

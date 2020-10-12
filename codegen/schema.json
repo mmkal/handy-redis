@@ -2436,7 +2436,10 @@
         "since": "2.0.0",
         "group": "hash",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "HLEN": {
@@ -2479,7 +2482,17 @@
         "since": "2.0.0",
         "group": "hash",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "type": "null"
+                    }
+                ]
+            }
         }
     },
     "HMSET": {
@@ -2621,7 +2634,10 @@
         "since": "2.0.0",
         "group": "hash",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "INCR": {
@@ -2744,7 +2760,10 @@
         "since": "1.0.0",
         "group": "generic",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "LASTSAVE": {
@@ -3010,7 +3029,10 @@
         "since": "1.0.0",
         "group": "list",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "LREM": {
@@ -3185,7 +3207,17 @@
         "since": "1.0.0",
         "group": "string",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "type": "string"
+                    },
+                    {
+                        "type": "null"
+                    }
+                ]
+            }
         }
     },
     "MIGRATE": {
@@ -4215,7 +4247,10 @@
         "since": "1.0.0",
         "group": "set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "SDIFFSTORE": {
@@ -4482,7 +4517,10 @@
         "since": "1.0.0",
         "group": "set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "SINTERSTORE": {
@@ -4641,7 +4679,10 @@
         "since": "1.0.0",
         "group": "set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "SMOVE": {
@@ -4958,7 +4999,10 @@
         "since": "1.0.0",
         "group": "set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "SUNIONSTORE": {
@@ -5044,7 +5088,10 @@
         "group": "server",
         "arguments": [],
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "number"
+            }
         }
     },
     "TOUCH": {
@@ -5537,7 +5584,10 @@
         "since": "5.0.0",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZPOPMIN": {
@@ -5561,7 +5611,10 @@
         "since": "5.0.0",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZRANGE": {
@@ -5598,7 +5651,10 @@
         "since": "1.2.0",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZRANGEBYLEX": {
@@ -5653,7 +5709,10 @@
         "since": "2.8.9",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZREVRANGEBYLEX": {
@@ -5708,7 +5767,10 @@
         "since": "2.8.9",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZRANGEBYSCORE": {
@@ -5771,7 +5833,10 @@
         "since": "1.0.5",
         "group": "sorted_set",
         "return": {
-            "type": "array"
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
     },
     "ZRANK": {

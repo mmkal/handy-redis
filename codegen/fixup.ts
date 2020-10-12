@@ -21,6 +21,13 @@ export const fixupExample = (example: string) => {
     return array[0];
 };
 
+export const fixupClientTypescript = (command: string) => (signature: string) => {
+    if (command.toUpperCase() === "HGETALL") {
+        return signature.replace("Array<unknown>", "Record<string, string>");
+    }
+    return signature;
+};
+
 export const fixupGeneratedCode = (filename: string) => (code: string): string => {
     const array: string[] = [code] // use array as a stupid monad-like data structure
         .map(fixKeyWeightsOverlyComplexParsingIssue)
@@ -59,7 +66,24 @@ function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
 
     const manuallyFixedUp: Record<string, jsonSchema.JSONSchema7 & { type: "array" }> = {
         GEOHASH: { type: "array", items: { type: "string" } },
+        KEYS: { type: "array", items: { type: "string" } },
+        HKEYS: { type: "array", items: { type: "string" } },
+        HMGET: { type: "array", items: { anyOf: [{ type: "string" }, { type: "null" }] } },
+        HVALS: { type: "array", items: { type: "string" } },
+        LRANGE: { type: "array", items: { type: "string" } },
+        MGET: { type: "array", items: { anyOf: [{ type: "string" }, { type: "null" }] } },
+        SDIFF: { type: "array", items: { type: "string" } },
+        SINTER: { type: "array", items: { type: "string" } },
+        SMEMBERS: { type: "array", items: { type: "string" } },
+        SUNION: { type: "array", items: { type: "string" } },
+        TIME: { type: "array", items: { type: "number" } },
+        ZPOPMAX: { type: "array", items: { type: "string" } },
+        ZPOPMIN: { type: "array", items: { type: "string" } },
+        ZRANGE: { type: "array", items: { type: "string" } },
         ZREVRANGE: { type: "array", items: { type: "string" } },
+        ZRANGEBYLEX: { type: "array", items: { type: "string" } },
+        ZREVRANGEBYLEX: { type: "array", items: { type: "string" } },
+        ZRANGEBYSCORE: { type: "array", items: { type: "string" } },
     };
 
     commandsWithArrayReplies.forEach(([name, command]) => {

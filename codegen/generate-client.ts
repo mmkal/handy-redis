@@ -3,6 +3,7 @@ import { writeFile } from "./util";
 import { camelCase, kebabCase, snakeCase } from "lodash";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
+import { fixupClientTypescript } from "./fixup";
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
     let name = snakeCase(arg.name);
@@ -130,6 +131,7 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
                     Promise<${schemaToTypeScript(spec.return)}>
             `;
         })
+        .map(fixupClientTypescript(command))
         .value();
 };
 

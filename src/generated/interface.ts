@@ -4589,7 +4589,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hgetall)
      */
-    hgetall(key: string): Promise<Array<unknown>>;
+    hgetall(key: string): Promise<Record<string, string>>;
 
     /**
      * Increment the integer value of a hash field by the given number
@@ -4619,7 +4619,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hkeys)
      */
-    hkeys(key: string): Promise<Array<unknown>>;
+    hkeys(key: string): Promise<Array<string>>;
 
     /**
      * Get the number of fields in a hash
@@ -4639,7 +4639,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hmget)
      */
-    hmget(key: string, ...field: Array<string>): Promise<Array<unknown>>;
+    hmget(key: string, ...field: Array<string>): Promise<Array<string | null>>;
 
     /**
      * Set multiple hash fields to multiple values
@@ -4689,7 +4689,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hvals)
      */
-    hvals(key: string): Promise<Array<unknown>>;
+    hvals(key: string): Promise<Array<string>>;
 
     /**
      * Increment the integer value of a key by one
@@ -4749,7 +4749,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/keys)
      */
-    keys(pattern: string): Promise<Array<unknown>>;
+    keys(pattern: string): Promise<Array<string>>;
 
     /**
      * Get the UNIX time stamp of the last successful save to disk
@@ -4880,7 +4880,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/lrange)
      */
-    lrange(key: string, start: number, stop: number): Promise<Array<unknown>>;
+    lrange(key: string, start: number, stop: number): Promise<Array<string>>;
 
     /**
      * Remove elements from a list
@@ -4980,7 +4980,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/mget)
      */
-    mget(...key: Array<string>): Promise<Array<unknown>>;
+    mget(...key: Array<string>): Promise<Array<string | null>>;
 
     /**
      * Atomically transfer a key from a Redis instance to another one.
@@ -5841,7 +5841,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/sdiff)
      */
-    sdiff(...key: Array<string>): Promise<Array<unknown>>;
+    sdiff(...key: Array<string>): Promise<Array<string>>;
 
     /**
      * Subtract multiple sets and store the resulting set in a key
@@ -5972,7 +5972,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/sinter)
      */
-    sinter(...key: Array<string>): Promise<Array<unknown>>;
+    sinter(...key: Array<string>): Promise<Array<string>>;
 
     /**
      * Intersect multiple sets and store the resulting set in a key
@@ -6042,7 +6042,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/smembers)
      */
-    smembers(key: string): Promise<Array<unknown>>;
+    smembers(key: string): Promise<Array<string>>;
 
     /**
      * Move a member from one set to another
@@ -6607,7 +6607,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/sunion)
      */
-    sunion(...key: Array<string>): Promise<Array<unknown>>;
+    sunion(...key: Array<string>): Promise<Array<string>>;
 
     /**
      * Add multiple sets and store the resulting set in a key
@@ -6657,7 +6657,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/time)
      */
-    time(): Promise<Array<unknown>>;
+    time(): Promise<Array<number>>;
 
     /**
      * Alters the last access time of a key(s). Returns the number of existing keys specified.
@@ -7103,7 +7103,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zpopmax)
      */
-    zpopmax(key: string, count?: number): Promise<Array<unknown>>;
+    zpopmax(key: string, count?: number): Promise<Array<string>>;
 
     /**
      * Remove and return members with the lowest scores in a sorted set
@@ -7113,7 +7113,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zpopmin)
      */
-    zpopmin(key: string, count?: number): Promise<Array<unknown>>;
+    zpopmin(key: string, count?: number): Promise<Array<string>>;
 
     /**
      * Return a range of members in a sorted set, by index
@@ -7123,7 +7123,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zrange)
      */
-    zrange(key: string, start: number, stop: number, withscores?: "WITHSCORES"): Promise<Array<unknown>>;
+    zrange(key: string, start: number, stop: number, withscores?: "WITHSCORES"): Promise<Array<string>>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range
@@ -7138,7 +7138,7 @@ export interface Commands {
         min: string,
         max: string,
         limit_offset_count?: ["LIMIT", [number, number]]
-    ): Promise<Array<unknown>>;
+    ): Promise<Array<string>>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range, ordered from higher to lower strings.
@@ -7153,7 +7153,7 @@ export interface Commands {
         max: string,
         min: string,
         limit_offset_count?: ["LIMIT", [number, number]]
-    ): Promise<Array<unknown>>;
+    ): Promise<Array<string>>;
 
     /**
      * Return a range of members in a sorted set, by score
@@ -7168,7 +7168,7 @@ export interface Commands {
         min: number,
         max: number,
         limit_offset_count?: ["LIMIT", [number, number]]
-    ): Promise<Array<unknown>>;
+    ): Promise<Array<string>>;
 
     /**
      * Return a range of members in a sorted set, by score
@@ -7184,7 +7184,7 @@ export interface Commands {
         max: number,
         withscores?: "WITHSCORES",
         limit_offset_count?: ["LIMIT", [number, number]]
-    ): Promise<Array<unknown>>;
+    ): Promise<Array<string>>;
 
     /**
      * Determine the index of a member in a sorted set

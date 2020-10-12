@@ -1,8 +1,8 @@
 import { expectTypeOf } from "expect-type";
 import { ReplyError } from "redis";
-import { createHandyClient } from "../src";
+import { createNodeRedisClient } from "../src";
 
-const client = createHandyClient();
+const client = createNodeRedisClient();
 
 test("multi returns a promise", async () => {
     const multi = client.multi().set("z:foo", "987").keys("z:*").get("z:foo");

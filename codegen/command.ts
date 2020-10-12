@@ -11,7 +11,7 @@ export interface TypeScriptArg {
 
 export interface BasicCommandInfo {
     original: Command;
-    docsX: string;
+    docs: string;
     name: string;
     args: TypeScriptArg[];
 }

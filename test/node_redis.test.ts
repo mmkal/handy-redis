@@ -1,8 +1,8 @@
-import { createHandyClient } from "../src";
+import { createHandyClient, createNodeRedisClient } from "../src";
 import { createClient } from "redis";
 import * as redisMock from "redis-mock";
 
-const client = createHandyClient();
+const client = createNodeRedisClient();
 
 it("creates client", async () => {
     expect(client).toBeTruthy();
@@ -11,9 +11,13 @@ it("creates client", async () => {
 
 it("creates client from node_redis", async () => {
     const nodeRedisClient = createClient();
-    const hrClient = createHandyClient(nodeRedisClient);
+    const hrClient = createNodeRedisClient(nodeRedisClient);
     expect(await hrClient.ping()).toBeTruthy();
     hrClient.end(true);
+});
+
+test("v1.x backwards-compatibility", () => {
+    expect(createHandyClient).toBe(createNodeRedisClient);
 });
 
 it("can use set and keys", async () => {
@@ -54,7 +58,7 @@ it("set with expiry", async () => {
 
 it("works with redis-mock", async () => {
     const mockClient: any = redisMock.createClient();
-    const client = createHandyClient(mockClient);
+    const client = createNodeRedisClient(mockClient);
 
     expect(client.redis).toBe(mockClient);
     expect(client.nodeRedis).toBe(mockClient);

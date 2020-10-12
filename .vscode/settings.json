@@ -1,5 +1,5 @@
 {
-  "typescript.tsdk": "c:\\Users\\mkale\\src\\handy-redis\\node_modules\\typescript\\lib",
+  "typescript.tsdk": "node_modules/typescript/lib",
   "files.exclude": {
     "**/.git": false
   },

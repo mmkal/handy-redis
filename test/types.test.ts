@@ -1,11 +1,11 @@
 import { expectTypeOf } from "expect-type";
-import { createHandyClient, IHandyRedis } from "../src";
+import { createNodeRedisClient, IHandyRedis } from "../src";
 import { RedisClient } from "redis";
 
 test("create client with existing client", () => {
-    expectTypeOf(createHandyClient).toBeCallableWith({} as RedisClient);
+    expectTypeOf(createNodeRedisClient).toBeCallableWith({} as RedisClient);
 
-    expectTypeOf(createHandyClient).returns.toEqualTypeOf<IHandyRedis>();
+    expectTypeOf(createNodeRedisClient).returns.toEqualTypeOf<IHandyRedis>();
 });
 
 test("client has promisified redis methods", () => {

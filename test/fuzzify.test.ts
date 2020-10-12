@@ -1,21 +1,21 @@
 import { fuzzers } from "./fuzzify";
 
 test("isFinite", () => {
-    expect(fuzzers.isFinite(123)).toEqual("isFinite => true");
+    expect(fuzzers.isFinite(123)).toEqual("isFinite: yes");
 });
 
 test("typeof", () => {
-    expect(fuzzers.typeOf("foo")).toEqual("typeOf => string");
+    expect(fuzzers.typeOf("foo")).toEqual("typeOf: string");
 });
 
 test("sorted", () => {
-    expect(fuzzers.sorted([3, 2, 1])).toEqual("sorted => [ 1, 2, 3 ]");
+    expect(fuzzers.sorted([3, 2, 1])).toEqual("sorted: [ 1, 2, 3 ]");
 });
 
 test("firstTwoCharacters", () => {
-    expect(fuzzers.firstTwoCharacters("hello")).toEqual("firstTwoCharacters => he***");
+    expect(fuzzers.firstTwoCharacters("hello")).toEqual("firstTwoCharacters: he***");
 });
 
 test("leaves irrelevant input alone", () => {
-    expect(fuzzers.ignoreDecimals("Palermo")).toEqual("Palermo");
+    expect(fuzzers.ignoreDecimals(["Palermo"])).toEqual(["Palermo"]);
 });

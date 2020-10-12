@@ -12,13 +12,13 @@ type Fuzzable = (input: unknown) => unknown;
 
 const fuzzifyOutput = (func: Fuzzable) => (input: unknown) => {
     const result = func(input);
-    return result === input ? result : `${func.name} => ${result}`;
+    return JSON.stringify(result) === JSON.stringify(input) ? result : `${func.name}: ${result}`;
 };
 
 const getFuzzers = <T extends Record<string, Fuzzable>>(record: T) => mapValues(record, fuzzifyOutput);
 
 export const fuzzers = getFuzzers({
-    isFinite,
+    isFinite: thing => (isFinite(thing) ? "yes" : thing),
     typeOf: thing => (Array.isArray(thing) ? "array" : typeof thing),
     sorted: (arr: unknown[]) => inspect(arr.sort()),
     firstTwoCharacters: thing => {

@@ -4854,10 +4854,16 @@
         "return": {
             "anyOf": [
                 {
+                    "type": "null"
+                },
+                {
                     "type": "string"
                 },
                 {
-                    "type": "null"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 }
             ]
         }

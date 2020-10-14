@@ -7,6 +7,7 @@ export const fixupSchema = (schema: Record<string, JsonSchemaCommand>) => {
 
     fixSetEnum(clone);
     fixArrayRepliesManually(clone);
+    fixBulkStringRepliesManually(clone);
 
     return clone;
 };
@@ -40,6 +41,9 @@ function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
  * types to a few of the @array-reply commands, which often end up as `unknown`.
  */
 function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
+    /**
+     * Dictionary of manual "array" schemas. Will likely be added/edited to over time.
+     */
     const manuallyFixedUp: Record<string, jsonSchema.JSONSchema7 & { type: "array" }> = {
         GEOHASH: { type: "array", items: { type: "string" } },
         KEYS: { type: "array", items: { type: "string" } },
@@ -67,6 +71,22 @@ function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
             command.return = manuallyFixedUp[name] || command.return;
         } else if (command.return.type === "array" && !command.return.items && process.env.FIND_GENERIC_ARRAYS) {
             console.warn(`${name} has a generic array return type`);
+        }
+    });
+}
+
+function fixBulkStringRepliesManually(schema: Record<string, JsonSchemaCommand>) {
+    /**
+     * Catch-all bucket for patches to the generated schema. A lot of commands specify their return type
+     * as `@bulk-string-reply` so a few fixes for those might end up here.
+     */
+    const manuallyFixedUp: Record<string, jsonSchema.JSONSchema7> = {
+        SPOP: { anyOf: [{ type: "null" }, { type: "string" }, { type: "array", items: { type: "string" } }] },
+    };
+
+    Object.entries(schema).forEach(([name, command]) => {
+        if (name in manuallyFixedUp) {
+            command.return = manuallyFixedUp[name] || command.return;
         }
     });
 }

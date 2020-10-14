@@ -27,4 +27,6 @@ test("client has promisified redis methods", () => {
     expectTypeOf(client.quit).returns.resolves.toBeString();
 
     expectTypeOf(client.end).returns.toEqualTypeOf<void>();
+
+    expectTypeOf(client.spop).returns.resolves.toEqualTypeOf<null | string | string[]>();
 });

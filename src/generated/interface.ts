@@ -6547,7 +6547,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/spop)
      */
-    spop(key: string, count?: number): Promise<string | null>;
+    spop(key: string, count?: number): Promise<null | string | Array<string>>;
 
     /**
      * Get one or multiple random members from a set

@@ -2781,15 +2781,15 @@ eslint-ast-utils@^1.1.0:
     lodash.get "^4.4.2"
     lodash.zip "^4.2.0"
 
-eslint-config-xo-typescript@0.33.0:
-  version "0.33.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.33.0.tgz#6d8a277eef85870cb854cd9a3bcc6b3c1813bffe"
-  integrity sha512-MCAP26EX+o+hoNPPmi/GHUznQHBUaN5taKUQznMy7RjqjPPJMlOzsiZLGNEQeDfuoYZE0O4x0vZWRduggyVQMg==
+eslint-config-xo-typescript@0.34.0:
+  version "0.34.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-xo-typescript/-/eslint-config-xo-typescript-0.34.0.tgz#2d344655106370079b976665396ddb3723988975"
+  integrity sha512-I8ho6y2gF/OJSSTBtNB/Zqza+sCW5AlXk3YqQaVlKfy0oSUREFVJi9n2oc9PHQxpUY/auEZQ160w/xMDTWUzHA==
 
-eslint-config-xo@0.32.1:
-  version "0.32.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.32.1.tgz#51f6d7fd5591e66a2330feb24f2f205c4bfa64fc"
-  integrity sha512-achnYLilUTtljR1CGRikVj9HRAf5GplJeGgeyQMvph7mKo+AqTkNuig4EO/IrNOChcjoazgw9YT4cW/3+69i3Q==
+eslint-config-xo@0.33.0:
+  version "0.33.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-xo/-/eslint-config-xo-0.33.0.tgz#ab344443c2f2bfce9279443d4b2cd4eaad323d2b"
+  integrity sha512-5i2pIX+M1dll7THJo+zJjg7zaj4bC1xcG3sW3Dy9f1umxc6bqcyDhi/6q1unr9dFpPe00QUPuG4gV5oripa/DQ==
   dependencies:
     confusing-browser-globals "1.0.9"
 

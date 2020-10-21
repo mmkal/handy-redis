@@ -75,3 +75,15 @@ test("multi", async () => {
     const firstResult = multiResult[0];
     const _accessTupleWithErrorCheckOk = () => (firstResult[0] ? undefined : firstResult[1].slice());
 });
+
+test("hgetall is consistent with node_redis", async () => {
+    // node_redis transforms hgetall results into a dictionary. luckily ioredis does too
+    await client.hset("myhash", ["field1", "Hello"], ["field2", "Goodbye"]);
+    await client.hset("myhash", ["field3", "foo"]);
+
+    expect(await client.hgetall("myhash")).toMatchObject({
+        field1: "Hello",
+        field2: "Goodbye",
+        field3: "foo",
+    });
+});

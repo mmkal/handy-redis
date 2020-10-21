@@ -7,3 +7,5 @@ export {
     createNodeRedisClient as createHandyClient,
     WrappedNodeRedisClient as IHandyRedis,
 } from "./node_redis";
+
+export { WrappedIORedisClient, createIORedisClient } from "./ioredis";

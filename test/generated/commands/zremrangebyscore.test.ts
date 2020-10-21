@@ -17,12 +17,7 @@ test("docs/redis-doc/commands/zremrangebyscore.md example 1", async () => {
     outputs.r0 = await client.zadd("myzset", [1, "one"]);
     outputs.r1 = await client.zadd("myzset", [2, "two"]);
     outputs.r2 = await client.zadd("myzset", [3, "three"]);
-    // Error decoding command `ZREMRANGEBYSCORE myzset -inf (2`:
-
-    // decoding ZREMRANGEBYSCORE overload 0 (key,min,max): { name: 'key', schema: { type: 'string' } },{ name: 'min', schema: { type: 'number' } },{ name: 'max', schema: { type: 'number' } }
-    // myzset successfully decoded as key (string). Decoded value myzset. Tokens remaining [-inf,(2], target args remainin count: 2
-    // -inf parsed into a bad number NaN
-    // ---
+    outputs.r3 = await client.zremrangebyscore("myzset", "-inf", "(2");
     outputs.r4 = await client.zrange("myzset", 0, -1, "WITHSCORES");
 
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`

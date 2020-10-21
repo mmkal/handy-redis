@@ -45,6 +45,7 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
+    "@types/ioredis": "^4.17.6",
     "@types/redis": "^2.8.27"
   },
   "devDependencies": {

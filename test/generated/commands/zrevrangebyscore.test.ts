@@ -27,10 +27,19 @@ test("docs/redis-doc/commands/zrevrangebyscore.md example 1", async () => {
           "r0": 1,
           "r1": 1,
           "r2": 1,
+          "r3": Array [
+            "three",
+            "two",
+            "one",
+          ],
           "r4": Array [
             "two",
             "one",
           ],
+          "r5": Array [
+            "two",
+          ],
+          "r6": Array [],
         }
     `);
 });

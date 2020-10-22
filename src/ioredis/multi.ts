@@ -15,12 +15,11 @@ export type ResultType<K extends keyof Commands> = ReturnType<Commands[K]> exten
 export type MaybeResult<T> = [Error, undefined] | [null, T];
 
 export type WrappedIORedisMulti<Results extends unknown[] = []> = {
-    [K in Exclude<keyof Commands, "exec" | "exec_atomic">]: (
+    [K in Exclude<keyof Commands, "exec">]: (
         ...args: Parameters<Commands[K]>
     ) => WrappedIORedisMulti<Push<Results, MaybeResult<ResultType<K>>>>;
 } & {
     exec: () => Promise<Results>;
-    exec_atomic: () => Promise<Results>;
 };
 
 export interface IORedisMultiMixins {

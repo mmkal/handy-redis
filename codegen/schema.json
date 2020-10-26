@@ -5357,13 +5357,37 @@
             {
                 "name": "min",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             },
             {
                 "name": "max",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             }
         ],
@@ -5792,13 +5816,37 @@
             {
                 "name": "min",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             },
             {
                 "name": "max",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             },
             {
@@ -5972,13 +6020,37 @@
             {
                 "name": "min",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             },
             {
                 "name": "max",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             }
         ],
@@ -6041,13 +6113,37 @@
             {
                 "name": "max",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             },
             {
                 "name": "min",
                 "schema": {
-                    "type": "number"
+                    "anyOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["-inf", "+inf"]
+                        },
+                        {
+                            "type": "string",
+                            "pattern": "^\\(\\d+(\\.\\d+)?$"
+                        }
+                    ]
                 }
             },
             {

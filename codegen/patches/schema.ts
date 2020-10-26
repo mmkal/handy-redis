@@ -8,6 +8,7 @@ export const fixupSchema = (schema: Record<string, JsonSchemaCommand>) => {
     fixSetEnum(clone);
     fixArrayRepliesManually(clone);
     fixBulkStringRepliesManually(clone);
+    fixScoreValues(clone);
 
     return clone;
 };
@@ -88,5 +89,45 @@ function fixBulkStringRepliesManually(schema: Record<string, JsonSchemaCommand>)
         if (name in manuallyFixedUp) {
             command.return = manuallyFixedUp[name] || command.return;
         }
+    });
+}
+
+/**
+ * Some commands have "score" values which are listed as doubles, but can actually take values like `-inf`, `+inf` and `(123`
+ * This modifies those arguments' schemas to match reality.
+ * See https://github.com/redis/redis-doc/issues/1420 and https://github.com/mmkal/handy-redis/issues/30
+ */
+function fixScoreValues(schema: Record<string, JsonSchemaCommand>) {
+    const intervalScoreArgs = [
+        { command: "ZRANGEBYSCORE", argument: "min" },
+        { command: "ZRANGEBYSCORE", argument: "max" },
+        { command: "ZREVRANGEBYSCORE", argument: "min" },
+        { command: "ZREVRANGEBYSCORE", argument: "max" },
+        { command: "ZREMRANGEBYSCORE", argument: "min" },
+        { command: "ZREMRANGEBYSCORE", argument: "max" },
+        { command: "ZCOUNT", argument: "min" },
+        { command: "ZCOUNT", argument: "max" },
+    ];
+
+    intervalScoreArgs.forEach(({ command, argument }) => {
+        const existing = schema[command]?.arguments.find(a => a.name === argument && a.schema.type === "number");
+        if (!existing) {
+            throw Error(`Expected command ${command} to have number argument called ${argument}`);
+        }
+        existing.schema = {
+            anyOf: [
+                {
+                    type: "number",
+                },
+                {
+                    type: "string",
+                    enum: ["-inf", "+inf"],
+                },
+                {
+                    type: "string",
+                    pattern: "^\\(\\d+(\\.\\d+)?$",
+                },
+            ],
+        };
     });
 }

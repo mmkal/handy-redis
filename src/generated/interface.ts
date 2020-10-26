@@ -6986,7 +6986,11 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zcount)
      */
-    zcount(key: string, min: number, max: number): Promise<number>;
+    zcount(
+        key: string,
+        min: number | ("-inf" | "+inf") | string,
+        max: number | ("-inf" | "+inf") | string
+    ): Promise<number>;
 
     /**
      * Increment the score of a member in a sorted set
@@ -7165,8 +7169,8 @@ export interface Commands {
      */
     zrangebyscore(
         key: string,
-        min: number,
-        max: number,
+        min: number | ("-inf" | "+inf") | string,
+        max: number | ("-inf" | "+inf") | string,
         limit_offset_count?: ["LIMIT", [number, number]]
     ): Promise<Array<string>>;
 
@@ -7180,8 +7184,8 @@ export interface Commands {
      */
     zrangebyscore(
         key: string,
-        min: number,
-        max: number,
+        min: number | ("-inf" | "+inf") | string,
+        max: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
         limit_offset_count?: ["LIMIT", [number, number]]
     ): Promise<Array<string>>;
@@ -7234,7 +7238,11 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zremrangebyscore)
      */
-    zremrangebyscore(key: string, min: number, max: number): Promise<number>;
+    zremrangebyscore(
+        key: string,
+        min: number | ("-inf" | "+inf") | string,
+        max: number | ("-inf" | "+inf") | string
+    ): Promise<number>;
 
     /**
      * Return a range of members in a sorted set, by index, with scores ordered from high to low
@@ -7256,8 +7264,8 @@ export interface Commands {
      */
     zrevrangebyscore(
         key: string,
-        max: number,
-        min: number,
+        max: number | ("-inf" | "+inf") | string,
+        min: number | ("-inf" | "+inf") | string,
         limit_offset_count?: ["LIMIT", [number, number]]
     ): Promise<Array<unknown>>;
 
@@ -7271,8 +7279,8 @@ export interface Commands {
      */
     zrevrangebyscore(
         key: string,
-        max: number,
-        min: number,
+        max: number | ("-inf" | "+inf") | string,
+        min: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
         limit_offset_count?: ["LIMIT", [number, number]]
     ): Promise<Array<unknown>>;

@@ -18,7 +18,7 @@ export const fixupGeneratedTests = (filename: string) => (code: string): string 
  * aren't available in that image
  */
 function commentOutFutureReleaseFeatures(filename: string) {
-    const unsupported = ["lmove", "lpos", "smismember", "zinter", "zmscore", "zunion"];
+    const unsupported = ["lmove", "lpos", "smismember", "zinter", "zmscore", "zunion", "zdiff", "zdiffstore"];
     const match = unsupported.find(u => filename.endsWith(`${u}.md`));
     if (match) {
         return (code: string) => `// ${match} not supported by node_redis! ${code}`;

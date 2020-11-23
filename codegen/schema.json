@@ -6805,14 +6805,21 @@
                             "const": "MAXLEN"
                         },
                         {
-                            "type": "array",
-                            "items": [
-                                {
-                                    "type": "string",
-                                    "enum": ["=", "~"]
-                                },
+                            "anyOf": [
                                 {
                                     "type": "integer"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "enum": ["=", "~"]
+                                        },
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
                                 }
                             ]
                         }
@@ -6887,14 +6894,21 @@
             {
                 "name": "xtrim_block_2",
                 "schema": {
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string",
-                            "enum": ["=", "~"]
-                        },
+                    "anyOf": [
                         {
                             "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "enum": ["=", "~"]
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -7115,37 +7129,72 @@
                 "name": "xgroup_block_0",
                 "optional": true,
                 "schema": {
-                    "type": "array",
-                    "items": [
+                    "anyOf": [
                         {
                             "type": "array",
                             "items": [
                                 {
-                                    "type": "string",
-                                    "const": "CREATE"
-                                },
-                                {
                                     "type": "array",
                                     "items": [
                                         {
-                                            "title": "key",
-                                            "type": "string"
+                                            "type": "string",
+                                            "const": "CREATE"
                                         },
                                         {
-                                            "title": "groupname",
-                                            "type": "string"
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "title": "key",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "title": "groupname",
+                                                    "type": "string"
+                                                }
+                                            ]
                                         }
                                     ]
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": ["ID", "$"]
                                 }
                             ]
                         },
                         {
-                            "type": "string",
-                            "enum": ["ID", "$"]
-                        },
-                        {
-                            "type": "string",
-                            "const": "MKSTREAM"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "CREATE"
+                                        },
+                                        {
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "title": "key",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "title": "groupname",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": ["ID", "$"]
+                                },
+                                {
+                                    "type": "string",
+                                    "const": "MKSTREAM"
+                                }
+                            ]
                         }
                     ]
                 }
@@ -7529,16 +7578,20 @@
                 "name": "xpending_block_2",
                 "optional": true,
                 "schema": {
-                    "type": "array",
-                    "items": [
+                    "anyOf": [
                         {
-                            "type": "string"
-                        },
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "integer"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
                         },
                         {
                             "type": "array",
@@ -7547,14 +7600,35 @@
                                     "type": "string"
                                 },
                                 {
-                                    "type": "array",
-                                    "items": [
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "anyOf": [
                                         {
-                                            "type": "string",
-                                            "const": "IDLE"
+                                            "type": "string"
                                         },
                                         {
-                                            "type": "integer"
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "string",
+                                                            "const": "IDLE"
+                                                        },
+                                                        {
+                                                            "type": "integer"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
                                         }
                                     ]
                                 }

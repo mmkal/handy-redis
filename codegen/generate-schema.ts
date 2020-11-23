@@ -6,7 +6,7 @@ import * as commandTypes from "./command";
 import { fixupSchema } from "./patches/schema";
 import { JsonSchemaCommand } from ".";
 
-const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
+const argToSchema = (arg: commandTypes.Argument, parentName?: string): jsonSchema.JSONSchema7 => {
     if (arg.variadic && arg.command) {
         return {
             type: "array",
@@ -90,9 +90,24 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
         };
     }
     if (arg.type === "block" && Array.isArray(arg.block)) {
+        const blockOptions = arg.block.reduce((options, b, i) => {
+            const nextSchema = argToSchema({ ...b, name: b.name || `${arg.name}_block_${i}` })
+            const newOptions = options.map(o => [...o, nextSchema])
+            if (b.optional) {
+                return [...options, ...newOptions]
+            }
+            return newOptions
+        }, [[]] as jsonSchema.JSONSchema7[][])
+        const anyOf = blockOptions.map<jsonSchema.JSONSchema7>(
+            o => o.length === 1 ? o[0] : {type: "array", items: o}
+        )
+
+        if (anyOf.length === 1) {
+            return anyOf[0]
+        }
+
         return {
-            type: "array",
-            items: arg.block.map((b, i) => argToSchema({ ...b, name: b.name || `${arg.name}_block_${i}`, }))
+            anyOf
         }
     }
     return {};
@@ -161,7 +176,7 @@ const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSche
                     val.toUpperCase() !== arr[i - 1] &&
                     val.toUpperCase() + "S" !== arr[i - 1]
             )
-            .join("_") || `${arg.type}_${i}`.toLowerCase(),
+            .join("_") || `${key}_${arg.type}_${i}`.toLowerCase(),
         optional: arg.optional,
         schema: argToSchema(arg),
     })),

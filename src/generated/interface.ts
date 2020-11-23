@@ -7665,7 +7665,7 @@ export interface Commands {
      */
     xadd(
         key: string,
-        xadd_block_1: ["MAXLEN", ["=" | "~", number]],
+        xadd_block_1: ["MAXLEN", number | ["=" | "~", number]],
         xadd_enum_3: "*" | "ID",
         ...field_value: Array<[string, string]>
     ): Promise<string | null>;
@@ -7680,7 +7680,7 @@ export interface Commands {
      */
     xadd(
         key: string,
-        xadd_block_1: ["MAXLEN", ["=" | "~", number]],
+        xadd_block_1: ["MAXLEN", number | ["=" | "~", number]],
         nomkstream: "NOMKSTREAM",
         xadd_enum_3: "*" | "ID",
         ...field_value: Array<[string, string]>
@@ -7694,7 +7694,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xtrim)
      */
-    xtrim(key: string, strategy: "MAXLEN", xtrim_block_2: ["=" | "~", number]): Promise<number>;
+    xtrim(key: string, strategy: "MAXLEN", xtrim_block_2: number | ["=" | "~", number]): Promise<number>;
 
     /**
      * Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.
@@ -7907,7 +7907,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -7920,7 +7922,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7934,7 +7938,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         destroy_key_groupname?: ["DESTROY", [string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7948,7 +7954,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         destroy_key_groupname?: ["DESTROY", [string, string]],
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
@@ -7963,7 +7971,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         xgroup_block_1?: [["SETID", [string, string]], "ID" | "$"],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7977,7 +7987,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         xgroup_block_1?: [["SETID", [string, string]], "ID" | "$"],
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
@@ -7992,7 +8004,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         xgroup_block_1?: [["SETID", [string, string]], "ID" | "$"],
         destroy_key_groupname?: ["DESTROY", [string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
@@ -8007,7 +8021,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        xgroup_block_0?: [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
+        xgroup_block_0?:
+            | [["CREATE", [string, string]], "ID" | "$"]
+            | [["CREATE", [string, string]], "ID" | "$", "MKSTREAM"],
         xgroup_block_1?: [["SETID", [string, string]], "ID" | "$"],
         destroy_key_groupname?: ["DESTROY", [string, string]],
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
@@ -8471,7 +8487,7 @@ export interface Commands {
     xpending(
         key: string,
         group: string,
-        xpending_block_2?: [string, string, number, [string, ["IDLE", number]]]
+        xpending_block_2?: [string, string, number] | [string, string, number, string | [string, ["IDLE", number]]]
     ): Promise<Array<unknown>>;
 
     /**

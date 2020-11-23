@@ -22,6 +22,12 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
             items: argToSchema({ ...arg, multiple: false, variadic: false }),
         };
     }
+    if (arg.command && !arg.type) {
+        return {
+            type: "string",
+            const: arg.command,
+        };
+    }
     if (arg.command) {
         const { command, ...rest } = arg;
         return {
@@ -78,10 +84,16 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
         return {
             type: "array",
             items: arg.type.map((type, i) => ({
-                title: arg.name[i],
-                ...argToSchema({ type, name: arg.name[i] }),
+                title: arg.name?.[i],
+                ...argToSchema({ type, name: arg.name?.[i] }),
             })),
         };
+    }
+    if (arg.type === "block" && Array.isArray(arg.block)) {
+        return {
+            type: "array",
+            items: arg.block.map((b, i) => argToSchema({ ...b, name: b.name || `${arg.name}_block_${i}`, }))
+        }
     }
     return {};
 };
@@ -139,7 +151,7 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
 
 const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
-    arguments: (command?.arguments || []).map(arg => ({
+    arguments: (command?.arguments || []).map((arg, i) => ({
         name: [arg.command, arg.name]
             .flat()
             .filter(
@@ -149,7 +161,7 @@ const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSche
                     val.toUpperCase() !== arr[i - 1] &&
                     val.toUpperCase() + "S" !== arr[i - 1]
             )
-            .join("_"),
+            .join("_") || `${arg.type}_${i}`.toLowerCase(),
         optional: arg.optional,
         schema: argToSchema(arg),
     })),

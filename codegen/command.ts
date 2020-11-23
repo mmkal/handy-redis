@@ -43,16 +43,17 @@ export interface Command {
         | "sorted_set";
 }
 
-export type ArgumentType = "string" | "key" | "enum" | "pattern" | "integer" | "double" | "posix time";
+export type ArgumentType = "string" | "key" | "enum" | "pattern" | "integer" | "double" | "posix time" | "block";
 
 export interface Argument {
-    name: string;
+    name?: string;
     type: ArgumentType | ArgumentType[];
     command?: string;
     enum?: string[];
     optional?: boolean;
     multiple?: boolean;
     variadic?: boolean;
+    block?: Array<Argument>
 }
 
 export interface CommandCollection {

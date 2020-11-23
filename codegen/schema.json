@@ -6795,26 +6795,40 @@
                 }
             },
             {
-                "name": "",
-                "optional": true,
-                "schema": {}
-            },
-            {
-                "name": "NOMKSTREAM",
+                "name": "xadd_block_1",
                 "optional": true,
                 "schema": {
                     "type": "array",
                     "items": [
                         {
                             "type": "string",
-                            "const": "NOMKSTREAM"
+                            "const": "MAXLEN"
                         },
-                        {}
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "enum": ["=", "~"]
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        }
                     ]
                 }
             },
             {
-                "name": "",
+                "name": "NOMKSTREAM",
+                "optional": true,
+                "schema": {
+                    "type": "string",
+                    "const": "NOMKSTREAM"
+                }
+            },
+            {
+                "name": "xadd_enum_3",
                 "schema": {
                     "type": "string",
                     "enum": ["*", "ID"]
@@ -6871,8 +6885,19 @@
                 }
             },
             {
-                "name": "",
-                "schema": {}
+                "name": "xtrim_block_2",
+                "schema": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "enum": ["=", "~"]
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ]
+                }
             }
         ],
         "since": "5.0.0",
@@ -7087,14 +7112,78 @@
         "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
         "arguments": [
             {
-                "name": "",
+                "name": "xgroup_block_0",
                 "optional": true,
-                "schema": {}
+                "schema": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "CREATE"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "title": "key",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "title": "groupname",
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["ID", "$"]
+                        },
+                        {
+                            "type": "string",
+                            "const": "MKSTREAM"
+                        }
+                    ]
+                }
             },
             {
-                "name": "",
+                "name": "xgroup_block_1",
                 "optional": true,
-                "schema": {}
+                "schema": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "SETID"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "title": "key",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "title": "groupname",
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "string",
+                            "enum": ["ID", "$"]
+                        }
+                    ]
+                }
             },
             {
                 "name": "DESTROY_key_groupname",
@@ -7437,9 +7526,42 @@
                 }
             },
             {
-                "name": "",
+                "name": "xpending_block_2",
                 "optional": true,
-                "schema": {}
+                "schema": {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "IDLE"
+                                        },
+                                        {
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
             }
         ],
         "since": "5.0.0",

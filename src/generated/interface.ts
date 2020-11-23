@@ -7638,7 +7638,53 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xadd)
      */
-    xadd(key: string, id: string, ...field_value: Array<[string, string]>): Promise<string>;
+    xadd(key: string, arg_1: "*" | "ID", ...field_value: Array<[string, string]>): Promise<string | null>;
+
+    /**
+     * Appends a new entry to a stream
+     * - _group_: stream
+     * - _complexity_: O(1)
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xadd)
+     */
+    xadd(
+        key: string,
+        nomkstream: ["NOMKSTREAM", unknown],
+        arg_2: "*" | "ID",
+        ...field_value: Array<[string, string]>
+    ): Promise<string | null>;
+
+    /**
+     * Appends a new entry to a stream
+     * - _group_: stream
+     * - _complexity_: O(1)
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xadd)
+     */
+    xadd(
+        key: string,
+        arg_1: unknown,
+        arg_2: "*" | "ID",
+        ...field_value: Array<[string, string]>
+    ): Promise<string | null>;
+
+    /**
+     * Appends a new entry to a stream
+     * - _group_: stream
+     * - _complexity_: O(1)
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xadd)
+     */
+    xadd(
+        key: string,
+        arg_1: unknown,
+        nomkstream: ["NOMKSTREAM", unknown],
+        arg_3: "*" | "ID",
+        ...field_value: Array<[string, string]>
+    ): Promise<string | null>;
 
     /**
      * Trims the stream to (approximately if '~' is passed) a certain size
@@ -7648,17 +7694,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xtrim)
      */
-    xtrim(key: string, strategy: "MAXLEN", count: number): Promise<number>;
-
-    /**
-     * Trims the stream to (approximately if '~' is passed) a certain size
-     * - _group_: stream
-     * - _complexity_: O(N), with N being the number of evicted entries. Constant times are very small however, since entries are organized in macro nodes containing multiple entries that can be released with a single deallocation.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xtrim)
-     */
-    xtrim(key: string, strategy: "MAXLEN", approx: "~", count: number): Promise<number>;
+    xtrim(key: string, strategy: "MAXLEN", arg_2: unknown): Promise<number>;
 
     /**
      * Removes the specified entries from the stream. Returns the number of items actually deleted, that may be different from the number of IDs passed in case certain IDs do not exist.
@@ -7815,7 +7851,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -7828,7 +7864,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7842,7 +7878,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
         destroy_key_groupname?: ["DESTROY", [string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7856,63 +7892,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xgroup)
-     */
-    xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xgroup)
-     */
-    xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xgroup)
-     */
-    xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
-    ): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xgroup)
-     */
-    xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
+        arg_0?: unknown,
         destroy_key_groupname?: ["DESTROY", [string, string]],
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
@@ -7927,8 +7907,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
 
@@ -7941,8 +7920,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7956,8 +7934,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
         destroy_key_groupname?: ["DESTROY", [string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
     ): Promise<unknown>;
@@ -7971,8 +7948,67 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
+        arg_0?: unknown,
+        destroy_key_groupname?: ["DESTROY", [string, string]],
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xgroup)
+     */
+    xgroup(
+        arg_0?: unknown,
+        arg_1?: unknown,
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xgroup)
+     */
+    xgroup(
+        arg_0?: unknown,
+        arg_1?: unknown,
+        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xgroup)
+     */
+    xgroup(
+        arg_0?: unknown,
+        arg_1?: unknown,
+        destroy_key_groupname?: ["DESTROY", [string, string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xgroup)
+     */
+    xgroup(
+        arg_0?: unknown,
+        arg_1?: unknown,
         destroy_key_groupname?: ["DESTROY", [string, string]],
         createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
         delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
@@ -8432,53 +8468,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xpending)
      */
-    xpending(key: string, group: string, idle_min_idle_time?: ["IDLE", number]): Promise<Array<unknown>>;
-
-    /**
-     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xpending)
-     */
-    xpending(
-        key: string,
-        group: string,
-        consumer?: string,
-        idle_min_idle_time?: ["IDLE", number]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xpending)
-     */
-    xpending(
-        key: string,
-        group: string,
-        start_end_count?: [string, string, number],
-        idle_min_idle_time?: ["IDLE", number]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
-     * - _group_: stream
-     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xpending)
-     */
-    xpending(
-        key: string,
-        group: string,
-        start_end_count?: [string, string, number],
-        consumer?: string,
-        idle_min_idle_time?: ["IDLE", number]
-    ): Promise<Array<unknown>>;
+    xpending(key: string, group: string, arg_2?: unknown): Promise<Array<unknown>>;
 
     /**
      * Return a human readable latency analysis report.

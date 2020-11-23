@@ -6795,9 +6795,29 @@
                 }
             },
             {
-                "name": "ID",
+                "name": "",
+                "optional": true,
+                "schema": {}
+            },
+            {
+                "name": "NOMKSTREAM",
+                "optional": true,
                 "schema": {
-                    "type": "string"
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "NOMKSTREAM"
+                        },
+                        {}
+                    ]
+                }
+            },
+            {
+                "name": "",
+                "schema": {
+                    "type": "string",
+                    "enum": ["*", "ID"]
                 }
             },
             {
@@ -6823,7 +6843,14 @@
         "since": "5.0.0",
         "group": "stream",
         "return": {
-            "type": "string"
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     },
     "XTRIM": {
@@ -6844,18 +6871,8 @@
                 }
             },
             {
-                "name": "approx",
-                "optional": true,
-                "schema": {
-                    "type": "string",
-                    "enum": ["~"]
-                }
-            },
-            {
-                "name": "count",
-                "schema": {
-                    "type": "integer"
-                }
+                "name": "",
+                "schema": {}
             }
         ],
         "since": "5.0.0",
@@ -7050,7 +7067,7 @@
                 }
             },
             {
-                "name": "id",
+                "name": "ID",
                 "schema": {
                     "type": "array",
                     "items": {
@@ -7070,64 +7087,14 @@
         "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
         "arguments": [
             {
-                "name": "CREATE_key_groupname_id-or-$",
+                "name": "",
                 "optional": true,
-                "schema": {
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string",
-                            "const": "CREATE"
-                        },
-                        {
-                            "type": "array",
-                            "items": [
-                                {
-                                    "title": "key",
-                                    "type": "string"
-                                },
-                                {
-                                    "title": "groupname",
-                                    "type": "string"
-                                },
-                                {
-                                    "title": "id-or-$",
-                                    "type": "string"
-                                }
-                            ]
-                        }
-                    ]
-                }
+                "schema": {}
             },
             {
-                "name": "SETID_key_groupname_id-or-$",
+                "name": "",
                 "optional": true,
-                "schema": {
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string",
-                            "const": "SETID"
-                        },
-                        {
-                            "type": "array",
-                            "items": [
-                                {
-                                    "title": "key",
-                                    "type": "string"
-                                },
-                                {
-                                    "title": "groupname",
-                                    "type": "string"
-                                },
-                                {
-                                    "title": "id-or-$",
-                                    "type": "string"
-                                }
-                            ]
-                        }
-                    ]
-                }
+                "schema": {}
             },
             {
                 "name": "DESTROY_key_groupname",
@@ -7470,48 +7437,9 @@
                 }
             },
             {
-                "name": "start_end_count",
+                "name": "",
                 "optional": true,
-                "schema": {
-                    "type": "array",
-                    "items": [
-                        {
-                            "title": "start",
-                            "type": "string"
-                        },
-                        {
-                            "title": "end",
-                            "type": "string"
-                        },
-                        {
-                            "title": "count",
-                            "type": "integer"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "consumer",
-                "optional": true,
-                "schema": {
-                    "type": "string"
-                }
-            },
-            {
-                "name": "IDLE_min-idle-time",
-                "optional": true,
-                "schema": {
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string",
-                            "const": "IDLE"
-                        },
-                        {
-                            "type": "integer"
-                        }
-                    ]
-                }
+                "schema": {}
             }
         ],
         "since": "5.0.0",

@@ -22,5 +22,5 @@ test("docs/redis-doc/commands/zdiffstore.md example 1", async () => {
     // zdiffstore not supported by node_redis! outputs.r5 = await client.zdiffstore("out",2,"zset1","zset2")
     // zdiffstore not supported by node_redis! outputs.r6 = await client.zrange("out",0,-1,"WITHSCORES")
 
-    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot();
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

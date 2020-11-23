@@ -18,7 +18,7 @@ export const fixupGeneratedTests = (filename: string) => (code: string): string 
  * aren't available in that image
  */
 function commentOutFutureReleaseFeatures(filename: string) {
-    const unsupported = ["lmove", "lpos", "smismember", "zinter", "zmscore", "zunion"];
+    const unsupported = ["lmove", "lpos", "smismember", "zinter", "zmscore", "zunion", "zdiff", "zdiffstore"];
     const match = unsupported.find(u => filename.endsWith(`${u}.md`));
     if (match) {
         return (code: string) => `// ${match} not supported by node_redis! ${code}`;
@@ -34,7 +34,7 @@ function fixKeyWeightsOverlyComplexParsingIssue(code: string) {
     if (code.match(/(zunionstore|zinterstore).*WEIGHTS/)) {
         return [`// @ts-expect-error (not smart enough to deal with numkeys)`, code].join("\n");
     }
-    if (code.match(/(zunion|zinter).*"zset1","zset2"/)) {
+    if (code.match(/(zunion|zinter|zdiff\b).*"zset1","zset2"/)) {
         return code.replace(`"zset1","zset2"`, `["zset1", "zset2"]`);
     }
     return code;

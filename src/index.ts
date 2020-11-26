@@ -1,4 +1,4 @@
-import {createNodeRedisClient, WrappedNodeRedisClient} from "./node_redis";
+import { createNodeRedisClient, WrappedNodeRedisClient } from "./node_redis";
 
 export {
     addNodeRedisCommand,
@@ -10,7 +10,7 @@ export {
 // aliases for backwards-compatibility with v1.x
 
 /** @deprecated use `createNodeRedisClient` */
-export const createHandyClient = createNodeRedisClient
+export const createHandyClient = createNodeRedisClient;
 
 /** @deprecated use `WrappedNodeRedisClient` */
-export type IHandyRedis = WrappedNodeRedisClient
+export type IHandyRedis = WrappedNodeRedisClient;

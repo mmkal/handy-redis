@@ -26,6 +26,7 @@
     "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
     "prebuild": "yarn codegen",
     "build": "yarn typecheck && yarn compile",
+    "postbuild": "sed -i 's~declare type Push_ts4~// @ts-ignore (https://github.com/mmkal/handy-redis/pulls/251)\\ndeclare type Push_ts4~g' dist/type-util.d.ts",
     "check-clean": "check-clean",
     "ci": "run-s clean build coverage lint check-clean",
     "preclean": "del-cli temp/backup-test-generated && mkdir -p temp && cp -r test/generated temp/backup-test-generated",

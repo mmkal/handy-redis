@@ -1,14 +1,5 @@
 import { Commands } from "../generated/interface";
-
-// Variadic tuple prefixes only work in ts>4. To support lower typescript versions, check if the feature works
-// this means we need ts-ignore, not ts-expect-error because it's _not_ an error in ts>4
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-type Push_ts4<A extends unknown[], B> = [...A, B];
-type VariadicTuplesPrefixesSupported = Push_ts4<[1, 2], 3> extends { length: 3 } ? "yes" : "no";
-type Push<A extends unknown[], B> = VariadicTuplesPrefixesSupported extends "yes"
-    ? Push_ts4<A, B>
-    : Array<A[number] | B>;
+import { Push } from "../type-util";
 
 export type ResultType<K extends keyof Commands> = ReturnType<Commands[K]> extends Promise<infer X> ? X : never;
 

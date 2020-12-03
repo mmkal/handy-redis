@@ -5567,6 +5567,16 @@ export interface Commands {
     renamenx(key: string, newkey: string): Promise<number>;
 
     /**
+     * Reset the connection
+     * - _group_: connection
+     * - _complexity_: undefined
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/reset)
+     */
+    reset(): Promise<"OK">;
+
+    /**
      * Create a key using the provided serialized value, previously obtained using DUMP.
      * - _group_: generic
      * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
@@ -6993,6 +7003,26 @@ export interface Commands {
     ): Promise<number>;
 
     /**
+     * Subtract multiple sorted sets
+     * - _group_: sorted_set
+     * - _complexity_: O(L + (N-K)log(N)) worst case where L is the total number of elements in all the sets, N is the size of the first set, and K is the size of the result set.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zdiff)
+     */
+    zdiff(numkeys: number, key: Array<string>, withscores?: "WITHSCORES"): Promise<Array<unknown>>;
+
+    /**
+     * Subtract multiple sorted sets and store the resulting sorted set in a new key
+     * - _group_: sorted_set
+     * - _complexity_: O(L + (N-K)log(N)) worst case where L is the total number of elements in all the sets, N is the size of the first set, and K is the size of the result set.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zdiffstore)
+     */
+    zdiffstore(destination: string, numkeys: number, ...key: Array<string>): Promise<number>;
+
+    /**
      * Increment the score of a member in a sorted set
      * - _group_: sorted_set
      * - _complexity_: O(log(N)) where N is the number of elements in the sorted set.
@@ -7661,7 +7691,7 @@ export interface Commands {
     xrevrange(key: string, end: string, start: string, count?: ["COUNT", number]): Promise<Array<unknown>>;
 
     /**
-     * Return the number of entires in a stream
+     * Return the number of entries in a stream
      * - _group_: stream
      * - _complexity_: O(1)
      * - _since_: 5.0.0
@@ -8402,7 +8432,22 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xpending)
      */
-    xpending(key: string, group: string, consumer?: string): Promise<Array<unknown>>;
+    xpending(key: string, group: string, idle_min_idle_time?: ["IDLE", number]): Promise<Array<unknown>>;
+
+    /**
+     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xpending)
+     */
+    xpending(
+        key: string,
+        group: string,
+        consumer?: string,
+        idle_min_idle_time?: ["IDLE", number]
+    ): Promise<Array<unknown>>;
 
     /**
      * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
@@ -8416,7 +8461,23 @@ export interface Commands {
         key: string,
         group: string,
         start_end_count?: [string, string, number],
-        consumer?: string
+        idle_min_idle_time?: ["IDLE", number]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.
+     * - _group_: stream
+     * - _complexity_: O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xpending)
+     */
+    xpending(
+        key: string,
+        group: string,
+        start_end_count?: [string, string, number],
+        consumer?: string,
+        idle_min_idle_time?: ["IDLE", number]
     ): Promise<Array<unknown>>;
 
     /**

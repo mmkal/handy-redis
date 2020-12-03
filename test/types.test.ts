@@ -29,4 +29,10 @@ test("client has promisified redis methods", () => {
     expectTypeOf(client.end).returns.toEqualTypeOf<void>();
 
     expectTypeOf(client.spop).returns.resolves.toEqualTypeOf<null | string | string[]>();
+
+    expectTypeOf(client.xgroup).toBeCallableWith([['CREATE', ['foo', 'bar']], 'ID'])
+    expectTypeOf(client.xgroup).toBeCallableWith([['CREATE', ['foo', 'bar']], '$'])
+
+    // @ts-expect-error
+    expectTypeOf(client.xgroup).toBeCallableWith([['CREATE', ['foo', 'bar']], 'SOMETHINGWRONG'])
 });

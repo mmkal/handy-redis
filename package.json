@@ -19,20 +19,24 @@
   "author": "mmkal",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "typesVersions": {
+    "<=4.0": { "*": ["ts34/*"] }
+  },
   "files": [
-    "dist"
+    "dist",
+    "ts34"
   ],
   "scripts": {
     "_": "echo \"these pass-through-to-docker scripts are mostly just as a hint for when I come back to this in a few weeks and forget what I'm supposed to do.\"",
     "prebuild": "yarn codegen",
     "build": "yarn typecheck && yarn compile",
-    "postbuild": "sed -i 's~declare type Push_ts4~// @ts-ignore (https://github.com/mmkal/handy-redis/pulls/251)\\ndeclare type Push_ts4~g' dist/type-util.d.ts",
     "check-clean": "check-clean",
     "ci": "run-s clean build coverage lint check-clean",
     "preclean": "del-cli temp/backup-test-generated && mkdir -p temp && cp -r test/generated temp/backup-test-generated",
-    "clean": "del-cli 'dist' 'src/generated' 'test/generated'",
+    "clean": "del-cli 'dist' 'ts34' 'src/generated' 'test/generated'",
     "codegen": "ts-node codegen/generate-schema && ts-node codegen/generate-client && ts-node codegen/generate-tests",
     "compile": "tsc -p tsconfig.lib.json",
+    "postcompile": "downlevel-dts dist ts34/dist --to=3.4 && mv ts34/dist/push.ts34.d.ts ts34/dist/push.d.ts",
     "coverage": "yarn test --coverage",
     "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
@@ -59,6 +63,7 @@
     "@typescript-eslint/parser": "4.8.2",
     "check-clean": "0.3.0",
     "del-cli": "3.0.1",
+    "downlevel-dts": "^0.7.0",
     "eslint": "7.14.0",
     "eslint-config-xo": "0.33.1",
     "eslint-config-xo-typescript": "0.36.0",

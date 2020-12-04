@@ -43,9 +43,11 @@ dist
 todo.md
 
 # local package testing
-handy-redis-0.0.0-development.tgz
+*.tgz
 
 # local environment variable overrides
 .env
 
 temp
+
+ts34

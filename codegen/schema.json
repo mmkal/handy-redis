@@ -359,7 +359,7 @@
                 }
             },
             {
-                "name": "OVERFLOW",
+                "name": "OVERFLOW_WRAP_SAT_or FAIL",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -719,7 +719,7 @@
                 }
             },
             {
-                "name": "TYPE",
+                "name": "TYPE_normal_master_slave_or pubsub",
                 "optional": true,
                 "schema": {
                     "type": "array",
@@ -793,7 +793,7 @@
         "complexity": "O(N) where N is the number of client connections",
         "arguments": [
             {
-                "name": "TYPE",
+                "name": "TYPE_normal_master_replica_or pubsub",
                 "optional": true,
                 "schema": {
                     "type": "array",

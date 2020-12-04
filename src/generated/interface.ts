@@ -187,7 +187,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/bitfield)
      */
-    bitfield(key: string, overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]): Promise<unknown>;
+    bitfield(key: string, overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]): Promise<unknown>;
 
     /**
      * Perform arbitrary bitfield integer operations on strings
@@ -200,7 +200,7 @@ export interface Commands {
     bitfield(
         key: string,
         incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -214,7 +214,7 @@ export interface Commands {
     bitfield(
         key: string,
         set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -229,7 +229,7 @@ export interface Commands {
         key: string,
         set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
         incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -243,7 +243,7 @@ export interface Commands {
     bitfield(
         key: string,
         get_type_offset?: ["GET", [type: string, offset: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -258,22 +258,7 @@ export interface Commands {
         key: string,
         get_type_offset?: ["GET", [type: string, offset: number]],
         incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
-    ): Promise<unknown>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/bitfield)
-     */
-    bitfield(
-        key: string,
-        get_type_offset?: ["GET", [type: string, offset: number]],
-        set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -288,8 +273,23 @@ export interface Commands {
         key: string,
         get_type_offset?: ["GET", [type: string, offset: number]],
         set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+    ): Promise<unknown>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: string
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/bitfield)
+     */
+    bitfield(
+        key: string,
+        get_type_offset?: ["GET", [type: string, offset: number]],
+        set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
         incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
-        overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
+        overflow_wrap_sat_or_fail?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -471,7 +471,7 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
 
@@ -485,7 +485,7 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -500,7 +500,7 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -515,67 +515,7 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
-        user_username?: ["USER", string],
-        addr_ip_port?: ["ADDR", string],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        id_client_id?: ["ID", number],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        id_client_id?: ["ID", number],
-        addr_ip_port?: ["ADDR", string],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        id_client_id?: ["ID", number],
-        user_username?: ["USER", string],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
@@ -592,7 +532,6 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
 
@@ -607,7 +546,6 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -623,7 +561,6 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -639,7 +576,70 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
@@ -712,7 +712,7 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
 
@@ -727,7 +727,7 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -743,7 +743,7 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -759,71 +759,7 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
-        user_username?: ["USER", string],
-        addr_ip_port?: ["ADDR", string],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        ip_port?: string,
-        id_client_id?: ["ID", number],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        ip_port?: string,
-        id_client_id?: ["ID", number],
-        addr_ip_port?: ["ADDR", string],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        ip_port?: string,
-        id_client_id?: ["ID", number],
-        user_username?: ["USER", string],
-        skipme_yes_no?: ["SKIPME", string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        ip_port?: string,
-        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
@@ -841,7 +777,6 @@ export interface Commands {
         client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
 
@@ -857,7 +792,6 @@ export interface Commands {
         client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -874,7 +808,6 @@ export interface Commands {
         client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         skipme_yes_no?: ["SKIPME", string]
     ): Promise<unknown>;
@@ -891,7 +824,74 @@ export interface Commands {
         client_subcommand: "KILL",
         ip_port?: string,
         id_client_id?: ["ID", number],
-        type?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        addr_ip_port?: ["ADDR", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
+        user_username?: ["USER", string],
+        skipme_yes_no?: ["SKIPME", string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id_client_id?: ["ID", number],
+        type_normal_master_slave_or_pubsub?: ["TYPE", "normal" | "master" | "slave" | "pubsub"],
         user_username?: ["USER", string],
         addr_ip_port?: ["ADDR", string],
         skipme_yes_no?: ["SKIPME", string]
@@ -905,7 +905,10 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/client-list)
      */
-    client(client_subcommand: "LIST", type?: ["TYPE", "normal" | "master" | "replica" | "pubsub"]): Promise<unknown>;
+    client(
+        client_subcommand: "LIST",
+        type_normal_master_replica_or_pubsub?: ["TYPE", "normal" | "master" | "replica" | "pubsub"]
+    ): Promise<unknown>;
 
     /**
      * Get the current connection name

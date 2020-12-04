@@ -4,8 +4,15 @@ import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 import { fixupClientTypescript } from "./patches/client";
 
-/** occasionally redis-doc includes non-word characters in arg names. Special-case $ and *, snakeCase will just throw out the rest */
-const santiseArgName = (name: string) => lo.snakeCase(name.replace('$', 'dollar').replace('*', 'asterisk'))
+/** occasionally redis-doc includes non-word characters in arg names. Special-case some of them, snakeCase will just throw out the rest */
+const santiseArgName = (name: string) =>
+    lo.snakeCase(
+        name
+            .replace('$', 'dollar')
+            .replace('*', 'asterisk')
+            .replace('=', 'equals')
+            .replace('~', 'tilde')
+    )
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
     let name = santiseArgName(arg.name);

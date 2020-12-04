@@ -167,7 +167,7 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
 const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
     arguments: (command?.arguments || []).map(arg => ({
-        name: [arg.command, arg.name]
+        name: [arg.command, arg.name || arg.enum?.map?.((e, i, a) => i > 0 && i === a.length - 1 ? `or ${e}` : e)]
             .flat()
             .filter(
                 (val, i, arr) =>

@@ -11,11 +11,12 @@ const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg
         name = "args";
     }
     const type = schemaToTypeScript(arg.schema);
-    if (type.startsWith("Array<") && i === arr.length - 1) {
+    const isVarArg = type.startsWith("Array<") && i === arr.length - 1
+    if (isVarArg) {
         name = "..." + name;
     }
-    const optionalMarker = arr.slice(i).every(a => a.optional) ? "?" : "";
-    return [name, optionalMarker, ": ", type].join("");
+    const optionalMarker = !isVarArg && arr.slice(i).every(a => a.optional) ? "?" : "";
+    return [name || `arg_${i}`, optionalMarker, ": ", type].join("");
 };
 
 const formatCodeArguments = (list: JsonSchemaCommandArgument[]) => list.map(codeArgument).join(", ");
@@ -39,10 +40,13 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     }
     if (schema.type === "array") {
         if (Array.isArray(schema.items)) {
-            return `[${schema.items
-                .map(schemaToTypeScript)
-                .map(t => `(${t})`)
-                .join(", ")}]`;
+            const labeled = schema.items.map(_s => {
+                const s = _s as jsonSchema.JSONSchema7
+                const t = schemaToTypeScript(s)
+                // todo: this relies on labeled tuples so should use https://github.com/sandersn/downlevel-dts
+                return s.title ? `${s.title}: (${t})` : `(${t})`
+            })
+            return `[${labeled.join(', ')}]`
         }
         const itemType = typeof schema.items === "object" ? schemaToTypeScript(schema.items) : unknownType;
         return `Array<${itemType}>`;

@@ -6,7 +6,7 @@ import * as commandTypes from "./command";
 import { fixupSchema } from "./patches/schema";
 import { JsonSchemaCommand } from ".";
 
-const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
+const argToSchema = (arg: commandTypes.Argument, parentName?: string): jsonSchema.JSONSchema7 => {
     if (arg.variadic && arg.command) {
         return {
             type: "array",
@@ -20,6 +20,12 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
         return {
             type: "array",
             items: argToSchema({ ...arg, multiple: false, variadic: false }),
+        };
+    }
+    if (arg.command && !arg.type) {
+        return {
+            type: "string",
+            const: arg.command,
         };
     }
     if (arg.command) {
@@ -78,10 +84,31 @@ const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
         return {
             type: "array",
             items: arg.type.map((type, i) => ({
-                title: arg.name[i],
-                ...argToSchema({ type, name: arg.name[i] }),
+                title: arg.name?.[i],
+                ...argToSchema({ type, name: arg.name?.[i] }),
             })),
         };
+    }
+    if (arg.type === "block" && Array.isArray(arg.block)) {
+        const blockOptions = arg.block.reduce((options, b, i) => {
+            const nextSchema = argToSchema(b)
+            const newOptions = options.map(o => [...o, nextSchema])
+            if (b.optional) {
+                return [...options, ...newOptions]
+            }
+            return newOptions
+        }, [[]] as jsonSchema.JSONSchema7[][])
+        const anyOf = blockOptions.map<jsonSchema.JSONSchema7>(
+            o => o.length === 1 ? o[0] : {type: "array", items: o}
+        )
+
+        if (anyOf.length === 1) {
+            return anyOf[0]
+        }
+
+        return {
+            anyOf
+        }
     }
     return {};
 };

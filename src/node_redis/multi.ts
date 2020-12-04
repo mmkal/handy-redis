@@ -2,9 +2,24 @@ import * as nodeRedis from "redis";
 import { flattenDeep } from "../flatten";
 import { Commands } from "../generated/interface";
 import { promisify } from "util";
-import { Push } from "../type-util";
+import { Push } from "../push";
 
-export type ResultType<K extends keyof Commands> = ReturnType<Commands[K]> extends Promise<infer X> ? X : never;
+export type CommandResult<K extends keyof Commands> = ReturnType<Commands[K]> extends Promise<infer X> ? X : never;
+
+/**
+ * types from multis depend on a bunch of type inference so in IDEs they can end up looking like:
+ * ```
+ * Push<Push<Push<[], string>, "OK">, string[]>
+ * ```
+ *
+ * This makes them appear as
+ * ```
+ * [string, "OK", string[]]
+ * ```
+ *
+ * Taken from https://github.com/sindresorhus/type-fest/pull/157
+ */
+export type Simplify<T> = { [K in keyof T]: T[K] };
 
 export const WrappedNodeRedisMultiImpl = class _WrappedNodeRedisMulti {
     readonly nodeRedisMulti: nodeRedis.Multi;
@@ -31,10 +46,12 @@ Object.keys(nodeRedis.Multi.prototype)
         };
     });
 
+export type MultiCommands = Exclude<keyof Commands, "exec" | "exec_atomic">;
+
 export type WrappedNodeRedisMulti<Results extends unknown[] = []> = {
-    [K in Exclude<keyof Commands, "exec" | "exec_atomic">]: (
+    [K in MultiCommands]: (
         ...args: Parameters<Commands[K]>
-    ) => WrappedNodeRedisMulti<Push<Results, ResultType<K> | nodeRedis.ReplyError>>;
+    ) => WrappedNodeRedisMulti<Push<Results, CommandResult<K> | nodeRedis.ReplyError>>;
 } & {
     exec: () => Promise<Results>;
     exec_atomic: () => Promise<Results>;

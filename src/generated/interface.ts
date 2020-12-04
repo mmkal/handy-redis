@@ -177,7 +177,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/bitcount)
      */
-    bitcount(key: string, start_end?: [number, number]): Promise<number>;
+    bitcount(key: string, start_end?: [start: number, end: number]): Promise<number>;
 
     /**
      * Perform arbitrary bitfield integer operations on strings
@@ -199,7 +199,7 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        incrby_type_offset_increment?: ["INCRBY", [string, number, number]],
+        incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -213,7 +213,7 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        set_type_offset_value?: ["SET", [string, number, number]],
+        set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -227,8 +227,8 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        set_type_offset_value?: ["SET", [string, number, number]],
-        incrby_type_offset_increment?: ["INCRBY", [string, number, number]],
+        set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
+        incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -242,7 +242,7 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: ["GET", [string, number]],
+        get_type_offset?: ["GET", [type: string, offset: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -256,8 +256,8 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: ["GET", [string, number]],
-        incrby_type_offset_increment?: ["INCRBY", [string, number, number]],
+        get_type_offset?: ["GET", [type: string, offset: number]],
+        incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -271,8 +271,8 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: ["GET", [string, number]],
-        set_type_offset_value?: ["SET", [string, number, number]],
+        get_type_offset?: ["GET", [type: string, offset: number]],
+        set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -286,9 +286,9 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: ["GET", [string, number]],
-        set_type_offset_value?: ["SET", [string, number, number]],
-        incrby_type_offset_increment?: ["INCRBY", [string, number, number]],
+        get_type_offset?: ["GET", [type: string, offset: number]],
+        set_type_offset_value?: ["SET", [type: string, offset: number, value: number]],
+        incrby_type_offset_increment?: ["INCRBY", [type: string, offset: number, increment: number]],
         overflow?: ["OVERFLOW", "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
@@ -1959,7 +1959,10 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/geoadd)
      */
-    geoadd(key: string, ...longitude_latitude_member: Array<[number, number, string]>): Promise<number>;
+    geoadd(
+        key: string,
+        ...longitude_latitude_member: Array<[longitude: number, latitude: number, member: string]>
+    ): Promise<number>;
 
     /**
      * Returns members of a geospatial index as standard geohash strings
@@ -4557,7 +4560,7 @@ export interface Commands {
      */
     hello(
         protover: number,
-        auth_username_password?: ["AUTH", [string, string]],
+        auth_username_password?: ["AUTH", [username: string, password: string]],
         setname_clientname?: ["SETNAME", string]
     ): Promise<Array<unknown>>;
 
@@ -4649,7 +4652,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hmset)
      */
-    hmset(key: string, ...field_value: Array<[string, string]>): Promise<"OK">;
+    hmset(key: string, ...field_value: Array<[field: string, value: string]>): Promise<"OK">;
 
     /**
      * Set the string value of a hash field
@@ -4659,7 +4662,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hset)
      */
-    hset(key: string, ...field_value: Array<[string, string]>): Promise<number>;
+    hset(key: string, ...field_value: Array<[field: string, value: string]>): Promise<number>;
 
     /**
      * Set the value of a hash field, only if the field does not exist
@@ -5344,7 +5347,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/mset)
      */
-    mset(...key_value: Array<[string, string]>): Promise<"OK">;
+    mset(...key_value: Array<[key: string, value: string]>): Promise<"OK">;
 
     /**
      * Set multiple keys to multiple values, only if none of the keys exist
@@ -5354,7 +5357,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/msetnx)
      */
-    msetnx(...key_value: Array<[string, string]>): Promise<number>;
+    msetnx(...key_value: Array<[key: string, value: string]>): Promise<number>;
 
     /**
      * Mark the start of a transaction block
@@ -5464,7 +5467,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/psubscribe)
      */
-    psubscribe(...pattern: Array<[string]>): Promise<unknown>;
+    psubscribe(...pattern: Array<[pattern: string]>): Promise<unknown>;
 
     /**
      * Inspect the state of the Pub/Sub subsystem
@@ -6179,7 +6182,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
 
@@ -6193,7 +6196,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         sorting?: "ALPHA",
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
@@ -6208,7 +6211,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         order?: "ASC" | "DESC",
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
@@ -6223,71 +6226,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
-        get_pattern?: Array<["GET", string]>,
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
-        get_pattern?: Array<["GET", string]>,
-        sorting?: "ALPHA",
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
-        get_pattern?: Array<["GET", string]>,
-        order?: "ASC" | "DESC",
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: ["LIMIT", [number, number]],
-        get_pattern?: Array<["GET", string]>,
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
         store_destination?: ["STORE", string]
@@ -6303,67 +6242,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: ["BY", string],
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: ["BY", string],
-        sorting?: "ALPHA",
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: ["BY", string],
-        order?: "ASC" | "DESC",
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: ["BY", string],
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store_destination?: ["STORE", string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         get_pattern?: Array<["GET", string]>,
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
@@ -6378,7 +6257,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         get_pattern?: Array<["GET", string]>,
         sorting?: "ALPHA",
         store_destination?: ["STORE", string]
@@ -6394,7 +6273,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         get_pattern?: Array<["GET", string]>,
         order?: "ASC" | "DESC",
         store_destination?: ["STORE", string]
@@ -6410,7 +6289,7 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         get_pattern?: Array<["GET", string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
@@ -6428,7 +6307,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
 
@@ -6443,7 +6321,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         sorting?: "ALPHA",
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
@@ -6459,7 +6336,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         order?: "ASC" | "DESC",
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
@@ -6475,7 +6351,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
         store_destination?: ["STORE", string]
@@ -6492,7 +6367,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         get_pattern?: Array<["GET", string]>,
         store_destination?: ["STORE", string]
     ): Promise<number | Array<unknown>>;
@@ -6508,7 +6382,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         get_pattern?: Array<["GET", string]>,
         sorting?: "ALPHA",
         store_destination?: ["STORE", string]
@@ -6525,7 +6398,6 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
         get_pattern?: Array<["GET", string]>,
         order?: "ASC" | "DESC",
         store_destination?: ["STORE", string]
@@ -6542,7 +6414,138 @@ export interface Commands {
     sort(
         key: string,
         by_pattern?: ["BY", string],
-        limit_offset_count?: ["LIMIT", [number, number]],
+        get_pattern?: Array<["GET", string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        sorting?: "ALPHA",
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        get_pattern?: Array<["GET", string]>,
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        get_pattern?: Array<["GET", string]>,
+        sorting?: "ALPHA",
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
+        get_pattern?: Array<["GET", string]>,
+        order?: "ASC" | "DESC",
+        store_destination?: ["STORE", string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by_pattern?: ["BY", string],
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]],
         get_pattern?: Array<["GET", string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
@@ -6757,7 +6760,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zadd)
      */
-    zadd(key: string, ...score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(key: string, ...score_member: Array<[score: number, member: string]>): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -6767,7 +6770,11 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zadd)
      */
-    zadd(key: string, increment: "INCR", ...score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(
+        key: string,
+        increment: "INCR",
+        ...score_member: Array<[score: number, member: string]>
+    ): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -6777,7 +6784,11 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/zadd)
      */
-    zadd(key: string, change: "CH", ...score_member: Array<[number, string]>): Promise<number | string | null>;
+    zadd(
+        key: string,
+        change: "CH",
+        ...score_member: Array<[score: number, member: string]>
+    ): Promise<number | string | null>;
 
     /**
      * Add one or more members to a sorted set, or update its score if it already exists
@@ -6791,7 +6802,7 @@ export interface Commands {
         key: string,
         change: "CH",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6805,7 +6816,7 @@ export interface Commands {
     zadd(
         key: string,
         comparison: "GT" | "LT",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6820,22 +6831,7 @@ export interface Commands {
         key: string,
         comparison: "GT" | "LT",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
-    ): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     *
-     * [Full docs](https://redis.io/commands/zadd)
-     */
-    zadd(
-        key: string,
-        comparison: "GT" | "LT",
-        change: "CH",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6850,8 +6846,23 @@ export interface Commands {
         key: string,
         comparison: "GT" | "LT",
         change: "CH",
+        ...score_member: Array<[score: number, member: string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zadd)
+     */
+    zadd(
+        key: string,
+        comparison: "GT" | "LT",
+        change: "CH",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6865,7 +6876,7 @@ export interface Commands {
     zadd(
         key: string,
         condition: "NX" | "XX",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6880,7 +6891,7 @@ export interface Commands {
         key: string,
         condition: "NX" | "XX",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6895,7 +6906,7 @@ export interface Commands {
         key: string,
         condition: "NX" | "XX",
         change: "CH",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6911,7 +6922,7 @@ export interface Commands {
         condition: "NX" | "XX",
         change: "CH",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6926,7 +6937,7 @@ export interface Commands {
         key: string,
         condition: "NX" | "XX",
         comparison: "GT" | "LT",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6942,23 +6953,7 @@ export interface Commands {
         condition: "NX" | "XX",
         comparison: "GT" | "LT",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
-    ): Promise<number | string | null>;
-
-    /**
-     * Add one or more members to a sorted set, or update its score if it already exists
-     * - _group_: sorted_set
-     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
-     * - _since_: 1.2.0
-     *
-     * [Full docs](https://redis.io/commands/zadd)
-     */
-    zadd(
-        key: string,
-        condition: "NX" | "XX",
-        comparison: "GT" | "LT",
-        change: "CH",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -6974,8 +6969,24 @@ export interface Commands {
         condition: "NX" | "XX",
         comparison: "GT" | "LT",
         change: "CH",
+        ...score_member: Array<[score: number, member: string]>
+    ): Promise<number | string | null>;
+
+    /**
+     * Add one or more members to a sorted set, or update its score if it already exists
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zadd)
+     */
+    zadd(
+        key: string,
+        condition: "NX" | "XX",
+        comparison: "GT" | "LT",
+        change: "CH",
         increment: "INCR",
-        ...score_member: Array<[number, string]>
+        ...score_member: Array<[score: number, member: string]>
     ): Promise<number | string | null>;
 
     /**
@@ -7171,7 +7182,7 @@ export interface Commands {
         key: string,
         min: string,
         max: string,
-        limit_offset_count?: ["LIMIT", [number, number]]
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7186,7 +7197,7 @@ export interface Commands {
         key: string,
         max: string,
         min: string,
-        limit_offset_count?: ["LIMIT", [number, number]]
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7201,7 +7212,7 @@ export interface Commands {
         key: string,
         min: number | ("-inf" | "+inf") | string,
         max: number | ("-inf" | "+inf") | string,
-        limit_offset_count?: ["LIMIT", [number, number]]
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7217,7 +7228,7 @@ export interface Commands {
         min: number | ("-inf" | "+inf") | string,
         max: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
-        limit_offset_count?: ["LIMIT", [number, number]]
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7296,7 +7307,7 @@ export interface Commands {
         key: string,
         max: number | ("-inf" | "+inf") | string,
         min: number | ("-inf" | "+inf") | string,
-        limit_offset_count?: ["LIMIT", [number, number]]
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]]
     ): Promise<Array<unknown>>;
 
     /**
@@ -7312,7 +7323,7 @@ export interface Commands {
         max: number | ("-inf" | "+inf") | string,
         min: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
-        limit_offset_count?: ["LIMIT", [number, number]]
+        limit_offset_count?: ["LIMIT", [offset: number, count: number]]
     ): Promise<Array<unknown>>;
 
     /**
@@ -7585,7 +7596,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xinfo)
      */
-    xinfo(consumers_key_groupname?: ["CONSUMERS", [string, string]], help?: "HELP"): Promise<unknown>;
+    xinfo(consumers_key_groupname?: ["CONSUMERS", [key: string, groupname: string]], help?: "HELP"): Promise<unknown>;
 
     /**
      * Get information on streams and consumer groups
@@ -7596,7 +7607,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: ["CONSUMERS", [string, string]],
+        consumers_key_groupname?: ["CONSUMERS", [key: string, groupname: string]],
         stream_key?: ["STREAM", string],
         help?: "HELP"
     ): Promise<unknown>;
@@ -7610,7 +7621,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: ["CONSUMERS", [string, string]],
+        consumers_key_groupname?: ["CONSUMERS", [key: string, groupname: string]],
         groups_key?: ["GROUPS", string],
         help?: "HELP"
     ): Promise<unknown>;
@@ -7624,7 +7635,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: ["CONSUMERS", [string, string]],
+        consumers_key_groupname?: ["CONSUMERS", [key: string, groupname: string]],
         groups_key?: ["GROUPS", string],
         stream_key?: ["STREAM", string],
         help?: "HELP"
@@ -7638,7 +7649,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xadd)
      */
-    xadd(key: string, id: string, ...field_value: Array<[string, string]>): Promise<string>;
+    xadd(key: string, id: string, ...field_value: Array<[field: string, value: string]>): Promise<string>;
 
     /**
      * Trims the stream to (approximately if '~' is passed) a certain size
@@ -7764,19 +7775,8 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xgroup)
      */
-    xgroup(delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]): Promise<unknown>;
-
-    /**
-     * Create, destroy, and manage consumer groups.
-     * - _group_: stream
-     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xgroup)
-     */
     xgroup(
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7788,8 +7788,11 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7801,9 +7804,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7815,8 +7817,12 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7828,9 +7834,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7842,9 +7847,12 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7856,10 +7864,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7871,8 +7878,13 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7884,9 +7896,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7898,9 +7909,12 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7912,10 +7926,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7927,9 +7940,13 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7941,10 +7958,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7956,10 +7972,13 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7971,11 +7990,29 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        create_key_groupname_id_or?: ["CREATE", [string, string, string]],
-        setid_key_groupname_id_or?: ["SETID", [string, string, string]],
-        destroy_key_groupname?: ["DESTROY", [string, string]],
-        createconsumer_key_groupname_consumername?: ["CREATECONSUMER", [string, string, string]],
-        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [string, string, string]]
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
+    ): Promise<unknown>;
+
+    /**
+     * Create, destroy, and manage consumer groups.
+     * - _group_: stream
+     * - _complexity_: O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xgroup)
+     */
+    xgroup(
+        create_key_groupname_id_or_dollar?: ["CREATE", [key: string, groupname: string, id_or_dollar: string]],
+        setid_key_groupname_id_or_dollar?: ["SETID", [key: string, groupname: string, id_or_dollar: string]],
+        destroy_key_groupname?: ["DESTROY", [key: string, groupname: string]],
+        createconsumer_key_groupname_consumername?: [
+            "CREATECONSUMER",
+            [key: string, groupname: string, consumername: string]
+        ],
+        delconsumer_key_groupname_consumername?: ["DELCONSUMER", [key: string, groupname: string, consumername: string]]
     ): Promise<unknown>;
 
     /**
@@ -7987,7 +8024,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -8002,7 +8039,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
@@ -8018,7 +8055,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         block_milliseconds: ["BLOCK", number],
         streams: "STREAMS",
         key: Array<string>,
@@ -8034,7 +8071,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         block_milliseconds: ["BLOCK", number],
         noack: "NOACK",
         streams: "STREAMS",
@@ -8051,7 +8088,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         count: ["COUNT", number],
         streams: "STREAMS",
         key: Array<string>,
@@ -8067,7 +8104,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         count: ["COUNT", number],
         noack: "NOACK",
         streams: "STREAMS",
@@ -8084,7 +8121,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         count: ["COUNT", number],
         block_milliseconds: ["BLOCK", number],
         streams: "STREAMS",
@@ -8101,7 +8138,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: ["GROUP", [string, string]],
+        group_consumer: ["GROUP", [group: string, consumer: string]],
         count: ["COUNT", number],
         block_milliseconds: ["BLOCK", number],
         noack: "NOACK",
@@ -8460,7 +8497,7 @@ export interface Commands {
     xpending(
         key: string,
         group: string,
-        start_end_count?: [string, string, number],
+        start_end_count?: [start: string, end: string, count: number],
         idle_min_idle_time?: ["IDLE", number]
     ): Promise<Array<unknown>>;
 
@@ -8475,7 +8512,7 @@ export interface Commands {
     xpending(
         key: string,
         group: string,
-        start_end_count?: [string, string, number],
+        start_end_count?: [start: string, end: string, count: number],
         consumer?: string,
         idle_min_idle_time?: ["IDLE", number]
     ): Promise<Array<unknown>>;

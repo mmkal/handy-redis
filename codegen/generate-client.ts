@@ -1,12 +1,14 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
 import { writeFile } from "./util";
-import { camelCase, kebabCase, snakeCase } from "lodash";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 import { fixupClientTypescript } from "./patches/client";
 
+/** occasionally redis-doc includes non-word characters in arg names. Special-case $ and *, snakeCase will just throw out the rest */
+const santiseArgName = (name: string) => lo.snakeCase(name.replace('$', 'dollar').replace('*', 'asterisk'))
+
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
-    let name = snakeCase(arg.name);
+    let name = santiseArgName(arg.name);
     if (name === "arguments") {
         name = "args";
     }
@@ -40,11 +42,11 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     }
     if (schema.type === "array") {
         if (Array.isArray(schema.items)) {
-            const labeled = schema.items.map(_s => {
-                const s = _s as jsonSchema.JSONSchema7
-                const t = schemaToTypeScript(s)
+            const labeled = schema.items.map(item => {
+                const itemSchema = item as jsonSchema.JSONSchema7
+                const ts = schemaToTypeScript(itemSchema)
                 // todo: this relies on labeled tuples so should use https://github.com/sandersn/downlevel-dts
-                return s.title ? `${s.title}: (${t})` : `(${t})`
+                return itemSchema.title ? `${santiseArgName(itemSchema.title)}: (${ts})` : `(${ts})`
             })
             return `[${labeled.join(', ')}]`
         }
@@ -90,7 +92,7 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
 
     const withSubcommands = [
         ...subCommands.map<typeof originalArgs[0]>((sub, i) => ({
-            name: snakeCase(`${command}_subcommand${i > 0 ? i + 1 : ""}`),
+            name: santiseArgName(`${command}_subcommand${i > 0 ? i + 1 : ""}`),
             schema: { type: "string", enum: [sub] },
         })),
         ...originalArgs,
@@ -129,9 +131,9 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
                  * - _complexity_: ${spec.complexity}
                  * - _since_: ${spec.since}
                  * 
-                 * [Full docs](https://redis.io/commands/${kebabCase(fullCommand)})
+                 * [Full docs](https://redis.io/commands/${lo.kebabCase(fullCommand)})
                  */
-                ${camelCase(command)}(${val.formatted}):
+                ${lo.camelCase(command)}(${val.formatted}):
                     Promise<${schemaToTypeScript(spec.return)}>
             `;
         })

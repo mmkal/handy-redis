@@ -6,13 +6,7 @@ import { fixupClientTypescript } from "./patches/client";
 
 /** occasionally redis-doc includes non-word characters in arg names. Special-case some of them, snakeCase will just throw out the rest */
 const santiseArgName = (name: string) =>
-    lo.snakeCase(
-        name
-            .replace('$', 'dollar')
-            .replace('*', 'asterisk')
-            .replace('=', 'equals')
-            .replace('~', 'tilde')
-    )
+    lo.snakeCase(name.replace("$", "dollar").replace("*", "asterisk").replace("=", "equals").replace("~", "tilde"));
 
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
     let name = santiseArgName(arg.name);
@@ -20,7 +14,7 @@ const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg
         name = "args";
     }
     const type = schemaToTypeScript(arg.schema);
-    const isVarArg = type.startsWith("Array<") && i === arr.length - 1
+    const isVarArg = type.startsWith("Array<") && i === arr.length - 1;
     if (isVarArg) {
         name = "..." + name;
     }
@@ -50,11 +44,11 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     if (schema.type === "array") {
         if (Array.isArray(schema.items)) {
             const labeled = schema.items.map(item => {
-                const itemSchema = item as jsonSchema.JSONSchema7
-                const ts = schemaToTypeScript(itemSchema)
-                return `${santiseArgName(itemSchema.title || ts)}: (${ts})`
-            })
-            return `[${labeled.join(', ')}]`
+                const itemSchema = item as jsonSchema.JSONSchema7;
+                const ts = schemaToTypeScript(itemSchema);
+                return `${santiseArgName(itemSchema.title || ts)}: (${ts})`;
+            });
+            return `[${labeled.join(", ")}]`;
         }
         const itemType = typeof schema.items === "object" ? schemaToTypeScript(schema.items) : unknownType;
         return `Array<${itemType}>`;

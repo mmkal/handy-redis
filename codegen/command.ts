@@ -53,7 +53,7 @@ export interface Argument {
     optional?: boolean;
     multiple?: boolean;
     variadic?: boolean;
-    block?: Array<Argument>
+    block?: Array<Argument>;
 }
 
 export interface CommandCollection {

@@ -1,21 +1,25 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
 import { writeFile } from "./util";
-import { camelCase, kebabCase, snakeCase } from "lodash";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 import { fixupClientTypescript } from "./patches/client";
 
+/** occasionally redis-doc includes non-word characters in arg names. Special-case some of them, snakeCase will just throw out the rest */
+const santiseArgName = (name: string) =>
+    lo.snakeCase(name.replace("$", "dollar").replace("*", "asterisk").replace("=", "equals").replace("~", "tilde"));
+
 const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg[]) => {
-    let name = snakeCase(arg.name);
+    let name = santiseArgName(arg.name);
     if (name === "arguments") {
         name = "args";
     }
     const type = schemaToTypeScript(arg.schema);
-    if (type.startsWith("Array<") && i === arr.length - 1) {
+    const isVarArg = type.startsWith("Array<") && i === arr.length - 1;
+    if (isVarArg) {
         name = "..." + name;
     }
-    const optionalMarker = arr.slice(i).every(a => a.optional) ? "?" : "";
-    return [name, optionalMarker, ": ", type].join("");
+    const optionalMarker = !isVarArg && arr.slice(i).every(a => a.optional) ? "?" : "";
+    return [name || santiseArgName(type), optionalMarker, ": ", type].join("");
 };
 
 const formatCodeArguments = (list: JsonSchemaCommandArgument[]) => list.map(codeArgument).join(", ");
@@ -39,10 +43,12 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     }
     if (schema.type === "array") {
         if (Array.isArray(schema.items)) {
-            return `[${schema.items
-                .map(schemaToTypeScript)
-                .map(t => `(${t})`)
-                .join(", ")}]`;
+            const labeled = schema.items.map(item => {
+                const itemSchema = item as jsonSchema.JSONSchema7;
+                const ts = schemaToTypeScript(itemSchema);
+                return `${santiseArgName(itemSchema.title || ts)}: (${ts})`;
+            });
+            return `[${labeled.join(", ")}]`;
         }
         const itemType = typeof schema.items === "object" ? schemaToTypeScript(schema.items) : unknownType;
         return `Array<${itemType}>`;
@@ -86,7 +92,7 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
 
     const withSubcommands = [
         ...subCommands.map<typeof originalArgs[0]>((sub, i) => ({
-            name: snakeCase(`${command}_subcommand${i > 0 ? i + 1 : ""}`),
+            name: santiseArgName(`${command}_subcommand${i > 0 ? i + 1 : ""}`),
             schema: { type: "string", enum: [sub] },
         })),
         ...originalArgs,
@@ -125,9 +131,9 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
                  * - _complexity_: ${spec.complexity}
                  * - _since_: ${spec.since}
                  * 
-                 * [Full docs](https://redis.io/commands/${kebabCase(fullCommand)})
+                 * [Full docs](https://redis.io/commands/${lo.kebabCase(fullCommand)})
                  */
-                ${camelCase(command)}(${val.formatted}):
+                ${lo.camelCase(command)}(${val.formatted}):
                     Promise<${schemaToTypeScript(spec.return)}>
             `;
         })

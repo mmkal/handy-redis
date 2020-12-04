@@ -38,6 +38,7 @@
             {
                 "name": "username",
                 "schema": {
+                    "title": "username",
                     "type": "string"
                 }
             }
@@ -53,6 +54,7 @@
             {
                 "name": "username",
                 "schema": {
+                    "title": "username",
                     "type": "string"
                 }
             },
@@ -60,8 +62,10 @@
                 "name": "rule",
                 "optional": true,
                 "schema": {
+                    "title": "rule",
                     "type": "array",
                     "items": {
+                        "title": "rule",
                         "type": "string"
                     }
                 }
@@ -78,8 +82,10 @@
             {
                 "name": "username",
                 "schema": {
+                    "title": "username",
                     "type": "array",
                     "items": {
+                        "title": "username",
                         "type": "string"
                     }
                 }
@@ -97,6 +103,7 @@
                 "name": "categoryname",
                 "optional": true,
                 "schema": {
+                    "title": "categoryname",
                     "type": "string"
                 }
             }
@@ -113,6 +120,7 @@
                 "name": "bits",
                 "optional": true,
                 "schema": {
+                    "title": "bits",
                     "type": "integer"
                 }
             }
@@ -137,6 +145,7 @@
                 "name": "count or RESET",
                 "optional": true,
                 "schema": {
+                    "title": "count or RESET",
                     "type": "string"
                 }
             }
@@ -160,12 +169,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -183,12 +194,14 @@
                 "name": "username",
                 "optional": true,
                 "schema": {
+                    "title": "username",
                     "type": "string"
                 }
             },
             {
                 "name": "password",
                 "schema": {
+                    "title": "password",
                     "type": "string"
                 }
             }
@@ -216,6 +229,7 @@
                 "name": "schedule",
                 "optional": true,
                 "schema": {
+                    "title": "schedule",
                     "type": "string",
                     "enum": ["SCHEDULE"]
                 }
@@ -235,13 +249,15 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "start_end",
+                "name": "start, end",
                 "optional": true,
                 "schema": {
+                    "title": "start, end",
                     "type": "array",
                     "items": [
                         {
@@ -269,13 +285,15 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "GET_type_offset",
+                "name": "GET",
                 "optional": true,
                 "schema": {
+                    "title": "GET",
                     "type": "array",
                     "items": [
                         {
@@ -283,6 +301,7 @@
                             "const": "GET"
                         },
                         {
+                            "title": "type, offset",
                             "type": "array",
                             "items": [
                                 {
@@ -299,9 +318,10 @@
                 }
             },
             {
-                "name": "SET_type_offset_value",
+                "name": "SET",
                 "optional": true,
                 "schema": {
+                    "title": "SET",
                     "type": "array",
                     "items": [
                         {
@@ -309,6 +329,7 @@
                             "const": "SET"
                         },
                         {
+                            "title": "type, offset, value",
                             "type": "array",
                             "items": [
                                 {
@@ -329,9 +350,10 @@
                 }
             },
             {
-                "name": "INCRBY_type_offset_increment",
+                "name": "INCRBY",
                 "optional": true,
                 "schema": {
+                    "title": "INCRBY",
                     "type": "array",
                     "items": [
                         {
@@ -339,6 +361,7 @@
                             "const": "INCRBY"
                         },
                         {
+                            "title": "type, offset, increment",
                             "type": "array",
                             "items": [
                                 {
@@ -362,6 +385,7 @@
                 "name": "OVERFLOW",
                 "optional": true,
                 "schema": {
+                    "title": "OVERFLOW",
                     "type": "array",
                     "items": [
                         {
@@ -369,6 +393,7 @@
                             "const": "OVERFLOW"
                         },
                         {
+                            "title": "WRAP, SAT, or FAIL",
                             "type": "string",
                             "enum": ["WRAP", "SAT", "FAIL"]
                         }
@@ -387,20 +412,24 @@
             {
                 "name": "operation",
                 "schema": {
+                    "title": "operation",
                     "type": "string"
                 }
             },
             {
                 "name": "destkey",
                 "schema": {
+                    "title": "destkey",
                     "type": "string"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -419,12 +448,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "bit",
                 "schema": {
+                    "title": "bit",
                     "type": "integer"
                 }
             },
@@ -432,6 +463,7 @@
                 "name": "start",
                 "optional": true,
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
@@ -439,6 +471,7 @@
                 "name": "end",
                 "optional": true,
                 "schema": {
+                    "title": "end",
                     "type": "integer"
                 }
             }
@@ -456,8 +489,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -465,6 +500,7 @@
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "number"
                 }
             }
@@ -489,8 +525,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -498,6 +536,7 @@
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "number"
                 }
             }
@@ -522,18 +561,21 @@
             {
                 "name": "source",
                 "schema": {
+                    "title": "source",
                     "type": "string"
                 }
             },
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "number"
                 }
             }
@@ -558,18 +600,21 @@
             {
                 "name": "source",
                 "schema": {
+                    "title": "source",
                     "type": "string"
                 }
             },
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "wherefrom",
                 "schema": {
+                    "title": "wherefrom",
                     "type": "string",
                     "enum": ["LEFT", "RIGHT"]
                 }
@@ -577,6 +622,7 @@
             {
                 "name": "whereto",
                 "schema": {
+                    "title": "whereto",
                     "type": "string",
                     "enum": ["LEFT", "RIGHT"]
                 }
@@ -584,6 +630,7 @@
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "number"
                 }
             }
@@ -608,8 +655,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -617,6 +666,7 @@
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "number"
                 }
             }
@@ -641,8 +691,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -650,6 +702,7 @@
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "number"
                 }
             }
@@ -674,6 +727,7 @@
             {
                 "name": "mode",
                 "schema": {
+                    "title": "mode",
                     "type": "string",
                     "enum": ["YES", "NO"]
                 }
@@ -699,13 +753,15 @@
                 "name": "ip:port",
                 "optional": true,
                 "schema": {
+                    "title": "ip:port",
                     "type": "string"
                 }
             },
             {
-                "name": "ID_client-id",
+                "name": "ID",
                 "optional": true,
                 "schema": {
+                    "title": "ID",
                     "type": "array",
                     "items": [
                         {
@@ -713,6 +769,7 @@
                             "const": "ID"
                         },
                         {
+                            "title": "client-id",
                             "type": "integer"
                         }
                     ]
@@ -722,6 +779,7 @@
                 "name": "TYPE",
                 "optional": true,
                 "schema": {
+                    "title": "TYPE",
                     "type": "array",
                     "items": [
                         {
@@ -729,6 +787,7 @@
                             "const": "TYPE"
                         },
                         {
+                            "title": "normal, master, slave, or pubsub",
                             "type": "string",
                             "enum": ["normal", "master", "slave", "pubsub"]
                         }
@@ -736,9 +795,10 @@
                 }
             },
             {
-                "name": "USER_username",
+                "name": "USER",
                 "optional": true,
                 "schema": {
+                    "title": "USER",
                     "type": "array",
                     "items": [
                         {
@@ -746,15 +806,17 @@
                             "const": "USER"
                         },
                         {
+                            "title": "username",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "ADDR_ip:port",
+                "name": "ADDR",
                 "optional": true,
                 "schema": {
+                    "title": "ADDR",
                     "type": "array",
                     "items": [
                         {
@@ -762,15 +824,17 @@
                             "const": "ADDR"
                         },
                         {
+                            "title": "ip:port",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "SKIPME_yes/no",
+                "name": "SKIPME",
                 "optional": true,
                 "schema": {
+                    "title": "SKIPME",
                     "type": "array",
                     "items": [
                         {
@@ -778,6 +842,7 @@
                             "const": "SKIPME"
                         },
                         {
+                            "title": "yes/no",
                             "type": "string"
                         }
                     ]
@@ -796,6 +861,7 @@
                 "name": "TYPE",
                 "optional": true,
                 "schema": {
+                    "title": "TYPE",
                     "type": "array",
                     "items": [
                         {
@@ -803,6 +869,7 @@
                             "const": "TYPE"
                         },
                         {
+                            "title": "normal, master, replica, or pubsub",
                             "type": "string",
                             "enum": ["normal", "master", "replica", "pubsub"]
                         }
@@ -837,6 +904,7 @@
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "integer"
                 }
             }
@@ -852,6 +920,7 @@
             {
                 "name": "reply-mode",
                 "schema": {
+                    "title": "reply-mode",
                     "type": "string",
                     "enum": ["ON", "OFF", "SKIP"]
                 }
@@ -869,6 +938,7 @@
             {
                 "name": "connection-name",
                 "schema": {
+                    "title": "connection-name",
                     "type": "string"
                 }
             }
@@ -883,14 +953,16 @@
             {
                 "name": "status",
                 "schema": {
+                    "title": "status",
                     "type": "string",
                     "enum": ["ON", "OFF"]
                 }
             },
             {
-                "name": "REDIRECT_client-id",
+                "name": "REDIRECT",
                 "optional": true,
                 "schema": {
+                    "title": "REDIRECT",
                     "type": "array",
                     "items": [
                         {
@@ -898,6 +970,7 @@
                             "const": "REDIRECT"
                         },
                         {
+                            "title": "client-id",
                             "type": "integer"
                         }
                     ]
@@ -907,8 +980,10 @@
                 "name": "PREFIX",
                 "optional": true,
                 "schema": {
+                    "title": "PREFIX",
                     "type": "array",
                     "items": {
+                        "title": "PREFIX",
                         "type": "array",
                         "items": [
                             {
@@ -916,6 +991,7 @@
                                 "const": "PREFIX"
                             },
                             {
+                                "title": "prefix",
                                 "type": "string"
                             }
                         ]
@@ -926,6 +1002,7 @@
                 "name": "BCAST",
                 "optional": true,
                 "schema": {
+                    "title": "BCAST",
                     "type": "string",
                     "enum": ["BCAST"]
                 }
@@ -934,6 +1011,7 @@
                 "name": "OPTIN",
                 "optional": true,
                 "schema": {
+                    "title": "OPTIN",
                     "type": "string",
                     "enum": ["OPTIN"]
                 }
@@ -942,6 +1020,7 @@
                 "name": "OPTOUT",
                 "optional": true,
                 "schema": {
+                    "title": "OPTOUT",
                     "type": "string",
                     "enum": ["OPTOUT"]
                 }
@@ -950,6 +1029,7 @@
                 "name": "NOLOOP",
                 "optional": true,
                 "schema": {
+                    "title": "NOLOOP",
                     "type": "string",
                     "enum": ["NOLOOP"]
                 }
@@ -966,6 +1046,7 @@
             {
                 "name": "client-id",
                 "schema": {
+                    "title": "client-id",
                     "type": "integer"
                 }
             },
@@ -973,6 +1054,7 @@
                 "name": "unblock-type",
                 "optional": true,
                 "schema": {
+                    "title": "unblock-type",
                     "type": "string",
                     "enum": ["TIMEOUT", "ERROR"]
                 }
@@ -989,8 +1071,10 @@
             {
                 "name": "slot",
                 "schema": {
+                    "title": "slot",
                     "type": "array",
                     "items": {
+                        "title": "slot",
                         "type": "integer"
                     }
                 }
@@ -1015,6 +1099,7 @@
             {
                 "name": "node-id",
                 "schema": {
+                    "title": "node-id",
                     "type": "string"
                 }
             }
@@ -1030,6 +1115,7 @@
             {
                 "name": "slot",
                 "schema": {
+                    "title": "slot",
                     "type": "integer"
                 }
             }
@@ -1045,8 +1131,10 @@
             {
                 "name": "slot",
                 "schema": {
+                    "title": "slot",
                     "type": "array",
                     "items": {
+                        "title": "slot",
                         "type": "integer"
                     }
                 }
@@ -1064,6 +1152,7 @@
                 "name": "options",
                 "optional": true,
                 "schema": {
+                    "title": "options",
                     "type": "string",
                     "enum": ["FORCE", "TAKEOVER"]
                 }
@@ -1088,6 +1177,7 @@
             {
                 "name": "node-id",
                 "schema": {
+                    "title": "node-id",
                     "type": "string"
                 }
             }
@@ -1103,12 +1193,14 @@
             {
                 "name": "slot",
                 "schema": {
+                    "title": "slot",
                     "type": "integer"
                 }
             },
             {
                 "name": "count",
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             }
@@ -1132,6 +1224,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -1147,12 +1240,14 @@
             {
                 "name": "ip",
                 "schema": {
+                    "title": "ip",
                     "type": "string"
                 }
             },
             {
                 "name": "port",
                 "schema": {
+                    "title": "port",
                     "type": "integer"
                 }
             }
@@ -1184,6 +1279,7 @@
             {
                 "name": "node-id",
                 "schema": {
+                    "title": "node-id",
                     "type": "string"
                 }
             }
@@ -1200,6 +1296,7 @@
                 "name": "reset-type",
                 "optional": true,
                 "schema": {
+                    "title": "reset-type",
                     "type": "string",
                     "enum": ["HARD", "SOFT"]
                 }
@@ -1224,6 +1321,7 @@
             {
                 "name": "config-epoch",
                 "schema": {
+                    "title": "config-epoch",
                     "type": "integer"
                 }
             }
@@ -1239,12 +1337,14 @@
             {
                 "name": "slot",
                 "schema": {
+                    "title": "slot",
                     "type": "integer"
                 }
             },
             {
                 "name": "subcommand",
                 "schema": {
+                    "title": "subcommand",
                     "type": "string",
                     "enum": ["IMPORTING", "MIGRATING", "STABLE", "NODE"]
                 }
@@ -1253,6 +1353,7 @@
                 "name": "node-id",
                 "optional": true,
                 "schema": {
+                    "title": "node-id",
                     "type": "string"
                 }
             }
@@ -1268,6 +1369,7 @@
             {
                 "name": "node-id",
                 "schema": {
+                    "title": "node-id",
                     "type": "string"
                 }
             }
@@ -1283,6 +1385,7 @@
             {
                 "name": "node-id",
                 "schema": {
+                    "title": "node-id",
                     "type": "string"
                 }
             }
@@ -1333,8 +1436,10 @@
             {
                 "name": "command-name",
                 "schema": {
+                    "title": "command-name",
                     "type": "array",
                     "items": {
+                        "title": "command-name",
                         "type": "string"
                     }
                 }
@@ -1349,6 +1454,7 @@
             {
                 "name": "parameter",
                 "schema": {
+                    "title": "parameter",
                     "type": "string"
                 }
             }
@@ -1370,12 +1476,14 @@
             {
                 "name": "parameter",
                 "schema": {
+                    "title": "parameter",
                     "type": "string"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -1407,6 +1515,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -1429,6 +1538,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -1446,12 +1556,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "decrement",
                 "schema": {
+                    "title": "decrement",
                     "type": "integer"
                 }
             }
@@ -1469,8 +1581,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -1499,6 +1613,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -1515,6 +1630,7 @@
             {
                 "name": "message",
                 "schema": {
+                    "title": "message",
                     "type": "string"
                 }
             }
@@ -1532,20 +1648,24 @@
             {
                 "name": "script",
                 "schema": {
+                    "title": "script",
                     "type": "string"
                 }
             },
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -1553,8 +1673,10 @@
             {
                 "name": "arg",
                 "schema": {
+                    "title": "arg",
                     "type": "array",
                     "items": {
+                        "title": "arg",
                         "type": "string"
                     }
                 }
@@ -1571,20 +1693,24 @@
             {
                 "name": "sha1",
                 "schema": {
+                    "title": "sha1",
                     "type": "string"
                 }
             },
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -1592,8 +1718,10 @@
             {
                 "name": "arg",
                 "schema": {
+                    "title": "arg",
                     "type": "array",
                     "items": {
+                        "title": "arg",
                         "type": "string"
                     }
                 }
@@ -1626,8 +1754,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -1646,12 +1776,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "seconds",
                 "schema": {
+                    "title": "seconds",
                     "type": "integer"
                 }
             }
@@ -1669,12 +1801,15 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "timestamp",
-                "schema": {}
+                "schema": {
+                    "title": "timestamp"
+                }
             }
         ],
         "since": "1.2.0",
@@ -1690,6 +1825,7 @@
                 "name": "async",
                 "optional": true,
                 "schema": {
+                    "title": "async",
                     "type": "string",
                     "enum": ["ASYNC"]
                 }
@@ -1709,6 +1845,7 @@
                 "name": "async",
                 "optional": true,
                 "schema": {
+                    "title": "async",
                     "type": "string",
                     "enum": ["ASYNC"]
                 }
@@ -1728,14 +1865,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "longitude_latitude_member",
+                "name": "longitude, latitude, member",
                 "schema": {
+                    "title": "longitude, latitude, member",
                     "type": "array",
                     "items": {
+                        "title": "longitude, latitude, member",
                         "type": "array",
                         "items": [
                             {
@@ -1768,14 +1908,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -1797,14 +1940,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -1830,18 +1976,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member1",
                 "schema": {
+                    "title": "member1",
                     "type": "string"
                 }
             },
             {
                 "name": "member2",
                 "schema": {
+                    "title": "member2",
                     "type": "string"
                 }
             },
@@ -1849,6 +1998,7 @@
                 "name": "unit",
                 "optional": true,
                 "schema": {
+                    "title": "unit",
                     "type": "string",
                     "enum": ["m", "km", "ft", "mi"]
                 }
@@ -1874,30 +2024,35 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "longitude",
                 "schema": {
+                    "title": "longitude",
                     "type": "number"
                 }
             },
             {
                 "name": "latitude",
                 "schema": {
+                    "title": "latitude",
                     "type": "number"
                 }
             },
             {
                 "name": "radius",
                 "schema": {
+                    "title": "radius",
                     "type": "number"
                 }
             },
             {
                 "name": "unit",
                 "schema": {
+                    "title": "unit",
                     "type": "string",
                     "enum": ["m", "km", "ft", "mi"]
                 }
@@ -1906,6 +2061,7 @@
                 "name": "withcoord",
                 "optional": true,
                 "schema": {
+                    "title": "withcoord",
                     "type": "string",
                     "enum": ["WITHCOORD"]
                 }
@@ -1914,6 +2070,7 @@
                 "name": "withdist",
                 "optional": true,
                 "schema": {
+                    "title": "withdist",
                     "type": "string",
                     "enum": ["WITHDIST"]
                 }
@@ -1922,6 +2079,7 @@
                 "name": "withhash",
                 "optional": true,
                 "schema": {
+                    "title": "withhash",
                     "type": "string",
                     "enum": ["WITHHASH"]
                 }
@@ -1930,6 +2088,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -1937,6 +2096,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -1946,14 +2106,16 @@
                 "name": "order",
                 "optional": true,
                 "schema": {
+                    "title": "order",
                     "type": "string",
                     "enum": ["ASC", "DESC"]
                 }
             },
             {
-                "name": "STORE_key",
+                "name": "STORE",
                 "optional": true,
                 "schema": {
+                    "title": "STORE",
                     "type": "array",
                     "items": [
                         {
@@ -1961,15 +2123,17 @@
                             "const": "STORE"
                         },
                         {
+                            "title": "key",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "STOREDIST_key",
+                "name": "STOREDIST",
                 "optional": true,
                 "schema": {
+                    "title": "STOREDIST",
                     "type": "array",
                     "items": [
                         {
@@ -1977,6 +2141,7 @@
                             "const": "STOREDIST"
                         },
                         {
+                            "title": "key",
                             "type": "string"
                         }
                     ]
@@ -1996,24 +2161,28 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             },
             {
                 "name": "radius",
                 "schema": {
+                    "title": "radius",
                     "type": "number"
                 }
             },
             {
                 "name": "unit",
                 "schema": {
+                    "title": "unit",
                     "type": "string",
                     "enum": ["m", "km", "ft", "mi"]
                 }
@@ -2022,6 +2191,7 @@
                 "name": "withcoord",
                 "optional": true,
                 "schema": {
+                    "title": "withcoord",
                     "type": "string",
                     "enum": ["WITHCOORD"]
                 }
@@ -2030,6 +2200,7 @@
                 "name": "withdist",
                 "optional": true,
                 "schema": {
+                    "title": "withdist",
                     "type": "string",
                     "enum": ["WITHDIST"]
                 }
@@ -2038,6 +2209,7 @@
                 "name": "withhash",
                 "optional": true,
                 "schema": {
+                    "title": "withhash",
                     "type": "string",
                     "enum": ["WITHHASH"]
                 }
@@ -2046,6 +2218,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -2053,6 +2226,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -2062,14 +2236,16 @@
                 "name": "order",
                 "optional": true,
                 "schema": {
+                    "title": "order",
                     "type": "string",
                     "enum": ["ASC", "DESC"]
                 }
             },
             {
-                "name": "STORE_key",
+                "name": "STORE",
                 "optional": true,
                 "schema": {
+                    "title": "STORE",
                     "type": "array",
                     "items": [
                         {
@@ -2077,15 +2253,17 @@
                             "const": "STORE"
                         },
                         {
+                            "title": "key",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "STOREDIST_key",
+                "name": "STOREDIST",
                 "optional": true,
                 "schema": {
+                    "title": "STOREDIST",
                     "type": "array",
                     "items": [
                         {
@@ -2093,6 +2271,7 @@
                             "const": "STOREDIST"
                         },
                         {
+                            "title": "key",
                             "type": "string"
                         }
                     ]
@@ -2110,6 +2289,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2134,12 +2314,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "offset",
                 "schema": {
+                    "title": "offset",
                     "type": "integer"
                 }
             }
@@ -2157,18 +2339,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
             {
                 "name": "end",
                 "schema": {
+                    "title": "end",
                     "type": "integer"
                 }
             }
@@ -2186,12 +2371,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -2216,14 +2403,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "array",
                     "items": {
+                        "title": "field",
                         "type": "string"
                     }
                 }
@@ -2242,13 +2432,15 @@
             {
                 "name": "protover",
                 "schema": {
+                    "title": "protover",
                     "type": "integer"
                 }
             },
             {
-                "name": "AUTH_username_password",
+                "name": "AUTH",
                 "optional": true,
                 "schema": {
+                    "title": "AUTH",
                     "type": "array",
                     "items": [
                         {
@@ -2256,6 +2448,7 @@
                             "const": "AUTH"
                         },
                         {
+                            "title": "username, password",
                             "type": "array",
                             "items": [
                                 {
@@ -2272,9 +2465,10 @@
                 }
             },
             {
-                "name": "SETNAME_clientname",
+                "name": "SETNAME",
                 "optional": true,
                 "schema": {
+                    "title": "SETNAME",
                     "type": "array",
                     "items": [
                         {
@@ -2282,6 +2476,7 @@
                             "const": "SETNAME"
                         },
                         {
+                            "title": "clientname",
                             "type": "string"
                         }
                     ]
@@ -2301,12 +2496,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "string"
                 }
             }
@@ -2324,12 +2521,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "string"
                 }
             }
@@ -2354,6 +2553,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2371,18 +2571,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "string"
                 }
             },
             {
                 "name": "increment",
                 "schema": {
+                    "title": "increment",
                     "type": "integer"
                 }
             }
@@ -2400,18 +2603,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "string"
                 }
             },
             {
                 "name": "increment",
                 "schema": {
+                    "title": "increment",
                     "type": "number"
                 }
             }
@@ -2429,6 +2635,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2449,6 +2656,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2466,14 +2674,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "array",
                     "items": {
+                        "title": "field",
                         "type": "string"
                     }
                 }
@@ -2502,14 +2713,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "field_value",
+                "name": "field, value",
                 "schema": {
+                    "title": "field, value",
                     "type": "array",
                     "items": {
+                        "title": "field, value",
                         "type": "array",
                         "items": [
                             {
@@ -2539,14 +2753,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "field_value",
+                "name": "field, value",
                 "schema": {
+                    "title": "field, value",
                     "type": "array",
                     "items": {
+                        "title": "field, value",
                         "type": "array",
                         "items": [
                             {
@@ -2575,18 +2792,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "string"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -2604,12 +2824,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "field",
                 "schema": {
+                    "title": "field",
                     "type": "string"
                 }
             }
@@ -2627,6 +2849,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2647,6 +2870,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2664,12 +2888,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "increment",
                 "schema": {
+                    "title": "increment",
                     "type": "integer"
                 }
             }
@@ -2687,12 +2913,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "increment",
                 "schema": {
+                    "title": "increment",
                     "type": "number"
                 }
             }
@@ -2710,6 +2938,7 @@
                 "name": "section",
                 "optional": true,
                 "schema": {
+                    "title": "section",
                     "type": "string"
                 }
             }
@@ -2727,6 +2956,7 @@
                 "name": "VERSION",
                 "optional": true,
                 "schema": {
+                    "title": "VERSION",
                     "type": "array",
                     "items": [
                         {
@@ -2734,6 +2964,7 @@
                             "const": "VERSION"
                         },
                         {
+                            "title": "version",
                             "type": "integer"
                         }
                     ]
@@ -2753,6 +2984,7 @@
             {
                 "name": "pattern",
                 "schema": {
+                    "title": "pattern",
                     "type": "string"
                 }
             }
@@ -2782,12 +3014,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "index",
                 "schema": {
+                    "title": "index",
                     "type": "integer"
                 }
             }
@@ -2812,12 +3046,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "where",
                 "schema": {
+                    "title": "where",
                     "type": "string",
                     "enum": ["BEFORE", "AFTER"]
                 }
@@ -2825,12 +3061,14 @@
             {
                 "name": "pivot",
                 "schema": {
+                    "title": "pivot",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "string"
                 }
             }
@@ -2848,6 +3086,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2865,6 +3104,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -2889,12 +3129,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "string"
                 }
             },
@@ -2902,6 +3144,7 @@
                 "name": "RANK",
                 "optional": true,
                 "schema": {
+                    "title": "RANK",
                     "type": "array",
                     "items": [
                         {
@@ -2909,15 +3152,17 @@
                             "const": "RANK"
                         },
                         {
+                            "title": "rank",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "COUNT_num-matches",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -2925,15 +3170,17 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "num-matches",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "MAXLEN_len",
+                "name": "MAXLEN",
                 "optional": true,
                 "schema": {
+                    "title": "MAXLEN",
                     "type": "array",
                     "items": [
                         {
@@ -2941,6 +3188,7 @@
                             "const": "MAXLEN"
                         },
                         {
+                            "title": "len",
                             "type": "integer"
                         }
                     ]
@@ -2958,14 +3206,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "array",
                     "items": {
+                        "title": "element",
                         "type": "string"
                     }
                 }
@@ -2984,14 +3235,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "array",
                     "items": {
+                        "title": "element",
                         "type": "string"
                     }
                 }
@@ -3010,18 +3264,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
             {
                 "name": "stop",
                 "schema": {
+                    "title": "stop",
                     "type": "integer"
                 }
             }
@@ -3042,18 +3299,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "count",
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "string"
                 }
             }
@@ -3071,18 +3331,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "index",
                 "schema": {
+                    "title": "index",
                     "type": "integer"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "string"
                 }
             }
@@ -3101,18 +3364,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
             {
                 "name": "stop",
                 "schema": {
+                    "title": "stop",
                     "type": "integer"
                 }
             }
@@ -3166,13 +3432,15 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "SAMPLES_count",
+                "name": "SAMPLES",
                 "optional": true,
                 "schema": {
+                    "title": "SAMPLES",
                     "type": "array",
                     "items": [
                         {
@@ -3180,6 +3448,7 @@
                             "const": "SAMPLES"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -3197,8 +3466,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -3227,18 +3498,21 @@
             {
                 "name": "host",
                 "schema": {
+                    "title": "host",
                     "type": "string"
                 }
             },
             {
                 "name": "port",
                 "schema": {
+                    "title": "port",
                     "type": "string"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string",
                     "enum": ["key", "\"\""]
                 }
@@ -3246,12 +3520,14 @@
             {
                 "name": "destination-db",
                 "schema": {
+                    "title": "destination-db",
                     "type": "integer"
                 }
             },
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "integer"
                 }
             },
@@ -3259,6 +3535,7 @@
                 "name": "copy",
                 "optional": true,
                 "schema": {
+                    "title": "copy",
                     "type": "string",
                     "enum": ["COPY"]
                 }
@@ -3267,14 +3544,16 @@
                 "name": "replace",
                 "optional": true,
                 "schema": {
+                    "title": "replace",
                     "type": "string",
                     "enum": ["REPLACE"]
                 }
             },
             {
-                "name": "AUTH_password",
+                "name": "AUTH",
                 "optional": true,
                 "schema": {
+                    "title": "AUTH",
                     "type": "array",
                     "items": [
                         {
@@ -3282,15 +3561,17 @@
                             "const": "AUTH"
                         },
                         {
+                            "title": "password",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "AUTH2_username password",
+                "name": "AUTH2",
                 "optional": true,
                 "schema": {
+                    "title": "AUTH2",
                     "type": "array",
                     "items": [
                         {
@@ -3298,6 +3579,7 @@
                             "const": "AUTH2"
                         },
                         {
+                            "title": "username password",
                             "type": "string"
                         }
                     ]
@@ -3307,6 +3589,7 @@
                 "name": "KEYS",
                 "optional": true,
                 "schema": {
+                    "title": "KEYS",
                     "type": "array",
                     "items": [
                         {
@@ -3316,6 +3599,7 @@
                         {
                             "type": "array",
                             "items": {
+                                "title": "key",
                                 "type": "string"
                             }
                         }
@@ -3345,6 +3629,7 @@
             {
                 "name": "path",
                 "schema": {
+                    "title": "path",
                     "type": "string"
                 }
             },
@@ -3352,8 +3637,10 @@
                 "name": "arg",
                 "optional": true,
                 "schema": {
+                    "title": "arg",
                     "type": "array",
                     "items": {
+                        "title": "arg",
                         "type": "string"
                     }
                 }
@@ -3370,6 +3657,7 @@
             {
                 "name": "name",
                 "schema": {
+                    "title": "name",
                     "type": "string"
                 }
             }
@@ -3392,12 +3680,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "db",
                 "schema": {
+                    "title": "db",
                     "type": "integer"
                 }
             }
@@ -3413,10 +3703,12 @@
         "complexity": "O(N) where N is the number of keys to set.",
         "arguments": [
             {
-                "name": "key_value",
+                "name": "key, value",
                 "schema": {
+                    "title": "key, value",
                     "type": "array",
                     "items": {
+                        "title": "key, value",
                         "type": "array",
                         "items": [
                             {
@@ -3444,10 +3736,12 @@
         "complexity": "O(N) where N is the number of keys to set.",
         "arguments": [
             {
-                "name": "key_value",
+                "name": "key, value",
                 "schema": {
+                    "title": "key, value",
                     "type": "array",
                     "items": {
+                        "title": "key, value",
                         "type": "array",
                         "items": [
                             {
@@ -3488,6 +3782,7 @@
             {
                 "name": "subcommand",
                 "schema": {
+                    "title": "subcommand",
                     "type": "string"
                 }
             },
@@ -3495,8 +3790,10 @@
                 "name": "arguments",
                 "optional": true,
                 "schema": {
+                    "title": "arguments",
                     "type": "array",
                     "items": {
+                        "title": "arguments",
                         "type": "string"
                     }
                 }
@@ -3511,6 +3808,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -3528,12 +3826,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "milliseconds",
                 "schema": {
+                    "title": "milliseconds",
                     "type": "integer"
                 }
             }
@@ -3551,12 +3851,15 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "milliseconds-timestamp",
-                "schema": {}
+                "schema": {
+                    "title": "milliseconds-timestamp"
+                }
             }
         ],
         "since": "2.6.0",
@@ -3572,14 +3875,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "array",
                     "items": {
+                        "title": "element",
                         "type": "string"
                     }
                 }
@@ -3598,8 +3904,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -3618,14 +3926,17 @@
             {
                 "name": "destkey",
                 "schema": {
+                    "title": "destkey",
                     "type": "string"
                 }
             },
             {
                 "name": "sourcekey",
                 "schema": {
+                    "title": "sourcekey",
                     "type": "array",
                     "items": {
+                        "title": "sourcekey",
                         "type": "string"
                     }
                 }
@@ -3645,6 +3956,7 @@
                 "name": "message",
                 "optional": true,
                 "schema": {
+                    "title": "message",
                     "type": "string"
                 }
             }
@@ -3663,18 +3975,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "milliseconds",
                 "schema": {
+                    "title": "milliseconds",
                     "type": "integer"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -3690,8 +4005,10 @@
             {
                 "name": "pattern",
                 "schema": {
+                    "title": "pattern",
                     "type": "array",
                     "items": {
+                        "title": "pattern",
                         "type": "array",
                         "items": [
                             {
@@ -3714,6 +4031,7 @@
             {
                 "name": "subcommand",
                 "schema": {
+                    "title": "subcommand",
                     "type": "string"
                 }
             },
@@ -3721,8 +4039,10 @@
                 "name": "argument",
                 "optional": true,
                 "schema": {
+                    "title": "argument",
                     "type": "array",
                     "items": {
+                        "title": "argument",
                         "type": "string"
                     }
                 }
@@ -3741,6 +4061,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -3758,12 +4079,14 @@
             {
                 "name": "channel",
                 "schema": {
+                    "title": "channel",
                     "type": "string"
                 }
             },
             {
                 "name": "message",
                 "schema": {
+                    "title": "message",
                     "type": "string"
                 }
             }
@@ -3782,8 +4105,10 @@
                 "name": "pattern",
                 "optional": true,
                 "schema": {
+                    "title": "pattern",
                     "type": "array",
                     "items": {
+                        "title": "pattern",
                         "type": "string"
                     }
                 }
@@ -3849,12 +4174,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "newkey",
                 "schema": {
+                    "title": "newkey",
                     "type": "string"
                 }
             }
@@ -3873,12 +4200,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "newkey",
                 "schema": {
+                    "title": "newkey",
                     "type": "string"
                 }
             }
@@ -3906,18 +4235,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "ttl",
                 "schema": {
+                    "title": "ttl",
                     "type": "integer"
                 }
             },
             {
                 "name": "serialized-value",
                 "schema": {
+                    "title": "serialized-value",
                     "type": "string"
                 }
             },
@@ -3925,6 +4257,7 @@
                 "name": "replace",
                 "optional": true,
                 "schema": {
+                    "title": "replace",
                     "type": "string",
                     "enum": ["REPLACE"]
                 }
@@ -3933,14 +4266,16 @@
                 "name": "absttl",
                 "optional": true,
                 "schema": {
+                    "title": "absttl",
                     "type": "string",
                     "enum": ["ABSTTL"]
                 }
             },
             {
-                "name": "IDLETIME_seconds",
+                "name": "IDLETIME",
                 "optional": true,
                 "schema": {
+                    "title": "IDLETIME",
                     "type": "array",
                     "items": [
                         {
@@ -3948,15 +4283,17 @@
                             "const": "IDLETIME"
                         },
                         {
+                            "title": "seconds",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "FREQ_frequency",
+                "name": "FREQ",
                 "optional": true,
                 "schema": {
+                    "title": "FREQ",
                     "type": "array",
                     "items": [
                         {
@@ -3964,6 +4301,7 @@
                             "const": "FREQ"
                         },
                         {
+                            "title": "frequency",
                             "type": "integer"
                         }
                     ]
@@ -3993,6 +4331,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -4017,12 +4356,14 @@
             {
                 "name": "source",
                 "schema": {
+                    "title": "source",
                     "type": "string"
                 }
             },
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             }
@@ -4040,18 +4381,21 @@
             {
                 "name": "source",
                 "schema": {
+                    "title": "source",
                     "type": "string"
                 }
             },
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "wherefrom",
                 "schema": {
+                    "title": "wherefrom",
                     "type": "string",
                     "enum": ["LEFT", "RIGHT"]
                 }
@@ -4059,6 +4403,7 @@
             {
                 "name": "whereto",
                 "schema": {
+                    "title": "whereto",
                     "type": "string",
                     "enum": ["LEFT", "RIGHT"]
                 }
@@ -4077,14 +4422,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "array",
                     "items": {
+                        "title": "element",
                         "type": "string"
                     }
                 }
@@ -4103,14 +4451,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "element",
                 "schema": {
+                    "title": "element",
                     "type": "array",
                     "items": {
+                        "title": "element",
                         "type": "string"
                     }
                 }
@@ -4129,14 +4480,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -4165,6 +4519,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -4182,6 +4537,7 @@
             {
                 "name": "mode",
                 "schema": {
+                    "title": "mode",
                     "type": "string",
                     "enum": ["YES", "SYNC", "NO"]
                 }
@@ -4198,8 +4554,10 @@
             {
                 "name": "sha1",
                 "schema": {
+                    "title": "sha1",
                     "type": "array",
                     "items": {
+                        "title": "sha1",
                         "type": "string"
                     }
                 }
@@ -4232,6 +4590,7 @@
             {
                 "name": "script",
                 "schema": {
+                    "title": "script",
                     "type": "string"
                 }
             }
@@ -4247,8 +4606,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -4270,14 +4631,17 @@
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -4295,6 +4659,7 @@
             {
                 "name": "index",
                 "schema": {
+                    "title": "index",
                     "type": "integer"
                 }
             }
@@ -4313,12 +4678,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             },
@@ -4350,6 +4717,7 @@
                 "name": "condition",
                 "optional": true,
                 "schema": {
+                    "title": "condition",
                     "type": "string",
                     "enum": ["NX", "XX"]
                 }
@@ -4358,6 +4726,7 @@
                 "name": "get",
                 "optional": true,
                 "schema": {
+                    "title": "get",
                     "type": "string",
                     "enum": ["GET"]
                 }
@@ -4387,18 +4756,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "offset",
                 "schema": {
+                    "title": "offset",
                     "type": "integer"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "integer"
                 }
             }
@@ -4416,18 +4788,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "seconds",
                 "schema": {
+                    "title": "seconds",
                     "type": "integer"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -4446,12 +4821,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -4469,18 +4846,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "offset",
                 "schema": {
+                    "title": "offset",
                     "type": "integer"
                 }
             },
             {
                 "name": "value",
                 "schema": {
+                    "title": "value",
                     "type": "string"
                 }
             }
@@ -4498,6 +4878,7 @@
                 "name": "save-mode",
                 "optional": true,
                 "schema": {
+                    "title": "save-mode",
                     "type": "string",
                     "enum": ["NOSAVE", "SAVE"]
                 }
@@ -4517,8 +4898,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -4540,14 +4923,17 @@
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -4566,12 +4952,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             }
@@ -4589,14 +4977,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -4614,12 +5005,14 @@
             {
                 "name": "host",
                 "schema": {
+                    "title": "host",
                     "type": "string"
                 }
             },
             {
                 "name": "port",
                 "schema": {
+                    "title": "port",
                     "type": "string"
                 }
             }
@@ -4637,12 +5030,14 @@
             {
                 "name": "host",
                 "schema": {
+                    "title": "host",
                     "type": "string"
                 }
             },
             {
                 "name": "port",
                 "schema": {
+                    "title": "port",
                     "type": "string"
                 }
             }
@@ -4660,6 +5055,7 @@
             {
                 "name": "subcommand",
                 "schema": {
+                    "title": "subcommand",
                     "type": "string"
                 }
             },
@@ -4667,6 +5063,7 @@
                 "name": "argument",
                 "optional": true,
                 "schema": {
+                    "title": "argument",
                     "type": "string"
                 }
             }
@@ -4682,6 +5079,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -4702,18 +5100,21 @@
             {
                 "name": "source",
                 "schema": {
+                    "title": "source",
                     "type": "string"
                 }
             },
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             }
@@ -4731,13 +5132,15 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
-                "name": "BY_pattern",
+                "name": "BY",
                 "optional": true,
                 "schema": {
+                    "title": "BY",
                     "type": "array",
                     "items": [
                         {
@@ -4745,15 +5148,17 @@
                             "const": "BY"
                         },
                         {
+                            "title": "pattern",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -4761,6 +5166,7 @@
                             "const": "LIMIT"
                         },
                         {
+                            "title": "offset, count",
                             "type": "array",
                             "items": [
                                 {
@@ -4777,11 +5183,13 @@
                 }
             },
             {
-                "name": "GET_pattern",
+                "name": "GET",
                 "optional": true,
                 "schema": {
+                    "title": "GET",
                     "type": "array",
                     "items": {
+                        "title": "GET",
                         "type": "array",
                         "items": [
                             {
@@ -4789,6 +5197,7 @@
                                 "const": "GET"
                             },
                             {
+                                "title": "pattern",
                                 "type": "string"
                             }
                         ]
@@ -4799,6 +5208,7 @@
                 "name": "order",
                 "optional": true,
                 "schema": {
+                    "title": "order",
                     "type": "string",
                     "enum": ["ASC", "DESC"]
                 }
@@ -4807,14 +5217,16 @@
                 "name": "sorting",
                 "optional": true,
                 "schema": {
+                    "title": "sorting",
                     "type": "string",
                     "enum": ["ALPHA"]
                 }
             },
             {
-                "name": "STORE_destination",
+                "name": "STORE",
                 "optional": true,
                 "schema": {
+                    "title": "STORE",
                     "type": "array",
                     "items": [
                         {
@@ -4822,6 +5234,7 @@
                             "const": "STORE"
                         },
                         {
+                            "title": "destination",
                             "type": "string"
                         }
                     ]
@@ -4848,6 +5261,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -4855,6 +5269,7 @@
                 "name": "count",
                 "optional": true,
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             }
@@ -4885,6 +5300,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -4892,6 +5308,7 @@
                 "name": "count",
                 "optional": true,
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             }
@@ -4919,14 +5336,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -4945,6 +5365,7 @@
             {
                 "name": "algorithm",
                 "schema": {
+                    "title": "algorithm",
                     "type": "string",
                     "enum": ["LCS"]
                 }
@@ -4952,8 +5373,10 @@
             {
                 "name": "algo-specific-argument",
                 "schema": {
+                    "title": "algo-specific-argument",
                     "type": "array",
                     "items": {
+                        "title": "algo-specific-argument",
                         "type": "string"
                     }
                 }
@@ -4970,6 +5393,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -4987,8 +5411,10 @@
             {
                 "name": "channel",
                 "schema": {
+                    "title": "channel",
                     "type": "array",
                     "items": {
+                        "title": "channel",
                         "type": "string"
                     }
                 }
@@ -5005,8 +5431,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5028,14 +5456,17 @@
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5053,12 +5484,14 @@
             {
                 "name": "index1",
                 "schema": {
+                    "title": "index1",
                     "type": "integer"
                 }
             },
             {
                 "name": "index2",
                 "schema": {
+                    "title": "index2",
                     "type": "integer"
                 }
             }
@@ -5083,12 +5516,14 @@
             {
                 "name": "replicationid",
                 "schema": {
+                    "title": "replicationid",
                     "type": "integer"
                 }
             },
             {
                 "name": "offset",
                 "schema": {
+                    "title": "offset",
                     "type": "integer"
                 }
             }
@@ -5117,8 +5552,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5137,6 +5574,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -5154,6 +5592,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -5173,8 +5612,10 @@
                 "name": "channel",
                 "optional": true,
                 "schema": {
+                    "title": "channel",
                     "type": "array",
                     "items": {
+                        "title": "channel",
                         "type": "string"
                     }
                 }
@@ -5191,8 +5632,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5222,12 +5665,14 @@
             {
                 "name": "numreplicas",
                 "schema": {
+                    "title": "numreplicas",
                     "type": "integer"
                 }
             },
             {
                 "name": "timeout",
                 "schema": {
+                    "title": "timeout",
                     "type": "integer"
                 }
             }
@@ -5245,8 +5690,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5266,6 +5713,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -5273,6 +5721,7 @@
                 "name": "condition",
                 "optional": true,
                 "schema": {
+                    "title": "condition",
                     "type": "string",
                     "enum": ["NX", "XX"]
                 }
@@ -5281,6 +5730,7 @@
                 "name": "comparison",
                 "optional": true,
                 "schema": {
+                    "title": "comparison",
                     "type": "string",
                     "enum": ["GT", "LT"]
                 }
@@ -5289,6 +5739,7 @@
                 "name": "change",
                 "optional": true,
                 "schema": {
+                    "title": "change",
                     "type": "string",
                     "enum": ["CH"]
                 }
@@ -5297,15 +5748,18 @@
                 "name": "increment",
                 "optional": true,
                 "schema": {
+                    "title": "increment",
                     "type": "string",
                     "enum": ["INCR"]
                 }
             },
             {
-                "name": "score_member",
+                "name": "score, member",
                 "schema": {
+                    "title": "score, member",
                     "type": "array",
                     "items": {
+                        "title": "score, member",
                         "type": "array",
                         "items": [
                             {
@@ -5344,6 +5798,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -5361,6 +5816,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -5414,14 +5870,17 @@
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5430,6 +5889,7 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
@@ -5448,20 +5908,24 @@
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5480,18 +5944,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "increment",
                 "schema": {
+                    "title": "increment",
                     "type": "integer"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             }
@@ -5509,14 +5976,17 @@
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5525,6 +5995,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -5534,6 +6005,7 @@
                         {
                             "type": "array",
                             "items": {
+                                "title": "weight",
                                 "type": "integer"
                             }
                         }
@@ -5544,6 +6016,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -5551,6 +6024,7 @@
                             "const": "AGGREGATE"
                         },
                         {
+                            "title": "aggregate",
                             "type": "string",
                             "enum": ["SUM", "MIN", "MAX"]
                         }
@@ -5561,6 +6035,7 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
@@ -5579,20 +6054,24 @@
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -5601,6 +6080,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -5610,6 +6090,7 @@
                         {
                             "type": "array",
                             "items": {
+                                "title": "weight",
                                 "type": "integer"
                             }
                         }
@@ -5620,6 +6101,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -5627,6 +6109,7 @@
                             "const": "AGGREGATE"
                         },
                         {
+                            "title": "aggregate",
                             "type": "string",
                             "enum": ["SUM", "MIN", "MAX"]
                         }
@@ -5647,18 +6130,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "min",
                 "schema": {
+                    "title": "min",
                     "type": "string"
                 }
             },
             {
                 "name": "max",
                 "schema": {
+                    "title": "max",
                     "type": "string"
                 }
             }
@@ -5676,6 +6162,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -5683,6 +6170,7 @@
                 "name": "count",
                 "optional": true,
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             }
@@ -5703,6 +6191,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -5710,6 +6199,7 @@
                 "name": "count",
                 "optional": true,
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             }
@@ -5730,18 +6220,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
             {
                 "name": "stop",
                 "schema": {
+                    "title": "stop",
                     "type": "integer"
                 }
             },
@@ -5749,6 +6242,7 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
@@ -5770,25 +6264,29 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "min",
                 "schema": {
+                    "title": "min",
                     "type": "string"
                 }
             },
             {
                 "name": "max",
                 "schema": {
+                    "title": "max",
                     "type": "string"
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -5796,6 +6294,7 @@
                             "const": "LIMIT"
                         },
                         {
+                            "title": "offset, count",
                             "type": "array",
                             "items": [
                                 {
@@ -5828,25 +6327,29 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "max",
                 "schema": {
+                    "title": "max",
                     "type": "string"
                 }
             },
             {
                 "name": "min",
                 "schema": {
+                    "title": "min",
                     "type": "string"
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -5854,6 +6357,7 @@
                             "const": "LIMIT"
                         },
                         {
+                            "title": "offset, count",
                             "type": "array",
                             "items": [
                                 {
@@ -5886,6 +6390,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -5929,14 +6434,16 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -5944,6 +6451,7 @@
                             "const": "LIMIT"
                         },
                         {
+                            "title": "offset, count",
                             "type": "array",
                             "items": [
                                 {
@@ -5976,12 +6484,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             }
@@ -6006,14 +6516,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -6032,18 +6545,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "min",
                 "schema": {
+                    "title": "min",
                     "type": "string"
                 }
             },
             {
                 "name": "max",
                 "schema": {
+                    "title": "max",
                     "type": "string"
                 }
             }
@@ -6061,18 +6577,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
             {
                 "name": "stop",
                 "schema": {
+                    "title": "stop",
                     "type": "integer"
                 }
             }
@@ -6090,6 +6609,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -6143,18 +6663,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "integer"
                 }
             },
             {
                 "name": "stop",
                 "schema": {
+                    "title": "stop",
                     "type": "integer"
                 }
             },
@@ -6162,6 +6685,7 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
@@ -6183,6 +6707,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
@@ -6226,14 +6751,16 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -6241,6 +6768,7 @@
                             "const": "LIMIT"
                         },
                         {
+                            "title": "offset, count",
                             "type": "array",
                             "items": [
                                 {
@@ -6270,12 +6798,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             }
@@ -6300,12 +6830,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "string"
                 }
             }
@@ -6323,14 +6855,17 @@
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -6339,6 +6874,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -6348,6 +6884,7 @@
                         {
                             "type": "array",
                             "items": {
+                                "title": "weight",
                                 "type": "integer"
                             }
                         }
@@ -6358,6 +6895,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -6365,6 +6903,7 @@
                             "const": "AGGREGATE"
                         },
                         {
+                            "title": "aggregate",
                             "type": "string",
                             "enum": ["SUM", "MIN", "MAX"]
                         }
@@ -6375,6 +6914,7 @@
                 "name": "withscores",
                 "optional": true,
                 "schema": {
+                    "title": "withscores",
                     "type": "string",
                     "enum": ["WITHSCORES"]
                 }
@@ -6393,14 +6933,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "member",
                 "schema": {
+                    "title": "member",
                     "type": "array",
                     "items": {
+                        "title": "member",
                         "type": "string"
                     }
                 }
@@ -6426,20 +6969,24 @@
             {
                 "name": "destination",
                 "schema": {
+                    "title": "destination",
                     "type": "string"
                 }
             },
             {
                 "name": "numkeys",
                 "schema": {
+                    "title": "numkeys",
                     "type": "integer"
                 }
             },
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -6448,6 +6995,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -6457,6 +7005,7 @@
                         {
                             "type": "array",
                             "items": {
+                                "title": "weight",
                                 "type": "integer"
                             }
                         }
@@ -6467,6 +7016,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -6474,6 +7024,7 @@
                             "const": "AGGREGATE"
                         },
                         {
+                            "title": "aggregate",
                             "type": "string",
                             "enum": ["SUM", "MIN", "MAX"]
                         }
@@ -6494,13 +7045,15 @@
             {
                 "name": "cursor",
                 "schema": {
+                    "title": "cursor",
                     "type": "integer"
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -6508,6 +7061,7 @@
                             "const": "MATCH"
                         },
                         {
+                            "title": "pattern",
                             "type": "string"
                         }
                     ]
@@ -6517,6 +7071,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -6524,6 +7079,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -6533,6 +7089,7 @@
                 "name": "TYPE",
                 "optional": true,
                 "schema": {
+                    "title": "TYPE",
                     "type": "array",
                     "items": [
                         {
@@ -6540,6 +7097,7 @@
                             "const": "TYPE"
                         },
                         {
+                            "title": "type",
                             "type": "string"
                         }
                     ]
@@ -6557,19 +7115,22 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "cursor",
                 "schema": {
+                    "title": "cursor",
                     "type": "integer"
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -6577,6 +7138,7 @@
                             "const": "MATCH"
                         },
                         {
+                            "title": "pattern",
                             "type": "string"
                         }
                     ]
@@ -6586,6 +7148,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -6593,6 +7156,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -6610,19 +7174,22 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "cursor",
                 "schema": {
+                    "title": "cursor",
                     "type": "integer"
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -6630,6 +7197,7 @@
                             "const": "MATCH"
                         },
                         {
+                            "title": "pattern",
                             "type": "string"
                         }
                     ]
@@ -6639,6 +7207,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -6646,6 +7215,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -6663,19 +7233,22 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "cursor",
                 "schema": {
+                    "title": "cursor",
                     "type": "integer"
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -6683,6 +7256,7 @@
                             "const": "MATCH"
                         },
                         {
+                            "title": "pattern",
                             "type": "string"
                         }
                     ]
@@ -6692,6 +7266,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -6699,6 +7274,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -6714,9 +7290,10 @@
         "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
         "arguments": [
             {
-                "name": "CONSUMERS_key_groupname",
+                "name": "CONSUMERS",
                 "optional": true,
                 "schema": {
+                    "title": "CONSUMERS",
                     "type": "array",
                     "items": [
                         {
@@ -6724,6 +7301,7 @@
                             "const": "CONSUMERS"
                         },
                         {
+                            "title": "key, groupname",
                             "type": "array",
                             "items": [
                                 {
@@ -6740,9 +7318,10 @@
                 }
             },
             {
-                "name": "GROUPS_key",
+                "name": "GROUPS",
                 "optional": true,
                 "schema": {
+                    "title": "GROUPS",
                     "type": "array",
                     "items": [
                         {
@@ -6750,15 +7329,17 @@
                             "const": "GROUPS"
                         },
                         {
+                            "title": "key",
                             "type": "string"
                         }
                     ]
                 }
             },
             {
-                "name": "STREAM_key",
+                "name": "STREAM",
                 "optional": true,
                 "schema": {
+                    "title": "STREAM",
                     "type": "array",
                     "items": [
                         {
@@ -6766,6 +7347,7 @@
                             "const": "STREAM"
                         },
                         {
+                            "title": "key",
                             "type": "string"
                         }
                     ]
@@ -6775,6 +7357,7 @@
                 "name": "help",
                 "optional": true,
                 "schema": {
+                    "title": "help",
                     "type": "string",
                     "enum": ["HELP"]
                 }
@@ -6791,20 +7374,24 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "ID",
                 "schema": {
+                    "title": "ID",
                     "type": "string"
                 }
             },
             {
-                "name": "field_value",
+                "name": "field, value",
                 "schema": {
+                    "title": "field, value",
                     "type": "array",
                     "items": {
+                        "title": "field, value",
                         "type": "array",
                         "items": [
                             {
@@ -6833,12 +7420,14 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "strategy",
                 "schema": {
+                    "title": "strategy",
                     "type": "string",
                     "enum": ["MAXLEN"]
                 }
@@ -6847,6 +7436,7 @@
                 "name": "approx",
                 "optional": true,
                 "schema": {
+                    "title": "approx",
                     "type": "string",
                     "enum": ["~"]
                 }
@@ -6854,6 +7444,7 @@
             {
                 "name": "count",
                 "schema": {
+                    "title": "count",
                     "type": "integer"
                 }
             }
@@ -6871,14 +7462,17 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "ID",
                 "schema": {
+                    "title": "ID",
                     "type": "array",
                     "items": {
+                        "title": "ID",
                         "type": "string"
                     }
                 }
@@ -6897,18 +7491,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "string"
                 }
             },
             {
                 "name": "end",
                 "schema": {
+                    "title": "end",
                     "type": "string"
                 }
             },
@@ -6916,6 +7513,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -6923,6 +7521,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -6942,18 +7541,21 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "end",
                 "schema": {
+                    "title": "end",
                     "type": "string"
                 }
             },
             {
                 "name": "start",
                 "schema": {
+                    "title": "start",
                     "type": "string"
                 }
             },
@@ -6961,6 +7563,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -6968,6 +7571,7 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -6987,6 +7591,7 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             }
@@ -7005,6 +7610,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7012,15 +7618,17 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "BLOCK_milliseconds",
+                "name": "BLOCK",
                 "optional": true,
                 "schema": {
+                    "title": "BLOCK",
                     "type": "array",
                     "items": [
                         {
@@ -7028,6 +7636,7 @@
                             "const": "BLOCK"
                         },
                         {
+                            "title": "milliseconds",
                             "type": "integer"
                         }
                     ]
@@ -7036,6 +7645,7 @@
             {
                 "name": "streams",
                 "schema": {
+                    "title": "streams",
                     "type": "string",
                     "enum": ["STREAMS"]
                 }
@@ -7043,8 +7653,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -7052,8 +7664,10 @@
             {
                 "name": "id",
                 "schema": {
+                    "title": "id",
                     "type": "array",
                     "items": {
+                        "title": "id",
                         "type": "string"
                     }
                 }
@@ -7070,9 +7684,10 @@
         "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
         "arguments": [
             {
-                "name": "CREATE_key_groupname_id-or-$",
+                "name": "CREATE",
                 "optional": true,
                 "schema": {
+                    "title": "CREATE",
                     "type": "array",
                     "items": [
                         {
@@ -7080,6 +7695,7 @@
                             "const": "CREATE"
                         },
                         {
+                            "title": "key, groupname, id-or-$",
                             "type": "array",
                             "items": [
                                 {
@@ -7100,9 +7716,10 @@
                 }
             },
             {
-                "name": "SETID_key_groupname_id-or-$",
+                "name": "SETID",
                 "optional": true,
                 "schema": {
+                    "title": "SETID",
                     "type": "array",
                     "items": [
                         {
@@ -7110,6 +7727,7 @@
                             "const": "SETID"
                         },
                         {
+                            "title": "key, groupname, id-or-$",
                             "type": "array",
                             "items": [
                                 {
@@ -7130,9 +7748,10 @@
                 }
             },
             {
-                "name": "DESTROY_key_groupname",
+                "name": "DESTROY",
                 "optional": true,
                 "schema": {
+                    "title": "DESTROY",
                     "type": "array",
                     "items": [
                         {
@@ -7140,6 +7759,7 @@
                             "const": "DESTROY"
                         },
                         {
+                            "title": "key, groupname",
                             "type": "array",
                             "items": [
                                 {
@@ -7156,9 +7776,10 @@
                 }
             },
             {
-                "name": "CREATECONSUMER_key_groupname_consumername",
+                "name": "CREATECONSUMER",
                 "optional": true,
                 "schema": {
+                    "title": "CREATECONSUMER",
                     "type": "array",
                     "items": [
                         {
@@ -7166,6 +7787,7 @@
                             "const": "CREATECONSUMER"
                         },
                         {
+                            "title": "key, groupname, consumername",
                             "type": "array",
                             "items": [
                                 {
@@ -7186,9 +7808,10 @@
                 }
             },
             {
-                "name": "DELCONSUMER_key_groupname_consumername",
+                "name": "DELCONSUMER",
                 "optional": true,
                 "schema": {
+                    "title": "DELCONSUMER",
                     "type": "array",
                     "items": [
                         {
@@ -7196,6 +7819,7 @@
                             "const": "DELCONSUMER"
                         },
                         {
+                            "title": "key, groupname, consumername",
                             "type": "array",
                             "items": [
                                 {
@@ -7225,8 +7849,9 @@
         "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
         "arguments": [
             {
-                "name": "GROUP_consumer",
+                "name": "GROUP",
                 "schema": {
+                    "title": "GROUP",
                     "type": "array",
                     "items": [
                         {
@@ -7234,6 +7859,7 @@
                             "const": "GROUP"
                         },
                         {
+                            "title": "group, consumer",
                             "type": "array",
                             "items": [
                                 {
@@ -7253,6 +7879,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7260,15 +7887,17 @@
                             "const": "COUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "BLOCK_milliseconds",
+                "name": "BLOCK",
                 "optional": true,
                 "schema": {
+                    "title": "BLOCK",
                     "type": "array",
                     "items": [
                         {
@@ -7276,6 +7905,7 @@
                             "const": "BLOCK"
                         },
                         {
+                            "title": "milliseconds",
                             "type": "integer"
                         }
                     ]
@@ -7285,6 +7915,7 @@
                 "name": "noack",
                 "optional": true,
                 "schema": {
+                    "title": "noack",
                     "type": "string",
                     "enum": ["NOACK"]
                 }
@@ -7292,6 +7923,7 @@
             {
                 "name": "streams",
                 "schema": {
+                    "title": "streams",
                     "type": "string",
                     "enum": ["STREAMS"]
                 }
@@ -7299,8 +7931,10 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "array",
                     "items": {
+                        "title": "key",
                         "type": "string"
                     }
                 }
@@ -7308,8 +7942,10 @@
             {
                 "name": "ID",
                 "schema": {
+                    "title": "ID",
                     "type": "array",
                     "items": {
+                        "title": "ID",
                         "type": "string"
                     }
                 }
@@ -7326,20 +7962,24 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "group",
                 "schema": {
+                    "title": "group",
                     "type": "string"
                 }
             },
             {
                 "name": "ID",
                 "schema": {
+                    "title": "ID",
                     "type": "array",
                     "items": {
+                        "title": "ID",
                         "type": "string"
                     }
                 }
@@ -7358,40 +7998,47 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "group",
                 "schema": {
+                    "title": "group",
                     "type": "string"
                 }
             },
             {
                 "name": "consumer",
                 "schema": {
+                    "title": "consumer",
                     "type": "string"
                 }
             },
             {
                 "name": "min-idle-time",
                 "schema": {
+                    "title": "min-idle-time",
                     "type": "string"
                 }
             },
             {
                 "name": "ID",
                 "schema": {
+                    "title": "ID",
                     "type": "array",
                     "items": {
+                        "title": "ID",
                         "type": "string"
                     }
                 }
             },
             {
-                "name": "IDLE_ms",
+                "name": "IDLE",
                 "optional": true,
                 "schema": {
+                    "title": "IDLE",
                     "type": "array",
                     "items": [
                         {
@@ -7399,15 +8046,17 @@
                             "const": "IDLE"
                         },
                         {
+                            "title": "ms",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "TIME_ms-unix-time",
+                "name": "TIME",
                 "optional": true,
                 "schema": {
+                    "title": "TIME",
                     "type": "array",
                     "items": [
                         {
@@ -7415,15 +8064,17 @@
                             "const": "TIME"
                         },
                         {
+                            "title": "ms-unix-time",
                             "type": "integer"
                         }
                     ]
                 }
             },
             {
-                "name": "RETRYCOUNT_count",
+                "name": "RETRYCOUNT",
                 "optional": true,
                 "schema": {
+                    "title": "RETRYCOUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7431,6 +8082,7 @@
                             "const": "RETRYCOUNT"
                         },
                         {
+                            "title": "count",
                             "type": "integer"
                         }
                     ]
@@ -7439,12 +8091,16 @@
             {
                 "name": "force",
                 "optional": true,
-                "schema": {}
+                "schema": {
+                    "title": "force"
+                }
             },
             {
                 "name": "justid",
                 "optional": true,
-                "schema": {}
+                "schema": {
+                    "title": "justid"
+                }
             }
         ],
         "since": "5.0.0",
@@ -7460,19 +8116,22 @@
             {
                 "name": "key",
                 "schema": {
+                    "title": "key",
                     "type": "string"
                 }
             },
             {
                 "name": "group",
                 "schema": {
+                    "title": "group",
                     "type": "string"
                 }
             },
             {
-                "name": "start_end_count",
+                "name": "start, end, count",
                 "optional": true,
                 "schema": {
+                    "title": "start, end, count",
                     "type": "array",
                     "items": [
                         {
@@ -7494,13 +8153,15 @@
                 "name": "consumer",
                 "optional": true,
                 "schema": {
+                    "title": "consumer",
                     "type": "string"
                 }
             },
             {
-                "name": "IDLE_min-idle-time",
+                "name": "IDLE",
                 "optional": true,
                 "schema": {
+                    "title": "IDLE",
                     "type": "array",
                     "items": [
                         {
@@ -7508,6 +8169,7 @@
                             "const": "IDLE"
                         },
                         {
+                            "title": "min-idle-time",
                             "type": "integer"
                         }
                     ]
@@ -7533,6 +8195,7 @@
             {
                 "name": "event",
                 "schema": {
+                    "title": "event",
                     "type": "string"
                 }
             }
@@ -7547,6 +8210,7 @@
             {
                 "name": "event",
                 "schema": {
+                    "title": "event",
                     "type": "string"
                 }
             }
@@ -7569,8 +8233,10 @@
                 "name": "event",
                 "optional": true,
                 "schema": {
+                    "title": "event",
                     "type": "array",
                     "items": {
+                        "title": "event",
                         "type": "string"
                     }
                 }

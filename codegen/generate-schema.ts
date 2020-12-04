@@ -6,7 +6,7 @@ import * as commandTypes from "./command";
 import { fixupSchema } from "./patches/schema";
 import { JsonSchemaCommand } from ".";
 
-const argToSchema = (arg: commandTypes.Argument, parentName?: string): jsonSchema.JSONSchema7 => {
+const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     if (arg.variadic && arg.command) {
         return {
             type: "array",

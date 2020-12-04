@@ -189,7 +189,7 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -202,11 +202,8 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        incrby_type_offset_increment?: [
-            incrby: "INCRBY",
-            type_offset_increment: [type: string, offset: number, increment: number]
-        ],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -219,8 +216,8 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        set_type_offset_value?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        set?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -233,12 +230,9 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        set_type_offset_value?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
-        incrby_type_offset_increment?: [
-            incrby: "INCRBY",
-            type_offset_increment: [type: string, offset: number, increment: number]
-        ],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        set?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
+        incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -251,8 +245,8 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: [get: "GET", type_offset: [type: string, offset: number]],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        get?: [get: "GET", type_offset: [type: string, offset: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -265,12 +259,9 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: [get: "GET", type_offset: [type: string, offset: number]],
-        incrby_type_offset_increment?: [
-            incrby: "INCRBY",
-            type_offset_increment: [type: string, offset: number, increment: number]
-        ],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        get?: [get: "GET", type_offset: [type: string, offset: number]],
+        incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -283,9 +274,9 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: [get: "GET", type_offset: [type: string, offset: number]],
-        set_type_offset_value?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        get?: [get: "GET", type_offset: [type: string, offset: number]],
+        set?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -298,13 +289,10 @@ export interface Commands {
      */
     bitfield(
         key: string,
-        get_type_offset?: [get: "GET", type_offset: [type: string, offset: number]],
-        set_type_offset_value?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
-        incrby_type_offset_increment?: [
-            incrby: "INCRBY",
-            type_offset_increment: [type: string, offset: number, increment: number]
-        ],
-        overflow_wrap_sat_or_fail?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+        get?: [get: "GET", type_offset: [type: string, offset: number]],
+        set?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
+        incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Promise<unknown>;
 
     /**
@@ -431,7 +419,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/client-kill)
      */
-    client(client_subcommand: "KILL", skipme_yes_no?: [skipme: "SKIPME", yes_no: string]): Promise<unknown>;
+    client(client_subcommand: "KILL", skipme?: [skipme: "SKIPME", yes_no: string]): Promise<unknown>;
 
     /**
      * Kill the connection of a client
@@ -443,8 +431,8 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -457,8 +445,8 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -471,9 +459,9 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -486,11 +474,8 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -503,12 +488,9 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -521,12 +503,9 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -539,13 +518,10 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -558,8 +534,8 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -572,9 +548,9 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -587,9 +563,9 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -602,10 +578,10 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -618,12 +594,9 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -636,13 +609,10 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -655,13 +625,10 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -674,14 +641,36 @@ export interface Commands {
      */
     client(
         client_subcommand: "KILL",
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(client_subcommand: "KILL", ip_port?: string, skipme?: [skipme: "SKIPME", yes_no: string]): Promise<unknown>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -695,7 +684,8 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -709,8 +699,9 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -724,8 +715,8 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -739,9 +730,9 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -755,11 +746,9 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -773,12 +762,10 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -792,12 +779,8 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -811,13 +794,9 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -831,8 +810,9 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -846,9 +826,10 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -862,9 +843,9 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -878,10 +859,10 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -895,12 +876,10 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -914,54 +893,11 @@ export interface Commands {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
-    ): Promise<unknown>;
-
-    /**
-     * Kill the connection of a client
-     * - _group_: connection
-     * - _complexity_: O(N) where N is the number of client connections
-     * - _since_: 2.4.0
-     *
-     * [Full docs](https://redis.io/commands/client-kill)
-     */
-    client(
-        client_subcommand: "KILL",
-        ip_port?: string,
-        id_client_id?: [id: "ID", client_id: number],
-        type_normal_master_slave_or_pubsub?: [
-            type: "TYPE",
-            normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"
-        ],
-        user_username?: [user: "USER", username: string],
-        addr_ip_port?: [addr: "ADDR", ip_port: string],
-        skipme_yes_no?: [skipme: "SKIPME", yes_no: string]
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
     ): Promise<unknown>;
 
     /**
@@ -974,10 +910,7 @@ export interface Commands {
      */
     client(
         client_subcommand: "LIST",
-        type_normal_master_replica_or_pubsub?: [
-            type: "TYPE",
-            normal_master_replica_or_pubsub: "normal" | "master" | "replica" | "pubsub"
-        ]
+        type?: [type: "TYPE", normal_master_replica_or_pubsub: "normal" | "master" | "replica" | "pubsub"]
     ): Promise<unknown>;
 
     /**
@@ -1278,7 +1211,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
+        redirect?: [redirect: "REDIRECT", client_id: number],
         noloop?: "NOLOOP"
     ): Promise<unknown>;
 
@@ -1293,7 +1226,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
+        redirect?: [redirect: "REDIRECT", client_id: number],
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
     ): Promise<unknown>;
@@ -1309,7 +1242,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
+        redirect?: [redirect: "REDIRECT", client_id: number],
         optin?: "OPTIN",
         noloop?: "NOLOOP"
     ): Promise<unknown>;
@@ -1325,75 +1258,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        optin?: "OPTIN",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
-        optin?: "OPTIN",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
+        redirect?: [redirect: "REDIRECT", client_id: number],
         optin?: "OPTIN",
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
@@ -1410,76 +1275,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        optin?: "OPTIN",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        optin?: "OPTIN",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Promise<unknown>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        redirect?: [redirect: "REDIRECT", client_id: number],
         bcast?: "BCAST",
         noloop?: "NOLOOP"
     ): Promise<unknown>;
@@ -1495,8 +1291,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        redirect?: [redirect: "REDIRECT", client_id: number],
         bcast?: "BCAST",
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
@@ -1513,7 +1308,145 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Promise<unknown>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
         prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         bcast?: "BCAST",
         optin?: "OPTIN",
@@ -1531,7 +1464,7 @@ export interface Commands {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        redirect_client_id?: [redirect: "REDIRECT", client_id: number],
+        redirect?: [redirect: "REDIRECT", client_id: number],
         prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         bcast?: "BCAST",
         optin?: "OPTIN",
@@ -1875,7 +1808,7 @@ export interface Commands {
     copy(
         source: string,
         destination: string,
-        db_destination_db?: [db: "DB", destination_db: number],
+        db?: [db: "DB", destination_db: number],
         replace?: "REPLACE"
     ): Promise<number>;
 
@@ -2106,7 +2039,7 @@ export interface Commands {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2123,26 +2056,8 @@ export interface Commands {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2160,8 +2075,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2178,46 +2092,46 @@ export interface Commands {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count?: [count: "COUNT", count: number],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2236,8 +2150,27 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2255,7 +2188,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2273,8 +2206,8 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2293,7 +2226,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2312,8 +2245,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2332,7 +2265,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2351,28 +2284,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2392,8 +2305,28 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2411,7 +2344,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2429,8 +2362,8 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2449,7 +2382,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2468,8 +2401,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2488,7 +2421,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2507,28 +2440,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2548,8 +2461,28 @@ export interface Commands {
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2568,7 +2501,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2587,8 +2520,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2608,7 +2541,7 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2628,49 +2561,8 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2690,8 +2582,28 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2712,8 +2624,29 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2731,7 +2664,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2749,8 +2682,8 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2769,7 +2702,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2788,8 +2721,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2808,7 +2741,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2827,28 +2760,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2868,8 +2781,28 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2888,7 +2821,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2907,8 +2840,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2928,7 +2861,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -2948,49 +2881,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3010,8 +2902,28 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3032,8 +2944,29 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3052,7 +2985,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3071,8 +3004,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3092,7 +3025,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3112,8 +3045,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3133,7 +3066,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3153,29 +3086,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3196,8 +3108,29 @@ export interface Commands {
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3217,7 +3150,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3237,8 +3170,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3259,7 +3192,7 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3280,51 +3213,8 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<Array<unknown>>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3345,8 +3235,29 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3368,8 +3279,30 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<Array<unknown>>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -3385,7 +3318,7 @@ export interface Commands {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3401,25 +3334,8 @@ export interface Commands {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3436,8 +3352,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3453,44 +3368,44 @@ export interface Commands {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count?: [count: "COUNT", count: number],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3508,8 +3423,26 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3526,7 +3459,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3543,8 +3476,8 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3562,7 +3495,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3580,8 +3513,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3599,7 +3532,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3617,27 +3550,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3656,8 +3570,27 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3674,7 +3607,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3691,8 +3624,8 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3710,7 +3643,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3728,8 +3661,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3747,7 +3680,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3765,27 +3698,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3804,8 +3718,27 @@ export interface Commands {
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3823,7 +3756,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3841,8 +3774,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3861,7 +3794,7 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3880,47 +3813,8 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3939,8 +3833,27 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3960,8 +3873,28 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3978,7 +3911,7 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -3995,8 +3928,8 @@ export interface Commands {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4014,7 +3947,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4032,8 +3965,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4051,7 +3984,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4069,27 +4002,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4108,8 +4022,27 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4127,7 +4060,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4145,8 +4078,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4165,7 +4098,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4184,47 +4117,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4243,8 +4137,27 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4264,8 +4177,28 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4283,7 +4216,7 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4301,8 +4234,8 @@ export interface Commands {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4321,7 +4254,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4340,8 +4273,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4360,7 +4293,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4379,28 +4312,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4420,8 +4333,28 @@ export interface Commands {
         withdist?: "WITHDIST",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4440,7 +4373,7 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4459,8 +4392,8 @@ export interface Commands {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4480,7 +4413,7 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4500,49 +4433,8 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        storedist_key?: [storedist: "STOREDIST", key: string]
-    ): Promise<unknown>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4562,8 +4454,28 @@ export interface Commands {
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4584,8 +4496,29 @@ export interface Commands {
         withhash?: "WITHHASH",
         count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
-        store_key?: [store: "STORE", key: string],
-        storedist_key?: [storedist: "STOREDIST", key: string]
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Promise<unknown>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
     ): Promise<unknown>;
 
     /**
@@ -4646,7 +4579,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/hello)
      */
-    hello(protover: number, setname_clientname?: [setname: "SETNAME", clientname: string]): Promise<Array<unknown>>;
+    hello(protover: number, setname?: [setname: "SETNAME", clientname: string]): Promise<Array<unknown>>;
 
     /**
      * switch Redis protocol
@@ -4658,8 +4591,8 @@ export interface Commands {
      */
     hello(
         protover: number,
-        auth_username_password?: [auth: "AUTH", username_password: [username: string, password: string]],
-        setname_clientname?: [setname: "SETNAME", clientname: string]
+        auth?: [auth: "AUTH", username_password: [username: string, password: string]],
+        setname?: [setname: "SETNAME", clientname: string]
     ): Promise<Array<unknown>>;
 
     /**
@@ -4910,7 +4843,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/lpos)
      */
-    lpos(key: string, element: string, maxlen_len?: [maxlen: "MAXLEN", len: number]): Promise<unknown>;
+    lpos(key: string, element: string, maxlen?: [maxlen: "MAXLEN", len: number]): Promise<unknown>;
 
     /**
      * Return the index of matching elements on a list
@@ -4923,8 +4856,8 @@ export interface Commands {
     lpos(
         key: string,
         element: string,
-        count_num_matches?: [count: "COUNT", num_matches: number],
-        maxlen_len?: [maxlen: "MAXLEN", len: number]
+        count?: [count: "COUNT", num_matches: number],
+        maxlen?: [maxlen: "MAXLEN", len: number]
     ): Promise<unknown>;
 
     /**
@@ -4939,7 +4872,7 @@ export interface Commands {
         key: string,
         element: string,
         rank?: [rank: "RANK", rank: number],
-        maxlen_len?: [maxlen: "MAXLEN", len: number]
+        maxlen?: [maxlen: "MAXLEN", len: number]
     ): Promise<unknown>;
 
     /**
@@ -4954,8 +4887,8 @@ export interface Commands {
         key: string,
         element: string,
         rank?: [rank: "RANK", rank: number],
-        count_num_matches?: [count: "COUNT", num_matches: number],
-        maxlen_len?: [maxlen: "MAXLEN", len: number]
+        count?: [count: "COUNT", num_matches: number],
+        maxlen?: [maxlen: "MAXLEN", len: number]
     ): Promise<unknown>;
 
     /**
@@ -5076,11 +5009,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/memory-usage)
      */
-    memory(
-        memory_subcommand: "USAGE",
-        key: string,
-        samples_count?: [samples: "SAMPLES", count: number]
-    ): Promise<unknown>;
+    memory(memory_subcommand: "USAGE", key: string, samples?: [samples: "SAMPLES", count: number]): Promise<unknown>;
 
     /**
      * Get the values of all the given keys
@@ -5123,7 +5052,7 @@ export interface Commands {
         key: "key" | '""',
         destination_db: number,
         timeout: number,
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5141,7 +5070,7 @@ export interface Commands {
         key: "key" | '""',
         destination_db: number,
         timeout: number,
-        auth_password?: [auth: "AUTH", password: string],
+        auth?: [auth: "AUTH", password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5159,26 +5088,8 @@ export interface Commands {
         key: "key" | '""',
         destination_db: number,
         timeout: number,
-        auth_password?: [auth: "AUTH", password: string],
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
-        keys?: [keys: "KEYS", array_string: Array<string>]
-    ): Promise<"OK">;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     *
-     * [Full docs](https://redis.io/commands/migrate)
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: "key" | '""',
-        destination_db: number,
-        timeout: number,
-        replace?: "REPLACE",
+        auth?: [auth: "AUTH", password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5197,7 +5108,6 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         replace?: "REPLACE",
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5216,7 +5126,7 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         replace?: "REPLACE",
-        auth_password?: [auth: "AUTH", password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5235,8 +5145,27 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         replace?: "REPLACE",
-        auth_password?: [auth: "AUTH", password: string],
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
+        auth?: [auth: "AUTH", password: string],
+        keys?: [keys: "KEYS", array_string: Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/migrate)
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        replace?: "REPLACE",
+        auth?: [auth: "AUTH", password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5273,7 +5202,7 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         copy?: "COPY",
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5292,7 +5221,7 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         copy?: "COPY",
-        auth_password?: [auth: "AUTH", password: string],
+        auth?: [auth: "AUTH", password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5311,27 +5240,8 @@ export interface Commands {
         destination_db: number,
         timeout: number,
         copy?: "COPY",
-        auth_password?: [auth: "AUTH", password: string],
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
-        keys?: [keys: "KEYS", array_string: Array<string>]
-    ): Promise<"OK">;
-
-    /**
-     * Atomically transfer a key from a Redis instance to another one.
-     * - _group_: generic
-     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
-     * - _since_: 2.6.0
-     *
-     * [Full docs](https://redis.io/commands/migrate)
-     */
-    migrate(
-        host: string,
-        port: string,
-        key: "key" | '""',
-        destination_db: number,
-        timeout: number,
-        copy?: "COPY",
-        replace?: "REPLACE",
+        auth?: [auth: "AUTH", password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5351,7 +5261,6 @@ export interface Commands {
         timeout: number,
         copy?: "COPY",
         replace?: "REPLACE",
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5371,7 +5280,7 @@ export interface Commands {
         timeout: number,
         copy?: "COPY",
         replace?: "REPLACE",
-        auth_password?: [auth: "AUTH", password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5391,8 +5300,28 @@ export interface Commands {
         timeout: number,
         copy?: "COPY",
         replace?: "REPLACE",
-        auth_password?: [auth: "AUTH", password: string],
-        auth_2_username_password?: [auth_2: "AUTH2", username_password: string],
+        auth?: [auth: "AUTH", password: string],
+        keys?: [keys: "KEYS", array_string: Array<string>]
+    ): Promise<"OK">;
+
+    /**
+     * Atomically transfer a key from a Redis instance to another one.
+     * - _group_: generic
+     * - _complexity_: This command actually executes a DUMP+DEL in the source instance, and a RESTORE in the target instance. See the pages of these commands for time complexity. Also an O(N) data transfer between the two instances is performed.
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/migrate)
+     */
+    migrate(
+        host: string,
+        port: string,
+        key: "key" | '""',
+        destination_db: number,
+        timeout: number,
+        copy?: "COPY",
+        replace?: "REPLACE",
+        auth?: [auth: "AUTH", password: string],
+        auth_2?: [auth_2: "AUTH2", username_password: string],
         keys?: [keys: "KEYS", array_string: Array<string>]
     ): Promise<"OK">;
 
@@ -5698,7 +5627,7 @@ export interface Commands {
         key: string,
         ttl: number,
         serialized_value: string,
-        freq_frequency?: [freq: "FREQ", frequency: number]
+        freq?: [freq: "FREQ", frequency: number]
     ): Promise<"OK">;
 
     /**
@@ -5713,24 +5642,8 @@ export interface Commands {
         key: string,
         ttl: number,
         serialized_value: string,
-        idletime_seconds?: [idletime: "IDLETIME", seconds: number],
-        freq_frequency?: [freq: "FREQ", frequency: number]
-    ): Promise<"OK">;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     *
-     * [Full docs](https://redis.io/commands/restore)
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        absttl?: "ABSTTL",
-        freq_frequency?: [freq: "FREQ", frequency: number]
+        idletime?: [idletime: "IDLETIME", seconds: number],
+        freq?: [freq: "FREQ", frequency: number]
     ): Promise<"OK">;
 
     /**
@@ -5746,8 +5659,7 @@ export interface Commands {
         ttl: number,
         serialized_value: string,
         absttl?: "ABSTTL",
-        idletime_seconds?: [idletime: "IDLETIME", seconds: number],
-        freq_frequency?: [freq: "FREQ", frequency: number]
+        freq?: [freq: "FREQ", frequency: number]
     ): Promise<"OK">;
 
     /**
@@ -5762,42 +5674,42 @@ export interface Commands {
         key: string,
         ttl: number,
         serialized_value: string,
-        replace?: "REPLACE",
-        freq_frequency?: [freq: "FREQ", frequency: number]
-    ): Promise<"OK">;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     *
-     * [Full docs](https://redis.io/commands/restore)
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace?: "REPLACE",
-        idletime_seconds?: [idletime: "IDLETIME", seconds: number],
-        freq_frequency?: [freq: "FREQ", frequency: number]
-    ): Promise<"OK">;
-
-    /**
-     * Create a key using the provided serialized value, previously obtained using DUMP.
-     * - _group_: generic
-     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
-     * - _since_: 2.6.0
-     *
-     * [Full docs](https://redis.io/commands/restore)
-     */
-    restore(
-        key: string,
-        ttl: number,
-        serialized_value: string,
-        replace?: "REPLACE",
         absttl?: "ABSTTL",
-        freq_frequency?: [freq: "FREQ", frequency: number]
+        idletime?: [idletime: "IDLETIME", seconds: number],
+        freq?: [freq: "FREQ", frequency: number]
+    ): Promise<"OK">;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/restore)
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace?: "REPLACE",
+        freq?: [freq: "FREQ", frequency: number]
+    ): Promise<"OK">;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/restore)
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace?: "REPLACE",
+        idletime?: [idletime: "IDLETIME", seconds: number],
+        freq?: [freq: "FREQ", frequency: number]
     ): Promise<"OK">;
 
     /**
@@ -5814,8 +5726,25 @@ export interface Commands {
         serialized_value: string,
         replace?: "REPLACE",
         absttl?: "ABSTTL",
-        idletime_seconds?: [idletime: "IDLETIME", seconds: number],
-        freq_frequency?: [freq: "FREQ", frequency: number]
+        freq?: [freq: "FREQ", frequency: number]
+    ): Promise<"OK">;
+
+    /**
+     * Create a key using the provided serialized value, previously obtained using DUMP.
+     * - _group_: generic
+     * - _complexity_: O(1) to create the new key and additional O(N*M) to reconstruct the serialized value, where N is the number of Redis objects composing the value and M their average size. For small string values the time complexity is thus O(1)+O(1*M) where M is small, so simply O(1). However for sorted set values the complexity is O(N*M*log(N)) because inserting values into sorted sets is O(log(N)).
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/restore)
+     */
+    restore(
+        key: string,
+        ttl: number,
+        serialized_value: string,
+        replace?: "REPLACE",
+        absttl?: "ABSTTL",
+        idletime?: [idletime: "IDLETIME", seconds: number],
+        freq?: [freq: "FREQ", frequency: number]
     ): Promise<"OK">;
 
     /**
@@ -6187,7 +6116,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/sort)
      */
-    sort(key: string, store_destination?: [store: "STORE", destination: string]): Promise<number | Array<unknown>>;
+    sort(key: string, store?: [store: "STORE", destination: string]): Promise<number | Array<unknown>>;
 
     /**
      * Sort the elements in a list, set or sorted set
@@ -6200,7 +6129,7 @@ export interface Commands {
     sort(
         key: string,
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6214,7 +6143,7 @@ export interface Commands {
     sort(
         key: string,
         order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6229,7 +6158,7 @@ export interface Commands {
         key: string,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6242,8 +6171,8 @@ export interface Commands {
      */
     sort(
         key: string,
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        store_destination?: [store: "STORE", destination: string]
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6256,9 +6185,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        get?: Array<[get: "GET", pattern: string]>,
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6271,9 +6200,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6286,70 +6215,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6362,9 +6231,8 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        store_destination?: [store: "STORE", destination: string]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6377,10 +6245,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6393,10 +6260,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6409,11 +6275,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6426,8 +6291,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        store_destination?: [store: "STORE", destination: string]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6440,9 +6306,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6455,9 +6322,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6470,74 +6338,11 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
-    ): Promise<number | Array<unknown>>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6550,9 +6355,8 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        store_destination?: [store: "STORE", destination: string]
+        by?: [by: "BY", pattern: string],
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6565,10 +6369,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        by?: [by: "BY", pattern: string],
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6581,10 +6384,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        by?: [by: "BY", pattern: string],
         order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6597,11 +6399,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        by?: [by: "BY", pattern: string],
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6614,10 +6415,9 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
-        store_destination?: [store: "STORE", destination: string]
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6630,11 +6430,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6647,11 +6446,10 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -6664,12 +6462,143 @@ export interface Commands {
      */
     sort(
         key: string,
-        by_pattern?: [by: "BY", pattern: string],
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get_pattern?: Array<[get: "GET", pattern: string]>,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
-        store_destination?: [store: "STORE", destination: string]
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", destination: string]
+    ): Promise<number | Array<unknown>>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
     ): Promise<number | Array<unknown>>;
 
     /**
@@ -7302,7 +7231,7 @@ export interface Commands {
         key: string,
         min: string,
         max: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7317,7 +7246,7 @@ export interface Commands {
         key: string,
         max: string,
         min: string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7332,7 +7261,7 @@ export interface Commands {
         key: string,
         min: number | ("-inf" | "+inf") | string,
         max: number | ("-inf" | "+inf") | string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7348,7 +7277,7 @@ export interface Commands {
         min: number | ("-inf" | "+inf") | string,
         max: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
     ): Promise<Array<string>>;
 
     /**
@@ -7427,7 +7356,7 @@ export interface Commands {
         key: string,
         max: number | ("-inf" | "+inf") | string,
         min: number | ("-inf" | "+inf") | string,
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
     ): Promise<Array<unknown>>;
 
     /**
@@ -7443,7 +7372,7 @@ export interface Commands {
         max: number | ("-inf" | "+inf") | string,
         min: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
-        limit_offset_count?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
     ): Promise<Array<unknown>>;
 
     /**
@@ -7597,7 +7526,7 @@ export interface Commands {
      */
     scan(
         cursor: number,
-        match_pattern?: [match: "MATCH", pattern: string],
+        match?: [match: "MATCH", pattern: string],
         type?: [type: "TYPE", type: string]
     ): Promise<unknown>;
 
@@ -7611,7 +7540,7 @@ export interface Commands {
      */
     scan(
         cursor: number,
-        match_pattern?: [match: "MATCH", pattern: string],
+        match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number],
         type?: [type: "TYPE", type: string]
     ): Promise<unknown>;
@@ -7637,7 +7566,7 @@ export interface Commands {
     sscan(
         key: string,
         cursor: number,
-        match_pattern?: [match: "MATCH", pattern: string],
+        match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number]
     ): Promise<unknown>;
 
@@ -7662,7 +7591,7 @@ export interface Commands {
     hscan(
         key: string,
         cursor: number,
-        match_pattern?: [match: "MATCH", pattern: string],
+        match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number]
     ): Promise<unknown>;
 
@@ -7687,7 +7616,7 @@ export interface Commands {
     zscan(
         key: string,
         cursor: number,
-        match_pattern?: [match: "MATCH", pattern: string],
+        match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number]
     ): Promise<unknown>;
 
@@ -7709,7 +7638,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xinfo)
      */
-    xinfo(stream_key?: [stream: "STREAM", key: string], help?: "HELP"): Promise<unknown>;
+    xinfo(stream?: [stream: "STREAM", key: string], help?: "HELP"): Promise<unknown>;
 
     /**
      * Get information on streams and consumer groups
@@ -7719,7 +7648,7 @@ export interface Commands {
      *
      * [Full docs](https://redis.io/commands/xinfo)
      */
-    xinfo(groups_key?: [groups: "GROUPS", key: string], help?: "HELP"): Promise<unknown>;
+    xinfo(groups?: [groups: "GROUPS", key: string], help?: "HELP"): Promise<unknown>;
 
     /**
      * Get information on streams and consumer groups
@@ -7730,8 +7659,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        groups_key?: [groups: "GROUPS", key: string],
-        stream_key?: [stream: "STREAM", key: string],
+        groups?: [groups: "GROUPS", key: string],
+        stream?: [stream: "STREAM", key: string],
         help?: "HELP"
     ): Promise<unknown>;
 
@@ -7744,7 +7673,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
+        consumers?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
         help?: "HELP"
     ): Promise<unknown>;
 
@@ -7757,8 +7686,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
-        stream_key?: [stream: "STREAM", key: string],
+        consumers?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
+        stream?: [stream: "STREAM", key: string],
         help?: "HELP"
     ): Promise<unknown>;
 
@@ -7771,8 +7700,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
-        groups_key?: [groups: "GROUPS", key: string],
+        consumers?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
+        groups?: [groups: "GROUPS", key: string],
         help?: "HELP"
     ): Promise<unknown>;
 
@@ -7785,9 +7714,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xinfo)
      */
     xinfo(
-        consumers_key_groupname?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
-        groups_key?: [groups: "GROUPS", key: string],
-        stream_key?: [stream: "STREAM", key: string],
+        consumers?: [consumers: "CONSUMERS", key_groupname: [key: string, groupname: string]],
+        groups?: [groups: "GROUPS", key: string],
+        stream?: [stream: "STREAM", key: string],
         help?: "HELP"
     ): Promise<unknown>;
 
@@ -7929,7 +7858,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xread)
      */
     xread(
-        block_milliseconds: [block: "BLOCK", milliseconds: number],
+        block: [block: "BLOCK", milliseconds: number],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -7960,7 +7889,7 @@ export interface Commands {
      */
     xread(
         count: [count: "COUNT", count: number],
-        block_milliseconds: [block: "BLOCK", milliseconds: number],
+        block: [block: "BLOCK", milliseconds: number],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -7975,7 +7904,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -7990,11 +7919,11 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        createconsumer_key_groupname_consumername?: [
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8009,8 +7938,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        delconsumer_key_groupname_consumername?: [
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8025,12 +7954,12 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        createconsumer_key_groupname_consumername?: [
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8045,8 +7974,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        delconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8061,12 +7990,12 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        createconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8081,9 +8010,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        delconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8098,13 +8027,13 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xgroup)
      */
     xgroup(
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        createconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8120,13 +8049,13 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8142,17 +8071,17 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        createconsumer_key_groupname_consumername?: [
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8168,14 +8097,14 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        delconsumer_key_groupname_consumername?: [
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8191,18 +8120,18 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        createconsumer_key_groupname_consumername?: [
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8218,14 +8147,14 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        delconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8241,18 +8170,18 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        createconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8268,15 +8197,15 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        delconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8292,19 +8221,19 @@ export interface Commands {
      */
     xgroup(
         create?:
-            | [key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
+            | [create: [create: "CREATE", key_groupname: [key: string, groupname: string]], id: "ID" | "$"]
             | [
-                  key_groupname: [create: "CREATE", key_groupname: [key: string, groupname: string]],
+                  create: [create: "CREATE", key_groupname: [key: string, groupname: string]],
                   id: "ID" | "$",
                   mkstream: "MKSTREAM"
               ],
-        setid?: [key_groupname: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
-        destroy_key_groupname?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
-        createconsumer_key_groupname_consumername?: [
+        setid?: [setid: [setid: "SETID", key_groupname: [key: string, groupname: string]], id: "ID" | "$"],
+        destroy?: [destroy: "DESTROY", key_groupname: [key: string, groupname: string]],
+        createconsumer?: [
             createconsumer: "CREATECONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ],
-        delconsumer_key_groupname_consumername?: [
+        delconsumer?: [
             delconsumer: "DELCONSUMER",
             key_groupname_consumername: [key: string, groupname: string, consumername: string]
         ]
@@ -8319,7 +8248,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -8334,7 +8263,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
@@ -8350,8 +8279,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        block_milliseconds: [block: "BLOCK", milliseconds: number],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        block: [block: "BLOCK", milliseconds: number],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -8366,8 +8295,8 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        block_milliseconds: [block: "BLOCK", milliseconds: number],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        block: [block: "BLOCK", milliseconds: number],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
@@ -8383,7 +8312,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
         count: [count: "COUNT", count: number],
         streams: "STREAMS",
         key: Array<string>,
@@ -8399,7 +8328,7 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
         count: [count: "COUNT", count: number],
         noack: "NOACK",
         streams: "STREAMS",
@@ -8416,9 +8345,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
         count: [count: "COUNT", count: number],
-        block_milliseconds: [block: "BLOCK", milliseconds: number],
+        block: [block: "BLOCK", milliseconds: number],
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
@@ -8433,9 +8362,9 @@ export interface Commands {
      * [Full docs](https://redis.io/commands/xreadgroup)
      */
     xreadgroup(
-        group_consumer: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
         count: [count: "COUNT", count: number],
-        block_milliseconds: [block: "BLOCK", milliseconds: number],
+        block: [block: "BLOCK", milliseconds: number],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
@@ -8501,7 +8430,7 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8519,7 +8448,7 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8538,7 +8467,7 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
+        time?: [time: "TIME", ms_unix_time: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8556,7 +8485,7 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
+        time?: [time: "TIME", ms_unix_time: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8575,8 +8504,8 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        time?: [time: "TIME", ms_unix_time: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8594,8 +8523,8 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        time?: [time: "TIME", ms_unix_time: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8614,7 +8543,7 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
+        idle?: [idle: "IDLE", ms: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8632,7 +8561,7 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
+        idle?: [idle: "IDLE", ms: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8651,8 +8580,8 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        idle?: [idle: "IDLE", ms: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8670,8 +8599,8 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        idle?: [idle: "IDLE", ms: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8690,8 +8619,8 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
+        idle?: [idle: "IDLE", ms: number],
+        time?: [time: "TIME", ms_unix_time: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8709,8 +8638,8 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
+        idle?: [idle: "IDLE", ms: number],
+        time?: [time: "TIME", ms_unix_time: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8729,9 +8658,9 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        idle?: [idle: "IDLE", ms: number],
+        time?: [time: "TIME", ms_unix_time: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         justid?: unknown
     ): Promise<Array<unknown>>;
 
@@ -8749,9 +8678,9 @@ export interface Commands {
         consumer: string,
         min_idle_time: string,
         id: Array<string>,
-        idle_ms?: [idle: "IDLE", ms: number],
-        time_ms_unix_time?: [time: "TIME", ms_unix_time: number],
-        retrycount_count?: [retrycount: "RETRYCOUNT", count: number],
+        idle?: [idle: "IDLE", ms: number],
+        time?: [time: "TIME", ms_unix_time: number],
+        retrycount?: [retrycount: "RETRYCOUNT", count: number],
         force?: unknown,
         justid?: unknown
     ): Promise<Array<unknown>>;
@@ -8769,15 +8698,9 @@ export interface Commands {
         group: string,
         filters?:
             | [start: string, end: string, count: number]
-            | [min_idle_time: [idle: "IDLE", min_idle_time: number], start: string, end: string, count: number]
+            | [idle: [idle: "IDLE", min_idle_time: number], start: string, end: string, count: number]
             | [start: string, end: string, count: number, consumer: string]
-            | [
-                  min_idle_time: [idle: "IDLE", min_idle_time: number],
-                  start: string,
-                  end: string,
-                  count: number,
-                  consumer: string
-              ]
+            | [idle: [idle: "IDLE", min_idle_time: number], start: string, end: string, count: number, consumer: string]
     ): Promise<Array<unknown>>;
 
     /**

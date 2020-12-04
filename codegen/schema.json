@@ -254,7 +254,7 @@
                 }
             },
             {
-                "name": "start_end",
+                "name": "start, end",
                 "optional": true,
                 "schema": {
                     "title": "start, end",
@@ -290,10 +290,10 @@
                 }
             },
             {
-                "name": "GET_type_offset",
+                "name": "GET",
                 "optional": true,
                 "schema": {
-                    "title": "type, offset",
+                    "title": "GET",
                     "type": "array",
                     "items": [
                         {
@@ -318,10 +318,10 @@
                 }
             },
             {
-                "name": "SET_type_offset_value",
+                "name": "SET",
                 "optional": true,
                 "schema": {
-                    "title": "type, offset, value",
+                    "title": "SET",
                     "type": "array",
                     "items": [
                         {
@@ -350,10 +350,10 @@
                 }
             },
             {
-                "name": "INCRBY_type_offset_increment",
+                "name": "INCRBY",
                 "optional": true,
                 "schema": {
-                    "title": "type, offset, increment",
+                    "title": "INCRBY",
                     "type": "array",
                     "items": [
                         {
@@ -382,10 +382,10 @@
                 }
             },
             {
-                "name": "OVERFLOW_WRAP_SAT_or FAIL",
+                "name": "OVERFLOW",
                 "optional": true,
                 "schema": {
-                    "title": "WRAP, SAT, or FAIL",
+                    "title": "OVERFLOW",
                     "type": "array",
                     "items": [
                         {
@@ -758,10 +758,10 @@
                 }
             },
             {
-                "name": "ID_client-id",
+                "name": "ID",
                 "optional": true,
                 "schema": {
-                    "title": "client-id",
+                    "title": "ID",
                     "type": "array",
                     "items": [
                         {
@@ -776,10 +776,10 @@
                 }
             },
             {
-                "name": "TYPE_normal_master_slave_or pubsub",
+                "name": "TYPE",
                 "optional": true,
                 "schema": {
-                    "title": "normal, master, slave, or pubsub",
+                    "title": "TYPE",
                     "type": "array",
                     "items": [
                         {
@@ -795,10 +795,10 @@
                 }
             },
             {
-                "name": "USER_username",
+                "name": "USER",
                 "optional": true,
                 "schema": {
-                    "title": "username",
+                    "title": "USER",
                     "type": "array",
                     "items": [
                         {
@@ -813,10 +813,10 @@
                 }
             },
             {
-                "name": "ADDR_ip:port",
+                "name": "ADDR",
                 "optional": true,
                 "schema": {
-                    "title": "ip:port",
+                    "title": "ADDR",
                     "type": "array",
                     "items": [
                         {
@@ -831,10 +831,10 @@
                 }
             },
             {
-                "name": "SKIPME_yes/no",
+                "name": "SKIPME",
                 "optional": true,
                 "schema": {
-                    "title": "yes/no",
+                    "title": "SKIPME",
                     "type": "array",
                     "items": [
                         {
@@ -858,10 +858,10 @@
         "complexity": "O(N) where N is the number of client connections",
         "arguments": [
             {
-                "name": "TYPE_normal_master_replica_or pubsub",
+                "name": "TYPE",
                 "optional": true,
                 "schema": {
-                    "title": "normal, master, replica, or pubsub",
+                    "title": "TYPE",
                     "type": "array",
                     "items": [
                         {
@@ -959,10 +959,10 @@
                 }
             },
             {
-                "name": "REDIRECT_client-id",
+                "name": "REDIRECT",
                 "optional": true,
                 "schema": {
-                    "title": "client-id",
+                    "title": "REDIRECT",
                     "type": "array",
                     "items": [
                         {
@@ -980,10 +980,10 @@
                 "name": "PREFIX",
                 "optional": true,
                 "schema": {
-                    "title": "prefix",
+                    "title": "PREFIX",
                     "type": "array",
                     "items": {
-                        "title": "prefix",
+                        "title": "PREFIX",
                         "type": "array",
                         "items": [
                             {
@@ -1520,10 +1520,10 @@
                 }
             },
             {
-                "name": "DB_destination-db",
+                "name": "DB",
                 "optional": true,
                 "schema": {
-                    "title": "destination-db",
+                    "title": "DB",
                     "type": "array",
                     "items": [
                         {
@@ -1922,7 +1922,7 @@
                 }
             },
             {
-                "name": "longitude_latitude_member",
+                "name": "longitude, latitude, member",
                 "schema": {
                     "title": "longitude, latitude, member",
                     "type": "array",
@@ -2140,7 +2140,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -2164,10 +2164,10 @@
                 }
             },
             {
-                "name": "STORE_key",
+                "name": "STORE",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "STORE",
                     "type": "array",
                     "items": [
                         {
@@ -2182,10 +2182,10 @@
                 }
             },
             {
-                "name": "STOREDIST_key",
+                "name": "STOREDIST",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "STOREDIST",
                     "type": "array",
                     "items": [
                         {
@@ -2270,7 +2270,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -2294,10 +2294,10 @@
                 }
             },
             {
-                "name": "STORE_key",
+                "name": "STORE",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "STORE",
                     "type": "array",
                     "items": [
                         {
@@ -2312,10 +2312,10 @@
                 }
             },
             {
-                "name": "STOREDIST_key",
+                "name": "STOREDIST",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "STOREDIST",
                     "type": "array",
                     "items": [
                         {
@@ -2489,10 +2489,10 @@
                 }
             },
             {
-                "name": "AUTH_username_password",
+                "name": "AUTH",
                 "optional": true,
                 "schema": {
-                    "title": "username, password",
+                    "title": "AUTH",
                     "type": "array",
                     "items": [
                         {
@@ -2517,10 +2517,10 @@
                 }
             },
             {
-                "name": "SETNAME_clientname",
+                "name": "SETNAME",
                 "optional": true,
                 "schema": {
-                    "title": "clientname",
+                    "title": "SETNAME",
                     "type": "array",
                     "items": [
                         {
@@ -2770,7 +2770,7 @@
                 }
             },
             {
-                "name": "field_value",
+                "name": "field, value",
                 "schema": {
                     "title": "field, value",
                     "type": "array",
@@ -2810,7 +2810,7 @@
                 }
             },
             {
-                "name": "field_value",
+                "name": "field, value",
                 "schema": {
                     "title": "field, value",
                     "type": "array",
@@ -3008,7 +3008,7 @@
                 "name": "VERSION",
                 "optional": true,
                 "schema": {
-                    "title": "version",
+                    "title": "VERSION",
                     "type": "array",
                     "items": [
                         {
@@ -3196,7 +3196,7 @@
                 "name": "RANK",
                 "optional": true,
                 "schema": {
-                    "title": "rank",
+                    "title": "RANK",
                     "type": "array",
                     "items": [
                         {
@@ -3211,10 +3211,10 @@
                 }
             },
             {
-                "name": "COUNT_num-matches",
+                "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "num-matches",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -3229,10 +3229,10 @@
                 }
             },
             {
-                "name": "MAXLEN_len",
+                "name": "MAXLEN",
                 "optional": true,
                 "schema": {
-                    "title": "len",
+                    "title": "MAXLEN",
                     "type": "array",
                     "items": [
                         {
@@ -3489,10 +3489,10 @@
                 }
             },
             {
-                "name": "SAMPLES_count",
+                "name": "SAMPLES",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "SAMPLES",
                     "type": "array",
                     "items": [
                         {
@@ -3602,10 +3602,10 @@
                 }
             },
             {
-                "name": "AUTH_password",
+                "name": "AUTH",
                 "optional": true,
                 "schema": {
-                    "title": "password",
+                    "title": "AUTH",
                     "type": "array",
                     "items": [
                         {
@@ -3620,10 +3620,10 @@
                 }
             },
             {
-                "name": "AUTH2_username password",
+                "name": "AUTH2",
                 "optional": true,
                 "schema": {
-                    "title": "username password",
+                    "title": "AUTH2",
                     "type": "array",
                     "items": [
                         {
@@ -3641,7 +3641,7 @@
                 "name": "KEYS",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "KEYS",
                     "type": "array",
                     "items": [
                         {
@@ -3755,7 +3755,7 @@
         "complexity": "O(N) where N is the number of keys to set.",
         "arguments": [
             {
-                "name": "key_value",
+                "name": "key, value",
                 "schema": {
                     "title": "key, value",
                     "type": "array",
@@ -3788,7 +3788,7 @@
         "complexity": "O(N) where N is the number of keys to set.",
         "arguments": [
             {
-                "name": "key_value",
+                "name": "key, value",
                 "schema": {
                     "title": "key, value",
                     "type": "array",
@@ -4324,10 +4324,10 @@
                 }
             },
             {
-                "name": "IDLETIME_seconds",
+                "name": "IDLETIME",
                 "optional": true,
                 "schema": {
-                    "title": "seconds",
+                    "title": "IDLETIME",
                     "type": "array",
                     "items": [
                         {
@@ -4342,10 +4342,10 @@
                 }
             },
             {
-                "name": "FREQ_frequency",
+                "name": "FREQ",
                 "optional": true,
                 "schema": {
-                    "title": "frequency",
+                    "title": "FREQ",
                     "type": "array",
                     "items": [
                         {
@@ -5189,10 +5189,10 @@
                 }
             },
             {
-                "name": "BY_pattern",
+                "name": "BY",
                 "optional": true,
                 "schema": {
-                    "title": "pattern",
+                    "title": "BY",
                     "type": "array",
                     "items": [
                         {
@@ -5207,10 +5207,10 @@
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
-                    "title": "offset, count",
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -5235,13 +5235,13 @@
                 }
             },
             {
-                "name": "GET_pattern",
+                "name": "GET",
                 "optional": true,
                 "schema": {
-                    "title": "pattern",
+                    "title": "GET",
                     "type": "array",
                     "items": {
-                        "title": "pattern",
+                        "title": "GET",
                         "type": "array",
                         "items": [
                             {
@@ -5275,10 +5275,10 @@
                 }
             },
             {
-                "name": "STORE_destination",
+                "name": "STORE",
                 "optional": true,
                 "schema": {
-                    "title": "destination",
+                    "title": "STORE",
                     "type": "array",
                     "items": [
                         {
@@ -5806,7 +5806,7 @@
                 }
             },
             {
-                "name": "score_member",
+                "name": "score, member",
                 "schema": {
                     "title": "score, member",
                     "type": "array",
@@ -6047,7 +6047,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
-                    "title": "weight",
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -6068,7 +6068,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
-                    "title": "aggregate",
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -6132,7 +6132,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
-                    "title": "weight",
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -6153,7 +6153,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
-                    "title": "aggregate",
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -6335,10 +6335,10 @@
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
-                    "title": "offset, count",
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -6398,10 +6398,10 @@
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
-                    "title": "offset, count",
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -6492,10 +6492,10 @@
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
-                    "title": "offset, count",
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -6809,10 +6809,10 @@
                 }
             },
             {
-                "name": "LIMIT_offset_count",
+                "name": "LIMIT",
                 "optional": true,
                 "schema": {
-                    "title": "offset, count",
+                    "title": "LIMIT",
                     "type": "array",
                     "items": [
                         {
@@ -6926,7 +6926,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
-                    "title": "weight",
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -6947,7 +6947,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
-                    "title": "aggregate",
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -7047,7 +7047,7 @@
                 "name": "WEIGHTS",
                 "optional": true,
                 "schema": {
-                    "title": "weight",
+                    "title": "WEIGHTS",
                     "type": "array",
                     "items": [
                         {
@@ -7068,7 +7068,7 @@
                 "name": "AGGREGATE",
                 "optional": true,
                 "schema": {
-                    "title": "aggregate",
+                    "title": "AGGREGATE",
                     "type": "array",
                     "items": [
                         {
@@ -7102,10 +7102,10 @@
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
-                    "title": "pattern",
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -7123,7 +7123,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7141,7 +7141,7 @@
                 "name": "TYPE",
                 "optional": true,
                 "schema": {
-                    "title": "type",
+                    "title": "TYPE",
                     "type": "array",
                     "items": [
                         {
@@ -7179,10 +7179,10 @@
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
-                    "title": "pattern",
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -7200,7 +7200,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7238,10 +7238,10 @@
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
-                    "title": "pattern",
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -7259,7 +7259,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7297,10 +7297,10 @@
                 }
             },
             {
-                "name": "MATCH_pattern",
+                "name": "MATCH",
                 "optional": true,
                 "schema": {
-                    "title": "pattern",
+                    "title": "MATCH",
                     "type": "array",
                     "items": [
                         {
@@ -7318,7 +7318,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7342,10 +7342,10 @@
         "complexity": "O(N) with N being the number of returned items for the subcommands CONSUMERS and GROUPS. The STREAM subcommand is O(log N) with N being the number of items in the stream.",
         "arguments": [
             {
-                "name": "CONSUMERS_key_groupname",
+                "name": "CONSUMERS",
                 "optional": true,
                 "schema": {
-                    "title": "key, groupname",
+                    "title": "CONSUMERS",
                     "type": "array",
                     "items": [
                         {
@@ -7370,10 +7370,10 @@
                 }
             },
             {
-                "name": "GROUPS_key",
+                "name": "GROUPS",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "GROUPS",
                     "type": "array",
                     "items": [
                         {
@@ -7388,10 +7388,10 @@
                 }
             },
             {
-                "name": "STREAM_key",
+                "name": "STREAM",
                 "optional": true,
                 "schema": {
-                    "title": "key",
+                    "title": "STREAM",
                     "type": "array",
                     "items": [
                         {
@@ -7478,7 +7478,7 @@
                 }
             },
             {
-                "name": "*_or ID",
+                "name": "*, or ID",
                 "schema": {
                     "title": "*, or ID",
                     "type": "string",
@@ -7486,7 +7486,7 @@
                 }
             },
             {
-                "name": "field_value",
+                "name": "field, value",
                 "schema": {
                     "title": "field, value",
                     "type": "array",
@@ -7630,7 +7630,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7680,7 +7680,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7727,7 +7727,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -7742,10 +7742,10 @@
                 }
             },
             {
-                "name": "BLOCK_milliseconds",
+                "name": "BLOCK",
                 "optional": true,
                 "schema": {
-                    "title": "milliseconds",
+                    "title": "BLOCK",
                     "type": "array",
                     "items": [
                         {
@@ -7810,7 +7810,7 @@
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "key, groupname",
+                                    "title": "CREATE",
                                     "type": "array",
                                     "items": [
                                         {
@@ -7844,7 +7844,7 @@
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "key, groupname",
+                                    "title": "CREATE",
                                     "type": "array",
                                     "items": [
                                         {
@@ -7890,7 +7890,7 @@
                     "type": "array",
                     "items": [
                         {
-                            "title": "key, groupname",
+                            "title": "SETID",
                             "type": "array",
                             "items": [
                                 {
@@ -7922,10 +7922,10 @@
                 }
             },
             {
-                "name": "DESTROY_key_groupname",
+                "name": "DESTROY",
                 "optional": true,
                 "schema": {
-                    "title": "key, groupname",
+                    "title": "DESTROY",
                     "type": "array",
                     "items": [
                         {
@@ -7950,10 +7950,10 @@
                 }
             },
             {
-                "name": "CREATECONSUMER_key_groupname_consumername",
+                "name": "CREATECONSUMER",
                 "optional": true,
                 "schema": {
-                    "title": "key, groupname, consumername",
+                    "title": "CREATECONSUMER",
                     "type": "array",
                     "items": [
                         {
@@ -7982,10 +7982,10 @@
                 }
             },
             {
-                "name": "DELCONSUMER_key_groupname_consumername",
+                "name": "DELCONSUMER",
                 "optional": true,
                 "schema": {
-                    "title": "key, groupname, consumername",
+                    "title": "DELCONSUMER",
                     "type": "array",
                     "items": [
                         {
@@ -8023,9 +8023,9 @@
         "complexity": "For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.",
         "arguments": [
             {
-                "name": "GROUP_consumer",
+                "name": "GROUP",
                 "schema": {
-                    "title": "group, consumer",
+                    "title": "GROUP",
                     "type": "array",
                     "items": [
                         {
@@ -8053,7 +8053,7 @@
                 "name": "COUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "COUNT",
                     "type": "array",
                     "items": [
                         {
@@ -8068,10 +8068,10 @@
                 }
             },
             {
-                "name": "BLOCK_milliseconds",
+                "name": "BLOCK",
                 "optional": true,
                 "schema": {
-                    "title": "milliseconds",
+                    "title": "BLOCK",
                     "type": "array",
                     "items": [
                         {
@@ -8209,10 +8209,10 @@
                 }
             },
             {
-                "name": "IDLE_ms",
+                "name": "IDLE",
                 "optional": true,
                 "schema": {
-                    "title": "ms",
+                    "title": "IDLE",
                     "type": "array",
                     "items": [
                         {
@@ -8227,10 +8227,10 @@
                 }
             },
             {
-                "name": "TIME_ms-unix-time",
+                "name": "TIME",
                 "optional": true,
                 "schema": {
-                    "title": "ms-unix-time",
+                    "title": "TIME",
                     "type": "array",
                     "items": [
                         {
@@ -8245,10 +8245,10 @@
                 }
             },
             {
-                "name": "RETRYCOUNT_count",
+                "name": "RETRYCOUNT",
                 "optional": true,
                 "schema": {
-                    "title": "count",
+                    "title": "RETRYCOUNT",
                     "type": "array",
                     "items": [
                         {
@@ -8328,7 +8328,7 @@
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "min-idle-time",
+                                    "title": "IDLE",
                                     "type": "array",
                                     "items": [
                                         {
@@ -8380,7 +8380,7 @@
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "min-idle-time",
+                                    "title": "IDLE",
                                     "type": "array",
                                     "items": [
                                         {

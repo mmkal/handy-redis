@@ -25,7 +25,7 @@ const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg
         name = "..." + name;
     }
     const optionalMarker = !isVarArg && arr.slice(i).every(a => a.optional) ? "?" : "";
-    return [name || `arg_${i}`, optionalMarker, ": ", type].join("");
+    return [name || santiseArgName(type), optionalMarker, ": ", type].join("");
 };
 
 const formatCodeArguments = (list: JsonSchemaCommandArgument[]) => list.map(codeArgument).join(", ");

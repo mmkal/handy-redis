@@ -10,7 +10,7 @@ const argToSchema: typeof argToSchemaNoTitle = arg => {
     const schema = argToSchemaNoTitle(arg)
     const name = arg.name || arg.enum?.map?.((e, i, a) => i > 0 && i === a.length - 1 ? `or ${e}` : e)
     return {
-        title: Array.isArray(name) ? name.join(', ') : (name || arg.command || 'foobarbaz'),
+        title: arg.command || (Array.isArray(name) ? name.join(', ') : (name || arg.command || 'foobarbaz')),
         ...schema,
     }
 }
@@ -175,20 +175,27 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
 
 const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
-    arguments: (command?.arguments || []).map(arg => ({
-        name: [arg.command, arg.name || arg.enum?.map?.((e, i, a) => i > 0 && i === a.length - 1 ? `or ${e}` : e)]
-            .flat()
-            .filter(
-                (val, i, arr) =>
+    arguments: (command?.arguments || []).map(arg => {
+        const schema = argToSchema(arg)
+        return {
+            name: [arg.command, schema.title || arg.name]
+                .flat()
+                .filter((val, i, arr) =>
                     val &&
-                    val !== arr[i - 1] &&
-                    val.toUpperCase() !== arr[i - 1] &&
-                    val.toUpperCase() + "S" !== arr[i - 1]
-            )
-            .join("_"),
-        optional: arg.optional,
-        schema: argToSchema(arg),
-    })),
+                    !arr[i+1]?.toUpperCase().startsWith(val.toUpperCase())
+                )
+                .filter(
+                    (val, i, arr) =>
+                        val &&
+                        val !== arr[i - 1] &&
+                        val.toUpperCase() !== arr[i - 1] &&
+                        val.toUpperCase() + "S" !== arr[i - 1]
+                )
+                .join("_"),
+            optional: arg.optional,
+            schema,
+        }
+    }),
     return: argToReturn(key),
 });
 

@@ -6,7 +6,16 @@ import * as commandTypes from "./command";
 import { fixupSchema } from "./patches/schema";
 import { JsonSchemaCommand } from ".";
 
-const argToSchema = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
+const argToSchema: typeof argToSchemaNoTitle = arg => {
+    const schema = argToSchemaNoTitle(arg)
+    const name = arg.name || arg.enum?.map?.((e, i, a) => i > 0 && i === a.length - 1 ? `or ${e}` : e)
+    return {
+        title: Array.isArray(name) ? name.join(', ') : (name || arg.command || 'foobarbaz'),
+        ...schema,
+    }
+}
+
+const argToSchemaNoTitle = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 => {
     if (arg.variadic && arg.command) {
         return {
             type: "array",

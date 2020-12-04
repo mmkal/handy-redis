@@ -52,8 +52,7 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
             const labeled = schema.items.map(item => {
                 const itemSchema = item as jsonSchema.JSONSchema7
                 const ts = schemaToTypeScript(itemSchema)
-                // todo: this relies on labeled tuples so should use https://github.com/sandersn/downlevel-dts
-                return itemSchema.title ? `${santiseArgName(itemSchema.title)}: (${ts})` : `(${ts})`
+                return `${santiseArgName(itemSchema.title || ts)}: (${ts})`
             })
             return `[${labeled.join(', ')}]`
         }

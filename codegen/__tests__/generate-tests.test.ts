@@ -40,7 +40,7 @@ describe("toArgs", () => {
             Object {
               "command": "set",
               "context": Array [
-                "decoding set overload 0 (key,value): { name: 'key', schema: { type: 'string' } },{ name: 'value', schema: { type: 'string' } }",
+                "decoding set overload 0 (key,value): { name: 'key', schema: { title: 'key', type: 'string' } },{ name: 'value', schema: { title: 'value', type: 'string' } }",
                 "foo successfully decoded as key (string). Decoded value foo. Tokens remaining [bar,WRONG,123], target args remainin count: 1",
                 "bar successfully decoded as value (string). Decoded value bar. Tokens remaining [WRONG,123], target args remainin count: 0",
                 "Tokens remain but no target args left! Tokens: WRONG,123",
@@ -76,7 +76,7 @@ describe("toArgs", () => {
             Object {
               "command": "setbit",
               "context": Array [
-                "decoding setbit overload 0 (key,offset,value): { name: 'key', schema: { type: 'string' } },{ name: 'offset', schema: { type: 'integer' } },{ name: 'value', schema: { type: 'integer' } }",
+                "decoding setbit overload 0 (key,offset,value): { name: 'key', schema: { title: 'key', type: 'string' } },{ name: 'offset', schema: { title: 'offset', type: 'integer' } },{ name: 'value', schema: { title: 'value', type: 'integer' } }",
                 "foo successfully decoded as key (string). Decoded value foo. Tokens remaining [1.2,34], target args remainin count: 2",
                 "1.2 isn't an integer. Decoded as something different: 1",
               ],
@@ -89,7 +89,7 @@ describe("toArgs", () => {
             Object {
               "command": "setbit",
               "context": Array [
-                "decoding setbit overload 0 (key,offset,value): { name: 'key', schema: { type: 'string' } },{ name: 'offset', schema: { type: 'integer' } },{ name: 'value', schema: { type: 'integer' } }",
+                "decoding setbit overload 0 (key,offset,value): { name: 'key', schema: { title: 'key', type: 'string' } },{ name: 'offset', schema: { title: 'offset', type: 'integer' } },{ name: 'value', schema: { title: 'value', type: 'integer' } }",
                 "foo successfully decoded as key (string). Decoded value foo. Tokens remaining [not_an_integer,34], target args remainin count: 2",
                 "not_an_integer isn't an integer. Decoded as something different: NaN",
               ],

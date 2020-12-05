@@ -98,6 +98,30 @@ const argToSchemaNoTitle = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 
             })),
         };
     }
+    if (arg.type === "block" && Array.isArray(arg.block)) {
+        const blockOptions = arg.block.reduce(
+            (options, b) => {
+                const nextSchema = argToSchema(b);
+                const newOptions = options.map(o => [...o, nextSchema]);
+                if (b.optional) {
+                    return [...options, ...newOptions];
+                }
+                return newOptions;
+            },
+            [[]] as jsonSchema.JSONSchema7[][]
+        );
+        const anyOf = blockOptions.map<jsonSchema.JSONSchema7>(o =>
+            o.length === 1 ? o[0] : { type: "array", items: o }
+        );
+
+        if (anyOf.length === 1) {
+            return anyOf[0];
+        }
+
+        return {
+            anyOf,
+        };
+    }
     return {};
 };
 

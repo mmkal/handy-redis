@@ -36,7 +36,7 @@
     "clean": "del-cli 'dist' 'ts34' 'src/generated' 'test/generated'",
     "codegen": "ts-node codegen/generate-schema && ts-node codegen/generate-client && ts-node codegen/generate-tests",
     "compile": "tsc -p tsconfig.lib.json",
-    "postcompile": "downlevel-dts dist ts34/dist --to=3.4 && mv ts34/dist/push.ts34.d.ts ts34/dist/push.d.ts",
+    "postcompile": "node downlevel",
     "coverage": "yarn test --coverage",
     "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
     "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",

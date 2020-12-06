@@ -15,3 +15,11 @@ export const writeFile = (filepath: string, contents: string) => {
     }
     fs.writeFileSync(filepath, contents, "utf8");
 };
+
+/** dumb util that checks a conidition before running, to avoid needing to istanbul ignore `require.main === module` checks */
+export const maybeDo = async <T>(shouldDo: boolean, doIt: () => T | Promise<T>): Promise<T | null> => {
+    if (shouldDo) {
+        return doIt()
+    }
+    return null
+}

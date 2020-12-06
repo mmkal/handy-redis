@@ -1,4 +1,4 @@
-import { writeFile } from "./util";
+import { maybeDo, writeFile } from "./util";
 import * as cmnds from "../docs/redis-doc/commands.json";
 import * as path from "path";
 import * as jsonSchema from "json-schema";
@@ -199,7 +199,7 @@ const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSche
     return: argToReturn(key),
 });
 
-const main = () => {
+export const main = () => {
     const jsonified = Object.keys(cmnds).reduce(
         (dict, key: keyof typeof cmnds) => ({
             ...dict,
@@ -213,6 +213,4 @@ const main = () => {
     writeFile(path.join(__dirname, "schema.json"), JSON.stringify(fixed, null, 2));
 };
 
-if (require.main === module) {
-    main();
-}
+maybeDo(require.main === module, main)

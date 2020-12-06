@@ -4,7 +4,7 @@ import * as path from "path";
 import * as fs from "fs";
 import { overloads as getOverloads } from "./generate-client";
 import { inspect } from "util";
-import { writeFile } from "./util";
+import { maybeDo, writeFile } from "./util";
 import { parseArgsStringToArgv } from "string-argv";
 import { fixupGeneratedTests } from "./patches/tests";
 import { fixMarkdownExampleLine } from "./patches/markdown";
@@ -261,7 +261,7 @@ const decodeTokensCore = (
 
 const unixify = (p: string) => p.replace(/\\/g, "/");
 
-const writeTests = () => {
+export const main = () => {
     lo.chain(extractAllCliExamples())
         .map(tokenizeCliExample)
         .flatMap(a =>
@@ -383,6 +383,4 @@ export const stringifyWithVarArgs = (input: unknown) =>
         return val;
     });
 
-if (require.main === module) {
-    writeTests();
-}
+maybeDo(require.main === module, main)

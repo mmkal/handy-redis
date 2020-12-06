@@ -1,5 +1,5 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
-import { writeFile } from "./util";
+import { maybeDo, writeFile } from "./util";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 import { fixupClientTypescript } from "./patches/client";
@@ -155,6 +155,4 @@ export const main = () => {
     writeFile(process.cwd() + "/src/generated/interface.ts", getTypeScriptInterface(actualSchema));
 };
 
-if (require.main === module) {
-    main();
-}
+maybeDo(require.main === module, main)

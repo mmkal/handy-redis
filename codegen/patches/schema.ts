@@ -71,6 +71,7 @@ function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
         if (name in manuallyFixedUp) {
             command.return = manuallyFixedUp[name] || command.return;
         } else if (command.return.type === "array" && !command.return.items && process.env.FIND_GENERIC_ARRAYS) {
+            /* istanbul ignore next */
             console.warn(`${name} has a generic array return type`);
         }
     });
@@ -112,6 +113,7 @@ function fixScoreValues(schema: Record<string, JsonSchemaCommand>) {
     intervalScoreArgs.forEach(({ command, argument }) => {
         const existing = schema[command]?.arguments.find(a => a.name === argument && a.schema.type === "number");
         if (!existing) {
+            /* istanbul ignore next */
             throw Error(`Expected command ${command} to have number argument called ${argument}`);
         }
         existing.schema = {

@@ -36,6 +36,9 @@ test("client has promisified redis methods", () => {
     expectTypeOf(client.end).returns.toEqualTypeOf<void>();
 
     expectTypeOf(client.spop).returns.resolves.toEqualTypeOf<null | string | string[]>();
+
+    // @ts-expect-error
+    expectTypeOf(client.xgroup).toBeCallableWith([["CREATE", ["foo", "bar"]], "SOMETHINGWRONG"]);
 });
 
 test("Push", () => {
@@ -47,3 +50,28 @@ test("Push", () => {
     expectTypeOf<Push_ts34<[], 1>>().toEqualTypeOf<1[]>();
     expectTypeOf<Push_ts34<[1, 2], 3>>().toEqualTypeOf<Array<1 | 2 | 3>>();
 });
+
+const _xgroupTests = async (client: WrappedNodeRedisClient) => {
+    await client.xgroup(
+        [["CREATE", ["one", "two"]], "ID", "MKSTREAM"],
+        ["DESTROY", ["three", "four"]],
+        ["CREATECONSUMER", ["five", "six", "seven"]],
+        ["DELCONSUMER", ["eight", "nine", "ten"]]
+    );
+
+    await client.xgroup(
+        // @ts-expect-error
+        [["CREATE", ["one", "two"]], "ID", "typo_this_should_be_MKSTREAM"],
+        ["DESTROY", ["three", "four"]],
+        ["CREATECONSUMER", ["five", "six", "seven"]],
+        ["DELCONSUMER", ["eight", "nine", "ten"]]
+    );
+
+    await client.xgroup(
+        [["CREATE", ["one", "two"]], "ID"],
+        [["SETID", ["one", "two"]], "$"],
+        ["DESTROY", ["three", "four"]],
+        ["CREATECONSUMER", ["five", "six", "seven"]],
+        ["DELCONSUMER", ["eight", "nine", "ten"]]
+    );
+};

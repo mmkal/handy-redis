@@ -1500,6 +1500,58 @@
         "arguments": [],
         "return": {}
     },
+    "COPY": {
+        "summary": "Copy a key",
+        "complexity": "O(N) worst case for collections, where N is the number of nested items. O(1) for string values.",
+        "since": "6.2.0",
+        "arguments": [
+            {
+                "name": "source",
+                "schema": {
+                    "title": "source",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "destination",
+                "schema": {
+                    "title": "destination",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "DB",
+                "optional": true,
+                "schema": {
+                    "title": "DB",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "DB"
+                        },
+                        {
+                            "title": "destination-db",
+                            "type": "integer"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "replace",
+                "optional": true,
+                "schema": {
+                    "title": "replace",
+                    "type": "string",
+                    "enum": ["REPLACE"]
+                }
+            }
+        ],
+        "group": "generic",
+        "return": {
+            "type": "integer"
+        }
+    },
     "DBSIZE": {
         "summary": "Return the number of keys in the selected database",
         "since": "1.0.0",
@@ -7379,10 +7431,58 @@
                 }
             },
             {
-                "name": "ID",
+                "name": "maxlen",
+                "optional": true,
                 "schema": {
-                    "title": "ID",
-                    "type": "string"
+                    "title": "maxlen",
+                    "type": "array",
+                    "items": [
+                        {
+                            "title": "MAXLEN",
+                            "type": "string",
+                            "const": "MAXLEN"
+                        },
+                        {
+                            "title": "operator",
+                            "anyOf": [
+                                {
+                                    "title": "length",
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "title": "=, or ~",
+                                            "type": "string",
+                                            "enum": ["=", "~"]
+                                        },
+                                        {
+                                            "title": "length",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "NOMKSTREAM",
+                "optional": true,
+                "schema": {
+                    "title": "NOMKSTREAM",
+                    "type": "string",
+                    "const": "NOMKSTREAM"
+                }
+            },
+            {
+                "name": "*, or ID",
+                "schema": {
+                    "title": "*, or ID",
+                    "type": "string",
+                    "enum": ["*", "ID"]
                 }
             },
             {
@@ -7410,7 +7510,14 @@
         "since": "5.0.0",
         "group": "stream",
         "return": {
-            "type": "string"
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     },
     "XTRIM": {
@@ -7433,19 +7540,29 @@
                 }
             },
             {
-                "name": "approx",
-                "optional": true,
+                "name": "operator",
                 "schema": {
-                    "title": "approx",
-                    "type": "string",
-                    "enum": ["~"]
-                }
-            },
-            {
-                "name": "count",
-                "schema": {
-                    "title": "count",
-                    "type": "integer"
+                    "title": "operator",
+                    "anyOf": [
+                        {
+                            "title": "length",
+                            "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "=, or ~",
+                                    "type": "string",
+                                    "enum": ["=", "~"]
+                                },
+                                {
+                                    "title": "length",
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         ],
@@ -7662,12 +7779,12 @@
                 }
             },
             {
-                "name": "id",
+                "name": "ID",
                 "schema": {
-                    "title": "id",
+                    "title": "ID",
                     "type": "array",
                     "items": {
-                        "title": "id",
+                        "title": "ID",
                         "type": "string"
                     }
                 }
@@ -7684,31 +7801,81 @@
         "complexity": "O(1) for all the subcommands, with the exception of the DESTROY subcommand which takes an additional O(M) time in order to delete the M entries inside the consumer group pending entries list (PEL).",
         "arguments": [
             {
-                "name": "CREATE",
+                "name": "create",
                 "optional": true,
                 "schema": {
-                    "title": "CREATE",
-                    "type": "array",
-                    "items": [
+                    "title": "create",
+                    "anyOf": [
                         {
-                            "type": "string",
-                            "const": "CREATE"
-                        },
-                        {
-                            "title": "key, groupname, id-or-$",
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "key",
-                                    "type": "string"
+                                    "title": "CREATE",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "CREATE"
+                                        },
+                                        {
+                                            "title": "key, groupname",
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "title": "key",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "title": "groupname",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
-                                    "title": "groupname",
-                                    "type": "string"
+                                    "title": "id",
+                                    "type": "string",
+                                    "enum": ["ID", "$"]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "CREATE",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "CREATE"
+                                        },
+                                        {
+                                            "title": "key, groupname",
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "title": "key",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "title": "groupname",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 },
                                 {
-                                    "title": "id-or-$",
-                                    "type": "string"
+                                    "title": "id",
+                                    "type": "string",
+                                    "enum": ["ID", "$"]
+                                },
+                                {
+                                    "title": "MKSTREAM",
+                                    "type": "string",
+                                    "const": "MKSTREAM"
                                 }
                             ]
                         }
@@ -7716,33 +7883,40 @@
                 }
             },
             {
-                "name": "SETID",
+                "name": "setid",
                 "optional": true,
                 "schema": {
-                    "title": "SETID",
+                    "title": "setid",
                     "type": "array",
                     "items": [
                         {
-                            "type": "string",
-                            "const": "SETID"
-                        },
-                        {
-                            "title": "key, groupname, id-or-$",
+                            "title": "SETID",
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "key",
-                                    "type": "string"
+                                    "type": "string",
+                                    "const": "SETID"
                                 },
                                 {
-                                    "title": "groupname",
-                                    "type": "string"
-                                },
-                                {
-                                    "title": "id-or-$",
-                                    "type": "string"
+                                    "title": "key, groupname",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "title": "key",
+                                            "type": "string"
+                                        },
+                                        {
+                                            "title": "groupname",
+                                            "type": "string"
+                                        }
+                                    ]
                                 }
                             ]
+                        },
+                        {
+                            "title": "id",
+                            "type": "string",
+                            "enum": ["ID", "$"]
                         }
                     ]
                 }
@@ -8111,7 +8285,7 @@
     },
     "XPENDING": {
         "summary": "Return information and entries from a stream consumer group pending entries list, that are messages fetched but never acknowledged.",
-        "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). When the command returns just the summary it runs in O(1) time assuming the list of consumers is small, otherwise there is additional O(N) time needed to iterate every consumer.",
+        "complexity": "O(N) with N being the number of elements returned, so asking for a small fixed number of entries per call is O(1). O(M), where M is the total number of entries scanned when used with the IDLE filter. When the command returns just the summary and the list of consumers is small, it runs in O(1) time; otherwise, an additional O(N) time for iterating every consumer.",
         "arguments": [
             {
                 "name": "key",
@@ -8128,49 +8302,114 @@
                 }
             },
             {
-                "name": "start, end, count",
+                "name": "filters",
                 "optional": true,
                 "schema": {
-                    "title": "start, end, count",
-                    "type": "array",
-                    "items": [
+                    "title": "filters",
+                    "anyOf": [
                         {
-                            "title": "start",
-                            "type": "string"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "start",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "end",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
                         },
                         {
-                            "title": "end",
-                            "type": "string"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "IDLE",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "IDLE"
+                                        },
+                                        {
+                                            "title": "min-idle-time",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "start",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "end",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
                         },
                         {
-                            "title": "count",
-                            "type": "integer"
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "consumer",
-                "optional": true,
-                "schema": {
-                    "title": "consumer",
-                    "type": "string"
-                }
-            },
-            {
-                "name": "IDLE",
-                "optional": true,
-                "schema": {
-                    "title": "IDLE",
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string",
-                            "const": "IDLE"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "start",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "end",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "consumer",
+                                    "type": "string"
+                                }
+                            ]
                         },
                         {
-                            "title": "min-idle-time",
-                            "type": "integer"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "IDLE",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "IDLE"
+                                        },
+                                        {
+                                            "title": "min-idle-time",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "start",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "end",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "consumer",
+                                    "type": "string"
+                                }
+                            ]
                         }
                     ]
                 }

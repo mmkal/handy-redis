@@ -1,5 +1,5 @@
 import { Commands } from "../generated/interface";
-import { Push } from "../type-util";
+import { Push } from "../push";
 
 export type ResultType<K extends keyof Commands> = ReturnType<Commands[K]> extends Promise<infer X> ? X : never;
 

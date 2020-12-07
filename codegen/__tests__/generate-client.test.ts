@@ -32,7 +32,7 @@ test("formatOverloads", () => {
                          * 
                          * [Full docs](https://redis.io/commands/latency-reset)
                          */
-                        latency(latency_subcommand: \\"RESET\\", ...event?: Array<string>):
+                        latency(latency_subcommand: \\"RESET\\", ...event: Array<string>):
                             Promise<unknown>
                     ",
         ]
@@ -72,7 +72,7 @@ test("formatOverloads", () => {
                          * 
                          * [Full docs](https://redis.io/commands/set)
                          */
-                        set(key: string, value: string, expiration?: ([(\\"EX\\"|\\"PX\\"), (number)]) | (\\"KEEPTTL\\"), get?: \\"GET\\"):
+                        set(key: string, value: string, expiration?: ([ex_px: (\\"EX\\"|\\"PX\\"), number: (number)]) | (\\"KEEPTTL\\"), get?: \\"GET\\"):
                             Promise<(\\"OK\\") | (string) | (null)>
                     ",
           "
@@ -84,7 +84,7 @@ test("formatOverloads", () => {
                          * 
                          * [Full docs](https://redis.io/commands/set)
                          */
-                        set(key: string, value: string, expiration?: ([(\\"EX\\"|\\"PX\\"), (number)]) | (\\"KEEPTTL\\"), condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
+                        set(key: string, value: string, expiration?: ([ex_px: (\\"EX\\"|\\"PX\\"), number: (number)]) | (\\"KEEPTTL\\"), condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
                             Promise<(\\"OK\\") | (string) | (null)>
                     ",
         ]

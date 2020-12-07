@@ -7,5 +7,5 @@
     "declaration": true,
     "noEmit": false
   },
-  "exclude": ["dist", "node_modules", "temp", "codegen", "test"]
+  "exclude": ["dist", "ts34", "node_modules", "temp", "codegen", "test"]
 }

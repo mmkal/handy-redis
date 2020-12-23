@@ -9,6 +9,7 @@ import { parseArgsStringToArgv } from "string-argv";
 import { fixupGeneratedTests } from "./patches/tests";
 import { fixMarkdownExampleLine } from "./patches/markdown";
 import * as lo from "lodash";
+import * as jsonSchema from "json-schema";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -170,8 +171,7 @@ const decodeTokensCore = (
         return next(headDecoded);
     }
 
-    const asSchema = (def: typeof headArg.schema.items) =>
-        Array.isArray(def) || typeof def === "undefined" || typeof def === "boolean" ? {} : def;
+    const asSchema = (def: typeof headArg.schema.items) => def as jsonSchema.JSONSchema7;
 
     if (headArg.schema.type === "array" && Array.isArray(headArg.schema.items)) {
         // it's a tuple
@@ -212,12 +212,6 @@ const decodeTokensCore = (
             decoded: [[]],
         };
         do {
-            if (acc.error) {
-                return acc;
-            }
-            if (acc.leftovers.length === 0) {
-                return acc;
-            }
             const next = decodeTokensCore(
                 acc.leftovers,
                 [{ name: headArg.name, schema: asSchema(headArg.schema.items) }],
@@ -285,37 +279,16 @@ export const main = () => {
                     .replace(/^docs\//, "")
                     .replace(/\.md$/, "")}.test.ts`
             );
-
-            const existingContentPaths = [
-                destPath,
-                unixify(destPath).replace("test/generated", "temp/backup-test-generated"),
-            ];
-            const existingContent =
-                existingContentPaths
-                    .filter(fs.existsSync)
-                    .slice(0, 1)
-                    .map(p => fs.readFileSync(p).toString())[0] || "";
-
-            const existingSnapshots = existingContent
-                .split(".toMatchInlineSnapshot")
-                .slice(1)
-                .map(section => {
-                    if (section.startsWith("()")) {
-                        return "";
-                    }
-                    const backtick = "`";
-                    const firstBacktick = section.indexOf(backtick);
-                    let secondBacktick = section.indexOf(backtick, firstBacktick + 1);
-                    while (section[secondBacktick - 1] === "\\") {
-                        secondBacktick = section.indexOf(backtick, secondBacktick + 1);
-                    }
-                    if (firstBacktick === secondBacktick) {
-                        return "";
-                    }
-                    return section.slice(firstBacktick, secondBacktick + 1);
-                });
-
             const blocks = Object.entries(lo.groupBy(examples, m => m.index + 1));
+
+            const existingSnapshots = [
+                ...getExistingSnapshots([
+                    destPath,
+                    unixify(destPath).replace("test/generated", "temp/backup-test-generated"),
+                ]),
+                ...blocks.map(() => ""), // empty string fallbacks so there's always a snapshot available
+            ];
+
             const testFns = blocks.map(([blockNumber, block], i) => {
                 const setup = `const outputs: Record<string, unknown> = {}`;
                 const test = block
@@ -330,7 +303,8 @@ export const main = () => {
                         return usageOrFailureComments;
                     })
                     .map(fixupGeneratedTests(name));
-                const existingSnapshot = existingSnapshots[i] || "";
+
+                const existingSnapshot = existingSnapshots[i];
                 const assertion = `expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(${existingSnapshot})`;
                 return `
                     test(${JSON.stringify(`${name} example ${blockNumber}`)}, async () => {
@@ -383,4 +357,34 @@ export const stringifyWithVarArgs = (input: unknown) =>
         return val;
     });
 
-maybeDo(require.main === module, main)
+/**
+ * Takes a list of paths, in order of "preference", and returns jest inline snapshots from the first that exists.
+ * This allows starting codegen from scratch every time, but restoring snapshots from "old" codegen backups to avoid
+ * needing to run tests to repopulate inline snapshots.
+ */
+export function getExistingSnapshots(existingContentPaths: string[]) {
+    const existingContent =
+        existingContentPaths
+            .filter(fs.existsSync)
+            .slice(0, 1)
+            .map(p => fs.readFileSync(p).toString())[0] || "";
+
+    const existingSnapshots = existingContent
+        .split(".toMatchInlineSnapshot")
+        .slice(1)
+        .map(section => {
+            if (section.startsWith("()")) {
+                return "";
+            }
+            const backtick = "`";
+            const firstBacktick = section.indexOf(backtick);
+            let secondBacktick = section.indexOf(backtick, firstBacktick + 1);
+            while (section[secondBacktick - 1] === "\\") {
+                secondBacktick = section.indexOf(backtick, secondBacktick + 1);
+            }
+            return section.slice(firstBacktick, secondBacktick + 1);
+        });
+    return existingSnapshots;
+}
+
+maybeDo(require.main === module, main);

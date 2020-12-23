@@ -1,4 +1,3 @@
-/* istanbul ignore file */
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
@@ -21,7 +20,7 @@ export const writeFile = (filepath: string, contents: string) => {
 /** dumb util that checks a conidition before running, to avoid needing to istanbul ignore `require.main === module` checks */
 export const maybeDo = async <T>(shouldDo: boolean, doIt: () => T | Promise<T>): Promise<T | null> => {
     if (shouldDo) {
-        return doIt()
+        return doIt();
     }
-    return null
-}
+    return null;
+};

@@ -6,7 +6,7 @@ import * as commandTypes from "./command";
 import { fixupSchema } from "./patches/schema";
 import { JsonSchemaCommand } from ".";
 
-const argToSchema: typeof argToSchemaNoTitle = arg => {
+export const argToSchema: typeof argToSchemaNoTitle = arg => {
     const schema = argToSchemaNoTitle(arg);
     const name = arg.name || arg.enum?.map?.((e, i, a) => (i > 0 && i === a.length - 1 ? `or ${e}` : e));
     return {
@@ -72,29 +72,12 @@ const argToSchemaNoTitle = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 
             enum: arg.enum,
         };
     }
-    if (typeof arg.command === "string") {
-        if (arg.multiple) {
-            throw Error(`don't know how to handle multi-commands`);
-        }
-        const types = Array.isArray(arg.type) ? arg.type : [arg.type];
-        const names = Array.isArray(arg.name) ? arg.name : [arg.name];
-        return {
-            type: "array",
-            items: [
-                { type: "string", enum: [arg.command] },
-                ...types.map((type, i) => ({
-                    title: names[i],
-                    ...argToSchema({ type, name: names[i] }),
-                })),
-            ],
-        };
-    }
-    if (Array.isArray(arg.type)) {
+    if (Array.isArray(arg.type) && arg.name) {
         return {
             type: "array",
             items: arg.type.map((type, i) => ({
-                title: arg.name?.[i],
-                ...argToSchema({ type, name: arg.name?.[i] }),
+                title: arg.name![i],
+                ...argToSchema({ type, name: arg.name![i] }),
             })),
         };
     }
@@ -176,12 +159,12 @@ const argToReturn = (command: string): jsonSchema.JSONSchema7 => {
     };
 };
 
-const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
+export const jsonSchemaCommand = (command: commandTypes.Command, key: string): JsonSchemaCommand => ({
     ...command,
-    arguments: (command?.arguments || []).map(arg => {
+    arguments: (command.arguments || []).map(arg => {
         const schema = argToSchema(arg);
         return {
-            name: [arg.command, schema.title || arg.name]
+            name: [arg.command, schema.title]
                 .flat()
                 .filter((val, i, arr) => val && !arr[i + 1]?.toUpperCase().startsWith(val.toUpperCase()))
                 .filter(
@@ -213,4 +196,4 @@ export const main = () => {
     writeFile(path.join(__dirname, "schema.json"), JSON.stringify(fixed, null, 2));
 };
 
-maybeDo(require.main === module, main)
+maybeDo(require.main === module, main);

@@ -16,8 +16,10 @@ export const fixupSchema = (schema: Record<string, JsonSchemaCommand>) => {
 /** https://github.com/redis/redis-doc/pull/1232 */
 function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
     const badSetArg = schema.SET.arguments.find(
-        a => a.name === "expiration" && a.schema.enum?.join(",") === "EX seconds,PX milliseconds,KEEPTTL"
+        a => a.name === "expiration" && a.schema.enum!.join(",") === "EX seconds,PX milliseconds,KEEPTTL"
     )!;
+    // this will throw if the SET schema has changed (see `!` on line above). If that's the case, maybe the
+    // issue was fixed and this can be deleted?
     badSetArg.schema = {
         anyOf: [
             {
@@ -41,7 +43,7 @@ function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
  * what the various command replies formats will be. Until then, this applies manually-maintained return
  * types to a few of the @array-reply commands, which often end up as `unknown`.
  */
-function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
+export function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
     /**
      * Dictionary of manual "array" schemas. Will likely be added/edited to over time.
      */
@@ -69,9 +71,8 @@ function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand>) {
 
     Object.entries(schema).forEach(([name, command]) => {
         if (name in manuallyFixedUp) {
-            command.return = manuallyFixedUp[name] || command.return;
+            command.return = manuallyFixedUp[name];
         } else if (command.return.type === "array" && !command.return.items && process.env.FIND_GENERIC_ARRAYS) {
-            /* istanbul ignore next */
             console.warn(`${name} has a generic array return type`);
         }
     });
@@ -88,7 +89,7 @@ function fixBulkStringRepliesManually(schema: Record<string, JsonSchemaCommand>)
 
     Object.entries(schema).forEach(([name, command]) => {
         if (name in manuallyFixedUp) {
-            command.return = manuallyFixedUp[name] || command.return;
+            command.return = manuallyFixedUp[name];
         }
     });
 }
@@ -98,7 +99,7 @@ function fixBulkStringRepliesManually(schema: Record<string, JsonSchemaCommand>)
  * This modifies those arguments' schemas to match reality.
  * See https://github.com/redis/redis-doc/issues/1420 and https://github.com/mmkal/handy-redis/issues/30
  */
-function fixScoreValues(schema: Record<string, JsonSchemaCommand>) {
+export function fixScoreValues(schema: Record<string, JsonSchemaCommand>) {
     const intervalScoreArgs = [
         { command: "ZRANGEBYSCORE", argument: "min" },
         { command: "ZRANGEBYSCORE", argument: "max" },
@@ -113,7 +114,6 @@ function fixScoreValues(schema: Record<string, JsonSchemaCommand>) {
     intervalScoreArgs.forEach(({ command, argument }) => {
         const existing = schema[command]?.arguments.find(a => a.name === argument && a.schema.type === "number");
         if (!existing) {
-            /* istanbul ignore next */
             throw Error(`Expected command ${command} to have number argument called ${argument}`);
         }
         existing.schema = {

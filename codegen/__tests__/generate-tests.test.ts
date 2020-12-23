@@ -1,4 +1,6 @@
-import { toArgs as toArgs_, stringifyWithVarArgs } from "../generate-tests";
+import { toArgs as toArgs_, stringifyWithVarArgs, decodeTokens, getExistingSnapshots } from "../generate-tests";
+import * as fsSyncer from "fs-syncer";
+import * as path from "path";
 
 const toArgs = (cmd: string, { debug = false } = {}) => {
     const r = toArgs_(cmd.split(" "));
@@ -191,5 +193,125 @@ describe("toArgs", () => {
               0.1,
             ]
         `);
+    });
+});
+
+describe("potential future edge cases", () => {
+    test("unexpected types aren't handled", () => {
+        const decoded = decodeTokens(
+            ["test"],
+            [{ name: "testarg", schema: { type: "thistypedoesnotreallyexist" as never } }],
+            []
+        );
+
+        expect(decoded).toMatchInlineSnapshot(`
+            Object {
+              "context": Array [
+                "Not smart enough to deal with { name: 'testarg', schema: { type: 'thistypedoesnotreallyexist' } } yet",
+              ],
+              "error": true,
+              "tokens": Array [
+                "test",
+              ],
+            }
+        `);
+    });
+
+    test("object args aren't handled", () => {
+        const decoded = decodeTokens(["test"], [{ name: "testarg", schema: { type: "object" } }], []);
+
+        expect(decoded).toMatchInlineSnapshot(`
+            Object {
+              "context": Array [
+                "Not smart enough to deal with { name: 'testarg', schema: { type: 'object' } } yet",
+              ],
+              "error": true,
+              "tokens": Array [
+                "test",
+              ],
+            }
+        `);
+    });
+
+    test("array errors are propagated", () => {
+        const decoded = decodeTokens(
+            ["test"],
+            [
+                {
+                    name: "testarg",
+                    schema: {
+                        type: "array",
+                        items: {
+                            type: "thistypedoesnotreallyexist" as never,
+                        },
+                    },
+                },
+            ],
+            []
+        );
+
+        expect(decoded).toMatchInlineSnapshot(`
+            Object {
+              "context": Array [
+                "Decoding array item",
+                "Not smart enough to deal with { name: 'testarg', schema: { type: 'thistypedoesnotreallyexist' } } yet",
+              ],
+              "error": true,
+              "tokens": Array [
+                "test",
+              ],
+            }
+        `);
+    });
+
+    test("array bails early when no tokens to consume", () => {
+        const decoded = decodeTokens(
+            [],
+            [
+                {
+                    name: "testarg",
+                    schema: {
+                        type: "array",
+                        items: {
+                            type: "string",
+                        },
+                    },
+                },
+            ],
+            []
+        );
+
+        expect(decoded).toMatchInlineSnapshot(`
+            Object {
+              "context": Array [
+                "Target args remain but no tokens left! Target args [ { name: 'testarg', schema: { type: 'array', items: { type: 'string' } } } ]",
+              ],
+              "error": true,
+            }
+        `);
+    });
+});
+
+describe("inline snapshot parsing", () => {
+    test("get existing snapshots returns empty array when file doesn't exist", () => {
+        expect(getExistingSnapshots(["this/path/does/not/exist.test.ts"])).toEqual([]);
+    });
+
+    test("empty snapshots", () => {
+        const syncer = fsSyncer.jest.jestFixture({
+            "test.ts.txt": `
+              test("no snapshot, () => {
+                expect("no snapshot).toMatchInlineSnapshot();
+              });
+
+              test("empty string snapshot", () => {
+                expect("empty snapshot").toMatchInlineSnapshot(\`\`);
+              });
+            `,
+        });
+
+        syncer.sync();
+
+        expect(getExistingSnapshots([path.join(syncer.baseDir, "test.ts.txt")])).toEqual(["", "``"]);
     });
 });

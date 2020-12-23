@@ -37,6 +37,7 @@ export const fuzzers = getFuzzers({
                 return `<<stream_${streamIds.indexOf(val)}>>`;
             })
         ))([]),
+    jsonify: JSON.stringify,
 });
 
 const outputOverrides: { [testRegex: string]: OutputModifier } = {
@@ -56,11 +57,12 @@ const outputOverrides: { [testRegex: string]: OutputModifier } = {
     "/keys.test.ts": fuzzers.sortArrays,
     "/geo(\\w+).test.ts": fuzzers.ignoreDecimals,
     "/(xadd|xack|xlen|xrange|xrevrange|xtrim).test.ts": fuzzers.ignoreStreamIds,
+    "/(setbit|setrange).test.ts": JSON.stringify,
 };
 
 export const fuzzify = (outputs: Record<string, unknown>, testFileName: string) => {
     const overrideFn = lodash.find(outputOverrides, (value, key) =>
         new RegExp(key).test(testFileName.replace(/\\/g, "/"))
     );
-    return lodash.mapValues(outputs, overrideFn || lodash.identity);
+    return lodash.mapValues(outputs, overrideFn || (x => x));
 };

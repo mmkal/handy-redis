@@ -13,9 +13,10 @@ import * as childProcess from "child_process";
 const getChanges = (filepath: string) => {
     expect(fs.existsSync(filepath)).toBe(true);
     return childProcess
-        .execSync(`git status --porcelain ${filepath}`, { cwd: path.join(__dirname, "..") })
+        .execSync(`git diff ${filepath}`, { cwd: path.join(__dirname, "..") })
         .toString()
-        .trim();
+        .trim()
+        .slice(0, 500); // if all line endings in a file have changed, this diff could be huge
 };
 
 test("generate schema", () => {

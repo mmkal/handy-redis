@@ -20,7 +20,7 @@ module.exports = {
     // 'xo',
     // 'xo-typescript',
   ],
-  ignorePatterns: ['dist', 'node_modules', 'coverage', '.eslintrc.js'],
+  ignorePatterns: ['dist', 'node_modules', 'coverage', '.eslintrc.js', 'docs'],
   rules: {
     'prettier/prettier': ['warn', require('./.prettierrc')],
     'codegen/codegen': 'warn',
@@ -118,6 +118,7 @@ module.exports = {
       files: ['**/*.md'],
       rules: {
         'unicorn/filename-case': 'off',
+        'prettier/prettier': 'off',
       }
     },
   ]

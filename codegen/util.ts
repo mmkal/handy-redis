@@ -2,6 +2,17 @@ import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
 import * as prettier from "prettier";
+import * as lodash from "lodash";
+
+// polyfill .flat() and .flatMap(); they're used in tests
+Object.assign(Array.prototype, {
+    flat: function () {
+        return lodash.flatMap(this, item => item);
+    },
+    flatMap: function (fn: any) {
+        return lodash.flatMap(this, fn);
+    },
+});
 
 export const writeFile = (filepath: string, contents: string) => {
     fs.mkdirSync(path.dirname(filepath), { recursive: true });

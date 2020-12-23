@@ -6,7 +6,7 @@ module.exports = {
   arrowParens: 'avoid',
   trailingComma: 'es5',
   bracketSpacing: true,
-  endOfLine: 'auto',
+  endOfLine: 'auto', // todo: switch to lf, follow https://prettier.io/docs/en/options.html#end-of-line
   printWidth: 120,
   quoteProps: 'consistent',
 }

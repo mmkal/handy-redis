@@ -1,5 +1,5 @@
 import { schema as actualSchema, JsonSchemaCommandArgument, JsonSchemaCommand } from ".";
-import { writeFile } from "./util";
+import { maybeDo, writeFile } from "./util";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
 import { fixupClientTypescript } from "./patches/client";
@@ -19,18 +19,18 @@ const codeArgument = (arg: JsonSchemaCommandArgument, i: number, arr: typeof arg
         name = "..." + name;
     }
     const optionalMarker = !isVarArg && arr.slice(i).every(a => a.optional) ? "?" : "";
-    return [name || santiseArgName(type), optionalMarker, ": ", type].join("");
+    return [name, optionalMarker, ": ", type].join("");
 };
 
 const formatCodeArguments = (list: JsonSchemaCommandArgument[]) => list.map(codeArgument).join(", ");
 
-const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
+export const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
     const unknownType = "unknown";
-    if (!schema) {
-        return unknownType;
-    }
-    if (schema.type === "number" || schema.type === "integer") {
+    if (schema.type === "integer") {
         return "number";
+    }
+    if (schema.type === "boolean" || schema.type === "null" || schema.type === "number") {
+        return schema.type;
     }
     if (Array.isArray(schema.enum) && schema.enum.every(e => typeof e === "string")) {
         return schema.enum.map(e => JSON.stringify(e)).join("|");
@@ -59,15 +59,6 @@ const schemaToTypeScript = (schema: jsonSchema.JSONSchema7): string => {
             .map(type => `(${type})`)
             .join(" | ");
     }
-    if (typeof schema.const === "string") {
-        return JSON.stringify(schema.const);
-    }
-    if (schema.type === "boolean") {
-        return "boolean";
-    }
-    if (schema.type === "null") {
-        return "null";
-    }
     return unknownType;
 };
 
@@ -90,9 +81,15 @@ export const overloads = (args: JsonSchemaCommandArgument[]): JsonSchemaCommandA
 export const formatOverloads = (fullCommand: string, { arguments: originalArgs, ...spec }: JsonSchemaCommand) => {
     const [command, ...subCommands] = fullCommand.split(" ");
 
+    if (subCommands.length > 1) {
+        throw new Error(
+            `More than one ${command} subcommand (${subCommands}). This might be fine, just make sure the name is right before disabling this error.`
+        );
+    }
+
     const withSubcommands = [
-        ...subCommands.map<typeof originalArgs[0]>((sub, i) => ({
-            name: santiseArgName(`${command}_subcommand${i > 0 ? i + 1 : ""}`),
+        ...subCommands.map<typeof originalArgs[0]>(sub => ({
+            name: santiseArgName(`${command}_subcommand`),
             schema: { type: "string", enum: [sub] },
         })),
         ...originalArgs,
@@ -155,6 +152,4 @@ export const main = () => {
     writeFile(process.cwd() + "/src/generated/interface.ts", getTypeScriptInterface(actualSchema));
 };
 
-if (require.main === module) {
-    main();
-}
+maybeDo(require.main === module, main);

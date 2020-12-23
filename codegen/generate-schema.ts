@@ -72,12 +72,13 @@ const argToSchemaNoTitle = (arg: commandTypes.Argument): jsonSchema.JSONSchema7 
             enum: arg.enum,
         };
     }
-    if (Array.isArray(arg.type) && arg.name) {
+    if (Array.isArray(arg.type) && Array.isArray(arg.name)) {
+        const names = arg.name;
         return {
             type: "array",
             items: arg.type.map((type, i) => ({
-                title: arg.name![i],
-                ...argToSchema({ type, name: arg.name![i] }),
+                title: names[i],
+                ...argToSchema({ type, name: names[i] }),
             })),
         };
     }

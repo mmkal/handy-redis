@@ -1,10 +1,12 @@
 /* istanbul ignore file */
 import * as fs from "fs";
+import * as os from "os";
 import * as path from "path";
 import * as prettier from "prettier";
 
 export const writeFile = (filepath: string, contents: string) => {
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
+    contents = contents.replace(/\r?\n/g, os.EOL);
     try {
         contents = prettier.format(contents, {
             ...require("../.prettierrc"),

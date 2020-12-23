@@ -5,5 +5,5 @@ module.exports = {
     },
     testMatch: ["**/*.test.ts"],
     testPathIgnorePatterns: ["/node_modules/", "temp/"],
-    collectCoverageFrom: ["srac/**", "codegen/**/*.ts"],
+    collectCoverageFrom: ["src/**", "codegen/**/*.ts"],
 };

@@ -134,7 +134,8 @@ The client is generated from the [redis-doc](https://github.com/redis/redis-doc)
     - Argument lists are modeled as arrays, which are flattened when sent to the underlying client. e.g. `SET` might have args `['foo', 'bar', ['EX', 60]]` corresponding to the CLI command `SET foo bar EX 60`
     - the markdown documentation for each command is parsed for the return type 
   - `generate-client`:
-    - the json-schema from the previous step is parsed and used to generate a [typescript interface of commands](./src/generated/interface.ts)
+    - the json-schema from the previous step is parsed and used to generate a [typescript interface of commands](./src/generated/interface.ts).
+      - Commands use a basic higher-kinded types implementation. The `Multi` interface requires a key pointing to a property on a `ResultTypes<Result, Context>` interface, with properties defined via module augmentation. By default, each command returns a promisified result type. See the [node_redis multi implementation](./src/node_redis/multi.ts) for an example which configures each command to return a chainable multi instance, using previous commands as the `Context`.
   - `generate-tests`:
     - the markdown docs for each command are parsed and transformed into typescript calls. e.g. `SET FOO BAR EX 60` is decoded into `client.set('foo', 'bar', ['EX', 60])`
     - these typescript calls are put into jest tests and their outputs are snapshotted

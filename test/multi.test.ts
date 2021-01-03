@@ -54,3 +54,19 @@ test("multi puts errors in returned array", async () => {
     expectTypeOf(multiResult[1]).toEqualTypeOf<string[] | ReplyError>();
     expectTypeOf(multiResult[2]).toEqualTypeOf<string | null | ReplyError>();
 });
+
+test("multi overloads work", async () => {
+    await client.del("multistream");
+
+    // Mostly types are being tested here. The runtime result should be the same as xadd.test.ts.
+    // https://github.com/mmkal/handy-redis/issues/270
+    const result = await client
+        .multi()
+        .xadd("multistream", "*", ["name", "Sara"], ["surname", "OConnor"])
+        .xadd("multistream", "*", ["field1", "value1"], ["field2", "value2"], ["field3", "value3"])
+        .xlen("multistream")
+        .xrange("multistream", "-", "+")
+        .exec();
+
+    expect(result).toHaveLength(4);
+});

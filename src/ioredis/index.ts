@@ -1,11 +1,10 @@
 import * as IORedis from "ioredis";
 import { Commands } from "../generated/interface";
-import { IORedisMultiMixins } from "./multi";
+import { WrappedIORedisMulti } from "./multi";
 
-export type Mixins = IORedisMultiMixins;
-
-export interface WrappedIORedisClient extends Omit<Commands, keyof Mixins>, Mixins {
+export interface WrappedIORedisClient extends Omit<Commands, "multi"> {
     ioredis: IORedis.Redis;
+    multi(): WrappedIORedisMulti;
 }
 
 export interface CreateIORedisClient {

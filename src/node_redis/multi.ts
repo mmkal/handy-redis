@@ -4,7 +4,24 @@ import { Commands } from "../generated/interface";
 import { promisify } from "util";
 import { Push } from "../push";
 
-export type CommandResult<K extends keyof Commands> = ReturnType<Commands[K]> extends Promise<infer X> ? X : never;
+declare module "../generated/interface" {
+    export interface ResultTypes<Result, Context> {
+        /**
+         * This determines the correct type for a node_redis multi result. e.g. `multi.keys('foo:*')` should be a multi instance
+         * which will include include a `string[]` value in the array eventually returned by `.exec()`.
+         */
+        node_redis_multi: WrappedNodeRedisMulti<
+            Push<
+                // get the original results from client context
+                Extract<Context, { results: unknown[] }>["results"],
+                // Then push in the new result (e.g. for `keys`, `Result = string[]`)
+                MultiResult<Result>
+            >
+        >;
+    }
+}
+
+export type MultiResult<T> = T | nodeRedis.ReplyError;
 
 /**
  * types from multis depend on a bunch of type inference so in IDEs they can end up looking like:
@@ -46,13 +63,10 @@ Object.keys(nodeRedis.Multi.prototype)
         };
     });
 
-export type MultiCommands = Exclude<keyof Commands, "exec" | "exec_atomic">;
-
-export type WrappedNodeRedisMulti<Results extends unknown[] = []> = {
-    [K in MultiCommands]: (
-        ...args: Parameters<Commands[K]>
-    ) => WrappedNodeRedisMulti<Push<Results, CommandResult<K> | nodeRedis.ReplyError>>;
-} & {
-    exec: () => Promise<Results>;
-    exec_atomic: () => Promise<Results>;
-};
+export interface WrappedNodeRedisMulti<Results extends unknown[] = []>
+    extends Omit<Commands<{ type: "node_redis_multi"; results: Results }>, "exec"> {
+    /** Execute all commands issued after multi */
+    exec(): Promise<Results>;
+    /** Execute all commands issued after multi */
+    exec_atomic(): Promise<Results>;
+}

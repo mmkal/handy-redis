@@ -21,16 +21,23 @@ const main = () => {
                 );
             }
             const target = `ts34/dist`;
+
             console.log(`downleveling stabilised after ${i} iterations, copying to ${target}.`);
             childProcess.execSync(`rm -rf ${target}`, { stdio: "inherit" });
+
             fs.mkdirSync("ts34", { recursive: true });
+
             childProcess.execSync(`cp -r ${next} ${target}`, { stdio: "inherit" });
+
             console.log(`Replacing push implementation incompatible with typescript < 4`);
             childProcess.execSync(`mv ${target}/push.ts34.d.ts ${target}/push.d.ts`, { stdio: "inherit" });
+
             console.log(`Running old version of typescript on output`);
             childProcess.execSync(`npx -p typescript@3.8 tsc ts34/dist/index.d.ts --noEmit`, { stdio: "inherit" });
+
             console.log(`Removing temporary files`);
             childProcess.execSync(`rm -rf ${tempFolder}`, { stdio: "inherit" });
+
             console.log("Done.");
             return;
         }

@@ -29,11 +29,11 @@ test("formatOverloads", () => {
                          * - _group_: server
                          * - _complexity_: undefined
                          * - _since_: 2.8.13
-                         * 
+                         *
                          * [Full docs](https://redis.io/commands/latency-reset)
                          */
                         latency(latency_subcommand: \\"RESET\\", ...event: Array<string>):
-                            Promise<unknown>
+                            Result<unknown, Context>
                     ",
         ]
     `);
@@ -45,11 +45,11 @@ test("formatOverloads", () => {
                          * - _group_: string
                          * - _complexity_: O(1)
                          * - _since_: 1.0.0
-                         * 
+                         *
                          * [Full docs](https://redis.io/commands/set)
                          */
                         set(key: string, value: string, get?: \\"GET\\"):
-                            Promise<(\\"OK\\") | (string) | (null)>
+                            Result<(\\"OK\\") | (string) | (null), Context>
                     ",
           "
                         /**
@@ -57,11 +57,11 @@ test("formatOverloads", () => {
                          * - _group_: string
                          * - _complexity_: O(1)
                          * - _since_: 1.0.0
-                         * 
+                         *
                          * [Full docs](https://redis.io/commands/set)
                          */
                         set(key: string, value: string, condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
-                            Promise<(\\"OK\\") | (string) | (null)>
+                            Result<(\\"OK\\") | (string) | (null), Context>
                     ",
           "
                         /**
@@ -69,11 +69,11 @@ test("formatOverloads", () => {
                          * - _group_: string
                          * - _complexity_: O(1)
                          * - _since_: 1.0.0
-                         * 
+                         *
                          * [Full docs](https://redis.io/commands/set)
                          */
                         set(key: string, value: string, expiration?: ([ex_px: (\\"EX\\"|\\"PX\\"), number: (number)]) | (\\"KEEPTTL\\"), get?: \\"GET\\"):
-                            Promise<(\\"OK\\") | (string) | (null)>
+                            Result<(\\"OK\\") | (string) | (null), Context>
                     ",
           "
                         /**
@@ -81,11 +81,11 @@ test("formatOverloads", () => {
                          * - _group_: string
                          * - _complexity_: O(1)
                          * - _since_: 1.0.0
-                         * 
+                         *
                          * [Full docs](https://redis.io/commands/set)
                          */
                         set(key: string, value: string, expiration?: ([ex_px: (\\"EX\\"|\\"PX\\"), number: (number)]) | (\\"KEEPTTL\\"), condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
-                            Promise<(\\"OK\\") | (string) | (null)>
+                            Result<(\\"OK\\") | (string) | (null), Context>
                     ",
         ]
     `);

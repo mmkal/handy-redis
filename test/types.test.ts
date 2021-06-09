@@ -37,6 +37,10 @@ test("client has promisified redis methods", () => {
 
     expectTypeOf(client.spop).returns.resolves.toEqualTypeOf<null | string | string[]>();
 
+    expectTypeOf(client.scan).returns.resolves.toEqualTypeOf<[string, string[]]>();
+    expectTypeOf(client.sscan).returns.resolves.toEqualTypeOf<[string, string[]]>();
+    expectTypeOf(client.zscan).returns.resolves.toEqualTypeOf<[string, string[]]>();
+
     // @ts-expect-error
     expectTypeOf(client.xgroup).toBeCallableWith([["CREATE", ["foo", "bar"]], "SOMETHINGWRONG"]);
 });

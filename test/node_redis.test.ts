@@ -56,6 +56,16 @@ it("set with expiry", async () => {
     expect(ttl).toBeGreaterThan(55); // hopefully it didn't take over 5s to run a command...
 });
 
+test("scan", async () => {
+    await client.set("scantest:foo1", "f1");
+    await client.set("scantest:foo2", "f2");
+    await client.set("scantest:foo3", "f3");
+    await client.set("scantest:bar1", "b1");
+    const [cursor, keys] = await client.scan(0, ["MATCH", "scantest:foo*"]);
+    expect(cursor).toMatch(/^\d+$/);
+    expect(keys.sort()).toEqual(["scantest:foo1", "scantest:foo2", "scantest:foo3"]);
+});
+
 it("works with redis-mock", async () => {
     const mockClient: any = redisMock.createClient();
     const client = createNodeRedisClient(mockClient);

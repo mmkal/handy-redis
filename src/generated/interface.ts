@@ -7563,7 +7563,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/scan)
      */
-    scan(cursor: number, type?: [type: "TYPE", type: string]): Result<unknown, Context>;
+    scan(cursor: number, type?: [type: "TYPE", type: string]): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate the keys space
@@ -7577,7 +7577,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         cursor: number,
         count?: [count: "COUNT", count: number],
         type?: [type: "TYPE", type: string]
-    ): Result<unknown, Context>;
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate the keys space
@@ -7591,7 +7591,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         cursor: number,
         match?: [match: "MATCH", pattern: string],
         type?: [type: "TYPE", type: string]
-    ): Result<unknown, Context>;
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate the keys space
@@ -7606,7 +7606,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number],
         type?: [type: "TYPE", type: string]
-    ): Result<unknown, Context>;
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate Set elements
@@ -7616,7 +7616,11 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/sscan)
      */
-    sscan(key: string, cursor: number, count?: [count: "COUNT", count: number]): Result<unknown, Context>;
+    sscan(
+        key: string,
+        cursor: number,
+        count?: [count: "COUNT", count: number]
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate Set elements
@@ -7631,7 +7635,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         cursor: number,
         match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number]
-    ): Result<unknown, Context>;
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate hash fields and associated values
@@ -7641,7 +7645,11 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/hscan)
      */
-    hscan(key: string, cursor: number, count?: [count: "COUNT", count: number]): Result<unknown, Context>;
+    hscan(
+        key: string,
+        cursor: number,
+        count?: [count: "COUNT", count: number]
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate hash fields and associated values
@@ -7656,7 +7664,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         cursor: number,
         match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number]
-    ): Result<unknown, Context>;
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate sorted sets elements and associated scores
@@ -7666,7 +7674,11 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/zscan)
      */
-    zscan(key: string, cursor: number, count?: [count: "COUNT", count: number]): Result<unknown, Context>;
+    zscan(
+        key: string,
+        cursor: number,
+        count?: [count: "COUNT", count: number]
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Incrementally iterate sorted sets elements and associated scores
@@ -7681,7 +7693,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         cursor: number,
         match?: [match: "MATCH", pattern: string],
         count?: [count: "COUNT", count: number]
-    ): Result<unknown, Context>;
+    ): Result<[cursor: string, values: Array<string>], Context>;
 
     /**
      * Get information on streams and consumer groups

@@ -7158,7 +7158,22 @@
         ],
         "since": "2.8.0",
         "group": "generic",
-        "return": {}
+        "return": {
+            "type": "array",
+            "items": [
+                {
+                    "title": "cursor",
+                    "type": "string"
+                },
+                {
+                    "title": "values",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
     },
     "SSCAN": {
         "summary": "Incrementally iterate Set elements",
@@ -7217,7 +7232,22 @@
         ],
         "since": "2.8.0",
         "group": "set",
-        "return": {}
+        "return": {
+            "type": "array",
+            "items": [
+                {
+                    "title": "cursor",
+                    "type": "string"
+                },
+                {
+                    "title": "values",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
     },
     "HSCAN": {
         "summary": "Incrementally iterate hash fields and associated values",
@@ -7276,7 +7306,22 @@
         ],
         "since": "2.8.0",
         "group": "hash",
-        "return": {}
+        "return": {
+            "type": "array",
+            "items": [
+                {
+                    "title": "cursor",
+                    "type": "string"
+                },
+                {
+                    "title": "values",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
     },
     "ZSCAN": {
         "summary": "Incrementally iterate sorted sets elements and associated scores",
@@ -7335,7 +7380,22 @@
         ],
         "since": "2.8.0",
         "group": "sorted_set",
-        "return": {}
+        "return": {
+            "type": "array",
+            "items": [
+                {
+                    "title": "cursor",
+                    "type": "string"
+                },
+                {
+                    "title": "values",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            ]
+        }
     },
     "XINFO": {
         "summary": "Get information on streams and consumer groups",

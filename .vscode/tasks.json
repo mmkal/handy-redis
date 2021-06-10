@@ -1,23 +1,34 @@
 {
-    "version": "0.1.0",
+    "version": "2.0.0",
     "command": "npm",
-    "isShellCommand": true,
-    "showOutput": "always",
     "args": ["run"],
     "tasks": [
         {
-            "taskName": "compile",
+            "label": "compile",
+            "type": "shell",
+            "command": "npm",
+            "args": [
+                "run",
+                "compile",
+                "--",
+                "--sourceMap",
+                "--watch"
+            ],
+            "isBackground": true,
             "problemMatcher": "$tsc-watch",
-            "showOutput": "always",
-            "args": ["--", "--sourceMap", "--watch"],
-            "isBuildCommand": true,
-            "isBackground": true
+            "group": "build"
         },
         {
-            "taskName": "test",
-            "problemMatcher": "$tsc-watch",
+            "label": "test",
+            "type": "shell",
+            "command": "npm",
+            "args": [
+                "run",
+                "test"
+            ],
             "isBackground": true,
-            "isTestCommand": true
+            "problemMatcher": "$tsc-watch",
+            "group": "test"
         }
     ]
 }

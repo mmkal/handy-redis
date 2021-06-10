@@ -58,7 +58,7 @@ Object.keys(nodeRedis.Multi.prototype)
     .filter(method => method !== "exec" && method !== "exec_atomic")
     .forEach(method => {
         (WrappedNodeRedisMultiImpl.prototype as any)[method] = function (...args: any[]) {
-            (this as any).nodeRedisMulti[method](flattenDeep(args));
+            (this as any).nodeRedisMulti[method](...flattenDeep(args));
             return this;
         };
     });

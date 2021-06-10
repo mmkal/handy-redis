@@ -7420,7 +7420,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         max: number | ("-inf" | "+inf") | string,
         min: number | ("-inf" | "+inf") | string,
         limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
-    ): Result<Array<unknown>, Context>;
+    ): Result<Array<string>, Context>;
 
     /**
      * Return a range of members in a sorted set, by score, with scores ordered from high to low
@@ -7436,7 +7436,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         min: number | ("-inf" | "+inf") | string,
         withscores?: "WITHSCORES",
         limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
-    ): Result<Array<unknown>, Context>;
+    ): Result<Array<string>, Context>;
 
     /**
      * Determine the index of a member in a sorted set, with scores ordered from high to low

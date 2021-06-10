@@ -67,6 +67,7 @@ export function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand
         ZRANGEBYLEX: { type: "array", items: { type: "string" } },
         ZREVRANGEBYLEX: { type: "array", items: { type: "string" } },
         ZRANGEBYSCORE: { type: "array", items: { type: "string" } },
+        ZREVRANGEBYSCORE: { type: "array", items: { type: "string" } },
     };
 
     Object.entries(schema).forEach(([name, command]) => {

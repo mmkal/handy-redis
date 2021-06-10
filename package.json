@@ -42,7 +42,7 @@
     "postcompile": "node downlevel",
     "coverage": "yarn jest --coverage",
     "coveralls": "yarn coverage --coverageReporters=text-lcov | coveralls",
-    "jest": "jest --runInBand --forceExit --detectOpenHandles",
+    "jest": "jest --runInBand --forceExit",
     "lint": "eslint --max-warnings 0 --ext .ts,.js,.md .",
     "redis-cli": "docker-compose exec redis redis-cli",
     "redis:down": "docker-compose down",

@@ -22,7 +22,7 @@ type PermissiveClient = Commands<{ type: "unknown_to_any" }>;
 
 declare const regularClient: WrappedNodeRedisClient;
 // cast a regular a client to our customised, more permissive one
-const permissiveClient = (regularClient as unknown) as PermissiveClient;
+const permissiveClient = regularClient as unknown as PermissiveClient;
 
 export const test = async () => {
     // the regular client will return `Promise<unknown>` for some commands, our more permissive one converts this to `Promise<any>`

@@ -15,6 +15,10 @@
       "depTypeList": ["devDependencies"],
       "groupName": "devDependencies",
       "automerge": true
+    },
+    {
+      "matchCurrentVersion": "/^\\d.\\d.\\d-.*/",
+      "enabled": false
     }
   ]
 }

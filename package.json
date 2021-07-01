@@ -54,7 +54,7 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
-    "@types/redis": "^2.8.27"
+    "@types/redis": "^2.8.30"
   },
   "devDependencies": {
     "@types/cross-spawn": "6.0.2",

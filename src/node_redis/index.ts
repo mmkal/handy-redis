@@ -3,8 +3,6 @@ import { Commands } from "../generated/interface";
 import { flattenDeep } from "../flatten";
 import { WrappedNodeRedisMulti, WrappedNodeRedisMultiImpl } from "./multi";
 
-declare module "redis" {}
-
 export interface WrappedNodeRedisClient extends Omit<Commands, "end" | "multi"> {
     nodeRedis: nodeRedis.RedisClient;
     /** @deprecated use `nodeRedis` */

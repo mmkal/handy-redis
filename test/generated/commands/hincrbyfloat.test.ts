@@ -20,7 +20,7 @@ test("docs/redis-doc/commands/hincrbyfloat.md example 1", async () => {
     outputs.r3 = await client.hset("mykey", ["field", "5.0e3"]);
     // Error decoding command `HINCRBYFLOAT mykey field 2.0e2`:
 
-    // decoding HINCRBYFLOAT overload 0 (key,field,increment): { name: 'key', schema: { title: 'key', type: 'string' }, toString: [Function (anonymous)] },{ name: 'field', schema: { title: 'field', type: 'string' }, toString: [Function (anonymous)] },{ name: 'increment', schema: { title: 'increment', type: 'number' }, toString: [Function (anonymous)] }
+    // decoding HINCRBYFLOAT overload 0 (key,field,increment): { name: 'key', schema: { title: 'key', type: 'string' } },{ name: 'field', schema: { title: 'field', type: 'string' } },{ name: 'increment', schema: { title: 'increment', type: 'number' } }
     // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [field,2.0e2], target args remainin count: 2
     // field successfully decoded as field (string). Decoded value field. Tokens remaining [2.0e2], target args remainin count: 1
     // 2.0e2 parsed into a bad number 200

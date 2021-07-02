@@ -20,7 +20,7 @@ test("docs/redis-doc/commands/incrbyfloat.md example 1", async () => {
     outputs.r3 = await client.set("mykey", "5.0e3");
     // Error decoding command `INCRBYFLOAT mykey 2.0e2`:
 
-    // decoding INCRBYFLOAT overload 0 (key,increment): { name: 'key', schema: { title: 'key', type: 'string' }, toString: [Function (anonymous)] },{ name: 'increment', schema: { title: 'increment', type: 'number' }, toString: [Function (anonymous)] }
+    // decoding INCRBYFLOAT overload 0 (key,increment): { name: 'key', schema: { title: 'key', type: 'string' } },{ name: 'increment', schema: { title: 'increment', type: 'number' } }
     // mykey successfully decoded as key (string). Decoded value mykey. Tokens remaining [2.0e2], target args remainin count: 1
     // 2.0e2 parsed into a bad number 200
     // ---

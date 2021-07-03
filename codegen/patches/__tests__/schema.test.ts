@@ -18,7 +18,6 @@ test("detected generic arrays", () => {
         SMISMEMBER has a generic array return type
         ZDIFF has a generic array return type
         ZINTER has a generic array return type
-        ZREVRANGEBYSCORE has a generic array return type
         ZUNION has a generic array return type
         XRANGE has a generic array return type
         XREVRANGE has a generic array return type

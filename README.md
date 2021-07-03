@@ -157,12 +157,12 @@ Make sure you have docker installed and `docker-compose` is on your path, and st
 To fully test the package as it is on your machine, the same way CI does:
 
 ```cli
-yarn ci
+yarn test
 ```
 
-`yarn ci` runs the build, test and lint scripts. It removes all generated code before, and after checks that your git status is clean. This is to allow tracking changes to the generated client over time, to make what the published package contains more visible, and to make sure that generated code hasn't been modified without auditing first. You should not manually edit any files under a `*/generated/*` path. If `yarn ci` fails for you because you deliberately changed the way the codegen works, take a look at the git changes, check them in and run `yarn ci` again.
+`yarn test` runs the build, test and lint scripts. It removes all generated code before, and after checks that your git status is clean. This is to allow tracking changes to the generated client over time, to make what the published package contains more visible, and to make sure that generated code hasn't been modified without auditing first. You should not manually edit any files under a `*/generated/*` path. If `yarn test` fails for you because you deliberately changed the way the codegen works, take a look at the git changes, check them in and run `yarn test` again.
 
-The `build` script generates the client before using TypeScript to compile it. If you want to run the tests without rebuilding, use `npm test`.
+The `build` script generates the client before using TypeScript to compile it. If you want to run the tests without rebuilding, linting etc., use `yarn jest`.
 
 There are some more scripts in `package.json` which can be useful for local development.
 
@@ -174,6 +174,6 @@ git subtree pull --prefix docs/redis-doc https://github.com/redis/redis-doc mast
 
 ### Testing
 
-If a snapshot test fails, it's possible it just needs to be updated. Make sure your git status is clean and run `yarn test -u`.
+If a snapshot test fails, it's possible it just needs to be updated. Make sure your git status is clean and run `yarn jest -u`.
 
 Types are tested using [expect-type](https://npmjs.com/package/expect-type).

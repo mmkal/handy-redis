@@ -5,13 +5,15 @@
  * "smart". It's already pretty complex (much more complex than the client generation),
  * and making it _perfect_ isn't really worth it.
  */
-export const fixupGeneratedTests = (filename: string) => (code: string): string => {
-    code = fixKeyWeightsOverlyComplexParsingIssue(code);
-    code = catchDecrOutOfRange(filename)(code);
-    code = commentOutFutureReleaseFeatures(filename)(code);
+export const fixupGeneratedTests =
+    (filename: string) =>
+    (code: string): string => {
+        code = fixKeyWeightsOverlyComplexParsingIssue(code);
+        code = catchDecrOutOfRange(filename)(code);
+        code = commentOutFutureReleaseFeatures(filename)(code);
 
-    return code;
-};
+        return code;
+    };
 
 /**
  * at time of writing, redis have only released 6.0.8 on dockerhub. These features

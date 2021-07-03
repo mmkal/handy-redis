@@ -67,6 +67,7 @@ export function fixArrayRepliesManually(schema: Record<string, JsonSchemaCommand
         ZRANGEBYLEX: { type: "array", items: { type: "string" } },
         ZREVRANGEBYLEX: { type: "array", items: { type: "string" } },
         ZRANGEBYSCORE: { type: "array", items: { type: "string" } },
+        ZREVRANGEBYSCORE: { type: "array", items: { type: "string" } },
     };
 
     Object.entries(schema).forEach(([name, command]) => {
@@ -85,7 +86,17 @@ function fixBulkStringRepliesManually(schema: Record<string, JsonSchemaCommand>)
      */
     const manuallyFixedUp: Record<string, jsonSchema.JSONSchema7> = {
         SPOP: { anyOf: [{ type: "null" }, { type: "string" }, { type: "array", items: { type: "string" } }] },
+        SCAN: {
+            type: "array",
+            items: [
+                { title: "cursor", type: "string" },
+                { title: "values", type: "array", items: { type: "string" } },
+            ],
+        },
     };
+    manuallyFixedUp.SSCAN = manuallyFixedUp.SCAN;
+    manuallyFixedUp.HSCAN = manuallyFixedUp.SCAN;
+    manuallyFixedUp.ZSCAN = manuallyFixedUp.SCAN;
 
     Object.entries(schema).forEach(([name, command]) => {
         if (name in manuallyFixedUp) {

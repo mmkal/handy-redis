@@ -7,6 +7,8 @@ export {
     CreateNodeRedisClient,
 } from "./node_redis";
 
+export { createIORedisClient, WrappedIORedisClient } from "./ioredis";
+
 // aliases for backwards-compatibility with v1.x
 
 /** @deprecated use `createNodeRedisClient` */

@@ -64,12 +64,12 @@
     "@types/lodash": "4.14.170",
     "@types/node": "14.17.4",
     "@types/redis-mock": "0.17.0",
-    "@typescript-eslint/eslint-plugin": "4.28.0",
-    "@typescript-eslint/parser": "4.28.0",
+    "@typescript-eslint/eslint-plugin": "4.28.1",
+    "@typescript-eslint/parser": "4.28.1",
     "check-clean": "0.3.0",
     "del-cli": "4.0.0",
     "downlevel-dts": "0.7.0",
-    "eslint": "7.29.0",
+    "eslint": "7.30.0",
     "eslint-config-xo": "0.37.0",
     "eslint-config-xo-typescript": "0.42.0",
     "eslint-plugin-codegen": "0.15.0",
@@ -79,7 +79,7 @@
     "eslint-plugin-unicorn": "34.0.1",
     "expect-type": "0.11.0",
     "fs-syncer": "0.3.4-next.1",
-    "jest": "27.0.5",
+    "jest": "27.0.6",
     "lodash": "4.17.21",
     "npm-run-all": "4.1.5",
     "prettier": "2.3.2",
@@ -89,7 +89,7 @@
     "string-argv": "0.3.1",
     "ts-jest": "27.0.3",
     "ts-node": "10.0.0",
-    "typescript": "4.3.4"
+    "typescript": "4.3.5"
   },
   "engines": {
     "node": ">= 10.0.0"

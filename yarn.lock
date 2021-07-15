@@ -2380,11 +2380,6 @@ char-regex@^1.0.2:
   resolved "https://registry.yarnpkg.com/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
   integrity sha512-kWWXztvZ5SBQV+eRgKFeh8q5sLuZY2+8WUIzlxWVTg+oGwY14qylx1KbKzHd8P6ZYkAg0xyIDU9JMHhyJMZ1jw==
 
-check-clean@0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/check-clean/-/check-clean-0.3.1.tgz#2a80cf0aa95f1c971fbf80ef36ae17fa336b495e"
-  integrity sha512-2g3QAu6zVaPrYfxieSZCKoxz3SRaknmVlKJSFYEpnGojmZQ/9ZqjUP80pP9/CsIHOe+5orKqLf6fKn4csf1fTg==
-
 chownr@^1.1.1, chownr@^1.1.2, chownr@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.4.tgz#6fc9d7b42d32a583596337666e7d08084da2cc6b"

@@ -47,8 +47,6 @@
     "redis-cli": "docker-compose exec redis redis-cli",
     "redis:down": "docker-compose down",
     "redis:up": "docker-compose up",
-    "prerelease": "yarn compile",
-    "release": "semantic-release",
     "test": "run-s clean build coverage lint check-clean",
     "tsn": "ts-node --transpile-only",
     "typecheck": "tsc -p ."
@@ -84,7 +82,6 @@
     "prettier": "2.3.2",
     "redis": "3.1.2",
     "redis-mock": "0.56.3",
-    "semantic-release": "17.4.4",
     "string-argv": "0.3.1",
     "ts-jest": "27.0.3",
     "ts-node": "10.1.0",

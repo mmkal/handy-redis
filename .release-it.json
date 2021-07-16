@@ -1,5 +1,6 @@
 {
   "github": {
-    "release": true
+    "release": true,
+    "tokenRef": "GH_TOKEN"
   }
 }

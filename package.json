@@ -73,7 +73,7 @@
     "eslint-plugin-import": "2.24.0",
     "eslint-plugin-jest": "24.4.0",
     "eslint-plugin-prettier": "3.4.0",
-    "eslint-plugin-unicorn": "34.0.1",
+    "eslint-plugin-unicorn": "35.0.0",
     "expect-type": "0.12.0",
     "fs-syncer": "0.3.4-next.1",
     "jest": "27.0.6",

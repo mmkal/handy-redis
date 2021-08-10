@@ -38,5 +38,5 @@ jobs:
       - name: Jest tests only
         run: yarn jest
         if: matrix.node-version == '10.x'
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v2
         if: matrix.node-version == '12.x'

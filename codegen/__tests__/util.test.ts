@@ -30,12 +30,27 @@ test("writeFile still writes when prettier failes", () => {
     expect(mockWarn.mock.calls).toEqual([[expect.stringMatching(/.*this.*is a syntax error/)]]);
 });
 
-test("maybe do", () => {
+test("maybe do", async () => {
     const mock = jest.fn();
+    const error = jest.spyOn(console, "error").mockImplementation(() => {});
+    const exit = jest.spyOn(process, "exit").mockImplementation((() => {}) as any);
 
-    maybeDo(false, mock);
+    await maybeDo(false, mock);
     expect(mock).toHaveBeenCalledTimes(0);
+    expect(exit).toHaveBeenCalledWith(0);
 
-    maybeDo(true, mock);
+    jest.clearAllMocks();
+
+    await maybeDo(true, mock);
     expect(mock).toHaveBeenCalledTimes(1);
+    expect(exit).toHaveBeenCalledWith(0);
+
+    jest.clearAllMocks();
+
+    mock.mockRejectedValue(Error("foo"));
+
+    await maybeDo(true, mock);
+    expect(mock).toHaveBeenCalledTimes(1);
+    expect(error).toHaveBeenCalledTimes(1);
+    expect(exit).toHaveBeenCalledWith(1);
 });

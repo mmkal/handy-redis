@@ -29,9 +29,14 @@ export const writeFile = (filepath: string, contents: string) => {
 };
 
 /** dumb util that checks a conidition before running, to avoid needing to istanbul ignore `require.main === module` checks */
-export const maybeDo = async <T>(shouldDo: boolean, doIt: () => T | Promise<T>): Promise<T | null> => {
+export const maybeDo = async <T>(shouldDo: boolean, doIt: () => T | Promise<T>): Promise<void> => {
     if (shouldDo) {
-        return doIt();
+        try {
+            await doIt();
+        } catch (e) {
+            console.error(e);
+            process.exit(1);
+        }
     }
-    return null;
+    process.exit(0);
 };

@@ -114,7 +114,7 @@ you can specify a certificate and a corresponding private key using `--cert` and
 There are two ways you can use `redis-cli` in order to get the input from other
 commands (from the standard input, basically). One is to use as last argument
 the payload we read from *stdin*. For example, in order to set a Redis key
-to the content of the file `/etc/services` if my computer, I can use the `-x`
+to the content of the file `/etc/services` of my computer, I can use the `-x`
 option:
 
     $ redis-cli -x set foo < /etc/services
@@ -351,9 +351,10 @@ syntax hints. This behavior can be turned on and off via the CLI preferences.
 ## Preferences
 
 There are two ways to customize the CLI's behavior. The file `.redisclirc`
-in your home directory is loaded by the CLI on startup. Preferences can also
-be set during a CLI session, in which case they will last only the the
-duration of the session.
+in your home directory is loaded by the CLI on startup. You can override the
+file's default location by setting the `REDISCLI_RCFILE` environment variable to
+an alternative path. Preferences can also be set during a CLI session, in which 
+case they will last only the the duration of the session.
 
 To set preferences, use the special `:set` command. The following preferences
 can be set, either by typing the command in the CLI or adding it to the

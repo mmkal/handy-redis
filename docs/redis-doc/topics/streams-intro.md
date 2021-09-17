@@ -187,14 +187,14 @@ In practical terms, if we imagine having three consumers C1, C2, C3, and a strea
 7 -> C1
 ```
 
-In order to achieve this, Redis uses a concept called *consumer groups*. It is very important to understand that Redis consumer groups have nothing to do, from an implementation standpoint, with Kafka (TM) consumer groups. Yet they are similar in functionality, so I decided to keep Kafka's (TM) terminology, as it originaly popularized this idea.
+In order to achieve this, Redis uses a concept called *consumer groups*. It is very important to understand that Redis consumer groups have nothing to do, from an implementation standpoint, with Kafka (TM) consumer groups. Yet they are similar in functionality, so I decided to keep Kafka's (TM) terminology, as it originally popularized this idea.
 
 A consumer group is like a *pseudo consumer* that gets data from a stream, and actually serves multiple consumers, providing certain guarantees:
 
 1. Each message is served to a different consumer so that it is not possible that the same message will be delivered to multiple consumers.
 2. Consumers are identified, within a consumer group, by a name, which is a case-sensitive string that the clients implementing consumers must choose. This means that even after a disconnect, the stream consumer group retains all the state, since the client will claim again to be the same consumer. However, this also means that it is up to the client to provide a unique identifier.
 3. Each consumer group has the concept of the *first ID never consumed* so that, when a consumer asks for new messages, it can provide just messages that were not previously delivered.
-4. Consuming a message, however, requires an explicit acknowledgment using a specific command. Redis interperts the acknowledgment as: this message was correctly processed so it can be evicted from the consumer group.
+4. Consuming a message, however, requires an explicit acknowledgment using a specific command. Redis interprets the acknowledgment as: this message was correctly processed so it can be evicted from the consumer group.
 5. A consumer group tracks all the messages that are currently pending, that is, messages that were delivered to some consumer of the consumer group, but are yet to be acknowledged as processed. Thanks to this feature, when accessing the message history of a stream, each consumer *will only see messages that were delivered to it*.
 
 In a way, a consumer group can be imagined as some *amount of state* about a stream:
@@ -392,7 +392,9 @@ The example above allows us to write consumers that participate in the same cons
 
 Redis consumer groups offer a feature that is used in these situations in order to *claim* the pending messages of a given consumer so that such messages will change ownership and will be re-assigned to a different consumer. The feature is very explicit. A consumer has to inspect the list of pending messages, and will have to claim specific messages using a special command, otherwise the server will leave the messages pending forever and assigned to the old consumer. In this way different applications can choose if to use such a feature or not, and exactly how to use it.
 
-The first step of this process is just a command that provides observability of pending entries in the consumer group and is called **XPENDING**. This is just a read-only command which is always safe to call and will not change ownership of any message. In its simplest form, the command is just called with two arguments, which are the name of the stream and the name of the consumer group.
+The first step of this process is just a command that provides observability of pending entries in the consumer group and is called **XPENDING**.
+This is a read-only command which is always safe to call and will not change ownership of any message.
+In its simplest form, the command is called with two arguments, which are the name of the stream and the name of the consumer group.
 
 ```
 > XPENDING mystream mygroup
@@ -403,9 +405,10 @@ The first step of this process is just a command that provides observability of 
       2) "2"
 ```
 
-When called in this way the command just outputs the total number of pending messages in the consumer group, just two messages in this case, the lower and higher message ID among the pending messages, and finally a list of consumers and the number of pending messages they have. We have just Bob with two pending messages because the only message that Alice requested was acknowledged using **XACK**.
+When called in this way, the command outputs the total number of pending messages in the consumer group (two in this case), the lower and higher message ID among the pending messages, and finally a list of consumers and the number of pending messages they have.
+We have only Bob with two pending messages because the single message that Alice requested was acknowledged using **XACK**.
 
-We can ask for more info by giving more arguments to **XPENDING**, because the full command signature is the following:
+We can ask for more information by giving more arguments to **XPENDING**, because the full command signature is the following:
 
 ```
 XPENDING <key> <groupname> [<start-id> <end-id> <count> [<consumer-name>]]
@@ -425,7 +428,8 @@ By providing a start and end ID (that can be just `-` and `+` as in **XRANGE**) 
    4) (integer) 1
 ```
 
-Now we have the detail for each message: the ID, the consumer name, the *idle time* in milliseconds, which is how much milliseconds have passed since the last time the message was delivered to some consumer, and finally the number of times that a given message was delivered. We have two messages from Bob, and they are idle for 74170458 milliseconds, about 20 hours.
+Now we have the details for each message: the ID, the consumer name, the *idle time* in milliseconds, which is how much milliseconds have passed since the last time the message was delivered to some consumer, and finally the number of times that a given message was delivered.
+We have two messages from Bob, and they are idle for 74170458 milliseconds, about 20 hours.
 
 Note that nobody prevents us from checking what the first message content was by just using **XRANGE**.
 
@@ -451,7 +455,7 @@ Client 1: XCLAIM mystream mygroup Alice 3600000 1526569498055-0
 Client 2: XCLAIM mystream mygroup Lora 3600000 1526569498055-0
 ```
 
-However claiming a message, as a side effect will reset its idle time! And will increment its number of deliveries counter, so the second client will fail claiming it. In this way we avoid trivial re-processing of messages (even if in the general case you cannot obtain exactly once processing).
+However, as a side effect, claiming a message will reset its idle time and will increment its number of deliveries counter, so the second client will fail claiming it. In this way we avoid trivial re-processing of messages (even if in the general case you cannot obtain exactly once processing).
 
 This is the result of the command execution:
 
@@ -462,11 +466,47 @@ This is the result of the command execution:
       2) "orange"
 ```
 
-The message was successfully claimed by Alice, that can now process the message and acknowledge it, and move things forward even if the original consumer is not recovering.
+The message was successfully claimed by Alice, who can now process the message and acknowledge it, and move things forward even if the original consumer is not recovering.
 
 It is clear from the example above that as a side effect of successfully claiming a given message, the **XCLAIM** command also returns it. However this is not mandatory. The **JUSTID** option can be used in order to return just the IDs of the message successfully claimed. This is useful if you want to reduce the bandwidth used between the client and the server (and also the performance of the command) and you are not interested in the message because your consumer is implemented in a way that it will rescan the history of pending messages from time to time.
 
 Claiming may also be implemented by a separate process: one that just checks the list of pending messages, and assigns idle messages to consumers that appear to be active. Active consumers can be obtained using one of the observability features of Redis streams. This is the topic of the next section.
+
+## Automatic claiming
+
+The `XAUTOCLAIM` command, added in Redis 6.2, implements the claiming process that we've described above.
+`XPENDING` and `XCLAIM` provide the basic building blocks for different types of recovery mechanisms.
+This command optimizes the generic process by having Redis manage it and offers a simple solution for most recovery needs.
+
+`XAUTOCLAIM` identifies idle pending messages and transfers ownership of them to a consumer.
+The command's signature looks like this:
+
+```
+XAUTOCLAIM <key> <group> <consumer> <min-idle-time> <start> [COUNT count] [JUSTID]
+```
+
+So, in the example above, I could have used automatic claiming to claim a single message like this:
+
+```
+> XAUTOCLAIM mystream mygroup Alice 3600000 0-0 COUNT 1
+1) 1526569498055-0
+2) 1) 1526569498055-0
+   2) 1) "message"
+      2) "orange"
+```
+
+Like `XCLAIM`, the command replies with an array of the claimed messages, but it also returns a stream ID that allows iterating the pending entries.
+The stream ID is a cursor, and I can use it in my next call to continue in claiming idle pending messages:
+
+```
+> XAUTOCLAIM mystream mygroup Lora 3600000 1526569498055-0 COUNT 1
+1) 0-0
+2) 1) 1526569506935-0
+   2) 1) "message"
+      2) "strawberry"
+```
+When `XAUTOCLAIM` returns the "0-0" stream ID as a cursor, that means that it reached the end of the consumer group pending entries list.
+That doesn't mean that there are no new idle pending messages, so the process continues by calling `XAUTOCLAIM` from the beginning of the stream.
 
 ## Claiming and the delivery counter
 
@@ -615,9 +655,9 @@ Or, as for the **XADD** option:
 > XTRIM mystream MAXLEN ~ 10
 ```
 
-However, **XTRIM** is designed to accept different trimming strategies, even if only **MAXLEN** is currently implemented.
+However, **XTRIM** is designed to accept different trimming strategies. Another trimming strategy is **MINID**, that evicts entries with IDs lower than the one specified.
 
-As **XTRIM** is an explicit command, the user is expected to know about the possible shortcomings of different trimming strategies. As such, it's possible that trimming by time will be implemented at a later time.
+As **XTRIM** is an explicit command, the user is expected to know about the possible shortcomings of different trimming strategies.
 
 Another useful eviction strategy that may be added to **XTRIM** in the future, is to remove by a range of IDs to ease use of **XRANGE** and **XTRIM** to move data from Redis to other storage systems if needed.
 

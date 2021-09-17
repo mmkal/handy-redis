@@ -133,6 +133,13 @@
     "since": "2.0.0",
     "group": "string"
   },
+  "ASKING": {
+    "summary": "Sent by cluster clients after an -ASK redirect",
+    "complexity": "O(1)",
+    "arguments": [],
+    "since": "3.0.0",
+    "group": "cluster"
+  },
   "AUTH": {
     "summary": "Authenticate to the server",
     "arguments": [
@@ -190,7 +197,7 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "BITFIELD": {
     "summary": "Perform arbitrary bitfield integer operations on strings",
@@ -252,7 +259,30 @@
       }
     ],
     "since": "3.2.0",
-    "group": "string"
+    "group": "bitmap"
+  },
+  "BITFIELD_RO": {
+    "summary": "Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD",
+    "complexity": "O(1) for each subcommand specified",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "GET",
+        "name": [
+          "type",
+          "offset"
+        ],
+        "type": [
+          "type",
+          "integer"
+        ]
+      }
+    ],
+    "since": "6.2.0",
+    "group": "bitmap"
   },
   "BITOP": {
     "summary": "Perform bitwise operations between strings",
@@ -273,7 +303,7 @@
       }
     ],
     "since": "2.6.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "BITPOS": {
     "summary": "Find first bit set or clear in a string",
@@ -288,22 +318,28 @@
         "type": "integer"
       },
       {
-        "name": "start",
-        "type": "integer",
-        "optional": true
-      },
-      {
-        "name": "end",
-        "type": "integer",
-        "optional": true
+        "name": "index",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "name": "start",
+            "type": "integer"
+          },
+          {
+            "name": "end",
+            "type": "integer",
+            "optional": true
+          }
+        ]
       }
     ],
     "since": "2.8.7",
-    "group": "string"
+    "group": "bitmap"
   },
   "BLPOP": {
     "summary": "Remove and get the first element in a list, or block until one is available",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of provided keys.",
     "arguments": [
       {
         "name": "key",
@@ -320,7 +356,7 @@
   },
   "BRPOP": {
     "summary": "Remove and get the last element in a list, or block until one is available",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of provided keys.",
     "arguments": [
       {
         "name": "key",
@@ -391,6 +427,74 @@
     "since": "6.2.0",
     "group": "list"
   },
+  "LMPOP": {
+    "summary": "Pop elements from a list",
+    "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "list"
+  },
+  "BLMPOP": {
+    "summary": "Pop elements from a list, or block until one is available",
+    "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
+    "arguments": [
+      {
+        "name": "timeout",
+        "type": "double"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "where",
+        "type": "enum",
+        "enum": [
+          "LEFT",
+          "RIGHT"
+        ]
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "list"
+  },
   "BZPOPMIN": {
     "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
     "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
@@ -447,6 +551,12 @@
     "since": "5.0.0",
     "group": "connection"
   },
+  "CLIENT INFO": {
+    "summary": "Returns information about the current client connection.",
+    "complexity": "O(1)",
+    "since": "6.2.0",
+    "group": "connection"
+  },
   "CLIENT KILL": {
     "summary": "Kill the connection of a client",
     "complexity": "O(N) where N is the number of client connections",
@@ -486,6 +596,12 @@
         "optional": true
       },
       {
+        "command": "LADDR",
+        "name": "ip:port",
+        "type": "string",
+        "optional": true
+      },
+      {
         "command": "SKIPME",
         "name": "yes/no",
         "type": "string",
@@ -509,6 +625,21 @@
           "pubsub"
         ],
         "optional": true
+      },
+      {
+        "name": "id",
+        "type": "block",
+        "block": [
+          {
+            "command": "ID"
+          },
+          {
+            "name": "client-id",
+            "type": "integer",
+            "multiple": true
+          }
+        ],
+        "optional": true
       }
     ],
     "since": "2.4.0",
@@ -526,6 +657,12 @@
     "since": "6.0.0",
     "group": "connection"
   },
+  "CLIENT UNPAUSE": {
+    "summary": "Resume processing of clients that were paused",
+    "complexity": "O(N) Where N is the number of paused clients",
+    "since": "6.2.0",
+    "group": "connection"
+  },
   "CLIENT PAUSE": {
     "summary": "Stop processing commands from clients for some time",
     "complexity": "O(1)",
@@ -533,6 +670,15 @@
       {
         "name": "timeout",
         "type": "integer"
+      },
+      {
+        "name": "mode",
+        "type": "enum",
+        "optional": true,
+        "enum": [
+          "WRITE",
+          "ALL"
+        ]
       }
     ],
     "since": "2.9.50",
@@ -569,7 +715,7 @@
   },
   "CLIENT TRACKING": {
     "summary": "Enable or disable server assisted client side caching support",
-    "complexity": "O(1)",
+    "complexity": "O(1). Some options may introduce additional complexity.",
     "arguments": [
       {
         "name": "status",
@@ -626,6 +772,12 @@
       }
     ],
     "since": "6.0.0",
+    "group": "connection"
+  },
+  "CLIENT TRACKINGINFO": {
+    "summary": "Return information about server assisted client side caching for the current connection",
+    "complexity": "O(1)",
+    "since": "6.2.0",
     "group": "connection"
   },
   "CLIENT UNBLOCK": {
@@ -1109,6 +1261,34 @@
       {
         "name": "key",
         "type": "key",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      }
+    ],
+    "since": "2.6.0",
+    "group": "scripting"
+  },
+  "EVAL_RO": {
+    "summary": "Execute a read-only Lua script server side",
+    "complexity": "Depends on the script that is executed.",
+    "arguments": [
+      {
+        "name": "script",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
         "multiple": true
       },
       {
@@ -1117,11 +1297,39 @@
         "multiple": true
       }
     ],
-    "since": "2.6.0",
+    "since": "7.0.0",
     "group": "scripting"
   },
   "EVALSHA": {
     "summary": "Execute a Lua script server side",
+    "complexity": "Depends on the script that is executed.",
+    "arguments": [
+      {
+        "name": "sha1",
+        "type": "string"
+      },
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "arg",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      }
+    ],
+    "since": "2.6.0",
+    "group": "scripting"
+  },
+  "EVALSHA_RO": {
+    "summary": "Execute a read-only Lua script server side",
     "complexity": "Depends on the script that is executed.",
     "arguments": [
       {
@@ -1143,7 +1351,7 @@
         "multiple": true
       }
     ],
-    "since": "2.6.0",
+    "since": "7.0.0",
     "group": "scripting"
   },
   "EXEC": {
@@ -1153,7 +1361,7 @@
   },
   "EXISTS": {
     "summary": "Determine if a key exists",
-    "complexity": "O(1)",
+    "complexity": "O(N) where N is the number of keys to check.",
     "arguments": [
       {
         "name": "key",
@@ -1175,6 +1383,17 @@
       {
         "name": "seconds",
         "type": "integer"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -1191,19 +1410,83 @@
       {
         "name": "timestamp",
         "type": "posix time"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "1.2.0",
     "group": "generic"
   },
+  "EXPIRETIME": {
+    "summary": "Get the expiration Unix timestamp for a key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "7.0.0",
+    "group": "generic"
+  },
+  "FAILOVER": {
+    "summary": "Start a coordinated failover between this server and one of its replicas.",
+    "arguments": [
+      {
+        "name": "target",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "command": "TO"
+          },
+          {
+            "name": "host",
+            "type": "string"
+          },
+          {
+            "name": "port",
+            "type": "integer"
+          },
+          {
+            "command": "FORCE",
+            "optional": true
+          }
+        ]
+      },
+      {
+        "command": "ABORT",
+        "optional": true
+      },
+      {
+        "command": "TIMEOUT",
+        "name": "milliseconds",
+        "type": "integer",
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "server"
+  },
   "FLUSHALL": {
     "summary": "Remove all keys from all databases",
+    "complexity": "O(N) where N is the total number of keys in all databases",
     "arguments": [
       {
         "name": "async",
         "type": "enum",
         "enum": [
-          "ASYNC"
+          "ASYNC",
+          "SYNC"
         ],
         "optional": true
       }
@@ -1213,12 +1496,14 @@
   },
   "FLUSHDB": {
     "summary": "Remove all keys from the current database",
+    "complexity": "O(N) where N is the number of keys in the selected database",
     "arguments": [
       {
         "name": "async",
         "type": "enum",
         "enum": [
-          "ASYNC"
+          "ASYNC",
+          "SYNC"
         ],
         "optional": true
       }
@@ -1233,6 +1518,23 @@
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "change",
+        "type": "enum",
+        "enum": [
+          "CH"
+        ],
+        "optional": true
       },
       {
         "name": [
@@ -1270,7 +1572,7 @@
   },
   "GEOPOS": {
     "summary": "Returns longitude and latitude of members of a geospatial index",
-    "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+    "complexity": "O(N) where N is the number of members requested.",
     "arguments": [
       {
         "name": "key",
@@ -1371,9 +1673,23 @@
         "optional": true
       },
       {
-        "command": "COUNT",
+        "type": "block",
         "name": "count",
-        "type": "integer",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
         "optional": true
       },
       {
@@ -1452,9 +1768,23 @@
         "optional": true
       },
       {
-        "command": "COUNT",
+        "type": "block",
         "name": "count",
-        "type": "integer",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
         "optional": true
       },
       {
@@ -1480,6 +1810,256 @@
       }
     ],
     "since": "3.2.0",
+    "group": "geo"
+  },
+  "GEOSEARCH": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
+    "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "FROMMEMBER",
+        "name": "member",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "FROMLONLAT",
+        "name": [
+          "longitude",
+          "latitude"
+        ],
+        "type": [
+          "double",
+          "double"
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "circle",
+        "block": [
+          {
+            "name": "radius",
+            "command": "BYRADIUS",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "box",
+        "block": [
+          {
+            "name": "width",
+            "command": "BYBOX",
+            "type": "double"
+          },
+          {
+            "name": "height",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "count",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
+        "optional": true
+      },
+      {
+        "name": "withcoord",
+        "type": "enum",
+        "enum": [
+          "WITHCOORD"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withdist",
+        "type": "enum",
+        "enum": [
+          "WITHDIST"
+        ],
+        "optional": true
+      },
+      {
+        "name": "withhash",
+        "type": "enum",
+        "enum": [
+          "WITHHASH"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2",
+    "group": "geo"
+  },
+  "GEOSEARCHSTORE": {
+    "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
+    "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+    "arguments": [
+      {
+        "name": "destination",
+        "type": "key"
+      },
+      {
+        "name": "source",
+        "type": "key"
+      },
+      {
+        "command": "FROMMEMBER",
+        "name": "member",
+        "type": "string",
+        "optional": true
+      },
+      {
+        "command": "FROMLONLAT",
+        "name": [
+          "longitude",
+          "latitude"
+        ],
+        "type": [
+          "double",
+          "double"
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "circle",
+        "block": [
+          {
+            "name": "radius",
+            "command": "BYRADIUS",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "box",
+        "block": [
+          {
+            "name": "width",
+            "command": "BYBOX",
+            "type": "double"
+          },
+          {
+            "name": "height",
+            "type": "double"
+          },
+          {
+            "name": "unit",
+            "type": "enum",
+            "enum": [
+              "m",
+              "km",
+              "ft",
+              "mi"
+            ]
+          }
+        ],
+        "optional": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "type": "block",
+        "name": "count",
+        "block": [
+          {
+            "name": "count",
+            "command": "COUNT",
+            "type": "integer"
+          },
+          {
+            "name": "any",
+            "type": "enum",
+            "enum": [
+              "ANY"
+            ],
+            "optional": true
+          }
+        ],
+        "optional": true
+      },
+      {
+        "name": "storedist",
+        "type": "enum",
+        "enum": [
+          "STOREDIST"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2",
     "group": "geo"
   },
   "GET": {
@@ -1508,6 +2088,42 @@
       }
     ],
     "since": "2.2.0",
+    "group": "bitmap"
+  },
+  "GETDEL": {
+    "summary":"Get the value of a key and delete the key",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "6.2.0",
+    "group": "string"
+  },
+  "GETEX": {
+    "summary": "Get the value of a key and optionally set its expiration",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "expiration",
+        "type": "enum",
+        "enum": [
+          "EX seconds",
+          "PX milliseconds",
+          "EXAT timestamp",
+          "PXAT milliseconds-timestamp",
+          "PERSIST"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
     "group": "string"
   },
   "GETRANGE": {
@@ -1564,29 +2180,36 @@
     "group": "hash"
   },
   "HELLO": {
-    "summary": "switch Redis protocol",
+    "summary": "Handshake with Redis",
     "complexity": "O(1)",
     "arguments": [
       {
-        "name": "protover",
-        "type": "integer"
-      },
-      {
-        "command": "AUTH",
-        "name": [
-          "username",
-          "password"
+        "name": "arguments",
+        "type": "block",
+        "block": [
+          {
+            "name": "protover",
+            "type": "integer"
+          },
+          {
+            "command": "AUTH",
+            "name": [
+              "username",
+              "password"
+            ],
+            "type": [
+              "string",
+              "string"
+            ],
+            "optional": true
+          },
+          {
+            "command": "SETNAME",
+            "name": "clientname",
+            "type": "string",
+            "optional": true
+          }
         ],
-        "type": [
-          "string",
-          "string"
-        ],
-        "optional": true
-      },
-      {
-        "command": "SETNAME",
-        "name": "clientname",
-        "type": "string",
         "optional": true
       }
     ],
@@ -1784,6 +2407,37 @@
     "since": "2.0.0",
     "group": "hash"
   },
+  "HRANDFIELD": {
+    "summary": "Get one or multiple random fields from a hash",
+    "complexity": "O(N) where N is the number of fields returned",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "options",
+        "type": "block",
+        "block": [
+          {
+            "name": "count",
+            "type": "integer"
+          },
+          {
+            "name": "withvalues",
+            "type": "enum",
+            "enum": [
+              "WITHVALUES"
+            ],
+            "optional": true
+          }
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "hash"
+  },
   "HSTRLEN": {
     "summary": "Get the length of the value of a hash field",
     "complexity": "O(1)",
@@ -1955,12 +2609,17 @@
     "group": "list"
   },
   "LPOP": {
-    "summary": "Remove and get the first element in a list",
-    "complexity": "O(1)",
+    "summary": "Remove and get the first elements in a list",
+    "complexity": "O(N) where N is the number of elements returned",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -2378,6 +3037,17 @@
       {
         "name": "milliseconds",
         "type": "integer"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "2.6.0",
@@ -2394,9 +3064,32 @@
       {
         "name": "milliseconds-timestamp",
         "type": "posix time"
+      },
+      {
+        "name": "condition",
+        "type": "enum",
+        "enum": [
+          "NX",
+          "XX",
+          "GT",
+          "LT"
+        ],
+        "optional": true
       }
     ],
     "since": "2.6.0",
+    "group": "generic"
+  },
+  "PEXPIRETIME": {
+    "summary": "Get the expiration Unix timestamp for a key in milliseconds",
+    "complexity": "O(1)",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      }
+    ],
+    "since": "7.0.0",
     "group": "generic"
   },
   "PFADD": {
@@ -2410,6 +3103,7 @@
       {
         "name": "element",
         "type": "string",
+        "optional": true,
         "multiple": true
       }
     ],
@@ -2669,12 +3363,17 @@
     "group": "server"
   },
   "RPOP": {
-    "summary": "Remove and get the last element in a list",
-    "complexity": "O(1)",
+    "summary": "Remove and get the last elements in a list",
+    "complexity": "O(N) where N is the number of elements returned",
     "arguments": [
       {
         "name": "key",
         "type": "key"
+      },
+      {
+        "name": "count",
+        "type": "integer",
+        "optional": true
       }
     ],
     "since": "1.0.0",
@@ -2828,6 +3527,17 @@
   },
   "SCRIPT FLUSH": {
     "summary": "Remove all the scripts from the script cache.",
+    "arguments": [
+      {
+        "name": "async",
+        "type": "enum",
+        "enum": [
+          "ASYNC",
+          "SYNC"
+        ],
+        "optional": true
+      }
+    ],
     "complexity": "O(N) with N being the number of scripts in cache",
     "since": "2.6.0",
     "group": "scripting"
@@ -2909,6 +3619,8 @@
         "enum": [
           "EX seconds",
           "PX milliseconds",
+          "EXAT timestamp",
+          "PXAT milliseconds-timestamp",
           "KEEPTTL"
         ],
         "optional": true
@@ -2952,7 +3664,7 @@
       }
     ],
     "since": "2.2.0",
-    "group": "string"
+    "group": "bitmap"
   },
   "SETEX": {
     "summary": "Set the value and expiration of a key",
@@ -3037,6 +3749,19 @@
       }
     ],
     "since": "1.0.0",
+    "group": "set"
+  },
+  "SINTERCARD": {
+    "summary": "Intersect multiple sets and return the cardinality of the result",
+    "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
     "group": "set"
   },
   "SINTERSTORE": {
@@ -3169,7 +3894,7 @@
   },
   "SORT": {
     "summary": "Sort the elements in a list, set or sorted set",
-    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.",
+    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
     "arguments": [
       {
         "name": "key",
@@ -3227,9 +3952,63 @@
     "since": "1.0.0",
     "group": "generic"
   },
+  "SORT_RO": {
+    "summary": "Sort the elements in a list, set or sorted set. Read-only variant of SORT.",
+    "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "command": "BY",
+        "name": "pattern",
+        "type": "pattern",
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      },
+      {
+        "command": "GET",
+        "name": "pattern",
+        "type": "string",
+        "optional": true,
+        "multiple": true
+      },
+      {
+        "name": "order",
+        "type": "enum",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "optional": true
+      },
+      {
+        "name": "sorting",
+        "type": "enum",
+        "enum": [
+          "ALPHA"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "generic"
+  },
   "SPOP": {
     "summary": "Remove and return one or multiple random members from a set",
-    "complexity": "O(1)",
+    "complexity": "Without the count argument O(1), otherwise O(N) where N is the value of the passed count.",
     "arguments": [
       {
         "name": "key",
@@ -3355,6 +4134,7 @@
   },
   "SWAPDB": {
     "summary": "Swaps two Redis databases",
+    "complexity": "O(N) where N is the count of clients watching or blocking on keys from both databases.",
     "arguments": [
       {
         "name": "index1",
@@ -3408,7 +4188,7 @@
     "group": "generic"
   },
   "TTL": {
-    "summary": "Get the time to live for a key",
+    "summary": "Get the time to live for a key in seconds",
     "complexity": "O(1)",
     "arguments": [
       {
@@ -3691,6 +4471,23 @@
     "since": "6.2.0",
     "group": "sorted_set"
   },
+  "ZINTERCARD": {
+    "summary": "Intersect multiple sorted sets and return the cardinality of the result",
+    "complexity": "O(N*K) worst case with N being the smallest input sorted set, K being the number of input sorted sets.",
+    "arguments": [
+      {
+        "name": "numkeys",
+        "type": "integer"
+      },
+      {
+        "name": "key",
+        "type": "key",
+        "multiple": true
+      }
+    ],
+    "since": "7.0.0",
+    "group": "sorted_set"
+  },
   "ZINTERSTORE": {
     "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
     "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
@@ -3784,8 +4581,92 @@
     "since": "5.0.0",
     "group": "sorted_set"
   },
+  "ZRANDMEMBER": {
+    "summary": "Get one or multiple random elements from a sorted set",
+    "complexity": "O(N) where N is the number of elements returned",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "options",
+        "type": "block",
+        "block": [
+          {
+            "name": "count",
+            "type": "integer"
+          },
+          {
+            "name": "withscores",
+            "type": "enum",
+            "enum": [
+              "WITHSCORES"
+            ],
+            "optional": true
+          }
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
+  "ZRANGESTORE": {
+    "summary": "Store a range of members from sorted set into another key",
+    "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.",
+    "arguments": [
+      {
+        "name": "dst",
+        "type": "key"
+      },
+      {
+        "name": "src",
+        "type": "key"
+      },
+      {
+        "name": "min",
+        "type": "string"
+      },
+      {
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "name": "sortby",
+        "type": "enum",
+        "enum": [
+          "BYSCORE",
+          "BYLEX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "rev",
+        "type": "enum",
+        "enum": [
+          "REV"
+        ],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
+    "group": "sorted_set"
+  },
   "ZRANGE": {
-    "summary": "Return a range of members in a sorted set, by index",
+    "summary": "Return a range of members in a sorted set",
     "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
     "arguments": [
       {
@@ -3793,12 +4674,41 @@
         "type": "key"
       },
       {
-        "name": "start",
-        "type": "integer"
+        "name": "min",
+        "type": "string"
       },
       {
-        "name": "stop",
-        "type": "integer"
+        "name": "max",
+        "type": "string"
+      },
+      {
+        "name": "sortby",
+        "type": "enum",
+        "enum": [
+          "BYSCORE",
+          "BYLEX"
+        ],
+        "optional": true
+      },
+      {
+        "name": "rev",
+        "type": "enum",
+        "enum": [
+          "REV"
+        ],
+        "optional": true
+      },
+      {
+        "command": "LIMIT",
+        "name": [
+          "offset",
+          "count"
+        ],
+        "type": [
+          "integer",
+          "integer"
+        ],
+        "optional": true
       },
       {
         "name": "withscores",
@@ -4364,43 +5274,49 @@
   },
   "XADD": {
     "summary": "Appends a new entry to a stream",
-    "complexity": "O(1)",
+    "complexity": "O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.",
     "arguments": [
       {
         "name": "key",
         "type": "key"
       },
       {
-        "name": "maxlen",
-        "type": "block",
-        "block": [
-          {
-            "command": "MAXLEN"
-          },
-          {
-            "name": "operator",
-            "type": "block",
-            "block": [
-              {
-                "type": "enum",
-                "enum": [
-                  "=",
-                  "~"
-                ],
-                "optional": true
-              },
-              {
-                "name": "length",
-                "type": "integer"
-              }
-            ]
-          }
-        ],
+        "command": "NOMKSTREAM",
         "optional": true
       },
       {
-        "command": "NOMKSTREAM",
-        "optional": true
+        "name": "trim",
+        "type": "block",
+        "optional": true,
+        "block": [
+          {
+            "name": "strategy",
+            "type": "enum",
+            "enum": [
+              "MAXLEN",
+              "MINID"
+            ]
+          },
+          {
+            "name": "operator",
+            "type": "enum",
+            "enum": [
+              "=",
+              "~"
+            ],
+            "optional": true
+          },
+          {
+            "name": "threshold",
+            "type": "string"
+          },
+          {
+            "command": "LIMIT",
+            "name": "count",
+            "type": "integer",
+            "optional": true
+          }
+        ]
       },
       {
         "type": "enum",
@@ -4433,17 +5349,19 @@
         "type": "key"
       },
       {
-        "name": "strategy",
-        "type": "enum",
-        "enum": [
-          "MAXLEN"
-        ]
-      },
-      {
+        "name": "trim",
         "type": "block",
-        "name": "operator",
         "block": [
           {
+            "name": "strategy",
+            "type": "enum",
+            "enum": [
+              "MAXLEN",
+              "MINID"
+            ]
+          },
+          {
+            "name": "operator",
             "type": "enum",
             "enum": [
               "=",
@@ -4452,8 +5370,14 @@
             "optional": true
           },
           {
-            "name": "length",
-            "type": "integer"
+            "name": "threshold",
+            "type": "string"
+          },
+          {
+            "command": "LIMIT",
+            "name": "count",
+            "type": "integer",
+            "optional": true
           }
         ]
       }
@@ -4819,6 +5743,47 @@
       }
     ],
     "since": "5.0.0",
+    "group": "stream"
+  },
+  "XAUTOCLAIM": {
+    "summary": "Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.",
+    "complexity": "O(1) if COUNT is small.",
+    "arguments": [
+      {
+        "name": "key",
+        "type": "key"
+      },
+      {
+        "name": "group",
+        "type": "string"
+      },
+      {
+        "name": "consumer",
+        "type": "string"
+      },
+      {
+        "name": "min-idle-time",
+        "type": "string"
+      },
+      {
+        "name": "start",
+        "type": "string"
+      },
+      {
+        "command": "COUNT",
+        "name": "count",
+        "type": "integer",
+        "optional": true
+      },
+      {
+        "name": "justid",
+        "enum": [
+          "JUSTID"
+        ],
+        "optional": true
+      }
+    ],
+    "since": "6.2.0",
     "group": "stream"
   },
   "XPENDING": {

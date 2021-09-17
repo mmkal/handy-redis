@@ -11,14 +11,13 @@ beforeEach(async () => {
     await client.flushall();
 });
 
-test("docs/redis-doc/commands/xack.md example 1", async () => {
+test("docs/redis-doc/commands/client-info.md example 1", async () => {
     const outputs: Record<string, unknown> = {};
 
-    outputs.r0 = await client.xack("mystream", "mygroup", "1526569495631-0");
+    // Error decoding command `CLIENT INFO`:
 
-    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
-        Object {
-          "r0": 0,
-        }
-    `);
+    // CLIENT not found
+    // ---
+
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

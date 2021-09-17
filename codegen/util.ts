@@ -14,18 +14,21 @@ Object.assign(Array.prototype, {
     },
 });
 
-export const writeFile = (filepath: string, contents: string) => {
+export const format = ({ filepath = __filename, content }: { filepath?: string; content: string }) =>
+    prettier.format(content, {
+        ...require("../.prettierrc"),
+        filepath,
+    });
+
+export const writeFile = (filepath: string, content: string) => {
     fs.mkdirSync(path.dirname(filepath), { recursive: true });
-    contents = contents.replace(/\r?\n/g, os.EOL);
+    content = content.replace(/\r?\n/g, os.EOL);
     try {
-        contents = prettier.format(contents, {
-            ...require("../.prettierrc"),
-            filepath,
-        });
+        content = format({ filepath, content });
     } catch (e) {
         console.warn(`prettier failed for ${filepath}: ${e}`.slice(0, 200));
     }
-    fs.writeFileSync(filepath, contents, "utf8");
+    fs.writeFileSync(filepath, content, "utf8");
 };
 
 /** dumb util that checks a conidition before running, to avoid needing to istanbul ignore `require.main === module` checks */

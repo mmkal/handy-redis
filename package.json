@@ -1,6 +1,6 @@
 {
   "name": "handy-redis",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "description": "A redis client with first-class Promise and TypeScript support, and extensive documentation.",
   "keywords": [
     "redis",

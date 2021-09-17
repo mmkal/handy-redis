@@ -29,11 +29,5 @@ test("docs/redis-doc/commands/hrandfield.md example 1", async () => {
     // hrandfield gives a non-deterministic output! // Tokens remain but no target args left! Tokens: WITHVALUES
     // hrandfield gives a non-deterministic output! // ---
 
-    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
-        Object {
-          "r0": "OK",
-          "r1": "tails",
-          "r2": "edge",
-        }
-    `);
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

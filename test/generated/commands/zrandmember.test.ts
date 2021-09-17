@@ -29,11 +29,5 @@ test("docs/redis-doc/commands/zrandmember.md example 1", async () => {
     // zrandmember gives a non-deterministic output! // Tokens remain but no target args left! Tokens: WITHSCORES
     // zrandmember gives a non-deterministic output! // ---
 
-    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
-        Object {
-          "r0": 6,
-          "r1": "quattro",
-          "r2": "tre",
-        }
-    `);
+    expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`Object {}`);
 });

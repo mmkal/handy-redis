@@ -29,6 +29,8 @@ test("docs/redis-doc/commands/pexpire.md example 1", async () => {
           "r1": "someNumberValue => [a number]",
           "r2": "someNumberValue => [a number]",
           "r3": "someNumberValue => [a number]",
+          "r5": "someNumberValue => [a number]",
+          "r7": "someNumberValue => [a number]",
         }
     `);
 });

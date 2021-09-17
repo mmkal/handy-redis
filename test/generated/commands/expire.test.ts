@@ -31,6 +31,8 @@ test("docs/redis-doc/commands/expire.md example 1", async () => {
           "r2": 10,
           "r3": "OK",
           "r4": -1,
+          "r6": -1,
+          "r8": -1,
         }
     `);
 });

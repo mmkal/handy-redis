@@ -168,7 +168,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Authenticate to the server
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/auth)
@@ -178,7 +177,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Authenticate to the server
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/auth)
@@ -188,7 +186,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Asynchronously rewrite the append-only file
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/bgrewriteaof)
@@ -198,7 +195,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Asynchronously save the dataset to disk
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/bgsave)
@@ -2441,7 +2437,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Get the value of a configuration parameter
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.0.0
      *
      * [Full docs](https://redis.io/commands/config-get)
@@ -2451,7 +2446,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Rewrite the configuration file with the in memory configuration
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.0
      *
      * [Full docs](https://redis.io/commands/config-rewrite)
@@ -2461,7 +2455,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Set a configuration parameter to the given value
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.0.0
      *
      * [Full docs](https://redis.io/commands/config-set)
@@ -2506,7 +2499,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Return the number of keys in the selected database
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/dbsize)
@@ -2516,7 +2508,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Get debugging information about a key
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/debug-object)
@@ -2526,7 +2517,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Make the server crash
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/debug-segfault)
@@ -2566,7 +2556,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Discard all commands issued after MULTI
      * - _group_: transactions
-     * - _complexity_: undefined
      * - _since_: 2.0.0
      *
      * [Full docs](https://redis.io/commands/discard)
@@ -2586,7 +2575,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Echo the given string
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/echo)
@@ -2656,7 +2644,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Execute all commands issued after MULTI
      * - _group_: transactions
-     * - _complexity_: undefined
      * - _since_: 1.2.0
      *
      * [Full docs](https://redis.io/commands/exec)
@@ -2706,7 +2693,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Start a coordinated failover between this server and one of its replicas.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 6.2.0
      *
      * [Full docs](https://redis.io/commands/failover)
@@ -2716,7 +2702,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Start a coordinated failover between this server and one of its replicas.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 6.2.0
      *
      * [Full docs](https://redis.io/commands/failover)
@@ -2726,7 +2711,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Start a coordinated failover between this server and one of its replicas.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 6.2.0
      *
      * [Full docs](https://redis.io/commands/failover)
@@ -2739,7 +2723,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Start a coordinated failover between this server and one of its replicas.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 6.2.0
      *
      * [Full docs](https://redis.io/commands/failover)
@@ -11047,7 +11030,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Get information and statistics about the server
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/info)
@@ -11057,7 +11039,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Display some computer art and the Redis version
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 5.0.0
      *
      * [Full docs](https://redis.io/commands/lolwut)
@@ -11077,7 +11058,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Get the UNIX time stamp of the last successful save to disk
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/lastsave)
@@ -11243,7 +11223,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Outputs memory problems report
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 4.0.0
      *
      * [Full docs](https://redis.io/commands/memory-doctor)
@@ -11253,7 +11232,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Show helpful text about the different subcommands
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 4.0.0
      *
      * [Full docs](https://redis.io/commands/memory-help)
@@ -11263,7 +11241,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Show allocator internal stats
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 4.0.0
      *
      * [Full docs](https://redis.io/commands/memory-malloc-stats)
@@ -11273,7 +11250,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Ask the allocator to release memory
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 4.0.0
      *
      * [Full docs](https://redis.io/commands/memory-purge)
@@ -11283,7 +11259,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Show memory usage details
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 4.0.0
      *
      * [Full docs](https://redis.io/commands/memory-stats)
@@ -11651,7 +11626,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Listen for all requests received by the server in real time
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/monitor)
@@ -11691,7 +11665,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Mark the start of a transaction block
      * - _group_: transactions
-     * - _complexity_: undefined
      * - _since_: 1.2.0
      *
      * [Full docs](https://redis.io/commands/multi)
@@ -11785,7 +11758,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Ping the server
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/ping)
@@ -11855,7 +11827,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Close the connection
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/quit)
@@ -11915,7 +11886,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Reset the connection
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 6.2
      *
      * [Full docs](https://redis.io/commands/reset)
@@ -12057,7 +12027,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Return the role of the instance in the context of replication
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.12
      *
      * [Full docs](https://redis.io/commands/role)
@@ -12132,7 +12101,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Synchronously save the dataset to disk
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/save)
@@ -12222,7 +12190,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Change the selected database for the current connection
      * - _group_: connection
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/select)
@@ -12323,7 +12290,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Synchronously save the dataset to disk and then shut down the server
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/shutdown)
@@ -12383,7 +12349,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Make the server a replica of another instance, or promote it as master. Deprecated starting with Redis 5. Use REPLICAOF instead.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/slaveof)
@@ -12393,7 +12358,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Make the server a replica of another instance, or promote it as master.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 5.0.0
      *
      * [Full docs](https://redis.io/commands/replicaof)
@@ -12403,7 +12367,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Manages the Redis slow queries log
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.2.12
      *
      * [Full docs](https://redis.io/commands/slowlog)
@@ -13241,7 +13204,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Internal command used for replication
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sync)
@@ -13251,7 +13213,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Internal command used for replication
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.0
      *
      * [Full docs](https://redis.io/commands/psync)
@@ -15539,7 +15500,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Return a human readable latency analysis report.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.13
      *
      * [Full docs](https://redis.io/commands/latency-doctor)
@@ -15549,7 +15509,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Return a latency graph for the event.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.13
      *
      * [Full docs](https://redis.io/commands/latency-graph)
@@ -15559,7 +15518,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Return timestamp-latency samples for the event.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.13
      *
      * [Full docs](https://redis.io/commands/latency-history)
@@ -15569,7 +15527,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Return the latest latency samples for all events.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.13
      *
      * [Full docs](https://redis.io/commands/latency-latest)
@@ -15579,7 +15536,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Reset latency data for one or more events.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.13
      *
      * [Full docs](https://redis.io/commands/latency-reset)
@@ -15589,7 +15545,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Show helpful text about the different subcommands.
      * - _group_: server
-     * - _complexity_: undefined
      * - _since_: 2.8.13
      *
      * [Full docs](https://redis.io/commands/latency-help)

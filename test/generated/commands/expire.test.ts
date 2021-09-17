@@ -19,6 +19,10 @@ test("docs/redis-doc/commands/expire.md example 1", async () => {
     outputs.r2 = await client.ttl("mykey");
     outputs.r3 = await client.set("mykey", "Hello World");
     outputs.r4 = await client.ttl("mykey");
+    // "XX","NX" not supported in redis v6! outputs.r5 = await client.expire("mykey",10,"XX")
+    outputs.r6 = await client.ttl("mykey");
+    // "XX","NX" not supported in redis v6! outputs.r7 = await client.expire("mykey",10,"NX")
+    outputs.r8 = await client.ttl("mykey");
 
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {
@@ -27,6 +31,8 @@ test("docs/redis-doc/commands/expire.md example 1", async () => {
           "r2": 10,
           "r3": "OK",
           "r4": -1,
+          "r6": -1,
+          "r8": -1,
         }
     `);
 });

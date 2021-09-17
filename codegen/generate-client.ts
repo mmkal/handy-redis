@@ -121,12 +121,18 @@ export const formatOverloads = (fullCommand: string, { arguments: originalArgs, 
             return !betterAlternativeExists;
         })
         .map(val => {
+            const bullets = [
+                ["group", spec.group],
+                ["complexity", spec.complexity],
+                ["since", spec.since],
+            ];
             return `
                 /**
                  * ${spec.summary}
-                 * - _group_: ${spec.group}
-                 * - _complexity_: ${spec.complexity}
-                 * - _since_: ${spec.since}
+                 ${bullets
+                     .filter(e => e[1])
+                     .map(e => `* - _${e[0]}_: ${e[1]}`)
+                     .join("\n")}
                  *
                  * [Full docs](https://redis.io/commands/${lo.kebabCase(fullCommand)})
                  */

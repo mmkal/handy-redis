@@ -15,8 +15,38 @@ export const fixupSchema = (schema: Record<string, JsonSchemaCommand>) => {
 
 /** https://github.com/redis/redis-doc/pull/1232 */
 function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
+    /**
+     * was:
+     * {
+        "name": "expiration",
+        "type": "enum",
+        "enum": [
+          "EX seconds",
+          "PX milliseconds",
+          "KEEPTTL"
+        ],
+        "optional": true
+      },
+
+      now:
+      
+      {
+        "name": "expiration",
+        "type": "enum",
+        "enum": [
+          "EX seconds",
+          "PX milliseconds",
+          "EXAT timestamp",
+          "PXAT milliseconds-timestamp",
+          "KEEPTTL"
+        ],
+        "optional": true
+      },
+     */
     const badSetArg = schema.SET.arguments.find(
-        a => a.name === "expiration" && a.schema.enum!.join(",") === "EX seconds,PX milliseconds,KEEPTTL"
+        a =>
+            a.name === "expiration" &&
+            a.schema.enum!.join(",") === "EX seconds,PX milliseconds,EXAT timestamp,PXAT milliseconds-timestamp,KEEPTTL"
     )!;
     // this will throw if the SET schema has changed (see `!` on line above). If that's the case, maybe the
     // issue was fixed and this can be deleted?
@@ -25,8 +55,8 @@ function fixSetEnum(schema: Record<string, JsonSchemaCommand>) {
             {
                 type: "array",
                 items: [
-                    // format: `["EX", 123]` or `["PX", 123]`
-                    { type: "string", enum: ["EX", "PX"] },
+                    // format: `["EX", 123]` or `["PX", 123]` or `["EXAT", 1631875021]` or `["PXAT", 1631875021160]`
+                    { type: "string", enum: ["EX", "PX", "EXAT", "PXAT"] },
                     { type: "number" },
                 ],
             },

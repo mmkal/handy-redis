@@ -2,7 +2,7 @@ Redis cluster tutorial
 ===
 
 This document is a gentle introduction to Redis Cluster, that does not use
-difficult to understand concepts of distributed systems . It provides
+difficult to understand concepts of distributed systems. It provides
 instructions about how to setup a cluster, test, and operate it, without
 going into the details that are covered in
 the [Redis Cluster specification](/topics/cluster-spec) but just describing
@@ -399,7 +399,7 @@ OK
 redis 127.0.0.1:7000> get foo
 -> Redirected to slot [12182] located at 127.0.0.1:7002
 "bar"
-redis 127.0.0.1:7000> get hello
+redis 127.0.0.1:7002> get hello
 -> Redirected to slot [866] located at 127.0.0.1:7000
 "world"
 ```
@@ -618,6 +618,11 @@ rebalance the cluster checking the distribution of keys across the cluster
 nodes and intelligently moving slots as needed. This feature will be added
 in the future.
 
+The `--cluster-yes` option instructs the cluster manager to automatically answer
+"yes" to the command's prompts, allowing it to run in a non-interactive mode.
+Note that this option can also be activated by setting the
+`REDISCLI_CLUSTER_YES` environment variable.
+
 A more interesting example application
 ---
 
@@ -798,6 +803,12 @@ waits to reach the offset on its side. When the replication offset is reached,
 the failover starts, and the old master is informed about the configuration
 switch. When the clients are unblocked on the old master, they are redirected
 to the new master.
+
+Note:
+
+* To promote a replica to master, it must first be known as a replica by a majority of the masters in the cluster.
+  Otherwise, it cannot win the failover election.
+  If the replica has just been added to the cluster (see [Adding a new node as a replica](#adding-a-new-node-as-a-replica) below), you may need to wait a while before sending the `CLUSTER FAILOVER` command, to make sure the masters in cluster are aware of the new replica.
 
 Adding a new node
 ---
@@ -986,7 +997,8 @@ one is not available.
 
 Upgrading masters is a bit more complex, and the suggested procedure is:
 
-1. Use CLUSTER FAILOVER to trigger a manual failover of the master to one of its slaves (see the "Manual failover" section of this documentation).
+1. Use `CLUSTER FAILOVER` to trigger a manual failover of the master to one of its replicas.
+   (See the [Manual failover](#manual-failover) section in this document.)
 2. Wait for the master to turn into a slave.
 3. Finally upgrade the node as you do for slaves.
 4. If you want the master to be the node you just upgraded, trigger a new manual failover in order to turn back the upgraded node into a master.

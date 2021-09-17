@@ -18,7 +18,7 @@
       "MeirShpilraien",
       "RedisLabs"
     ],
-    "stars": 122
+    "stars": 185
   },
   {
     "name": "redis-roaring",
@@ -49,7 +49,7 @@
       "swilly22",
       "RedisLabs"
     ],
-    "stars": 1144
+    "stars": 1409
   },
   {
     "name": "redis-tdigest",
@@ -70,7 +70,7 @@
       "itamarhaber",
       "RedisLabs"
     ],
-    "stars": 1119
+    "stars": 1358
   },
   {
     "name": "RediSearch",
@@ -81,7 +81,7 @@
       "dvirsky",
       "RedisLabs"
     ],
-    "stars": 2616
+    "stars": 3051
   },
   {
     "name": "RedisBloom",
@@ -92,7 +92,7 @@
       "mnunberg",
       "RedisLabs"
     ],
-    "stars": 691
+    "stars": 960
   },
   {
     "name": "neural-redis",
@@ -113,7 +113,7 @@
       "danni-m",
       "RedisLabs"
     ],
-    "stars": 455
+    "stars": 593
   },
   {
     "name": "RedisAI",
@@ -124,7 +124,7 @@
       "lantiga",
       "RedisLabs"
     ],
-    "stars": 435
+    "stars": 604
   },
   {
     "name": "ReDe",
@@ -186,6 +186,26 @@
       "RedBeardLab"
     ],
     "stars": 1125
+  },
+  {
+    "name": "TairHash",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/alibaba/TairHash",
+    "description": "A redis module, similar to redis hash, and you can set expire and version for the field",
+    "authors": [
+      "Alibaba"
+    ],
+    "stars": 37
+  },
+  {
+    "name": "TairString",
+    "license": "Apache-2.0",
+    "repository": "https://github.com/alibaba/TairString",
+    "description": "A redis module, similar to redis string, and support CAS/CAD operations",
+    "authors": [
+      "Alibaba"
+    ],
+    "stars": 28
   },
   {
     "name": "lqrm",
@@ -268,6 +288,16 @@
     "stars": 30
   },
   {
+    "name": "redis-tree",
+    "license": "MIT",
+    "repository": "https://github.com/OhBonsai/RedisTree",
+    "description": "Implements Polytree as a native data type. It allows creating,locating,pushing and detaching tree from Redis keys.",
+    "authors": [
+      "ohbonsai"
+    ],
+    "stars": 18
+  },
+  {
     "name": "Reventis",
     "license": "Redis Source Available License",
     "repository": "https://github.com/starkdg/reventis",
@@ -317,7 +347,7 @@
     ],
     "stars":0
   },
-  { 
+  {
     "name":"Redis-ImageScout",
     "license": "pHash Redis Source Available License",
     "repository": "https://github.com/starkdg/Redis-ImageScout.git",
@@ -327,7 +357,7 @@
 	],
 	"stars":2
   },
-  { 
+  {
     "name":"redex",
     "license": "AGPL-3.0",
     "repository": "https://github.com/RedisLabsModules/redex.git",
@@ -336,5 +366,45 @@
        "itamarhaber"
     ],
     "stars":52
+  },
+  {
+    "name":"Redis Interval Sets",
+    "license": "BSD-3-Clause",
+    "repository": "https://github.com/danitseitlin/redis-interval-sets",
+    "description": "A Redis module for creating interval sets",
+    "authors": [
+       "danitseitlin"
+    ],
+    "stars":3
+  },
+  {
+    "name":"redicrypt",
+    "license": "MIT",
+    "repository": "https://github.com/chayim/redicrypt",
+    "description": "Redis module for string encryption and decryption",
+    "authors": [
+       "chayim"
+    ],
+    "stars":0
+  },
+  {
+    "name": "redis-interval-module",
+    "license": "MIT",
+    "repository": "https://github.com/ogama/redis-interval-module",
+    "description": "Redis module for creation and manipulation of interval set.",
+    "authors": [
+      "ogama"
+    ],
+    "stars": 3
+  },
+  {
+    "name": "redisims",
+    "license": "MIT",
+    "repository": "https://github.com/Clement-Jean/RedisIMS",
+    "description": "A lightweight Redis module following the If Modified Since (IMS) pattern for caching",
+    "authors": [
+      "Clement-Jean"
+    ],
+    "stars": 0
   }
 ]

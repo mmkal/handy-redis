@@ -1,5 +1,7 @@
 Atomically sets `key` to `value` and returns the old value stored at `key`.
-Returns an error when `key` exists but does not hold a string value.
+Returns an error when `key` exists but does not hold a string value.  Any 
+previous time to live associated with the key is discarded on successful 
+`SET` operation.
 
 ## Design pattern
 
@@ -15,7 +17,7 @@ GETSET mycounter "0"
 GET mycounter
 ```
 
-As per Redis 6.2, GETSET is considered deprecated. Please use `SET` with `GET` parameter in new code.
+As per Redis 6.2, GETSET is considered deprecated. Please prefer `SET` with `GET` parameter in new code.
 
 @return
 

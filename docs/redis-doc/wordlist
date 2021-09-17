@@ -65,6 +65,7 @@ LRU
 Linode
 Liveness
 Lua
+Lua's
 MAXLEN
 MERCHANTABILITY
 MX
@@ -152,6 +153,7 @@ Yukihiro
 ZPOP
 ZSET
 addr
+acknowledgement
 afterwards
 allkeys
 allocator
@@ -187,6 +189,7 @@ cli
 cmsgpack
 codename
 commandstats
+errorstats
 conf
 config
 configEpoch
@@ -289,6 +292,7 @@ mmap
 movablekeys
 multi
 mutex
+mygroup
 mylist
 mymaster
 myzset
@@ -331,6 +335,7 @@ realtime
 rebalance
 rebalancing
 reconfigures
+reconfiguring
 reconnection
 reconnections
 recv
@@ -339,6 +344,7 @@ redirections
 redis
 redissrc
 reimplement
+remediate
 representable
 reprovisioned
 reshard
@@ -395,6 +401,7 @@ unguessable
 unix
 unlinks
 unordered
+unpause
 unreachability
 unsubscribe
 unsubscribed
@@ -422,3 +429,10 @@ wildcards
 ziplist
 ziplists
 zset
+GeoHash
+WITHSCORES
+deauthenticates
+reauthenticate
+async
+lazyfree
+systemd

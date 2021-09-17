@@ -82,7 +82,7 @@ Fundamental things to know about Sentinel before deploying
 3. Sentinel + Redis distributed system does not guarantee that acknowledged writes are retained during failures, since Redis uses asynchronous replication. However there are ways to deploy Sentinel that make the window to lose writes limited to certain moments, while there are other less secure ways to deploy it.
 4. You need Sentinel support in your clients. Popular client libraries have Sentinel support, but not all.
 5. There is no HA setup which is safe if you don't test from time to time in development environments, or even better if you can, in production environments, if they work. You may have a misconfiguration that will become apparent only when it's too late (at 3am when your master stops working).
-6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of replicas for a master. Check the section about Sentinel and Docker later in this document for more information.
+6. **Sentinel, Docker, or other forms of Network Address Translation or Port Mapping should be mixed with care**: Docker performs port remapping, breaking Sentinel auto discovery of other Sentinel processes and the list of replicas for a master. Check the [section about _Sentinel and Docker_](#sentinel-docker-nat-and-possible-issues) later in this document for more information.
 
 Configuring Sentinel
 ---
@@ -161,7 +161,12 @@ Additional options are described in the rest of this document and
 documented in the example `sentinel.conf` file shipped with the Redis
 distribution.
 
-All the configuration parameters can be modified at runtime using the `SENTINEL SET` command. See the **Reconfiguring Sentinel at runtime** section for more information.
+Configuration parameters can be modified at runtime:
+
+* Master-specific configuration parameters are modified using `SENTINEL SET`.
+* Global configuration parameters are modified using `SENTINEL CONFIG SET`.
+
+See the [_Reconfiguring Sentinel at runtime_ section](#reconfiguring-sentinel-at-runtime) for more information.
 
 Example Sentinel deployments
 ---
@@ -413,10 +418,34 @@ in order to force Sentinel to announce a specific set of IP and port:
 
 Note that Docker has the ability to run in *host networking mode* (check the `--net=host` option for more information). This should create no issues since ports are not remapped in this setup.
 
+IP Addresses and DNS names
+---
+
+Older versions of Sentinel did not support host names and required IP addresses to be specified everywhere.
+Starting with version 6.2, Sentinel has *optional* support for host names.
+
+**This capability is disabled by default. If you're going to enable DNS/hostnames support, please note:**
+
+1. The name resolution configuration on your Redis and Sentinel nodes must be reliable and be able to resolve addresses quickly. Unexpected delays in address resolution may have a negative impact on Sentinel.
+2. You should use hostnames everywhere and avoid mixing hostnames and IP addresses. To do that, use `replica-announce-ip <hostname>` and `sentinel announce-ip <hostname>` for all Redis and Sentinel instances, respectively.
+
+Enabling the `resolve-hostnames` global configuration allows Sentinel to accept host names:
+
+* As part of a `sentinel monitor` command
+* As a replica address, if the replica uses a host name value for `replica-announce-ip`
+
+Sentinel will accept host names as valid inputs and resolve them, but will still refer to IP addresses when announcing an instance, updating configuration files, etc.
+
+Enabling the `announce-hostnames` global configuration makes Sentinel use host names instead. This affects replies to clients, values written in configuration files, the `REPLICAOF` command issued to replicas, etc.
+
+This behavior may not be compatible with all Sentinel clients, that may explicitly expect an IP address.
+
+Using host names may be useful when clients use TLS to connect to instances and require a name rather than an IP address in order to perform certificate ASN matching.
+
 A quick tutorial
 ===
 
-In the next sections of this document, all the details about Sentinel API,
+In the next sections of this document, all the details about [_Sentinel API_](#sentinel-api),
 configuration and semantics will be covered incrementally. However for people
 that want to play with the system ASAP, this section is a tutorial that shows
 how to configure and interact with 3 Sentinel instances.
@@ -449,7 +478,7 @@ Once you start the three Sentinels, you'll see a few messages they log, like:
     +monitor master mymaster 127.0.0.1 6379 quorum 2
 
 This is a Sentinel event, and you can receive this kind of events via Pub/Sub
-if you `SUBSCRIBE` to the event name as specified later.
+if you `SUBSCRIBE` to the event name as specified later in [_Pub/Sub Messages_ section](#pubsub-messages).
 
 Sentinel generates and logs different events during failure detection and
 failover.
@@ -583,8 +612,10 @@ so forth.
 Sentinel commands
 ---
 
-The `SENTINEL` command, as of Redis 2.8, is the main API for Sentinel. The following is the list of its subcommands (minimal version is noted for where applicable):
+The `SENTINEL` command is the main API for Sentinel. The following is the list of its subcommands (minimal version is noted for where applicable):
 
+* **SENTINEL CONFIG GET `<name>`** (`>= 6.2`) Get the current value of a global Sentinel configuration parameter. The specified name may be a wildcard, similar to the Redis `CONFIG GET` command.
+* **SENTINEL CONFIG SET `<name>` `<value>`** (`>= 6.2`) Set the value of a global Sentinel configuration parameter.
 * **SENTINEL CKQUORUM `<master name>`** Check if the current Sentinel configuration is able to reach the quorum needed to failover a master, and the majority needed to authorize the failover. This command should be used in monitoring systems to check if a Sentinel deployment is ok.
 * **SENTINEL FLUSHCONFIG** Force Sentinel to rewrite its configuration on disk, including the current Sentinel state. Normally Sentinel rewrites the configuration every time something changes in its state (in the context of the subset of the state which is persisted on disk across restart). However sometimes it is possible that the configuration file is lost because of operation errors, disk failures, package upgrade scripts or configuration managers. In those cases a way to to force Sentinel to rewrite the configuration file is handy. This command works even if the previous configuration file is completely missing.
 * **SENTINEL FAILOVER `<master name>`** Force a failover as if the master was not reachable, and without asking for agreement to other Sentinels (however a new version of the configuration will be published so that the other Sentinels will update their configurations).
@@ -637,6 +668,17 @@ As already stated, `SENTINEL SET` can be used to set all the configuration param
     SENTINEL SET objects-cache-master quorum 5
 
 Note that there is no equivalent GET command since `SENTINEL MASTER` provides all the configuration parameters in a simple to parse format (as a field/value pairs array).
+
+Starting with Redis version 6.2, Sentinel also allows getting and setting global configuration parameters which were only supported in the configuration file prior to that.
+
+* **SENTINEL CONFIG GET `<name>`** Get the current value of a global Sentinel configuration parameter. The specified name may be a wildcard, similar to the Redis `CONFIG GET` command.
+* **SENTINEL CONFIG SET `<name>` `<value>`** Set the value of a global Sentinel configuration parameter.
+
+Global parameters that can be manipulated include:
+
+* `resolve-hostnames`, `announce-hostnames`. See [_IP addresses and DNS names_](#ip-addresses-and-dns-names).
+* `announce-ip`, `announce-port`. See [_Sentinel, Docker, NAT, and possible issues_](#sentinel-docker-nat-and-possible-issues).
+* `sentinel-user`, `sentinel-pass`. See [_Configuring Sentinel instances with authentication_](#configuring-sentinel-instances-with-authentication).
 
 Adding or removing Sentinels
 ---
@@ -766,7 +808,7 @@ master, and another replica S2 in another data center, it is possible to set
 S1 with a priority of 10 and S2 with a priority of 100, so that if the master
 fails and both S1 and S2 are available, S1 will be preferred.
 
-For more information about the way replicas are selected, please check the **replica selection and priority** section of this documentation.
+For more information about the way replicas are selected, please check the [_Replica selection and priority_ section](#replica-selection-and-priority) of this documentation.
 
 Sentinel and Redis authentication
 ---
@@ -1002,11 +1044,11 @@ and sorts it based on the above criteria, in the following order.
 2. If the priority is the same, the replication offset processed by the replica is checked, and the replica that received more data from the master is selected.
 3. If multiple replicas have the same priority and processed the same data from the master, a further check is performed, selecting the replica with the lexicographically smaller run ID. Having a lower run ID is not a real advantage for a replica, but is useful in order to make the process of replica selection more deterministic, instead of resorting to select a random replica.
 
-Redis masters (that may be turned into replicas after a failover), and replicas, all
-must be configured with a `replica-priority` if there are machines to be strongly
-preferred. Otherwise all the instances can run with the default run ID (which
-is the suggested setup, since it is far more interesting to select the replica
-by replication offset).
+In most cases, `replica-priority` does not need to be set explicitly so all
+instances will use the same default value. If there is a particular fail-over
+preference, `replica-priority` must be set on all instances, including masters,
+as a master may become a replica at some future point in time - and it will then
+need the proper `replica-priority` settings.
 
 A Redis instance can be configured with a special `replica-priority` of zero
 in order to be **never selected** by Sentinels as the new master.
@@ -1056,7 +1098,7 @@ failover for a few important reasons:
 
 When a Sentinel is authorized, it gets a unique **configuration epoch** for the master it is failing over. This is a number that will be used to version the new configuration after the failover is completed. Because a majority agreed that a given version was assigned to a given Sentinel, no other Sentinel will be able to use it. This means that every configuration of every failover is versioned with a unique version. We'll see why this is so important.
 
-Moreover Sentinels have a rule: if a Sentinel voted another Sentinel for the failover of a given master, it will wait some time to try to failover the same master again. This delay is the `failover-timeout` you can configure in `sentinel.conf`. This means that Sentinels will not try to failover the same master at the same time, the first to ask to be authorized will try, if it fails another will try after some time, and so forth.
+Moreover Sentinels have a rule: if a Sentinel voted another Sentinel for the failover of a given master, it will wait some time to try to failover the same master again. This delay is the `2 * failover-timeout` you can configure in `sentinel.conf`. This means that Sentinels will not try to failover the same master at the same time, the first to ask to be authorized will try, if it fails another will try after some time, and so forth.
 
 Redis Sentinel guarantees the *liveness* property that if a majority of Sentinels are able to talk, eventually one will be authorized to failover if the master is down.
 
@@ -1197,6 +1239,24 @@ When in TILT mode the Sentinel will continue to monitor everything, but:
 * It starts to reply negatively to `SENTINEL is-master-down-by-addr` requests as the ability to detect a failure is no longer trusted.
 
 If everything appears to be normal for 30 second, the TILT mode is exited.
+ 
+In the Sentinel TILT mode, if we send the INFO command, we could get the following response:
+
+    $ redis-cli -p 26379
+    127.0.0.1:26379> info
+    (Other information from Sentinel server skipped.)
+
+    # Sentinel
+    sentinel_masters:1
+    sentinel_tilt:0
+    sentinel_tilt_since_seconds:-1
+    sentinel_running_scripts:0
+    sentinel_scripts_queue_length:0
+    sentinel_simulate_failure_flags:0
+    master0:name=mymaster,status=ok,address=127.0.0.1:6379,slaves=0,sentinels=1
+
+The field "sentinel_tilt_since_seconds" indicates how many seconds the Sentinel already is in the TILT mode.
+If it is not in TILT mode, the value will be -1.
 
 Note that in some way TILT mode could be replaced using the monotonic clock
 API that many kernels offer. However it is not still clear if this is a good

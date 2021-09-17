@@ -15,6 +15,7 @@ The optional parameter can be used to select a specific section of information:
 *   `modules`: Modules section
 *   `keyspace`: Database related statistics
 *   `modules`: Module related sections
+*   `errorstats`: Redis error statistics
 
 It can also take the following values:
 
@@ -58,9 +59,11 @@ Here is the meaning of all fields in the **server** section:
 *   `atomicvar_api`: Atomicvar API used by Redis
 *   `gcc_version`: Version of the GCC compiler used to compile the Redis server
 *   `process_id`: PID of the server process
+*   `process_supervised`: Supervised system ("upstart", "systemd", "unknown" or "no")
 *   `run_id`: Random value identifying the Redis server (to be used by Sentinel
      and Cluster)
 *   `tcp_port`: TCP/IP listen port
+*   `server_time_in_usec`: Epoch-based system time with microsecond precision
 *   `uptime_in_seconds`: Number of seconds since Redis server start
 *   `uptime_in_days`: Same value expressed in days
 *   `hz`: The server's current frequency setting
@@ -73,6 +76,11 @@ Here is the meaning of all fields in the **clients** section:
 
 *   `connected_clients`: Number of client connections (excluding connections
      from replicas)
+*   `cluster_connections`: An approximation of the number of sockets used by the
+     cluster's bus
+*   `maxclients`: The value of the `maxclients` configuration directive. This is
+    the upper limit for the sum of `connected_clients`, `connected_slaves` and
+    `cluster_connections`.
 *   `client_longest_output_list`: Longest output list among current client
      connections
 *   `client_biggest_input_buf`: Biggest input buffer among current client
@@ -115,18 +123,29 @@ Here is the meaning of all fields in the **memory** section:
 *   `maxmemory_human`: Human readable representation of previous value
 *   `maxmemory_policy`: The value of the `maxmemory-policy` configuration
      directive
-*   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`
-*   `mem_allocator`: Memory allocator, chosen at compile time
-*   `active_defrag_running`: Flag indicating if active defragmentation is active
+*   `mem_fragmentation_ratio`: Ratio between `used_memory_rss` and `used_memory`.
+    Note that this doesn't only includes fragmentation, but also other process overheads (see the `allocator_*` metrics), and also overheads like code, shared libraries, stack, etc.
+*   `mem_fragmentation_bytes`: Delta between `used_memory_rss` and `used_memory`.
+    Note that when the total fragmentation bytes is low (few megabytes), a high ratio (e.g. 1.5 and above) is not an indication of an issue.
+*   `allocator_frag_ratio:`: Ratio between `allocator_active` and `allocator_allocated`. This is the true (external) fragmentation metric (not `mem_fragmentation_ratio`).
+*   `allocator_frag_bytes` Delta between `allocator_active` and `allocator_allocated`. See note about `mem_fragmentation_bytes`.
+*   `allocator_rss_ratio`: Ratio between `allocator_resident` and `allocator_active`. This usually indicates pages that the allocator can and probably will soon release back to the OS.
+*   `allocator_rss_bytes`: Delta between `allocator_resident` and `allocator_active`
+*   `rss_overhead_ratio`: Ratio between `used_memory_rss` (the process RSS) and `allocator_resident`. This includes RSS overheads that are not allocator or heap related.
+*   `rss_overhead_bytes`: Delta between `used_memory_rss` (the process RSS) and `allocator_resident`
+*   `allocator_allocated`: Total bytes allocated form the allocator, including internal-fragmentation. Normally the same as `used_memory`.
+*   `allocator_active`: Total bytes in the allocator active pages, this includes external-fragmentation.
+*   `allocator_resident`: Total bytes resident (RSS) in the allocator, this includes pages that can be released to the OS (by `MEMORY PURGE`, or just waiting).
+*   `mem_allocator`: Memory allocator, chosen at compile time.
+*   `active_defrag_running`: When `activedefrag` is enabled, this indicates whether defragmentation is currently active, and the CPU percentage it intends to utilize.
 *   `lazyfree_pending_objects`: The number of objects waiting to be freed (as a
      result of calling `UNLINK`, or `FLUSHDB` and `FLUSHALL` with the **ASYNC**
      option)
 
 Ideally, the `used_memory_rss` value should be only slightly higher than
 `used_memory`.
-When rss >> used, a large difference means there is memory fragmentation
-(internal or external), which can be evaluated by checking
-`mem_fragmentation_ratio`.
+When rss >> used, a large difference may mean there is (external) memory fragmentation, which can be evaluated by checking
+`allocator_frag_ratio`, `allocator_frag_bytes`.
 When used >> rss, it means part of Redis memory has been swapped off by the
 operating system: expect some significant latencies.
 
@@ -147,6 +166,13 @@ by referring to the `MEMORY STATS` command and the `MEMORY DOCTOR`.
 Here is the meaning of all fields in the **persistence** section:
 
 *   `loading`: Flag indicating if the load of a dump file is on-going
+*   `current_cow_peak`: The peak size in bytes of copy-on-write memory
+     while a child fork is running
+*   `current_cow_size`: The size in bytes of copy-on-write memory
+     while a child fork is running
+*   `current_fork_perc`: The percentage of progress of the current fork process. For AOF and RDB forks it is the percentage of `current_save_keys_processed` out of `current_save_keys_total`.
+*   `current_save_keys_processed`: Number of keys processed by the current save operation
+*   `current_save_keys_total`: Number of keys at the beginning of the current save operation 
 *   `rdb_changes_since_last_save`: Number of changes since the last dump
 *   `rdb_bgsave_in_progress`: Flag indicating a RDB save is on-going
 *   `rdb_last_save_time`: Epoch-based timestamp of last successful RDB save
@@ -155,7 +181,7 @@ Here is the meaning of all fields in the **persistence** section:
      seconds
 *   `rdb_current_bgsave_time_sec`: Duration of the on-going RDB save operation
      if any
-*   `rdb_last_cow_size`: The size in bytes of copy-on-write allocations during
+*   `rdb_last_cow_size`: The size in bytes of copy-on-write memory during
      the last RDB save operation
 *   `aof_enabled`: Flag indicating AOF logging is activated
 *   `aof_rewrite_in_progress`: Flag indicating a AOF rewrite operation is
@@ -168,10 +194,10 @@ Here is the meaning of all fields in the **persistence** section:
      operation if any
 *   `aof_last_bgrewrite_status`: Status of the last AOF rewrite operation
 *   `aof_last_write_status`: Status of the last write operation to the AOF
-*   `aof_last_cow_size`: The size in bytes of copy-on-write allocations during
+*   `aof_last_cow_size`: The size in bytes of copy-on-write memory during
      the last AOF rewrite operation
 *   `module_fork_in_progress`: Flag indicating a module fork is on-going
-*   `module_fork_last_cow_size`: The size in bytes of copy-on-write allocations
+*   `module_fork_last_cow_size`: The size in bytes of copy-on-write memory
      during the last module fork operation
 
 `rdb_changes_since_last_save` refers to the number of operations that produced
@@ -195,6 +221,8 @@ If a load operation is on-going, these additional fields will be added:
 *   `loading_start_time`: Epoch-based timestamp of the start of the load
      operation
 *   `loading_total_bytes`: Total file size
+*   `loading_rdb_used_mem`: The memory usage of the server that had generated
+    the RDB file at the time of the file's creation
 *   `loading_loaded_bytes`: Number of bytes already loaded
 *   `loading_loaded_perc`: Same value expressed as a percentage
 *   `loading_eta_seconds`: ETA in seconds for the load to be complete
@@ -219,6 +247,8 @@ Here is the meaning of all fields in the **stats** section:
 *   `expired_time_cap_reached_count`: The count of times that active expiry cycles have stopped early
 *   `expire_cycle_cpu_milliseconds`: The cumulative amount of time spend on active expiry cycles
 *   `evicted_keys`: Number of evicted keys due to `maxmemory` limit
+*   `total_eviction_exceeded_time`:  Total time `used_memory` was greater than `maxmemory` since server startup, in milliseconds
+*   `current_eviction_exceeded_time`: The time passed since `used_memory` last rose above `maxmemory`, in milliseconds
 *   `keyspace_hits`: Number of successful lookup of keys in the main dictionary
 *   `keyspace_misses`: Number of failed lookup of keys in the main dictionary
 *   `pubsub_channels`: Global number of pub/sub channels with client
@@ -226,6 +256,7 @@ Here is the meaning of all fields in the **stats** section:
 *   `pubsub_patterns`: Global number of pub/sub pattern with client
      subscriptions
 *   `latest_fork_usec`: Duration of the latest fork operation in microseconds
+*   `total_forks`: Total number of fork operations since the server start
 *   `migrate_cached_sockets`: The number of sockets open for `MIGRATE` purposes
 *   `slave_expires_tracked_keys`: The number of keys tracked for expiry purposes
      (applicable only to writable replicas)
@@ -236,6 +267,8 @@ Here is the meaning of all fields in the **stats** section:
 *   `active_defrag_key_hits`: Number of keys that were actively defragmented
 *   `active_defrag_key_misses`: Number of keys that were skipped by the active
      defragmentation process
+*   `total_active_defrag_time`: Total time memory fragmentation was over the limit, in milliseconds
+*   `current_active_defrag_time`: The time passed since memory fragmentation last was over the limit, in milliseconds
 *   `tracking_total_keys`: Number of keys being tracked by the server
 *   `tracking_total_items`: Number of items, that is the sum of clients number for
      each key, that are being tracked
@@ -243,6 +276,9 @@ Here is the meaning of all fields in the **stats** section:
     (only applicable for broadcast mode)
 *   `unexpected_error_replies`: Number of unexpected error replies, that are types
     of errors from an AOF load or replication
+*   `total_error_replies`: Total number of issued error replies, that is the sum of
+    rejected commands (errors prior command execution) and
+    failed commands (errors within the command execution)
 *    `total_reads_processed`: Total number of read events processed
 *    `total_writes_processed`: Total number of write events processed
 *    `io_threaded_reads_processed`: Number of read events processed by the main and I/O threads
@@ -252,6 +288,7 @@ Here is the meaning of all fields in the **replication** section:
 
 *   `role`: Value is "master" if the instance is replica of no one, or "slave" if the instance is a replica of some master instance.
      Note that a replica can be master of another replica (chained replication).
+*   `master_failover_state`: The state of an ongoing failover, if any.
 *   `master_replid`: The replication ID of the Redis server.
 *   `master_replid2`: The secondary replication ID, used for PSYNC after a failover.
 *   `master_repl_offset`: The server's current replication offset
@@ -277,7 +314,15 @@ If the instance is a replica, these additional fields are provided:
 
 If a SYNC operation is on-going, these additional fields are provided:
 
+*   `master_sync_total_bytes`: Total number of bytes that need to be 
+    transferred. this may be 0 when the size is unknown (for example, when
+    the `repl-diskless-sync` configuration directive is used)
+*   `master_sync_read_bytes`: Number of bytes already transferred
 *   `master_sync_left_bytes`: Number of bytes left before syncing is complete
+    (may be negative when `master_sync_total_bytes` is 0)
+*   `master_sync_perc`: The percentage `master_sync_read_bytes` from 
+    `master_sync_total_bytes`, or an approximation that uses
+    `loading_rdb_used_mem` when `master_sync_total_bytes` is 0
 *   `master_sync_last_io_seconds_ago`: Number of seconds since last transfer I/O
      during a SYNC operation
 
@@ -299,18 +344,30 @@ For each replica, the following line is added:
 
 Here is the meaning of all fields in the **cpu** section:
 
-*   `used_cpu_sys`: System CPU consumed by the Redis server
-*   `used_cpu_user`:User CPU consumed by the Redis server
+*   `used_cpu_sys`: System CPU consumed by the Redis server, which is the sum of system CPU consumed by all threads of the server process (main thread and background threads)
+*   `used_cpu_user`: User CPU consumed by the Redis server, which is the sum of user CPU consumed by all threads of the server process (main thread and background threads)
 *   `used_cpu_sys_children`: System CPU consumed by the background processes
 *   `used_cpu_user_children`: User CPU consumed by the background processes
+*   `used_cpu_sys_main_thread`: System CPU consumed by the Redis server main thread
+*   `used_cpu_user_main_thread`: User CPU consumed by the Redis server main thread
 
 The **commandstats** section provides statistics based on the command type,
-including the number of calls, the total CPU time consumed by these commands,
-and the average CPU consumed per command execution.
+ including the number of calls that reached command execution (not rejected),
+ the total CPU time consumed by these commands, the average CPU consumed
+ per command execution, the number of rejected calls
+ (errors prior command execution), and the number of failed calls
+ (errors within the command execution).
 
 For each command type, the following line is added:
 
-*   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX`
+*   `cmdstat_XXX`: `calls=XXX,usec=XXX,usec_per_call=XXX,rejected_calls=XXX,failed_calls=XXX`
+
+The **errorstats** section enables keeping track of the different errors that occurred within Redis, 
+ based upon the reply error prefix ( The first word after the "-", up to the first space. Example: `ERR` ).
+
+For each error type, the following line is added:
+
+*   `errorstat_XXX`: `count=XXX`
 
 The **cluster** section currently only contains a unique field:
 

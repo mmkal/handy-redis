@@ -1,6 +1,6 @@
 The command returns the index of matching elements inside a Redis list.
 By default, when no options are given, it will scan the list from head to tail,
-looking for the first match of "element". If the element is found, its index (the zero-based position in the list) is returned. Otherwise, if no match is found, NULL is returned.
+looking for the first match of "element". If the element is found, its index (the zero-based position in the list) is returned. Otherwise, if no match is found, `nil` is returned.
 
 ```
 > RPUSH mylist a b c 1 2 3 c c
@@ -51,13 +51,15 @@ When `COUNT` is used, it is possible to specify 0 as the number of matches, as a
 [2,6,7]
 ```
 
-When `COUNT` is used and no match is found, an empty array is returned. However when `COUNT` is not used and there are no matches, the command returns NULL.
+When `COUNT` is used and no match is found, an empty array is returned. However when `COUNT` is not used and there are no matches, the command returns `nil`.
 
 Finally, the `MAXLEN` option tells the command to compare the provided element only with a given maximum number of list items. So for instance specifying `MAXLEN 1000` will make sure that the command performs only 1000 comparisons, effectively running the algorithm on a subset of the list (the first part or the last part depending on the fact we use a positive or negative rank). This is useful to limit the maximum complexity of the command. It is also useful when we expect the match to be found very early, but want to be sure that in case this is not true, the command does not take too much time to run.
 
+When `MAXLEN` is used, it is possible to specify 0 as the maximum number of comparisons, as a way to tell the command we want unlimited comparisons. This is better than giving a very large `MAXLEN` option because it is more general.
+
 @return
 
-The command returns the integer representing the matching element, or null if there is no match. However, if the `COUNT` option is given the command returns an array (empty if there are no matches).
+The command returns the integer representing the matching element, or `nil` if there is no match. However, if the `COUNT` option is given the command returns an array (empty if there are no matches).
 
 @examples
 

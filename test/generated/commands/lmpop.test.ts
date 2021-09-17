@@ -21,12 +21,7 @@ test("docs/redis-doc/commands/lmpop.md example 1", async () => {
     // Expected one of LEFT,RIGHT, got non1
     // ---
     // decoding LMPOP overload 1 (numkeys,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [non1,non2,LEFT,COUNT,10], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got non1
-    // ---
-    // decoding LMPOP overload 2 (numkeys,key,where): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [non1,non2,LEFT,COUNT,10], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
+    // [...truncated]
     // ---
     // decoding LMPOP overload 3 (numkeys,key,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [non1,non2,LEFT,COUNT,10], target args remainin count: 3
@@ -40,12 +35,7 @@ test("docs/redis-doc/commands/lmpop.md example 1", async () => {
     // Expected one of LEFT,RIGHT, got mylist
     // ---
     // decoding LMPOP overload 1 (numkeys,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding LMPOP overload 2 (numkeys,key,where): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
+    // [...truncated]
     // ---
     // decoding LMPOP overload 3 (numkeys,key,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT], target args remainin count: 3
@@ -59,12 +49,7 @@ test("docs/redis-doc/commands/lmpop.md example 1", async () => {
     // Expected one of LEFT,RIGHT, got mylist
     // ---
     // decoding LMPOP overload 1 (numkeys,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,RIGHT,COUNT,10], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding LMPOP overload 2 (numkeys,key,where): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,RIGHT,COUNT,10], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
+    // [...truncated]
     // ---
     // decoding LMPOP overload 3 (numkeys,key,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,RIGHT,COUNT,10], target args remainin count: 3
@@ -79,12 +64,7 @@ test("docs/redis-doc/commands/lmpop.md example 1", async () => {
     // Expected one of LEFT,RIGHT, got mylist
     // ---
     // decoding LMPOP overload 1 (numkeys,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,3], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding LMPOP overload 2 (numkeys,key,where): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,3], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
+    // [...truncated]
     // ---
     // decoding LMPOP overload 3 (numkeys,key,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,3], target args remainin count: 3
@@ -98,12 +78,7 @@ test("docs/redis-doc/commands/lmpop.md example 1", async () => {
     // Expected one of LEFT,RIGHT, got mylist
     // ---
     // decoding LMPOP overload 1 (numkeys,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,5], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding LMPOP overload 2 (numkeys,key,where): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,5], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
+    // [...truncated]
     // ---
     // decoding LMPOP overload 3 (numkeys,key,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,5], target args remainin count: 3
@@ -116,12 +91,7 @@ test("docs/redis-doc/commands/lmpop.md example 1", async () => {
     // Expected one of LEFT,RIGHT, got mylist
     // ---
     // decoding LMPOP overload 1 (numkeys,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,10], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding LMPOP overload 2 (numkeys,key,where): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,10], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
+    // [...truncated]
     // ---
     // decoding LMPOP overload 3 (numkeys,key,where,COUNT): {name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,right,count,10], target args remainin count: 3

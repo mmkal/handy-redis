@@ -23,16 +23,7 @@ test("docs/redis-doc/commands/blmpop.md example 1", async () => {
     // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT,COUNT,2], target args remainin count: 1
     // Expected one of LEFT,RIGHT, got mylist
     // ---
-    // decoding BLMPOP overload 1 (timeout,numkeys,where,COUNT): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [1,mylist,LEFT,COUNT,2], target args remainin count: 3
-    // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT,COUNT,2], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding BLMPOP overload 2 (timeout,numkeys,key,where): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [1,mylist,LEFT,COUNT,2], target args remainin count: 3
-    // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT,COUNT,2], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
-    // ---
+    // [...truncated]
     // decoding BLMPOP overload 3 (timeout,numkeys,key,where,COUNT): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [1,mylist,LEFT,COUNT,2], target args remainin count: 4
     // 1 successfully decoded as numkeys (string). Decoded value 1. Tokens remaining [mylist,LEFT,COUNT,2], target args remainin count: 3
@@ -47,16 +38,7 @@ test("docs/redis-doc/commands/blmpop.md example 1", async () => {
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,LEFT,COUNT,3], target args remainin count: 1
     // Expected one of LEFT,RIGHT, got mylist
     // ---
-    // decoding BLMPOP overload 1 (timeout,numkeys,where,COUNT): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [2,mylist,mylist2,LEFT,COUNT,3], target args remainin count: 3
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,LEFT,COUNT,3], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding BLMPOP overload 2 (timeout,numkeys,key,where): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [2,mylist,mylist2,LEFT,COUNT,3], target args remainin count: 3
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,LEFT,COUNT,3], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
-    // ---
+    // [...truncated]
     // decoding BLMPOP overload 3 (timeout,numkeys,key,where,COUNT): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [2,mylist,mylist2,LEFT,COUNT,3], target args remainin count: 4
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,LEFT,COUNT,3], target args remainin count: 3
@@ -70,16 +52,7 @@ test("docs/redis-doc/commands/blmpop.md example 1", async () => {
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 1
     // Expected one of LEFT,RIGHT, got mylist
     // ---
-    // decoding BLMPOP overload 1 (timeout,numkeys,where,COUNT): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
-    // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [2,mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 3
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 2
-    // Expected one of LEFT,RIGHT, got mylist
-    // ---
-    // decoding BLMPOP overload 2 (timeout,numkeys,key,where): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}}
-    // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [2,mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 3
-    // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 2
-    // Not smart enough to deal with arrays in the beginning or middle of arg lists
-    // ---
+    // [...truncated]
     // decoding BLMPOP overload 3 (timeout,numkeys,key,where,COUNT): {name:'timeout',schema:{title:'timeout',type:'number'}},{name:'numkeys',schema:{title:'numkeys',type:'integer'}},{name:'key',optional:true,schema:{title:'key',type:'array',items:{title:'key',type:'string'}}},{name:'where',schema:{title:'where',type:'string',enum:['LEFT','RIGHT']}},{name:'COUNT',optional:true,schema:{title:'COUNT',type:'array',items:[{type:'string',const:'COUNT'},{title:'count',type:'integer'}]}}
     // 1 successfully decoded as timeout (string). Decoded value 1. Tokens remaining [2,mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 4
     // 2 successfully decoded as numkeys (string). Decoded value 2. Tokens remaining [mylist,mylist2,RIGHT,COUNT,10], target args remainin count: 3

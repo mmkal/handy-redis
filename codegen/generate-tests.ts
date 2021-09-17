@@ -295,7 +295,13 @@ export const main = () => {
                             ? [`outputs.r${i} = await client.${m.command.toLowerCase()}(${argList})`]
                             : [
                                   `// Error decoding command \`${m.line}\`:\n`,
-                                  ...m.contexts.flatMap(context => context.concat(["---"]).map(line => `// ${line}`)),
+                                  ...m.contexts
+                                      .flatMap(context => context.concat(["---"]).map(line => `// ${line}`))
+                                      .map((line, i, arr) =>
+                                          i < 5 || i >= arr.length - 5 ? line : "// [...truncated]"
+                                      )
+                                      .filter((line, i) => line !== "// [...truncated]" || i === 5)
+                                      .slice(0, 11),
                               ];
                         return usageOrFailureComments;
                     })

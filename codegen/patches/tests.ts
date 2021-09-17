@@ -36,7 +36,7 @@ function fixKeyWeightsOverlyComplexParsingIssue(code: string) {
     if (code.match(/(zunionstore|zinterstore).*WEIGHTS/)) {
         return [`// @ts-expect-error (not smart enough to deal with numkeys)`, code].join("\n");
     }
-    if (code.match(/(zunion|zinter|zdiff\b).*"zset1","zset2"/)) {
+    if (code.match(/(zunion|zinter|zdiff)\b.*"zset1","zset2"/)) {
         return code.replace(`"zset1","zset2"`, `["zset1", "zset2"]`);
     }
     return code;

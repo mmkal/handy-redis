@@ -2,7 +2,7 @@
 A wrapper around [node_redis](https://npmjs.com/package/redis) with Promise and TypeScript support.
 
 [![Node CI](https://github.com/mmkal/handy-redis/workflows/CI/badge.svg)](https://github.com/mmkal/handy-redis/actions?query=workflow%3ACI)
-[![codecov](https://codecov.io/gh/mmkal/handy-redis/branch/master/graph/badge.svg)](https://codecov.io/gh/mmkal/handy-redis)
+[![codecov](https://codecov.io/gh/mmkal/handy-redis/branch/main/graph/badge.svg)](https://codecov.io/gh/mmkal/handy-redis)
 [![npm](https://img.shields.io/npm/dm/handy-redis)](https://npmjs.com/package/handy-redis)
 [![npm](https://img.shields.io/npm/v/handy-redis)](https://npmjs.com/package/handy-redis)
 

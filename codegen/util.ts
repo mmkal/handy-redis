@@ -33,10 +33,10 @@ export const maybeDo = async <T>(shouldDo: boolean, doIt: () => T | Promise<T>):
     if (shouldDo) {
         try {
             await doIt();
+            process.exit(0);
         } catch (e) {
             console.error(e);
             process.exit(1);
         }
     }
-    process.exit(0);
 };

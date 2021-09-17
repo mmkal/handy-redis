@@ -37,7 +37,7 @@ test("maybe do", async () => {
 
     await maybeDo(false, mock);
     expect(mock).toHaveBeenCalledTimes(0);
-    expect(exit).toHaveBeenCalledWith(0);
+    expect(exit).not.toHaveBeenCalled();
 
     jest.clearAllMocks();
 

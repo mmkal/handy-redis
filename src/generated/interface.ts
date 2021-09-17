@@ -156,6 +156,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     append(key: string, value: string): Result<number, Context>;
 
     /**
+     * Sent by cluster clients after an -ASK redirect
+     * - _group_: cluster
+     * - _complexity_: O(1)
+     * - _since_: 3.0.0
+     *
+     * [Full docs](https://redis.io/commands/asking)
+     */
+    asking(): Result<"OK", Context>;
+
+    /**
      * Authenticate to the server
      * - _group_: connection
      * - _complexity_: undefined
@@ -197,7 +207,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Count set bits in a string
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(N)
      * - _since_: 2.6.0
      *
@@ -207,7 +217,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1) for each subcommand specified
      * - _since_: 3.2.0
      *
@@ -220,7 +230,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1) for each subcommand specified
      * - _since_: 3.2.0
      *
@@ -234,7 +244,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1) for each subcommand specified
      * - _since_: 3.2.0
      *
@@ -248,7 +258,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1) for each subcommand specified
      * - _since_: 3.2.0
      *
@@ -257,42 +267,42 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     bitfield(
         key: string,
         set?: [set: "SET", type_offset_value: [type: string, offset: number, value: number]],
+        incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+    ): Result<unknown, Context>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: bitmap
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/bitfield)
+     */
+    bitfield(
+        key: string,
+        get?: [get: "GET", type_offset: [type: string, offset: number]],
+        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
+    ): Result<unknown, Context>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings
+     * - _group_: bitmap
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/bitfield)
+     */
+    bitfield(
+        key: string,
+        get?: [get: "GET", type_offset: [type: string, offset: number]],
         incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
         overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Result<unknown, Context>;
 
     /**
      * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/bitfield)
-     */
-    bitfield(
-        key: string,
-        get?: [get: "GET", type_offset: [type: string, offset: number]],
-        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
-    ): Result<unknown, Context>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
-     * - _complexity_: O(1) for each subcommand specified
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/bitfield)
-     */
-    bitfield(
-        key: string,
-        get?: [get: "GET", type_offset: [type: string, offset: number]],
-        incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
-        overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
-    ): Result<unknown, Context>;
-
-    /**
-     * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1) for each subcommand specified
      * - _since_: 3.2.0
      *
@@ -307,7 +317,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Perform arbitrary bitfield integer operations on strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1) for each subcommand specified
      * - _since_: 3.2.0
      *
@@ -320,10 +330,23 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         incrby?: [incrby: "INCRBY", type_offset_increment: [type: string, offset: number, increment: number]],
         overflow?: [overflow: "OVERFLOW", wrap_sat_or_fail: "WRAP" | "SAT" | "FAIL"]
     ): Result<unknown, Context>;
+
+    /**
+     * Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD
+     * - _group_: bitmap
+     * - _complexity_: O(1) for each subcommand specified
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/bitfield-ro)
+     */
+    bitfieldRo(
+        key: string,
+        get: [get: "GET", type_offset: [type: string, offset: number]]
+    ): Result<Array<unknown>, Context>;
 
     /**
      * Perform bitwise operations between strings
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(N)
      * - _since_: 2.6.0
      *
@@ -333,28 +356,18 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Find first bit set or clear in a string
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(N)
      * - _since_: 2.8.7
      *
      * [Full docs](https://redis.io/commands/bitpos)
      */
-    bitpos(key: string, bit: number, end?: number): Result<number, Context>;
-
-    /**
-     * Find first bit set or clear in a string
-     * - _group_: string
-     * - _complexity_: O(N)
-     * - _since_: 2.8.7
-     *
-     * [Full docs](https://redis.io/commands/bitpos)
-     */
-    bitpos(key: string, bit: number, start?: number, end?: number): Result<number, Context>;
+    bitpos(key: string, bit: number, index?: number | [start: number, end: number]): Result<number, Context>;
 
     /**
      * Remove and get the first element in a list, or block until one is available
      * - _group_: list
-     * - _complexity_: O(1)
+     * - _complexity_: O(N) where N is the number of provided keys.
      * - _since_: 2.0.0
      *
      * [Full docs](https://redis.io/commands/blpop)
@@ -364,7 +377,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Remove and get the last element in a list, or block until one is available
      * - _group_: list
-     * - _complexity_: O(1)
+     * - _complexity_: O(N) where N is the number of provided keys.
      * - _since_: 2.0.0
      *
      * [Full docs](https://redis.io/commands/brpop)
@@ -396,6 +409,66 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         whereto: "LEFT" | "RIGHT",
         timeout: number
     ): Result<string | null, Context>;
+
+    /**
+     * Pop elements from a list
+     * - _group_: list
+     * - _complexity_: O(N+M) where N is the number of provided keys and M is the number of elements returned.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/lmpop)
+     */
+    lmpop(
+        numkeys: number,
+        where: "LEFT" | "RIGHT",
+        count?: [count: "COUNT", count: number]
+    ): Result<Array<unknown> | null, Context>;
+
+    /**
+     * Pop elements from a list
+     * - _group_: list
+     * - _complexity_: O(N+M) where N is the number of provided keys and M is the number of elements returned.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/lmpop)
+     */
+    lmpop(
+        numkeys: number,
+        key: Array<string>,
+        where: "LEFT" | "RIGHT",
+        count?: [count: "COUNT", count: number]
+    ): Result<Array<unknown> | null, Context>;
+
+    /**
+     * Pop elements from a list, or block until one is available
+     * - _group_: list
+     * - _complexity_: O(N+M) where N is the number of provided keys and M is the number of elements returned.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/blmpop)
+     */
+    blmpop(
+        timeout: number,
+        numkeys: number,
+        where: "LEFT" | "RIGHT",
+        count?: [count: "COUNT", count: number]
+    ): Result<Array<unknown> | null, Context>;
+
+    /**
+     * Pop elements from a list, or block until one is available
+     * - _group_: list
+     * - _complexity_: O(N+M) where N is the number of provided keys and M is the number of elements returned.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/blmpop)
+     */
+    blmpop(
+        timeout: number,
+        numkeys: number,
+        key: Array<string>,
+        where: "LEFT" | "RIGHT",
+        count?: [count: "COUNT", count: number]
+    ): Result<Array<unknown> | null, Context>;
 
     /**
      * Remove and return the member with the lowest score from one or more sorted sets, or block until one is available
@@ -438,6 +511,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(client_subcommand: "ID"): Result<unknown, Context>;
 
     /**
+     * Returns information about the current client connection.
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/client-info)
+     */
+    client(client_subcommand: "INFO"): Result<unknown, Context>;
+
+    /**
      * Kill the connection of a client
      * - _group_: connection
      * - _complexity_: O(N) where N is the number of client connections
@@ -457,7 +540,36 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      */
     client(
         client_subcommand: "KILL",
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -486,7 +598,38 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "KILL",
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -515,7 +658,38 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "KILL",
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -546,7 +720,40 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "KILL",
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -575,7 +782,38 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "KILL",
         id?: [id: "ID", client_id: number],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -606,7 +844,40 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "KILL",
         id?: [id: "ID", client_id: number],
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -637,7 +908,40 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "KILL",
         id?: [id: "ID", client_id: number],
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -670,7 +974,42 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         id?: [id: "ID", client_id: number],
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -699,7 +1038,38 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "KILL",
         ip_port?: string,
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -730,7 +1100,40 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "KILL",
         ip_port?: string,
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -761,7 +1164,40 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "KILL",
         ip_port?: string,
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -794,7 +1230,42 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         ip_port?: string,
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -825,7 +1296,40 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "KILL",
         ip_port?: string,
         id?: [id: "ID", client_id: number],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -858,7 +1362,42 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         ip_port?: string,
         id?: [id: "ID", client_id: number],
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -891,7 +1430,42 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         ip_port?: string,
         id?: [id: "ID", client_id: number],
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -926,7 +1500,44 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         id?: [id: "ID", client_id: number],
         type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
         user?: [user: "USER", username: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
         addr?: [addr: "ADDR", ip_port: string],
+        skipme?: [skipme: "SKIPME", yes_no: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Kill the connection of a client
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-kill)
+     */
+    client(
+        client_subcommand: "KILL",
+        ip_port?: string,
+        id?: [id: "ID", client_id: number],
+        type?: [type: "TYPE", normal_master_slave_or_pubsub: "normal" | "master" | "slave" | "pubsub"],
+        user?: [user: "USER", username: string],
+        addr?: [addr: "ADDR", ip_port: string],
+        laddr?: [laddr: "LADDR", ip_port: string],
         skipme?: [skipme: "SKIPME", yes_no: string]
     ): Result<unknown, Context>;
 
@@ -938,9 +1549,20 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/client-list)
      */
+    client(client_subcommand: "LIST", id?: [id: "ID", client_id: Array<number>]): Result<unknown, Context>;
+
+    /**
+     * Get the list of client connections
+     * - _group_: connection
+     * - _complexity_: O(N) where N is the number of client connections
+     * - _since_: 2.4.0
+     *
+     * [Full docs](https://redis.io/commands/client-list)
+     */
     client(
         client_subcommand: "LIST",
-        type?: [type: "TYPE", normal_master_replica_or_pubsub: "normal" | "master" | "replica" | "pubsub"]
+        type?: [type: "TYPE", normal_master_replica_or_pubsub: "normal" | "master" | "replica" | "pubsub"],
+        id?: [id: "ID", client_id: Array<number>]
     ): Result<unknown, Context>;
 
     /**
@@ -964,6 +1586,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(client_subcommand: "GETREDIR"): Result<unknown, Context>;
 
     /**
+     * Resume processing of clients that were paused
+     * - _group_: connection
+     * - _complexity_: O(N) Where N is the number of paused clients
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/client-unpause)
+     */
+    client(client_subcommand: "UNPAUSE"): Result<unknown, Context>;
+
+    /**
      * Stop processing commands from clients for some time
      * - _group_: connection
      * - _complexity_: O(1)
@@ -971,7 +1603,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/client-pause)
      */
-    client(client_subcommand: "PAUSE", timeout: number): Result<unknown, Context>;
+    client(client_subcommand: "PAUSE", timeout: number, mode?: "WRITE" | "ALL"): Result<unknown, Context>;
 
     /**
      * Instruct the server whether to reply to commands
@@ -996,7 +1628,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1006,7 +1638,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1021,7 +1653,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1036,7 +1668,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1044,70 +1676,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        optin?: "OPTIN",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        bcast?: "BCAST",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        bcast?: "BCAST",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        bcast?: "BCAST",
-        optin?: "OPTIN",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        bcast?: "BCAST",
         optin?: "OPTIN",
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
@@ -1116,7 +1684,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1124,71 +1692,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        optin?: "OPTIN",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        optin?: "OPTIN",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         bcast?: "BCAST",
         noloop?: "NOLOOP"
     ): Result<unknown, Context>;
@@ -1196,7 +1699,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1204,7 +1707,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         bcast?: "BCAST",
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
@@ -1213,7 +1715,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1221,7 +1723,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         bcast?: "BCAST",
         optin?: "OPTIN",
         noloop?: "NOLOOP"
@@ -1230,7 +1731,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1238,7 +1739,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     client(
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         bcast?: "BCAST",
         optin?: "OPTIN",
         optout?: "OPTOUT",
@@ -1248,7 +1748,139 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1263,7 +1895,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1279,7 +1911,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1295,7 +1927,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1304,74 +1936,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         client_subcommand: "TRACKING",
         status: "ON" | "OFF",
         redirect?: [redirect: "REDIRECT", client_id: number],
-        optin?: "OPTIN",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
-        optin?: "OPTIN",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect?: [redirect: "REDIRECT", client_id: number],
-        bcast?: "BCAST",
         optin?: "OPTIN",
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
@@ -1380,7 +1944,75 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        bcast?: "BCAST",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        bcast?: "BCAST",
+        optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1396,7 +2028,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1413,7 +2045,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1430,7 +2062,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1441,6 +2073,41 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         redirect?: [redirect: "REDIRECT", client_id: number],
         prefix?: Array<[prefix: "PREFIX", prefix: string]>,
         optin?: "OPTIN",
+        optout?: "OPTOUT",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
+        noloop?: "NOLOOP"
+    ): Result<unknown, Context>;
+
+    /**
+     * Enable or disable server assisted client side caching support
+     * - _group_: connection
+     * - _complexity_: O(1). Some options may introduce additional complexity.
+     * - _since_: 6.0.0
+     *
+     * [Full docs](https://redis.io/commands/client-tracking)
+     */
+    client(
+        client_subcommand: "TRACKING",
+        status: "ON" | "OFF",
+        redirect?: [redirect: "REDIRECT", client_id: number],
+        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
+        bcast?: "BCAST",
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
     ): Result<unknown, Context>;
@@ -1448,42 +2115,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        bcast?: "BCAST",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/client-tracking)
-     */
-    client(
-        client_subcommand: "TRACKING",
-        status: "ON" | "OFF",
-        redirect?: [redirect: "REDIRECT", client_id: number],
-        prefix?: Array<[prefix: "PREFIX", prefix: string]>,
-        bcast?: "BCAST",
-        optout?: "OPTOUT",
-        noloop?: "NOLOOP"
-    ): Result<unknown, Context>;
-
-    /**
-     * Enable or disable server assisted client side caching support
-     * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1501,7 +2133,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Enable or disable server assisted client side caching support
      * - _group_: connection
-     * - _complexity_: O(1)
+     * - _complexity_: O(1). Some options may introduce additional complexity.
      * - _since_: 6.0.0
      *
      * [Full docs](https://redis.io/commands/client-tracking)
@@ -1516,6 +2148,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         optout?: "OPTOUT",
         noloop?: "NOLOOP"
     ): Result<unknown, Context>;
+
+    /**
+     * Return information about server assisted client side caching for the current connection
+     * - _group_: connection
+     * - _complexity_: O(1)
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/client-trackinginfo)
+     */
+    client(client_subcommand: "TRACKINGINFO"): Result<unknown, Context>;
 
     /**
      * Unblock a client blocked in a blocking command from a different connection
@@ -1959,7 +2601,27 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/eval)
      */
-    eval(script: string, numkeys: number, key: Array<string>, ...arg: Array<string>): Result<unknown, Context>;
+    eval(script: string, numkeys: number, ...arg: Array<string>): Result<unknown, Context>;
+
+    /**
+     * Execute a Lua script server side
+     * - _group_: scripting
+     * - _complexity_: Depends on the script that is executed.
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/eval)
+     */
+    eval(script: string, numkeys: number, key?: Array<string>, ...arg: Array<string>): Result<unknown, Context>;
+
+    /**
+     * Execute a read-only Lua script server side
+     * - _group_: scripting
+     * - _complexity_: Depends on the script that is executed.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/eval-ro)
+     */
+    evalRo(script: string, numkeys: number, key: Array<string>, ...arg: Array<string>): Result<unknown, Context>;
 
     /**
      * Execute a Lua script server side
@@ -1969,7 +2631,27 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/evalsha)
      */
-    evalsha(sha_1: string, numkeys: number, key: Array<string>, ...arg: Array<string>): Result<unknown, Context>;
+    evalsha(sha_1: string, numkeys: number, ...arg: Array<string>): Result<unknown, Context>;
+
+    /**
+     * Execute a Lua script server side
+     * - _group_: scripting
+     * - _complexity_: Depends on the script that is executed.
+     * - _since_: 2.6.0
+     *
+     * [Full docs](https://redis.io/commands/evalsha)
+     */
+    evalsha(sha_1: string, numkeys: number, key?: Array<string>, ...arg: Array<string>): Result<unknown, Context>;
+
+    /**
+     * Execute a read-only Lua script server side
+     * - _group_: scripting
+     * - _complexity_: Depends on the script that is executed.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/evalsha-ro)
+     */
+    evalshaRo(sha_1: string, numkeys: number, key: Array<string>, ...arg: Array<string>): Result<unknown, Context>;
 
     /**
      * Execute all commands issued after MULTI
@@ -1984,7 +2666,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Determine if a key exists
      * - _group_: generic
-     * - _complexity_: O(1)
+     * - _complexity_: O(N) where N is the number of keys to check.
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/exists)
@@ -1999,7 +2681,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/expire)
      */
-    expire(key: string, seconds: number): Result<number, Context>;
+    expire(key: string, seconds: number, condition?: "NX" | "XX" | "GT" | "LT"): Result<number, Context>;
 
     /**
      * Set the expiration for a key as a UNIX timestamp
@@ -2009,27 +2691,84 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/expireat)
      */
-    expireat(key: string, timestamp: unknown): Result<number, Context>;
+    expireat(key: string, timestamp: unknown, condition?: "NX" | "XX" | "GT" | "LT"): Result<number, Context>;
+
+    /**
+     * Get the expiration Unix timestamp for a key
+     * - _group_: generic
+     * - _complexity_: O(1)
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/expiretime)
+     */
+    expiretime(key: string): Result<number, Context>;
+
+    /**
+     * Start a coordinated failover between this server and one of its replicas.
+     * - _group_: server
+     * - _complexity_: undefined
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/failover)
+     */
+    failover(timeout?: [timeout: "TIMEOUT", milliseconds: number]): Result<"OK", Context>;
+
+    /**
+     * Start a coordinated failover between this server and one of its replicas.
+     * - _group_: server
+     * - _complexity_: undefined
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/failover)
+     */
+    failover(abort?: "ABORT", timeout?: [timeout: "TIMEOUT", milliseconds: number]): Result<"OK", Context>;
+
+    /**
+     * Start a coordinated failover between this server and one of its replicas.
+     * - _group_: server
+     * - _complexity_: undefined
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/failover)
+     */
+    failover(
+        target?: [to: "TO", host: string, port: number] | [to: "TO", host: string, port: number, force: "FORCE"],
+        timeout?: [timeout: "TIMEOUT", milliseconds: number]
+    ): Result<"OK", Context>;
+
+    /**
+     * Start a coordinated failover between this server and one of its replicas.
+     * - _group_: server
+     * - _complexity_: undefined
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/failover)
+     */
+    failover(
+        target?: [to: "TO", host: string, port: number] | [to: "TO", host: string, port: number, force: "FORCE"],
+        abort?: "ABORT",
+        timeout?: [timeout: "TIMEOUT", milliseconds: number]
+    ): Result<"OK", Context>;
 
     /**
      * Remove all keys from all databases
      * - _group_: server
-     * - _complexity_: undefined
+     * - _complexity_: O(N) where N is the total number of keys in all databases
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/flushall)
      */
-    flushall(async?: "ASYNC"): Result<"OK", Context>;
+    flushall(async?: "ASYNC" | "SYNC"): Result<"OK", Context>;
 
     /**
      * Remove all keys from the current database
      * - _group_: server
-     * - _complexity_: undefined
+     * - _complexity_: O(N) where N is the number of keys in the selected database
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/flushdb)
      */
-    flushdb(async?: "ASYNC"): Result<"OK", Context>;
+    flushdb(async?: "ASYNC" | "SYNC"): Result<"OK", Context>;
 
     /**
      * Add one or more geospatial items in the geospatial index represented using a sorted set
@@ -2041,6 +2780,49 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      */
     geoadd(
         key: string,
+        ...longitude_latitude_member: Array<[longitude: number, latitude: number, member: string]>
+    ): Result<number, Context>;
+
+    /**
+     * Add one or more geospatial items in the geospatial index represented using a sorted set
+     * - _group_: geo
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/geoadd)
+     */
+    geoadd(
+        key: string,
+        change: "CH",
+        ...longitude_latitude_member: Array<[longitude: number, latitude: number, member: string]>
+    ): Result<number, Context>;
+
+    /**
+     * Add one or more geospatial items in the geospatial index represented using a sorted set
+     * - _group_: geo
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/geoadd)
+     */
+    geoadd(
+        key: string,
+        condition: "NX" | "XX",
+        ...longitude_latitude_member: Array<[longitude: number, latitude: number, member: string]>
+    ): Result<number, Context>;
+
+    /**
+     * Add one or more geospatial items in the geospatial index represented using a sorted set
+     * - _group_: geo
+     * - _complexity_: O(log(N)) for each item added, where N is the number of elements in the sorted set.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/geoadd)
+     */
+    geoadd(
+        key: string,
+        condition: "NX" | "XX",
+        change: "CH",
         ...longitude_latitude_member: Array<[longitude: number, latitude: number, member: string]>
     ): Result<number, Context>;
 
@@ -2057,7 +2839,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Returns longitude and latitude of members of a geospatial index
      * - _group_: geo
-     * - _complexity_: O(log(N)) for each member requested, where N is the number of elements in the sorted set.
+     * - _complexity_: O(N) where N is the number of members requested.
      * - _since_: 3.2.0
      *
      * [Full docs](https://redis.io/commands/geopos)
@@ -2165,7 +2947,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2183,7 +2965,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2202,7 +2984,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2221,83 +3003,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -2318,7 +3024,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2337,7 +3042,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2357,7 +3061,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2377,7 +3080,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -2397,7 +3099,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2415,7 +3118,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2434,7 +3138,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2453,87 +3158,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         latitude: number,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -2554,7 +3180,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2573,7 +3198,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2593,7 +3217,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2613,7 +3236,86 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -2635,7 +3337,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2655,7 +3356,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2676,7 +3376,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2697,7 +3396,90 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -2794,7 +3576,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2813,7 +3595,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2833,7 +3615,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2853,7 +3635,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -2955,7 +3737,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -2975,7 +3757,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -2996,7 +3778,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -3017,171 +3799,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<Array<unknown>, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadius)
-     */
-    georadius(
-        key: string,
-        longitude: number,
-        latitude: number,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3203,7 +3821,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -3223,7 +3840,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -3244,7 +3860,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -3265,7 +3880,90 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3288,7 +3986,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
 
@@ -3309,7 +4006,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -3331,7 +4027,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<Array<unknown>, Context>;
@@ -3353,7 +4048,94 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a point
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadius)
+     */
+    georadius(
+        key: string,
+        longitude: number,
+        latitude: number,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3440,7 +4222,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -3457,7 +4239,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3475,7 +4257,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3493,79 +4275,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3585,7 +4295,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -3603,7 +4312,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3622,7 +4330,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3641,7 +4348,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3660,7 +4366,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -3677,7 +4384,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3695,7 +4403,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3713,83 +4422,8 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         member: string,
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3809,7 +4443,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -3827,7 +4460,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3846,7 +4478,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3865,7 +4496,82 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -3886,7 +4592,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -3905,7 +4610,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3925,7 +4629,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -3945,7 +4648,86 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -4037,7 +4819,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -4055,7 +4837,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4074,7 +4856,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4093,7 +4875,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         radius: number,
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -4190,7 +4972,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -4209,7 +4991,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4229,7 +5011,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4249,163 +5031,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        store?: [store: "STORE", key: string],
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
-        order?: "ASC" | "DESC",
-        storedist?: [storedist: "STOREDIST", key: string]
-    ): Result<unknown, Context>;
-
-    /**
-     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
-     * - _group_: geo
-     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
-     * - _since_: 3.2.0
-     *
-     * [Full docs](https://redis.io/commands/georadiusbymember)
-     */
-    georadiusbymember(
-        key: string,
-        member: string,
-        radius: number,
-        unit: "m" | "km" | "ft" | "mi",
-        withcoord?: "WITHCOORD",
-        withdist?: "WITHDIST",
-        count?: [count: "COUNT", count: number],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -4426,7 +5052,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -4445,7 +5070,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4465,7 +5089,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4485,7 +5108,86 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         unit: "m" | "km" | "ft" | "mi",
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
-        withhash?: "WITHHASH",
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
@@ -4507,7 +5209,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
 
@@ -4527,7 +5228,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4548,7 +5248,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
@@ -4569,11 +5268,5515 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         withcoord?: "WITHCOORD",
         withdist?: "WITHDIST",
         withhash?: "WITHHASH",
-        count?: [count: "COUNT", count: number],
         order?: "ASC" | "DESC",
         store?: [store: "STORE", key: string],
         storedist?: [storedist: "STOREDIST", key: string]
     ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members matching a given maximum distance from a member
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements inside the bounding box of the circular area delimited by center and radius and M is the number of items inside the index.
+     * - _since_: 3.2.0
+     *
+     * [Full docs](https://redis.io/commands/georadiusbymember)
+     */
+    georadiusbymember(
+        key: string,
+        member: string,
+        radius: number,
+        unit: "m" | "km" | "ft" | "mi",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", key: string],
+        storedist?: [storedist: "STOREDIST", key: string]
+    ): Result<unknown, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(key: string, withhash?: "WITHHASH"): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(key: string, withdist?: "WITHDIST", withhash?: "WITHHASH"): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(key: string, withcoord?: "WITHCOORD", withhash?: "WITHHASH"): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(key: string, order?: "ASC" | "DESC", withhash?: "WITHHASH"): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearch)
+     */
+    geosearch(
+        key: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        withcoord?: "WITHCOORD",
+        withdist?: "WITHDIST",
+        withhash?: "WITHHASH"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(destination: string, source: string, storedist?: "STOREDIST"): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
+
+    /**
+     * Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.
+     * - _group_: geo
+     * - _complexity_: O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape
+     * - _since_: 6.2
+     *
+     * [Full docs](https://redis.io/commands/geosearchstore)
+     */
+    geosearchstore(
+        destination: string,
+        source: string,
+        frommember?: [frommember: "FROMMEMBER", member: string],
+        fromlonlat?: [fromlonlat: "FROMLONLAT", longitude_latitude: [longitude: number, latitude: number]],
+        circle?: [byradius: [byradius: "BYRADIUS", radius: number], unit: "m" | "km" | "ft" | "mi"],
+        box?: [bybox: [bybox: "BYBOX", width: number], height: number, unit: "m" | "km" | "ft" | "mi"],
+        order?: "ASC" | "DESC",
+        count?: [count: "COUNT", count: number] | [count: [count: "COUNT", count: number], any: "ANY"],
+        storedist?: "STOREDIST"
+    ): Result<number, Context>;
 
     /**
      * Get the value of a key
@@ -4587,13 +10790,36 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
 
     /**
      * Returns the bit value at offset in the string value stored at key
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1)
      * - _since_: 2.2.0
      *
      * [Full docs](https://redis.io/commands/getbit)
      */
     getbit(key: string, offset: number): Result<number, Context>;
+
+    /**
+     * Get the value of a key and delete the key
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/getdel)
+     */
+    getdel(key: string): Result<string | null, Context>;
+
+    /**
+     * Get the value of a key and optionally set its expiration
+     * - _group_: string
+     * - _complexity_: O(1)
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/getex)
+     */
+    getex(
+        key: string,
+        expiration?: "EX seconds" | "PX milliseconds" | "EXAT timestamp" | "PXAT milliseconds-timestamp" | "PERSIST"
+    ): Result<string | null, Context>;
 
     /**
      * Get a substring of the string stored at a key
@@ -4626,17 +10852,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     hdel(key: string, ...field: Array<string>): Result<number, Context>;
 
     /**
-     * switch Redis protocol
-     * - _group_: connection
-     * - _complexity_: O(1)
-     * - _since_: 6.0.0
-     *
-     * [Full docs](https://redis.io/commands/hello)
-     */
-    hello(protover: number, setname?: [setname: "SETNAME", clientname: string]): Result<Array<unknown>, Context>;
-
-    /**
-     * switch Redis protocol
+     * Handshake with Redis
      * - _group_: connection
      * - _complexity_: O(1)
      * - _since_: 6.0.0
@@ -4644,9 +10860,15 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      * [Full docs](https://redis.io/commands/hello)
      */
     hello(
-        protover: number,
-        auth?: [auth: "AUTH", username_password: [username: string, password: string]],
-        setname?: [setname: "SETNAME", clientname: string]
+        args?:
+            | number
+            | [protover: number, auth: [auth: "AUTH", username_password: [username: string, password: string]]]
+            | [protover: number, setname: [setname: "SETNAME", clientname: string]]
+            | [
+                  protover: number,
+                  auth: [auth: "AUTH", username_password: [username: string, password: string]],
+                  setname: [setname: "SETNAME", clientname: string]
+              ]
     ): Result<Array<unknown>, Context>;
 
     /**
@@ -4758,6 +10980,19 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      * [Full docs](https://redis.io/commands/hsetnx)
      */
     hsetnx(key: string, field: string, value: string): Result<number, Context>;
+
+    /**
+     * Get one or multiple random fields from a hash
+     * - _group_: hash
+     * - _complexity_: O(N) where N is the number of fields returned
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/hrandfield)
+     */
+    hrandfield(
+        key: string,
+        options?: number | [count: number, withvalues: "WITHVALUES"]
+    ): Result<string | Array<unknown> | null, Context>;
 
     /**
      * Get the length of the value of a hash field
@@ -4880,14 +11115,14 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     llen(key: string): Result<number, Context>;
 
     /**
-     * Remove and get the first element in a list
+     * Remove and get the first elements in a list
      * - _group_: list
-     * - _complexity_: O(1)
+     * - _complexity_: O(N) where N is the number of elements returned
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/lpop)
      */
-    lpop(key: string): Result<string | null, Context>;
+    lpop(key: string, count?: number): Result<string | Array<unknown> | null, Context>;
 
     /**
      * Return the index of matching elements on a list
@@ -4897,7 +11132,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/lpos)
      */
-    lpos(key: string, element: string, maxlen?: [maxlen: "MAXLEN", len: number]): Result<unknown, Context>;
+    lpos(key: string, element: string, maxlen?: [maxlen: "MAXLEN", len: number]): Result<null, Context>;
 
     /**
      * Return the index of matching elements on a list
@@ -4912,7 +11147,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         element: string,
         count?: [count: "COUNT", num_matches: number],
         maxlen?: [maxlen: "MAXLEN", len: number]
-    ): Result<unknown, Context>;
+    ): Result<null, Context>;
 
     /**
      * Return the index of matching elements on a list
@@ -4927,7 +11162,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         element: string,
         rank?: [rank: "RANK", rank: number],
         maxlen?: [maxlen: "MAXLEN", len: number]
-    ): Result<unknown, Context>;
+    ): Result<null, Context>;
 
     /**
      * Return the index of matching elements on a list
@@ -4943,7 +11178,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         rank?: [rank: "RANK", rank: number],
         count?: [count: "COUNT", num_matches: number],
         maxlen?: [maxlen: "MAXLEN", len: number]
-    ): Result<unknown, Context>;
+    ): Result<null, Context>;
 
     /**
      * Prepend one or multiple elements to a list
@@ -5491,7 +11726,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/pexpire)
      */
-    pexpire(key: string, milliseconds: number): Result<number, Context>;
+    pexpire(key: string, milliseconds: number, condition?: "NX" | "XX" | "GT" | "LT"): Result<number, Context>;
 
     /**
      * Set the expiration for a key as a UNIX timestamp specified in milliseconds
@@ -5501,7 +11736,21 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/pexpireat)
      */
-    pexpireat(key: string, milliseconds_timestamp: unknown): Result<number, Context>;
+    pexpireat(
+        key: string,
+        milliseconds_timestamp: unknown,
+        condition?: "NX" | "XX" | "GT" | "LT"
+    ): Result<number, Context>;
+
+    /**
+     * Get the expiration Unix timestamp for a key in milliseconds
+     * - _group_: generic
+     * - _complexity_: O(1)
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/pexpiretime)
+     */
+    pexpiretime(key: string): Result<number, Context>;
 
     /**
      * Adds the specified elements to the specified HyperLogLog.
@@ -5816,14 +12065,14 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     role(): Result<Array<unknown>, Context>;
 
     /**
-     * Remove and get the last element in a list
+     * Remove and get the last elements in a list
      * - _group_: list
-     * - _complexity_: O(1)
+     * - _complexity_: O(N) where N is the number of elements returned
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/rpop)
      */
-    rpop(key: string): Result<string | null, Context>;
+    rpop(key: string, count?: number): Result<string | Array<unknown> | null, Context>;
 
     /**
      * Remove the last element in a list, prepend it to another list and return it
@@ -5928,7 +12177,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      *
      * [Full docs](https://redis.io/commands/script-flush)
      */
-    script(script_subcommand: "FLUSH"): Result<unknown, Context>;
+    script(script_subcommand: "FLUSH", async?: "ASYNC" | "SYNC"): Result<unknown, Context>;
 
     /**
      * Kill the script currently in execution.
@@ -6011,7 +12260,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     set(
         key: string,
         value: string,
-        expiration?: [ex_px: "EX" | "PX", number: number] | "KEEPTTL",
+        expiration?: [ex_px_exat_pxat: "EX" | "PX" | "EXAT" | "PXAT", number: number] | "KEEPTTL",
         get?: "GET"
     ): Result<"OK" | string | null, Context>;
 
@@ -6026,14 +12275,14 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     set(
         key: string,
         value: string,
-        expiration?: [ex_px: "EX" | "PX", number: number] | "KEEPTTL",
+        expiration?: [ex_px_exat_pxat: "EX" | "PX" | "EXAT" | "PXAT", number: number] | "KEEPTTL",
         condition?: "NX" | "XX",
         get?: "GET"
     ): Result<"OK" | string | null, Context>;
 
     /**
      * Sets or clears the bit at offset in the string value stored at key
-     * - _group_: string
+     * - _group_: bitmap
      * - _complexity_: O(1)
      * - _since_: 2.2.0
      *
@@ -6090,6 +12339,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      * [Full docs](https://redis.io/commands/sinter)
      */
     sinter(...key: Array<string>): Result<Array<string>, Context>;
+
+    /**
+     * Intersect multiple sets and return the cardinality of the result
+     * - _group_: set
+     * - _complexity_: O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sintercard)
+     */
+    sintercard(...key: Array<string>): Result<number, Context>;
 
     /**
      * Intersect multiple sets and store the resulting set in a key
@@ -6174,7 +12433,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6184,7 +12443,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6198,7 +12457,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6212,73 +12471,13 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
      */
     sort(
         key: string,
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        get?: Array<[get: "GET", pattern: string]>,
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        get?: Array<[get: "GET", pattern: string]>,
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        get?: Array<[get: "GET", pattern: string]>,
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
         store?: [store: "STORE", destination: string]
@@ -6287,74 +12486,13 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
      */
     sort(
         key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         get?: Array<[get: "GET", pattern: string]>,
         store?: [store: "STORE", destination: string]
     ): Result<number | Array<unknown>, Context>;
@@ -6362,14 +12500,13 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
      */
     sort(
         key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         get?: Array<[get: "GET", pattern: string]>,
         sorting?: "ALPHA",
         store?: [store: "STORE", destination: string]
@@ -6378,14 +12515,13 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
      */
     sort(
         key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         store?: [store: "STORE", destination: string]
@@ -6394,14 +12530,13 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
      */
     sort(
         key: string,
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
@@ -6411,7 +12546,131 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6425,7 +12684,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6440,7 +12699,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6455,7 +12714,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6463,70 +12722,6 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     sort(
         key: string,
         by?: [by: "BY", pattern: string],
-        order?: "ASC" | "DESC",
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by?: [by: "BY", pattern: string],
-        get?: Array<[get: "GET", pattern: string]>,
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by?: [by: "BY", pattern: string],
-        get?: Array<[get: "GET", pattern: string]>,
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by?: [by: "BY", pattern: string],
-        get?: Array<[get: "GET", pattern: string]>,
-        order?: "ASC" | "DESC",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by?: [by: "BY", pattern: string],
-        get?: Array<[get: "GET", pattern: string]>,
         order?: "ASC" | "DESC",
         sorting?: "ALPHA",
         store?: [store: "STORE", destination: string]
@@ -6535,7 +12730,71 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6550,7 +12809,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6566,7 +12825,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6582,7 +12841,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6592,6 +12851,39 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         by?: [by: "BY", pattern: string],
         limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
         order?: "ASC" | "DESC",
+        sorting?: "ALPHA",
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        store?: [store: "STORE", destination: string]
+    ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 1.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort)
+     */
+    sort(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
         sorting?: "ALPHA",
         store?: [store: "STORE", destination: string]
     ): Result<number | Array<unknown>, Context>;
@@ -6599,40 +12891,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by?: [by: "BY", pattern: string],
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get?: Array<[get: "GET", pattern: string]>,
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
-     * - _since_: 1.0.0
-     *
-     * [Full docs](https://redis.io/commands/sort)
-     */
-    sort(
-        key: string,
-        by?: [by: "BY", pattern: string],
-        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
-        get?: Array<[get: "GET", pattern: string]>,
-        sorting?: "ALPHA",
-        store?: [store: "STORE", destination: string]
-    ): Result<number | Array<unknown>, Context>;
-
-    /**
-     * Sort the elements in a list, set or sorted set
-     * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6649,7 +12908,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Sort the elements in a list, set or sorted set
      * - _group_: generic
-     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/sort)
@@ -6663,11 +12922,236 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         sorting?: "ALPHA",
         store?: [store: "STORE", destination: string]
     ): Result<number | Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(key: string, sorting?: "ALPHA"): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(key: string, order?: "ASC" | "DESC", sorting?: "ALPHA"): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(key: string, get?: Array<[get: "GET", pattern: string]>, sorting?: "ALPHA"): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(key: string, by?: [by: "BY", pattern: string], sorting?: "ALPHA"): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Sort the elements in a list, set or sorted set. Read-only variant of SORT.
+     * - _group_: generic
+     * - _complexity_: O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/sort-ro)
+     */
+    sortRo(
+        key: string,
+        by?: [by: "BY", pattern: string],
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        get?: Array<[get: "GET", pattern: string]>,
+        order?: "ASC" | "DESC",
+        sorting?: "ALPHA"
+    ): Result<Array<unknown>, Context>;
 
     /**
      * Remove and return one or multiple random members from a set
      * - _group_: set
-     * - _complexity_: O(1)
+     * - _complexity_: Without the count argument O(1), otherwise O(N) where N is the value of the passed count.
      * - _since_: 1.0.0
      *
      * [Full docs](https://redis.io/commands/spop)
@@ -6747,7 +13231,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Swaps two Redis databases
      * - _group_: server
-     * - _complexity_: undefined
+     * - _complexity_: O(N) where N is the count of clients watching or blocking on keys from both databases.
      * - _since_: 4.0.0
      *
      * [Full docs](https://redis.io/commands/swapdb)
@@ -6795,7 +13279,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     touch(...key: Array<string>): Result<number, Context>;
 
     /**
-     * Get the time to live for a key
+     * Get the time to live for a key in seconds
      * - _group_: generic
      * - _complexity_: O(1)
      * - _since_: 1.0.0
@@ -7212,6 +13696,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     ): Result<Array<unknown>, Context>;
 
     /**
+     * Intersect multiple sorted sets and return the cardinality of the result
+     * - _group_: sorted_set
+     * - _complexity_: O(N*K) worst case with N being the smallest input sorted set, K being the number of input sorted sets.
+     * - _since_: 7.0.0
+     *
+     * [Full docs](https://redis.io/commands/zintercard)
+     */
+    zintercard(numkeys: number, ...key: Array<string>): Result<number, Context>;
+
+    /**
      * Intersect multiple sorted sets and store the resulting sorted set in a new key
      * - _group_: sorted_set
      * - _complexity_: O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.
@@ -7273,14 +13767,212 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     zpopmin(key: string, count?: number): Result<Array<string>, Context>;
 
     /**
-     * Return a range of members in a sorted set, by index
+     * Get one or multiple random elements from a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(N) where N is the number of elements returned
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrandmember)
+     */
+    zrandmember(
+        key: string,
+        options?: number | [count: number, withscores: "WITHSCORES"]
+    ): Result<string | Array<unknown> | null, Context>;
+
+    /**
+     * Store a range of members from sorted set into another key
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrangestore)
+     */
+    zrangestore(
+        dst: string,
+        src: string,
+        min: string,
+        max: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+    ): Result<number, Context>;
+
+    /**
+     * Store a range of members from sorted set into another key
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrangestore)
+     */
+    zrangestore(
+        dst: string,
+        src: string,
+        min: string,
+        max: string,
+        rev?: "REV",
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+    ): Result<number, Context>;
+
+    /**
+     * Store a range of members from sorted set into another key
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrangestore)
+     */
+    zrangestore(
+        dst: string,
+        src: string,
+        min: string,
+        max: string,
+        sortby?: "BYSCORE" | "BYLEX",
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+    ): Result<number, Context>;
+
+    /**
+     * Store a range of members from sorted set into another key
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrangestore)
+     */
+    zrangestore(
+        dst: string,
+        src: string,
+        min: string,
+        max: string,
+        sortby?: "BYSCORE" | "BYLEX",
+        rev?: "REV",
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]]
+    ): Result<number, Context>;
+
+    /**
+     * Return a range of members in a sorted set
      * - _group_: sorted_set
      * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
      * - _since_: 1.2.0
      *
      * [Full docs](https://redis.io/commands/zrange)
      */
-    zrange(key: string, start: number, stop: number, withscores?: "WITHSCORES"): Result<Array<string>, Context>;
+    zrange(key: string, min: string, max: string, withscores?: "WITHSCORES"): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        rev?: "REV",
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        rev?: "REV",
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        sortby?: "BYSCORE" | "BYLEX",
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        sortby?: "BYSCORE" | "BYLEX",
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        sortby?: "BYSCORE" | "BYLEX",
+        rev?: "REV",
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
+
+    /**
+     * Return a range of members in a sorted set
+     * - _group_: sorted_set
+     * - _complexity_: O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.
+     * - _since_: 1.2.0
+     *
+     * [Full docs](https://redis.io/commands/zrange)
+     */
+    zrange(
+        key: string,
+        min: string,
+        max: string,
+        sortby?: "BYSCORE" | "BYLEX",
+        rev?: "REV",
+        limit?: [limit: "LIMIT", offset_count: [offset: number, count: number]],
+        withscores?: "WITHSCORES"
+    ): Result<Array<string>, Context>;
 
     /**
      * Return a range of members in a sorted set, by lexicographical range
@@ -7798,7 +14490,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Appends a new entry to a stream
      * - _group_: stream
-     * - _complexity_: O(1)
+     * - _complexity_: O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.
      * - _since_: 5.0.0
      *
      * [Full docs](https://redis.io/commands/xadd)
@@ -7812,7 +14504,31 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Appends a new entry to a stream
      * - _group_: stream
-     * - _complexity_: O(1)
+     * - _complexity_: O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xadd)
+     */
+    xadd(
+        key: string,
+        trim:
+            | [strategy: "MAXLEN" | "MINID", threshold: string]
+            | [strategy: "MAXLEN" | "MINID", operator: "=" | "~", threshold: string]
+            | [strategy: "MAXLEN" | "MINID", threshold: string, limit: [limit: "LIMIT", count: number]]
+            | [
+                  strategy: "MAXLEN" | "MINID",
+                  operator: "=" | "~",
+                  threshold: string,
+                  limit: [limit: "LIMIT", count: number]
+              ],
+        asterisk_or_id: "*" | "ID",
+        ...field_value: Array<[field: string, value: string]>
+    ): Result<string | null, Context>;
+
+    /**
+     * Appends a new entry to a stream
+     * - _group_: stream
+     * - _complexity_: O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.
      * - _since_: 5.0.0
      *
      * [Full docs](https://redis.io/commands/xadd)
@@ -7827,30 +14543,24 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
     /**
      * Appends a new entry to a stream
      * - _group_: stream
-     * - _complexity_: O(1)
+     * - _complexity_: O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.
      * - _since_: 5.0.0
      *
      * [Full docs](https://redis.io/commands/xadd)
      */
     xadd(
         key: string,
-        maxlen: [maxlen: "MAXLEN", operator: number | [equals_or_tilde: "=" | "~", length: number]],
-        asterisk_or_id: "*" | "ID",
-        ...field_value: Array<[field: string, value: string]>
-    ): Result<string | null, Context>;
-
-    /**
-     * Appends a new entry to a stream
-     * - _group_: stream
-     * - _complexity_: O(1)
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xadd)
-     */
-    xadd(
-        key: string,
-        maxlen: [maxlen: "MAXLEN", operator: number | [equals_or_tilde: "=" | "~", length: number]],
         nomkstream: "NOMKSTREAM",
+        trim:
+            | [strategy: "MAXLEN" | "MINID", threshold: string]
+            | [strategy: "MAXLEN" | "MINID", operator: "=" | "~", threshold: string]
+            | [strategy: "MAXLEN" | "MINID", threshold: string, limit: [limit: "LIMIT", count: number]]
+            | [
+                  strategy: "MAXLEN" | "MINID",
+                  operator: "=" | "~",
+                  threshold: string,
+                  limit: [limit: "LIMIT", count: number]
+              ],
         asterisk_or_id: "*" | "ID",
         ...field_value: Array<[field: string, value: string]>
     ): Result<string | null, Context>;
@@ -7865,8 +14575,16 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      */
     xtrim(
         key: string,
-        strategy: "MAXLEN",
-        operator: number | [equals_or_tilde: "=" | "~", length: number]
+        trim:
+            | [strategy: "MAXLEN" | "MINID", threshold: string]
+            | [strategy: "MAXLEN" | "MINID", operator: "=" | "~", threshold: string]
+            | [strategy: "MAXLEN" | "MINID", threshold: string, limit: [limit: "LIMIT", count: number]]
+            | [
+                  strategy: "MAXLEN" | "MINID",
+                  operator: "=" | "~",
+                  threshold: string,
+                  limit: [limit: "LIMIT", count: number]
+              ]
     ): Result<number, Context>;
 
     /**
@@ -8332,7 +15050,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
-    ): Result<unknown, Context>;
+    ): Result<Array<unknown>, Context>;
 
     /**
      * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
@@ -8348,7 +15066,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
-    ): Result<unknown, Context>;
+    ): Result<Array<unknown>, Context>;
 
     /**
      * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
@@ -8364,7 +15082,7 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
-    ): Result<unknown, Context>;
+    ): Result<Array<unknown>, Context>;
 
     /**
      * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
@@ -8376,80 +15094,80 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
      */
     xreadgroup(
         group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        block: [block: "BLOCK", milliseconds: number],
-        noack: "NOACK",
-        streams: "STREAMS",
-        key: Array<string>,
-        ...id: Array<string>
-    ): Result<unknown, Context>;
-
-    /**
-     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xreadgroup)
-     */
-    xreadgroup(
-        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        count: [count: "COUNT", count: number],
-        streams: "STREAMS",
-        key: Array<string>,
-        ...id: Array<string>
-    ): Result<unknown, Context>;
-
-    /**
-     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xreadgroup)
-     */
-    xreadgroup(
-        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        count: [count: "COUNT", count: number],
-        noack: "NOACK",
-        streams: "STREAMS",
-        key: Array<string>,
-        ...id: Array<string>
-    ): Result<unknown, Context>;
-
-    /**
-     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xreadgroup)
-     */
-    xreadgroup(
-        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        count: [count: "COUNT", count: number],
-        block: [block: "BLOCK", milliseconds: number],
-        streams: "STREAMS",
-        key: Array<string>,
-        ...id: Array<string>
-    ): Result<unknown, Context>;
-
-    /**
-     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
-     * - _group_: stream
-     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
-     * - _since_: 5.0.0
-     *
-     * [Full docs](https://redis.io/commands/xreadgroup)
-     */
-    xreadgroup(
-        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
-        count: [count: "COUNT", count: number],
         block: [block: "BLOCK", milliseconds: number],
         noack: "NOACK",
         streams: "STREAMS",
         key: Array<string>,
         ...id: Array<string>
-    ): Result<unknown, Context>;
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xreadgroup)
+     */
+    xreadgroup(
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        count: [count: "COUNT", count: number],
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xreadgroup)
+     */
+    xreadgroup(
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        count: [count: "COUNT", count: number],
+        noack: "NOACK",
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xreadgroup)
+     */
+    xreadgroup(
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        count: [count: "COUNT", count: number],
+        block: [block: "BLOCK", milliseconds: number],
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Return new entries from a stream using a consumer group, or access the history of the pending entries for a given consumer. Can block.
+     * - _group_: stream
+     * - _complexity_: For each stream mentioned: O(M) with M being the number of elements returned. If M is constant (e.g. always asking for the first 10 elements with COUNT), you can consider it O(1). On the other side when XREADGROUP blocks, XADD will pay the O(N) time in order to serve the N clients blocked on the stream getting new data.
+     * - _since_: 5.0.0
+     *
+     * [Full docs](https://redis.io/commands/xreadgroup)
+     */
+    xreadgroup(
+        group: [group: "GROUP", group_consumer: [group: string, consumer: string]],
+        count: [count: "COUNT", count: number],
+        block: [block: "BLOCK", milliseconds: number],
+        noack: "NOACK",
+        streams: "STREAMS",
+        key: Array<string>,
+        ...id: Array<string>
+    ): Result<Array<unknown>, Context>;
 
     /**
      * Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.
@@ -8762,6 +15480,41 @@ export interface Commands<Context extends ClientContext = { type: "default" }> {
         time?: [time: "TIME", ms_unix_time: number],
         retrycount?: [retrycount: "RETRYCOUNT", count: number],
         force?: unknown,
+        justid?: unknown
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(1) if COUNT is small.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/xautoclaim)
+     */
+    xautoclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        start: string,
+        justid?: unknown
+    ): Result<Array<unknown>, Context>;
+
+    /**
+     * Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.
+     * - _group_: stream
+     * - _complexity_: O(1) if COUNT is small.
+     * - _since_: 6.2.0
+     *
+     * [Full docs](https://redis.io/commands/xautoclaim)
+     */
+    xautoclaim(
+        key: string,
+        group: string,
+        consumer: string,
+        min_idle_time: string,
+        start: string,
+        count?: [count: "COUNT", count: number],
         justid?: unknown
     ): Result<Array<unknown>, Context>;
 

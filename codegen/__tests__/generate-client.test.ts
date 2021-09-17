@@ -72,7 +72,7 @@ test("formatOverloads", () => {
                          *
                          * [Full docs](https://redis.io/commands/set)
                          */
-                        set(key: string, value: string, expiration?: ([ex_px: (\\"EX\\"|\\"PX\\"), number: (number)]) | (\\"KEEPTTL\\"), get?: \\"GET\\"):
+                        set(key: string, value: string, expiration?: ([ex_px_exat_pxat: (\\"EX\\"|\\"PX\\"|\\"EXAT\\"|\\"PXAT\\"), number: (number)]) | (\\"KEEPTTL\\"), get?: \\"GET\\"):
                             Result<(\\"OK\\") | (string) | (null), Context>
                     ",
           "
@@ -84,7 +84,7 @@ test("formatOverloads", () => {
                          *
                          * [Full docs](https://redis.io/commands/set)
                          */
-                        set(key: string, value: string, expiration?: ([ex_px: (\\"EX\\"|\\"PX\\"), number: (number)]) | (\\"KEEPTTL\\"), condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
+                        set(key: string, value: string, expiration?: ([ex_px_exat_pxat: (\\"EX\\"|\\"PX\\"|\\"EXAT\\"|\\"PXAT\\"), number: (number)]) | (\\"KEEPTTL\\"), condition?: \\"NX\\"|\\"XX\\", get?: \\"GET\\"):
                             Result<(\\"OK\\") | (string) | (null), Context>
                     ",
         ]

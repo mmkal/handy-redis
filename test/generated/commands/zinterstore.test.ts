@@ -21,7 +21,7 @@ test("docs/redis-doc/commands/zinterstore.md example 1", async () => {
     outputs.r4 = await client.zadd("zset2", [3, "three"]);
     // @ts-expect-error (not smart enough to deal with numkeys)
     outputs.r5 = await client.zinterstore("out", 2, "zset1", "zset2", "WEIGHTS", "2", "3");
-    outputs.r6 = await client.zrange("out", 0, -1, "WITHSCORES");
+    outputs.r6 = await client.zrange("out", "0", "-1", "WITHSCORES");
 
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {

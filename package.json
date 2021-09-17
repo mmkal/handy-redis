@@ -52,7 +52,8 @@
     "typecheck": "tsc -p ."
   },
   "dependencies": {
-    "@types/redis": "^2.8.30"
+    "@types/redis": "^2.8.30",
+    "eson-parser": "^0.0.5"
   },
   "devDependencies": {
     "@types/cross-spawn": "6.0.2",

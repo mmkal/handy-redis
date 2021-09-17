@@ -3,13 +3,13 @@ import * as glob from "glob";
 import * as path from "path";
 import * as fs from "fs";
 import { overloads as getOverloads } from "./generate-client";
-import { inspect } from "util";
 import { maybeDo, writeFile } from "./util";
 import { parseArgsStringToArgv } from "string-argv";
 import { fixupGeneratedTests } from "./patches/tests";
 import { fixMarkdownExampleLine } from "./patches/markdown";
 import * as lo from "lodash";
 import * as jsonSchema from "json-schema";
+import * as ESON from "eson-parser";
 
 const extractCliExamples = (markdown: string) => {
     const eolMarker = " END_OF_LINE_MARKER ";
@@ -51,10 +51,7 @@ const tokenizeCliExample = (ex: ExtractedCliExample) => ({
         .map(original => ({ original, argv: parseArgsStringToArgv(original) })),
 });
 
-const print = (val: unknown) =>
-    inspect(val, { breakLength: 1000, depth: 1000 })
-        .replace(/, toString: \[Function\]/g, "")
-        .replace(/\r?\n[ \t]*/g, " ");
+const print = (val: unknown) => ESON.stringify(val);
 
 export const toArgs = (tokens: string[]) => {
     const [command, ...args] = tokens;

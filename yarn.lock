@@ -2560,6 +2560,13 @@ eslint@7.32.0:
     text-table "^0.2.0"
     v8-compile-cache "^2.0.3"
 
+eson-parser@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/eson-parser/-/eson-parser-0.0.5.tgz#feef8f32b5dedf4b548a539bd2b75b1568117cd9"
+  integrity sha512-P8LnP8+k6QxpiPJY8f29BITpj443oZnV3IEjbRM6bW4ny8Aa+stKHSMTf6QuHs3KW+C6XAMUmxEurB0ozpSDcg==
+  dependencies:
+    minimist "^1.2.5"
+
 espree@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/espree/-/espree-7.3.0.tgz#dc30437cf67947cf576121ebd780f15eeac72348"

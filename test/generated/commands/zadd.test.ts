@@ -17,7 +17,7 @@ test("docs/redis-doc/commands/zadd.md example 1", async () => {
     outputs.r0 = await client.zadd("myzset", [1, "one"]);
     outputs.r1 = await client.zadd("myzset", [1, "uno"]);
     outputs.r2 = await client.zadd("myzset", [2, "two"], [3, "three"]);
-    outputs.r3 = await client.zrange("myzset", 0, -1, "WITHSCORES");
+    outputs.r3 = await client.zrange("myzset", "0", "-1", "WITHSCORES");
 
     expect(fuzzify(outputs, __filename)).toMatchInlineSnapshot(`
         Object {

@@ -187,6 +187,17 @@
             "type": "integer"
         }
     },
+    "ASKING": {
+        "summary": "Sent by cluster clients after an -ASK redirect",
+        "complexity": "O(1)",
+        "arguments": [],
+        "since": "3.0.0",
+        "group": "cluster",
+        "return": {
+            "type": "string",
+            "const": "OK"
+        }
+    },
     "AUTH": {
         "summary": "Authenticate to the server",
         "arguments": [
@@ -273,7 +284,7 @@
             }
         ],
         "since": "2.6.0",
-        "group": "string",
+        "group": "bitmap",
         "return": {
             "type": "integer"
         }
@@ -402,8 +413,53 @@
             }
         ],
         "since": "3.2.0",
-        "group": "string",
+        "group": "bitmap",
         "return": {}
+    },
+    "BITFIELD_RO": {
+        "summary": "Perform arbitrary bitfield integer operations on strings. Read-only variant of BITFIELD",
+        "complexity": "O(1) for each subcommand specified",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "GET",
+                "schema": {
+                    "title": "GET",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "GET"
+                        },
+                        {
+                            "title": "type, offset",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "type",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "offset",
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "bitmap",
+        "return": {
+            "type": "array"
+        }
     },
     "BITOP": {
         "summary": "Perform bitwise operations between strings",
@@ -436,7 +492,7 @@
             }
         ],
         "since": "2.6.0",
-        "group": "string",
+        "group": "bitmap",
         "return": {
             "type": "integer"
         }
@@ -460,31 +516,41 @@
                 }
             },
             {
-                "name": "start",
+                "name": "index",
                 "optional": true,
                 "schema": {
-                    "title": "start",
-                    "type": "integer"
-                }
-            },
-            {
-                "name": "end",
-                "optional": true,
-                "schema": {
-                    "title": "end",
-                    "type": "integer"
+                    "title": "index",
+                    "anyOf": [
+                        {
+                            "title": "start",
+                            "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "start",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "end",
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    ]
                 }
             }
         ],
         "since": "2.8.7",
-        "group": "string",
+        "group": "bitmap",
         "return": {
             "type": "integer"
         }
     },
     "BLPOP": {
         "summary": "Remove and get the first element in a list, or block until one is available",
-        "complexity": "O(1)",
+        "complexity": "O(N) where N is the number of provided keys.",
         "arguments": [
             {
                 "name": "key",
@@ -520,7 +586,7 @@
     },
     "BRPOP": {
         "summary": "Remove and get the last element in a list, or block until one is available",
-        "complexity": "O(1)",
+        "complexity": "O(N) where N is the number of provided keys.",
         "arguments": [
             {
                 "name": "key",
@@ -648,6 +714,139 @@
             ]
         }
     },
+    "LMPOP": {
+        "summary": "Pop elements from a list",
+        "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
+        "arguments": [
+            {
+                "name": "numkeys",
+                "schema": {
+                    "title": "numkeys",
+                    "type": "integer"
+                }
+            },
+            {
+                "name": "key",
+                "optional": true,
+                "schema": {
+                    "title": "key",
+                    "type": "array",
+                    "items": {
+                        "title": "key",
+                        "type": "string"
+                    }
+                }
+            },
+            {
+                "name": "where",
+                "schema": {
+                    "title": "where",
+                    "type": "string",
+                    "enum": ["LEFT", "RIGHT"]
+                }
+            },
+            {
+                "name": "COUNT",
+                "optional": true,
+                "schema": {
+                    "title": "COUNT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "COUNT"
+                        },
+                        {
+                            "title": "count",
+                            "type": "integer"
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "7.0.0",
+        "group": "list",
+        "return": {
+            "anyOf": [
+                {
+                    "type": "array"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    },
+    "BLMPOP": {
+        "summary": "Pop elements from a list, or block until one is available",
+        "complexity": "O(N+M) where N is the number of provided keys and M is the number of elements returned.",
+        "arguments": [
+            {
+                "name": "timeout",
+                "schema": {
+                    "title": "timeout",
+                    "type": "number"
+                }
+            },
+            {
+                "name": "numkeys",
+                "schema": {
+                    "title": "numkeys",
+                    "type": "integer"
+                }
+            },
+            {
+                "name": "key",
+                "optional": true,
+                "schema": {
+                    "title": "key",
+                    "type": "array",
+                    "items": {
+                        "title": "key",
+                        "type": "string"
+                    }
+                }
+            },
+            {
+                "name": "where",
+                "schema": {
+                    "title": "where",
+                    "type": "string",
+                    "enum": ["LEFT", "RIGHT"]
+                }
+            },
+            {
+                "name": "COUNT",
+                "optional": true,
+                "schema": {
+                    "title": "COUNT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "COUNT"
+                        },
+                        {
+                            "title": "count",
+                            "type": "integer"
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "7.0.0",
+        "group": "list",
+        "return": {
+            "anyOf": [
+                {
+                    "type": "array"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    },
     "BZPOPMIN": {
         "summary": "Remove and return the member with the lowest score from one or more sorted sets, or block until one is available",
         "complexity": "O(log(N)) with N being the number of elements in the sorted set.",
@@ -745,6 +944,14 @@
         "arguments": [],
         "return": {}
     },
+    "CLIENT INFO": {
+        "summary": "Returns information about the current client connection.",
+        "complexity": "O(1)",
+        "since": "6.2.0",
+        "group": "connection",
+        "arguments": [],
+        "return": {}
+    },
     "CLIENT KILL": {
         "summary": "Kill the connection of a client",
         "complexity": "O(N) where N is the number of client connections",
@@ -831,6 +1038,24 @@
                 }
             },
             {
+                "name": "LADDR",
+                "optional": true,
+                "schema": {
+                    "title": "LADDR",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "LADDR"
+                        },
+                        {
+                            "title": "ip:port",
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            {
                 "name": "SKIPME",
                 "optional": true,
                 "schema": {
@@ -875,6 +1100,29 @@
                         }
                     ]
                 }
+            },
+            {
+                "name": "id",
+                "optional": true,
+                "schema": {
+                    "title": "id",
+                    "type": "array",
+                    "items": [
+                        {
+                            "title": "ID",
+                            "type": "string",
+                            "const": "ID"
+                        },
+                        {
+                            "title": "client-id",
+                            "type": "array",
+                            "items": {
+                                "title": "client-id",
+                                "type": "integer"
+                            }
+                        }
+                    ]
+                }
             }
         ],
         "since": "2.4.0",
@@ -897,6 +1145,14 @@
         "arguments": [],
         "return": {}
     },
+    "CLIENT UNPAUSE": {
+        "summary": "Resume processing of clients that were paused",
+        "complexity": "O(N) Where N is the number of paused clients",
+        "since": "6.2.0",
+        "group": "connection",
+        "arguments": [],
+        "return": {}
+    },
     "CLIENT PAUSE": {
         "summary": "Stop processing commands from clients for some time",
         "complexity": "O(1)",
@@ -906,6 +1162,15 @@
                 "schema": {
                     "title": "timeout",
                     "type": "integer"
+                }
+            },
+            {
+                "name": "mode",
+                "optional": true,
+                "schema": {
+                    "title": "mode",
+                    "type": "string",
+                    "enum": ["WRITE", "ALL"]
                 }
             }
         ],
@@ -948,7 +1213,7 @@
     },
     "CLIENT TRACKING": {
         "summary": "Enable or disable server assisted client side caching support",
-        "complexity": "O(1)",
+        "complexity": "O(1). Some options may introduce additional complexity.",
         "arguments": [
             {
                 "name": "status",
@@ -1037,6 +1302,14 @@
         ],
         "since": "6.0.0",
         "group": "connection",
+        "return": {}
+    },
+    "CLIENT TRACKINGINFO": {
+        "summary": "Return information about server assisted client side caching for the current connection",
+        "complexity": "O(1)",
+        "since": "6.2.0",
+        "group": "connection",
+        "arguments": [],
         "return": {}
     },
     "CLIENT UNBLOCK": {
@@ -1713,6 +1986,53 @@
             },
             {
                 "name": "key",
+                "optional": true,
+                "schema": {
+                    "title": "key",
+                    "type": "array",
+                    "items": {
+                        "title": "key",
+                        "type": "string"
+                    }
+                }
+            },
+            {
+                "name": "arg",
+                "optional": true,
+                "schema": {
+                    "title": "arg",
+                    "type": "array",
+                    "items": {
+                        "title": "arg",
+                        "type": "string"
+                    }
+                }
+            }
+        ],
+        "since": "2.6.0",
+        "group": "scripting",
+        "return": {}
+    },
+    "EVAL_RO": {
+        "summary": "Execute a read-only Lua script server side",
+        "complexity": "Depends on the script that is executed.",
+        "arguments": [
+            {
+                "name": "script",
+                "schema": {
+                    "title": "script",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "numkeys",
+                "schema": {
+                    "title": "numkeys",
+                    "type": "integer"
+                }
+            },
+            {
+                "name": "key",
                 "schema": {
                     "title": "key",
                     "type": "array",
@@ -1734,12 +2054,59 @@
                 }
             }
         ],
-        "since": "2.6.0",
+        "since": "7.0.0",
         "group": "scripting",
         "return": {}
     },
     "EVALSHA": {
         "summary": "Execute a Lua script server side",
+        "complexity": "Depends on the script that is executed.",
+        "arguments": [
+            {
+                "name": "sha1",
+                "schema": {
+                    "title": "sha1",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "numkeys",
+                "schema": {
+                    "title": "numkeys",
+                    "type": "integer"
+                }
+            },
+            {
+                "name": "key",
+                "optional": true,
+                "schema": {
+                    "title": "key",
+                    "type": "array",
+                    "items": {
+                        "title": "key",
+                        "type": "string"
+                    }
+                }
+            },
+            {
+                "name": "arg",
+                "optional": true,
+                "schema": {
+                    "title": "arg",
+                    "type": "array",
+                    "items": {
+                        "title": "arg",
+                        "type": "string"
+                    }
+                }
+            }
+        ],
+        "since": "2.6.0",
+        "group": "scripting",
+        "return": {}
+    },
+    "EVALSHA_RO": {
+        "summary": "Execute a read-only Lua script server side",
         "complexity": "Depends on the script that is executed.",
         "arguments": [
             {
@@ -1779,7 +2146,7 @@
                 }
             }
         ],
-        "since": "2.6.0",
+        "since": "7.0.0",
         "group": "scripting",
         "return": {}
     },
@@ -1801,7 +2168,7 @@
     },
     "EXISTS": {
         "summary": "Determine if a key exists",
-        "complexity": "O(1)",
+        "complexity": "O(N) where N is the number of keys to check.",
         "arguments": [
             {
                 "name": "key",
@@ -1838,6 +2205,15 @@
                     "title": "seconds",
                     "type": "integer"
                 }
+            },
+            {
+                "name": "condition",
+                "optional": true,
+                "schema": {
+                    "title": "condition",
+                    "type": "string",
+                    "enum": ["NX", "XX", "GT", "LT"]
+                }
             }
         ],
         "since": "1.0.0",
@@ -1862,6 +2238,15 @@
                 "schema": {
                     "title": "timestamp"
                 }
+            },
+            {
+                "name": "condition",
+                "optional": true,
+                "schema": {
+                    "title": "condition",
+                    "type": "string",
+                    "enum": ["NX", "XX", "GT", "LT"]
+                }
             }
         ],
         "since": "1.2.0",
@@ -1870,8 +2255,115 @@
             "type": "integer"
         }
     },
+    "EXPIRETIME": {
+        "summary": "Get the expiration Unix timestamp for a key",
+        "complexity": "O(1)",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            }
+        ],
+        "since": "7.0.0",
+        "group": "generic",
+        "return": {
+            "type": "integer"
+        }
+    },
+    "FAILOVER": {
+        "summary": "Start a coordinated failover between this server and one of its replicas.",
+        "arguments": [
+            {
+                "name": "target",
+                "optional": true,
+                "schema": {
+                    "title": "target",
+                    "anyOf": [
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "TO",
+                                    "type": "string",
+                                    "const": "TO"
+                                },
+                                {
+                                    "title": "host",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "port",
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "TO",
+                                    "type": "string",
+                                    "const": "TO"
+                                },
+                                {
+                                    "title": "host",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "port",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "FORCE",
+                                    "type": "string",
+                                    "const": "FORCE"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "ABORT",
+                "optional": true,
+                "schema": {
+                    "title": "ABORT",
+                    "type": "string",
+                    "const": "ABORT"
+                }
+            },
+            {
+                "name": "TIMEOUT",
+                "optional": true,
+                "schema": {
+                    "title": "TIMEOUT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "TIMEOUT"
+                        },
+                        {
+                            "title": "milliseconds",
+                            "type": "integer"
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "server",
+        "return": {
+            "type": "string",
+            "const": "OK"
+        }
+    },
     "FLUSHALL": {
         "summary": "Remove all keys from all databases",
+        "complexity": "O(N) where N is the total number of keys in all databases",
         "arguments": [
             {
                 "name": "async",
@@ -1879,7 +2371,7 @@
                 "schema": {
                     "title": "async",
                     "type": "string",
-                    "enum": ["ASYNC"]
+                    "enum": ["ASYNC", "SYNC"]
                 }
             }
         ],
@@ -1892,6 +2384,7 @@
     },
     "FLUSHDB": {
         "summary": "Remove all keys from the current database",
+        "complexity": "O(N) where N is the number of keys in the selected database",
         "arguments": [
             {
                 "name": "async",
@@ -1899,7 +2392,7 @@
                 "schema": {
                     "title": "async",
                     "type": "string",
-                    "enum": ["ASYNC"]
+                    "enum": ["ASYNC", "SYNC"]
                 }
             }
         ],
@@ -1919,6 +2412,24 @@
                 "schema": {
                     "title": "key",
                     "type": "string"
+                }
+            },
+            {
+                "name": "condition",
+                "optional": true,
+                "schema": {
+                    "title": "condition",
+                    "type": "string",
+                    "enum": ["NX", "XX"]
+                }
+            },
+            {
+                "name": "change",
+                "optional": true,
+                "schema": {
+                    "title": "change",
+                    "type": "string",
+                    "enum": ["CH"]
                 }
             },
             {
@@ -1987,7 +2498,7 @@
     },
     "GEOPOS": {
         "summary": "Returns longitude and latitude of members of a geospatial index",
-        "complexity": "O(log(N)) for each member requested, where N is the number of elements in the sorted set.",
+        "complexity": "O(N) where N is the number of members requested.",
         "arguments": [
             {
                 "name": "key",
@@ -2137,19 +2648,48 @@
                 }
             },
             {
-                "name": "COUNT",
+                "name": "count",
                 "optional": true,
                 "schema": {
-                    "title": "COUNT",
-                    "type": "array",
-                    "items": [
+                    "title": "count",
+                    "anyOf": [
                         {
-                            "type": "string",
-                            "const": "COUNT"
+                            "title": "COUNT",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "COUNT"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
                         },
                         {
-                            "title": "count",
-                            "type": "integer"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "COUNT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "COUNT"
+                                        },
+                                        {
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "any",
+                                    "type": "string",
+                                    "enum": ["ANY"]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -2267,19 +2807,48 @@
                 }
             },
             {
-                "name": "COUNT",
+                "name": "count",
                 "optional": true,
                 "schema": {
-                    "title": "COUNT",
-                    "type": "array",
-                    "items": [
+                    "title": "count",
+                    "anyOf": [
                         {
-                            "type": "string",
-                            "const": "COUNT"
+                            "title": "COUNT",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "COUNT"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
                         },
                         {
-                            "title": "count",
-                            "type": "integer"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "COUNT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "COUNT"
+                                        },
+                                        {
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "any",
+                                    "type": "string",
+                                    "enum": ["ANY"]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -2334,6 +2903,413 @@
         "group": "geo",
         "return": {}
     },
+    "GEOSEARCH": {
+        "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle.",
+        "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "FROMMEMBER",
+                "optional": true,
+                "schema": {
+                    "title": "FROMMEMBER",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "FROMMEMBER"
+                        },
+                        {
+                            "title": "member",
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "FROMLONLAT",
+                "optional": true,
+                "schema": {
+                    "title": "FROMLONLAT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "FROMLONLAT"
+                        },
+                        {
+                            "title": "longitude, latitude",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "longitude",
+                                    "type": "number"
+                                },
+                                {
+                                    "title": "latitude",
+                                    "type": "number"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "circle",
+                "optional": true,
+                "schema": {
+                    "title": "circle",
+                    "type": "array",
+                    "items": [
+                        {
+                            "title": "BYRADIUS",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "BYRADIUS"
+                                },
+                                {
+                                    "title": "radius",
+                                    "type": "number"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "unit",
+                            "type": "string",
+                            "enum": ["m", "km", "ft", "mi"]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "box",
+                "optional": true,
+                "schema": {
+                    "title": "box",
+                    "type": "array",
+                    "items": [
+                        {
+                            "title": "BYBOX",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "BYBOX"
+                                },
+                                {
+                                    "title": "width",
+                                    "type": "number"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "height",
+                            "type": "number"
+                        },
+                        {
+                            "title": "unit",
+                            "type": "string",
+                            "enum": ["m", "km", "ft", "mi"]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "order",
+                "optional": true,
+                "schema": {
+                    "title": "order",
+                    "type": "string",
+                    "enum": ["ASC", "DESC"]
+                }
+            },
+            {
+                "name": "count",
+                "optional": true,
+                "schema": {
+                    "title": "count",
+                    "anyOf": [
+                        {
+                            "title": "COUNT",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "COUNT"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "COUNT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "COUNT"
+                                        },
+                                        {
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "any",
+                                    "type": "string",
+                                    "enum": ["ANY"]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "withcoord",
+                "optional": true,
+                "schema": {
+                    "title": "withcoord",
+                    "type": "string",
+                    "enum": ["WITHCOORD"]
+                }
+            },
+            {
+                "name": "withdist",
+                "optional": true,
+                "schema": {
+                    "title": "withdist",
+                    "type": "string",
+                    "enum": ["WITHDIST"]
+                }
+            },
+            {
+                "name": "withhash",
+                "optional": true,
+                "schema": {
+                    "title": "withhash",
+                    "type": "string",
+                    "enum": ["WITHHASH"]
+                }
+            }
+        ],
+        "since": "6.2",
+        "group": "geo",
+        "return": {
+            "type": "array"
+        }
+    },
+    "GEOSEARCHSTORE": {
+        "summary": "Query a sorted set representing a geospatial index to fetch members inside an area of a box or a circle, and store the result in another key.",
+        "complexity": "O(N+log(M)) where N is the number of elements in the grid-aligned bounding box area around the shape provided as the filter and M is the number of items inside the shape",
+        "arguments": [
+            {
+                "name": "destination",
+                "schema": {
+                    "title": "destination",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "source",
+                "schema": {
+                    "title": "source",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "FROMMEMBER",
+                "optional": true,
+                "schema": {
+                    "title": "FROMMEMBER",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "FROMMEMBER"
+                        },
+                        {
+                            "title": "member",
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "FROMLONLAT",
+                "optional": true,
+                "schema": {
+                    "title": "FROMLONLAT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "FROMLONLAT"
+                        },
+                        {
+                            "title": "longitude, latitude",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "longitude",
+                                    "type": "number"
+                                },
+                                {
+                                    "title": "latitude",
+                                    "type": "number"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "circle",
+                "optional": true,
+                "schema": {
+                    "title": "circle",
+                    "type": "array",
+                    "items": [
+                        {
+                            "title": "BYRADIUS",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "BYRADIUS"
+                                },
+                                {
+                                    "title": "radius",
+                                    "type": "number"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "unit",
+                            "type": "string",
+                            "enum": ["m", "km", "ft", "mi"]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "box",
+                "optional": true,
+                "schema": {
+                    "title": "box",
+                    "type": "array",
+                    "items": [
+                        {
+                            "title": "BYBOX",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "BYBOX"
+                                },
+                                {
+                                    "title": "width",
+                                    "type": "number"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "height",
+                            "type": "number"
+                        },
+                        {
+                            "title": "unit",
+                            "type": "string",
+                            "enum": ["m", "km", "ft", "mi"]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "order",
+                "optional": true,
+                "schema": {
+                    "title": "order",
+                    "type": "string",
+                    "enum": ["ASC", "DESC"]
+                }
+            },
+            {
+                "name": "count",
+                "optional": true,
+                "schema": {
+                    "title": "count",
+                    "anyOf": [
+                        {
+                            "title": "COUNT",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "type": "string",
+                                    "const": "COUNT"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "COUNT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "COUNT"
+                                        },
+                                        {
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "any",
+                                    "type": "string",
+                                    "enum": ["ANY"]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "storedist",
+                "optional": true,
+                "schema": {
+                    "title": "storedist",
+                    "type": "string",
+                    "enum": ["STOREDIST"]
+                }
+            }
+        ],
+        "since": "6.2",
+        "group": "geo",
+        "return": {
+            "type": "integer"
+        }
+    },
     "GET": {
         "summary": "Get the value of a key",
         "complexity": "O(1)",
@@ -2379,9 +3355,74 @@
             }
         ],
         "since": "2.2.0",
-        "group": "string",
+        "group": "bitmap",
         "return": {
             "type": "integer"
+        }
+    },
+    "GETDEL": {
+        "summary": "Get the value of a key and delete the key",
+        "complexity": "O(1)",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "string",
+        "return": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    },
+    "GETEX": {
+        "summary": "Get the value of a key and optionally set its expiration",
+        "complexity": "O(1)",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "expiration",
+                "optional": true,
+                "schema": {
+                    "title": "expiration",
+                    "type": "string",
+                    "enum": [
+                        "EX seconds",
+                        "PX milliseconds",
+                        "EXAT timestamp",
+                        "PXAT milliseconds-timestamp",
+                        "PERSIST"
+                    ]
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "string",
+        "return": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "null"
+                }
+            ]
         }
     },
     "GETRANGE": {
@@ -2478,58 +3519,121 @@
         }
     },
     "HELLO": {
-        "summary": "switch Redis protocol",
+        "summary": "Handshake with Redis",
         "complexity": "O(1)",
         "arguments": [
             {
-                "name": "protover",
-                "schema": {
-                    "title": "protover",
-                    "type": "integer"
-                }
-            },
-            {
-                "name": "AUTH",
+                "name": "arguments",
                 "optional": true,
                 "schema": {
-                    "title": "AUTH",
-                    "type": "array",
-                    "items": [
+                    "title": "arguments",
+                    "anyOf": [
                         {
-                            "type": "string",
-                            "const": "AUTH"
+                            "title": "protover",
+                            "type": "integer"
                         },
                         {
-                            "title": "username, password",
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "username",
-                                    "type": "string"
+                                    "title": "protover",
+                                    "type": "integer"
                                 },
                                 {
-                                    "title": "password",
-                                    "type": "string"
+                                    "title": "AUTH",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "AUTH"
+                                        },
+                                        {
+                                            "title": "username, password",
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "title": "username",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "title": "password",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
                                 }
                             ]
-                        }
-                    ]
-                }
-            },
-            {
-                "name": "SETNAME",
-                "optional": true,
-                "schema": {
-                    "title": "SETNAME",
-                    "type": "array",
-                    "items": [
-                        {
-                            "type": "string",
-                            "const": "SETNAME"
                         },
                         {
-                            "title": "clientname",
-                            "type": "string"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "protover",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "SETNAME",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "SETNAME"
+                                        },
+                                        {
+                                            "title": "clientname",
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "protover",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "AUTH",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "AUTH"
+                                        },
+                                        {
+                                            "title": "username, password",
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "title": "username",
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "title": "password",
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    "title": "SETNAME",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "SETNAME"
+                                        },
+                                        {
+                                            "title": "clientname",
+                                            "type": "string"
+                                        }
+                                    ]
+                                }
+                            ]
                         }
                     ]
                 }
@@ -2869,6 +3973,61 @@
             "type": "integer"
         }
     },
+    "HRANDFIELD": {
+        "summary": "Get one or multiple random fields from a hash",
+        "complexity": "O(N) where N is the number of fields returned",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "options",
+                "optional": true,
+                "schema": {
+                    "title": "options",
+                    "anyOf": [
+                        {
+                            "title": "count",
+                            "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "withvalues",
+                                    "type": "string",
+                                    "enum": ["WITHVALUES"]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "hash",
+        "return": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    },
     "HSTRLEN": {
         "summary": "Get the length of the value of a hash field",
         "complexity": "O(1)",
@@ -3150,14 +4309,22 @@
         }
     },
     "LPOP": {
-        "summary": "Remove and get the first element in a list",
-        "complexity": "O(1)",
+        "summary": "Remove and get the first elements in a list",
+        "complexity": "O(N) where N is the number of elements returned",
         "arguments": [
             {
                 "name": "key",
                 "schema": {
                     "title": "key",
                     "type": "string"
+                }
+            },
+            {
+                "name": "count",
+                "optional": true,
+                "schema": {
+                    "title": "count",
+                    "type": "integer"
                 }
             }
         ],
@@ -3167,6 +4334,9 @@
             "anyOf": [
                 {
                     "type": "string"
+                },
+                {
+                    "type": "array"
                 },
                 {
                     "type": "null"
@@ -3249,7 +4419,9 @@
         ],
         "since": "6.0.6",
         "group": "list",
-        "return": {}
+        "return": {
+            "type": "null"
+        }
     },
     "LPUSH": {
         "summary": "Prepend one or multiple elements to a list",
@@ -3888,6 +5060,15 @@
                     "title": "milliseconds",
                     "type": "integer"
                 }
+            },
+            {
+                "name": "condition",
+                "optional": true,
+                "schema": {
+                    "title": "condition",
+                    "type": "string",
+                    "enum": ["NX", "XX", "GT", "LT"]
+                }
             }
         ],
         "since": "2.6.0",
@@ -3912,9 +5093,36 @@
                 "schema": {
                     "title": "milliseconds-timestamp"
                 }
+            },
+            {
+                "name": "condition",
+                "optional": true,
+                "schema": {
+                    "title": "condition",
+                    "type": "string",
+                    "enum": ["NX", "XX", "GT", "LT"]
+                }
             }
         ],
         "since": "2.6.0",
+        "group": "generic",
+        "return": {
+            "type": "integer"
+        }
+    },
+    "PEXPIRETIME": {
+        "summary": "Get the expiration Unix timestamp for a key in milliseconds",
+        "complexity": "O(1)",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            }
+        ],
+        "since": "7.0.0",
         "group": "generic",
         "return": {
             "type": "integer"
@@ -3933,6 +5141,7 @@
             },
             {
                 "name": "element",
+                "optional": true,
                 "schema": {
                     "title": "element",
                     "type": "array",
@@ -4377,14 +5586,22 @@
         }
     },
     "RPOP": {
-        "summary": "Remove and get the last element in a list",
-        "complexity": "O(1)",
+        "summary": "Remove and get the last elements in a list",
+        "complexity": "O(N) where N is the number of elements returned",
         "arguments": [
             {
                 "name": "key",
                 "schema": {
                     "title": "key",
                     "type": "string"
+                }
+            },
+            {
+                "name": "count",
+                "optional": true,
+                "schema": {
+                    "title": "count",
+                    "type": "integer"
                 }
             }
         ],
@@ -4394,6 +5611,9 @@
             "anyOf": [
                 {
                     "type": "string"
+                },
+                {
+                    "type": "array"
                 },
                 {
                     "type": "null"
@@ -4621,10 +5841,20 @@
     },
     "SCRIPT FLUSH": {
         "summary": "Remove all the scripts from the script cache.",
+        "arguments": [
+            {
+                "name": "async",
+                "optional": true,
+                "schema": {
+                    "title": "async",
+                    "type": "string",
+                    "enum": ["ASYNC", "SYNC"]
+                }
+            }
+        ],
         "complexity": "O(N) with N being the number of scripts in cache",
         "since": "2.6.0",
         "group": "scripting",
-        "arguments": [],
         "return": {}
     },
     "SCRIPT KILL": {
@@ -4751,7 +5981,7 @@
                             "items": [
                                 {
                                     "type": "string",
-                                    "enum": ["EX", "PX"]
+                                    "enum": ["EX", "PX", "EXAT", "PXAT"]
                                 },
                                 {
                                     "type": "number"
@@ -4828,7 +6058,7 @@
             }
         ],
         "since": "2.2.0",
-        "group": "string",
+        "group": "bitmap",
         "return": {
             "type": "integer"
         }
@@ -4966,6 +6196,28 @@
             "items": {
                 "type": "string"
             }
+        }
+    },
+    "SINTERCARD": {
+        "summary": "Intersect multiple sets and return the cardinality of the result",
+        "complexity": "O(N*M) worst case where N is the cardinality of the smallest set and M is the number of sets.",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "array",
+                    "items": {
+                        "title": "key",
+                        "type": "string"
+                    }
+                }
+            }
+        ],
+        "since": "7.0.0",
+        "group": "set",
+        "return": {
+            "type": "integer"
         }
     },
     "SINTERSTORE": {
@@ -5179,7 +6431,7 @@
     },
     "SORT": {
         "summary": "Sort the elements in a list, set or sorted set",
-        "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is currently O(N) as there is a copy step that will be avoided in next releases.",
+        "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
         "arguments": [
             {
                 "name": "key",
@@ -5306,9 +6558,113 @@
             ]
         }
     },
+    "SORT_RO": {
+        "summary": "Sort the elements in a list, set or sorted set. Read-only variant of SORT.",
+        "complexity": "O(N+M*log(M)) where N is the number of elements in the list or set to sort, and M the number of returned elements. When the elements are not sorted, complexity is O(N).",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "BY",
+                "optional": true,
+                "schema": {
+                    "title": "BY",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "BY"
+                        },
+                        {
+                            "title": "pattern",
+                            "type": "string"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "LIMIT",
+                "optional": true,
+                "schema": {
+                    "title": "LIMIT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "LIMIT"
+                        },
+                        {
+                            "title": "offset, count",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "offset",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "GET",
+                "optional": true,
+                "schema": {
+                    "title": "GET",
+                    "type": "array",
+                    "items": {
+                        "title": "GET",
+                        "type": "array",
+                        "items": [
+                            {
+                                "type": "string",
+                                "const": "GET"
+                            },
+                            {
+                                "title": "pattern",
+                                "type": "string"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "order",
+                "optional": true,
+                "schema": {
+                    "title": "order",
+                    "type": "string",
+                    "enum": ["ASC", "DESC"]
+                }
+            },
+            {
+                "name": "sorting",
+                "optional": true,
+                "schema": {
+                    "title": "sorting",
+                    "type": "string",
+                    "enum": ["ALPHA"]
+                }
+            }
+        ],
+        "since": "7.0.0",
+        "group": "generic",
+        "return": {
+            "type": "array"
+        }
+    },
     "SPOP": {
         "summary": "Remove and return one or multiple random members from a set",
-        "complexity": "O(1)",
+        "complexity": "Without the count argument O(1), otherwise O(N) where N is the value of the passed count.",
         "arguments": [
             {
                 "name": "key",
@@ -5532,6 +6888,7 @@
     },
     "SWAPDB": {
         "summary": "Swaps two Redis databases",
+        "complexity": "O(N) where N is the count of clients watching or blocking on keys from both databases.",
         "arguments": [
             {
                 "name": "index1",
@@ -5620,7 +6977,7 @@
         }
     },
     "TTL": {
-        "summary": "Get the time to live for a key",
+        "summary": "Get the time to live for a key in seconds",
         "complexity": "O(1)",
         "arguments": [
             {
@@ -6099,6 +7456,35 @@
             "type": "array"
         }
     },
+    "ZINTERCARD": {
+        "summary": "Intersect multiple sorted sets and return the cardinality of the result",
+        "complexity": "O(N*K) worst case with N being the smallest input sorted set, K being the number of input sorted sets.",
+        "arguments": [
+            {
+                "name": "numkeys",
+                "schema": {
+                    "title": "numkeys",
+                    "type": "integer"
+                }
+            },
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "array",
+                    "items": {
+                        "title": "key",
+                        "type": "string"
+                    }
+                }
+            }
+        ],
+        "since": "7.0.0",
+        "group": "sorted_set",
+        "return": {
+            "type": "integer"
+        }
+    },
     "ZINTERSTORE": {
         "summary": "Intersect multiple sorted sets and store the resulting sorted set in a new key",
         "complexity": "O(N*K)+O(M*log(M)) worst case with N being the smallest input sorted set, K being the number of input sorted sets and M being the number of elements in the resulting sorted set.",
@@ -6265,8 +7651,148 @@
             }
         }
     },
+    "ZRANDMEMBER": {
+        "summary": "Get one or multiple random elements from a sorted set",
+        "complexity": "O(N) where N is the number of elements returned",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "options",
+                "optional": true,
+                "schema": {
+                    "title": "options",
+                    "anyOf": [
+                        {
+                            "title": "count",
+                            "type": "integer"
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "withscores",
+                                    "type": "string",
+                                    "enum": ["WITHSCORES"]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "sorted_set",
+        "return": {
+            "anyOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "array"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        }
+    },
+    "ZRANGESTORE": {
+        "summary": "Store a range of members from sorted set into another key",
+        "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements stored into the destination key.",
+        "arguments": [
+            {
+                "name": "dst",
+                "schema": {
+                    "title": "dst",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "src",
+                "schema": {
+                    "title": "src",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "min",
+                "schema": {
+                    "title": "min",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "max",
+                "schema": {
+                    "title": "max",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "sortby",
+                "optional": true,
+                "schema": {
+                    "title": "sortby",
+                    "type": "string",
+                    "enum": ["BYSCORE", "BYLEX"]
+                }
+            },
+            {
+                "name": "rev",
+                "optional": true,
+                "schema": {
+                    "title": "rev",
+                    "type": "string",
+                    "enum": ["REV"]
+                }
+            },
+            {
+                "name": "LIMIT",
+                "optional": true,
+                "schema": {
+                    "title": "LIMIT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "LIMIT"
+                        },
+                        {
+                            "title": "offset, count",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "offset",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        ],
+        "since": "6.2.0",
+        "group": "sorted_set",
+        "return": {
+            "type": "integer"
+        }
+    },
     "ZRANGE": {
-        "summary": "Return a range of members in a sorted set, by index",
+        "summary": "Return a range of members in a sorted set",
         "complexity": "O(log(N)+M) with N being the number of elements in the sorted set and M the number of elements returned.",
         "arguments": [
             {
@@ -6277,17 +7803,63 @@
                 }
             },
             {
-                "name": "start",
+                "name": "min",
                 "schema": {
-                    "title": "start",
-                    "type": "integer"
+                    "title": "min",
+                    "type": "string"
                 }
             },
             {
-                "name": "stop",
+                "name": "max",
                 "schema": {
-                    "title": "stop",
-                    "type": "integer"
+                    "title": "max",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "sortby",
+                "optional": true,
+                "schema": {
+                    "title": "sortby",
+                    "type": "string",
+                    "enum": ["BYSCORE", "BYLEX"]
+                }
+            },
+            {
+                "name": "rev",
+                "optional": true,
+                "schema": {
+                    "title": "rev",
+                    "type": "string",
+                    "enum": ["REV"]
+                }
+            },
+            {
+                "name": "LIMIT",
+                "optional": true,
+                "schema": {
+                    "title": "LIMIT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "LIMIT"
+                        },
+                        {
+                            "title": "offset, count",
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "offset",
+                                    "type": "integer"
+                                },
+                                {
+                                    "title": "count",
+                                    "type": "integer"
+                                }
+                            ]
+                        }
+                    ]
                 }
             },
             {
@@ -7484,7 +9056,7 @@
     },
     "XADD": {
         "summary": "Appends a new entry to a stream",
-        "complexity": "O(1)",
+        "complexity": "O(1) when adding a new entry, O(N) when trimming where N being the number of entires evicted.",
         "arguments": [
             {
                 "name": "key",
@@ -7494,34 +9066,108 @@
                 }
             },
             {
-                "name": "maxlen",
+                "name": "NOMKSTREAM",
                 "optional": true,
                 "schema": {
-                    "title": "maxlen",
-                    "type": "array",
-                    "items": [
+                    "title": "NOMKSTREAM",
+                    "type": "string",
+                    "const": "NOMKSTREAM"
+                }
+            },
+            {
+                "name": "trim",
+                "optional": true,
+                "schema": {
+                    "title": "trim",
+                    "anyOf": [
                         {
-                            "title": "MAXLEN",
-                            "type": "string",
-                            "const": "MAXLEN"
-                        },
-                        {
-                            "title": "operator",
-                            "anyOf": [
+                            "type": "array",
+                            "items": [
                                 {
-                                    "title": "length",
-                                    "type": "integer"
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
                                 },
                                 {
+                                    "title": "threshold",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "operator",
+                                    "type": "string",
+                                    "enum": ["=", "~"]
+                                },
+                                {
+                                    "title": "threshold",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "threshold",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "LIMIT",
                                     "type": "array",
                                     "items": [
                                         {
-                                            "title": "=, or ~",
                                             "type": "string",
-                                            "enum": ["=", "~"]
+                                            "const": "LIMIT"
                                         },
                                         {
-                                            "title": "length",
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "operator",
+                                    "type": "string",
+                                    "enum": ["=", "~"]
+                                },
+                                {
+                                    "title": "threshold",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "LIMIT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "LIMIT"
+                                        },
+                                        {
+                                            "title": "count",
                                             "type": "integer"
                                         }
                                     ]
@@ -7529,15 +9175,6 @@
                             ]
                         }
                     ]
-                }
-            },
-            {
-                "name": "NOMKSTREAM",
-                "optional": true,
-                "schema": {
-                    "title": "NOMKSTREAM",
-                    "type": "string",
-                    "const": "NOMKSTREAM"
                 }
             },
             {
@@ -7595,33 +9232,101 @@
                 }
             },
             {
-                "name": "strategy",
+                "name": "trim",
                 "schema": {
-                    "title": "strategy",
-                    "type": "string",
-                    "enum": ["MAXLEN"]
-                }
-            },
-            {
-                "name": "operator",
-                "schema": {
-                    "title": "operator",
+                    "title": "trim",
                     "anyOf": [
                         {
-                            "title": "length",
-                            "type": "integer"
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "threshold",
+                                    "type": "string"
+                                }
+                            ]
                         },
                         {
                             "type": "array",
                             "items": [
                                 {
-                                    "title": "=, or ~",
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "operator",
                                     "type": "string",
                                     "enum": ["=", "~"]
                                 },
                                 {
-                                    "title": "length",
-                                    "type": "integer"
+                                    "title": "threshold",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "threshold",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "LIMIT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "LIMIT"
+                                        },
+                                        {
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "array",
+                            "items": [
+                                {
+                                    "title": "strategy",
+                                    "type": "string",
+                                    "enum": ["MAXLEN", "MINID"]
+                                },
+                                {
+                                    "title": "operator",
+                                    "type": "string",
+                                    "enum": ["=", "~"]
+                                },
+                                {
+                                    "title": "threshold",
+                                    "type": "string"
+                                },
+                                {
+                                    "title": "LIMIT",
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string",
+                                            "const": "LIMIT"
+                                        },
+                                        {
+                                            "title": "count",
+                                            "type": "integer"
+                                        }
+                                    ]
                                 }
                             ]
                         }
@@ -8190,7 +9895,9 @@
         ],
         "since": "5.0.0",
         "group": "stream",
-        "return": {}
+        "return": {
+            "type": "array"
+        }
     },
     "XACK": {
         "summary": "Marks a pending message as correctly processed, effectively removing it from the pending entries list of the consumer group. Return value of the command is the number of messages successfully acknowledged, that is, the IDs we were actually able to resolve in the PEL.",
@@ -8341,6 +10048,77 @@
             }
         ],
         "since": "5.0.0",
+        "group": "stream",
+        "return": {
+            "type": "array"
+        }
+    },
+    "XAUTOCLAIM": {
+        "summary": "Changes (or acquires) ownership of messages in a consumer group, as if the messages were delivered to the specified consumer.",
+        "complexity": "O(1) if COUNT is small.",
+        "arguments": [
+            {
+                "name": "key",
+                "schema": {
+                    "title": "key",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "group",
+                "schema": {
+                    "title": "group",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "consumer",
+                "schema": {
+                    "title": "consumer",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "min-idle-time",
+                "schema": {
+                    "title": "min-idle-time",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "start",
+                "schema": {
+                    "title": "start",
+                    "type": "string"
+                }
+            },
+            {
+                "name": "COUNT",
+                "optional": true,
+                "schema": {
+                    "title": "COUNT",
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "const": "COUNT"
+                        },
+                        {
+                            "title": "count",
+                            "type": "integer"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "justid",
+                "optional": true,
+                "schema": {
+                    "title": "justid"
+                }
+            }
+        ],
+        "since": "6.2.0",
         "group": "stream",
         "return": {
             "type": "array"

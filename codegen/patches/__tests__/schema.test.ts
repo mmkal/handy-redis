@@ -9,20 +9,25 @@ test("detected generic arrays", () => {
     fixArrayRepliesManually(schema);
 
     expect(warn.mock.calls.map(([c]) => c).join("\n")).toMatchInlineSnapshot(`
-        "COMMAND has a generic array return type
+        "BITFIELD_RO has a generic array return type
+        COMMAND has a generic array return type
         GEORADIUS has a generic array return type
+        GEOSEARCH has a generic array return type
         HELLO has a generic array return type
         HGETALL has a generic array return type
         PUBSUB has a generic array return type
         ROLE has a generic array return type
         SMISMEMBER has a generic array return type
+        SORT_RO has a generic array return type
         ZDIFF has a generic array return type
         ZINTER has a generic array return type
         ZUNION has a generic array return type
         XRANGE has a generic array return type
         XREVRANGE has a generic array return type
         XREAD has a generic array return type
+        XREADGROUP has a generic array return type
         XCLAIM has a generic array return type
+        XAUTOCLAIM has a generic array return type
         XPENDING has a generic array return type"
     `);
 });

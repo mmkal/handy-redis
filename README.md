@@ -1,3 +1,5 @@
+>Note: since I wrote this, [node_redis](https://npmjs.com/package/redis) has now added built-in promise and typescript support, as well as many other high-level features - so you shouldn't need this anymore! Just install `redis`.
+
 # handy-redis
 A wrapper around [node_redis](https://npmjs.com/package/redis) with Promise and TypeScript support.
 

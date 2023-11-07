@@ -30,13 +30,14 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
+      - run: corepack enable
       - name: Install dependencies
-        run: yarn install --ignore-engines
+        run: pnpm install
       - name: Full CI suite
-        run: yarn test
+        run: pnpm test
         if: matrix.node-version == '12.x'
       - name: Jest tests only
-        run: yarn jest
+        run: pnpm jest
         if: matrix.node-version == '10.x'
       - uses: codecov/codecov-action@v2
         if: matrix.node-version == '12.x'

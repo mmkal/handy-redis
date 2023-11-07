@@ -1,5 +1,6 @@
-redis:
-  image: redis:6.2.4
-  container_name: handy_redis
-  ports:
-    - "6379:6379"
+services:
+  redis:
+    image: redis:6.2.4
+    container_name: handy_redis
+    ports:
+      - "6379:6379"
